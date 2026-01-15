@@ -1,0 +1,231 @@
+{
+    "uid": "b75744d4581545ecafe451ad48edba18",
+    "slug": "world-1-1",
+    "user": {
+        "account": "basic",
+        "avatars": {
+            "uid": "36dd05498a1243168e3dc2340ef87a77",
+            "images": [
+                {
+                    "width": 100,
+                    "height": 100,
+                    "size": 2681,
+                    "url": "https://media.sketchfab.com/avatars/36dd05498a1243168e3dc2340ef87a77/2f09a882ea58450ba3adcbe6aba6e566.jpeg"
+                },
+                {
+                    "width": 90,
+                    "height": 90,
+                    "size": 2263,
+                    "url": "https://media.sketchfab.com/avatars/36dd05498a1243168e3dc2340ef87a77/a52611b01e434c20a28b033568e3010f.jpeg"
+                },
+                {
+                    "width": 48,
+                    "height": 48,
+                    "size": 1112,
+                    "url": "https://media.sketchfab.com/avatars/36dd05498a1243168e3dc2340ef87a77/e36365c57ca94835810160c6ce40f4db.jpeg"
+                },
+                {
+                    "width": 32,
+                    "height": 32,
+                    "size": 755,
+                    "url": "https://media.sketchfab.com/avatars/36dd05498a1243168e3dc2340ef87a77/23323dbf8fc14e4b9e6acc6e5b48705c.jpeg"
+                }
+            ]
+        },
+        "displayName": "roguenoodle",
+        "isAiRestricted": false,
+        "traderSettings": {
+            "isTrader": null,
+            "isVerifiedTrader": false
+        },
+        "planDetail": null,
+        "profileUrl": "https://sketchfab.com/roguenoodle",
+        "uid": "6a9a2877f7724e10940695385c1d4673",
+        "username": "roguenoodle"
+    },
+    "name": "World 1-1",
+    "description": "An entry for the #IsometricRoomChallenge. Modeled, lit and baked in Blender 2.79.",
+    "htmlDescription": "<p>An entry for the #IsometricRoomChallenge. Modeled, lit and baked in Blender 2.79.</p>",
+    "thumbnails": {
+        "uid": "dfdd2a7c7a2a400683436042efe31761",
+        "images": [
+            {
+                "uid": "6172a95a281c479c9c2fa2877c0b5ab9",
+                "width": 1024,
+                "height": 576,
+                "size": 31825,
+                "url": "https://media.sketchfab.com/models/b75744d4581545ecafe451ad48edba18/thumbnails/dfdd2a7c7a2a400683436042efe31761/1024x576.jpeg"
+            },
+            {
+                "uid": "bfeb43685ed040d5ada2f8e857421dfb",
+                "width": 720,
+                "height": 405,
+                "size": 19140,
+                "url": "https://media.sketchfab.com/models/b75744d4581545ecafe451ad48edba18/thumbnails/dfdd2a7c7a2a400683436042efe31761/720x405.jpeg"
+            },
+            {
+                "uid": "ca4613e88a0c49e9b44e19ad59e70b31",
+                "width": 256,
+                "height": 144,
+                "size": 4556,
+                "url": "https://media.sketchfab.com/models/b75744d4581545ecafe451ad48edba18/thumbnails/dfdd2a7c7a2a400683436042efe31761/256x144.jpeg"
+            },
+            {
+                "uid": "ece7aa7087ea4e6380f8872a5d6f6c50",
+                "width": 64,
+                "height": 36,
+                "size": 1104,
+                "url": "https://media.sketchfab.com/models/b75744d4581545ecafe451ad48edba18/thumbnails/dfdd2a7c7a2a400683436042efe31761/64x36.jpeg"
+            }
+        ]
+    },
+    "vertexCount": 7006,
+    "faceCount": 6436,
+    "viewCount": 49573,
+    "likeCount": 1483,
+    "animationCount": 1,
+    "staffpickedAt": "2017-09-29T08:49:56.956319",
+    "publishedAt": "2017-09-18T19:00:33.400282",
+    "createdAt": "2017-09-18T18:36:56.076064",
+    "tags": [
+        "room",
+        "videogames",
+        "nintendo",
+        "isometric",
+        "isometricroomchallenge",
+        "blender",
+        "mario",
+        "environment"
+    ],
+    "orgTags": [],
+    "categories": [],
+    "license": null,
+    "isStoreLicenseLocked": false,
+    "viewerUrl": "https://sketchfab.com/3d-models/world-1-1-b75744d4581545ecafe451ad48edba18",
+    "embedUrl": "https://sketchfab.com/models/b75744d4581545ecafe451ad48edba18/embed",
+    "editorUrl": "https://sketchfab.com/models/b75744d4581545ecafe451ad48edba18/edit",
+    "reviewUrl": "https://sketchfab.com/models/b75744d4581545ecafe451ad48edba18/review",
+    "publicCommentCount": 62,
+    "orgCommentCount": 0,
+    "downloadType": "no",
+    "isInspectable": true,
+    "hasPromotionalContent": false,
+    "downloadCount": 0,
+    "status": {
+        "processing": "SUCCEEDED"
+    },
+    "isPublished": true,
+    "originalFileName": "world_1-1",
+    "processingStatus": 2,
+    "archiveSize": 502972,
+    "ext": "fbx",
+    "isDeleted": false,
+    "isRestricted": false,
+    "processedAt": "2017-09-18T18:39:01.291609",
+    "files": [
+        {
+            "uid": "36658d24a72146559bea3a77d4bdf09b",
+            "flag": 0,
+            "osgjsUrl": "https://media.sketchfab.com/models/b75744d4581545ecafe451ad48edba18/0ff4763b2663453f9a2a43ec5c7ca4c5/files/36658d24a72146559bea3a77d4bdf09b/file.binz",
+            "modelSize": 151082,
+            "osgjsSize": 10202,
+            "wireframeSize": 54702,
+            "p": [
+                {
+                    "v": 1,
+                    "b": "vJ7rXEBQreeA69bF1rWt/Z4gEioB0GR9K9zDi5je8BIeDERLwLPLrCZNJgWcGPZbVMApEvPnxrBA\n6lTjURK6bWRLKWUKMQAvADMA3G6bj6O2Gsj6XvSAWhzaAyIoaI71YeLP7/+bLvE7S66IxjB0Shdi\ntYLGCadVLhpAOhgGXXp2almRCH+56h+lgEtcedqwe3BYquijHWnLsb6M2nILmZ/JdqLlWLii1acx\nLBR/+44FK4deXH0yJnr1GVh4EZWlXBqVpVgvquDBSqtgwkZD2NF/CEDbdHGZ/hmiIf8B+VaiXKkZ\nkv0he56TkfhPJNNpVHPkykxNkg3Lx3FbfSeBTlvSalRvun7etDr8HCDQJJBJ22Qh7Qsvu3hXA/fk\nxaQGZuEyyADoogAn61habhYTm0941smfsmlujHQMGqml8L91wJ1gpGfZ0pIAjgc=",
+                    "d": true
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "quad": null,
+        "triangle": null,
+        "polygon": null,
+        "line": null,
+        "point": null,
+        "totalTriangle": null,
+        "vertexCount": null,
+        "hasNormal": null,
+        "hasTangent": null,
+        "hasVertexColor": null,
+        "pbrType": null,
+        "textureCount": null,
+        "materialCount": null,
+        "isRigged": false,
+        "morph": null,
+        "scale": null,
+        "animation": null,
+        "uvMapped": false,
+        "sourceFiles": null,
+        "textureFiles": null
+    },
+    "price": null,
+    "inStore": false,
+    "averageRating": 0.0,
+    "reviewCount": 0,
+    "preferOriginalNormalMap": false,
+    "isDisabled": false,
+    "hasCommentsDisabled": false,
+    "useNewViewer": false,
+    "exporter": null,
+    "displayStatus": "ok",
+    "version": {
+        "uid": "0ff4763b2663453f9a2a43ec5c7ca4c5",
+        "status": {
+            "processing": "SUCCEEDED"
+        },
+        "isCurrentVersion": true,
+        "isCandidateVersion": false,
+        "createdAt": "2018-12-15T17:34:47.162993",
+        "processedAt": null,
+        "reason": "operation"
+    },
+    "visibility": "public",
+    "org": null,
+    "isAiGenerated": false,
+    "isFabAi": false,
+    "isArEnabled": false,
+    "isArAvailable": false,
+    "archivesStatus": [
+        {
+            "type": "source",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "gltf",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "extra",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "usdz",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "gltf-ar",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "uasset",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "glb",
+            "exists": false,
+            "status": null
+        }
+    ],
+    "mayDownloadThisModel": false,
+    "hasDoptions": false,
+    "fabMigrationListingId": null
+}

@@ -1,0 +1,334 @@
+{
+    "uid": "19cb2cd4f039432ea9951728d8d44d85",
+    "slug": "racing-assets-pack-with-14-cars",
+    "user": {
+        "account": "basic",
+        "avatars": {
+            "uid": "96a846cb11f24228a8e0b4cf1224701f",
+            "images": [
+                {
+                    "width": 32,
+                    "height": 32,
+                    "size": 717,
+                    "url": "https://media.sketchfab.com/avatars/96a846cb11f24228a8e0b4cf1224701f/e2248a44154a4ef8b367f37c3c8843a0.jpeg"
+                },
+                {
+                    "width": 48,
+                    "height": 48,
+                    "size": 1072,
+                    "url": "https://media.sketchfab.com/avatars/96a846cb11f24228a8e0b4cf1224701f/1df067119eee4f3683bbfcd1874b6c46.jpeg"
+                },
+                {
+                    "width": 90,
+                    "height": 90,
+                    "size": 2372,
+                    "url": "https://media.sketchfab.com/avatars/96a846cb11f24228a8e0b4cf1224701f/c3abe3332b09463d87b4ed175e08405b.jpeg"
+                },
+                {
+                    "width": 100,
+                    "height": 100,
+                    "size": 2818,
+                    "url": "https://media.sketchfab.com/avatars/96a846cb11f24228a8e0b4cf1224701f/18254a497fca43ec906f2ef3820d960a.jpeg"
+                }
+            ]
+        },
+        "displayName": "Plug_N_Play_Assets",
+        "isAiRestricted": false,
+        "traderSettings": {
+            "isTrader": null,
+            "isVerifiedTrader": false
+        },
+        "planDetail": null,
+        "profileUrl": "https://sketchfab.com/thesharks333",
+        "uid": "c32c9552fab144f59a30c937ad3d2ef9",
+        "username": "thesharks333"
+    },
+    "name": "Racing Assets Pack With 14 Cars",
+    "description": "This is a complete car racing game assetpack tested in Unity. The assets are made so you could drag and drop it into your project. We have also included a Blender file so you can modify the objects or materials as you please. \n\nThis pack includes:\n- Cars.\n- animals.\n- environments.\n- track.\n- props.\n\nWith this you can build a complete mobile game. Good luck!\n\nIf you liked this product, please check out the rest of our free products. https://sketchfab.com/thesharks333",
+    "htmlDescription": "<p>This is a complete car racing game assetpack tested in Unity. The assets are made so you could drag and drop it into your project. We have also included a Blender file so you can modify the objects or materials as you please. </p>\n<p>This pack includes:\n- Cars.\n- animals.\n- environments.\n- track.\n- props.</p>\n<p>With this you can build a complete mobile game. Good luck!</p>\n<p>If you liked this product, please check out the rest of our free products. <a rel=\"nofollow noopener noreferrer\" target=\"_blank\"href=\"https://sketchfab.com/thesharks333\">https://sketchfab.com/thesharks333</a></p>",
+    "thumbnails": {
+        "uid": "cc0817afdd684c33add63d0455704dfd",
+        "images": [
+            {
+                "uid": "6da9fcafaaca4e4080936efd81f98a3f",
+                "width": 1920,
+                "height": 1080,
+                "size": 180424,
+                "url": "https://media.sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/thumbnails/cc0817afdd684c33add63d0455704dfd/81f256f122a54c41bdb623e24be8d0f0.jpeg"
+            },
+            {
+                "uid": "ef1ce924a5df4dad8c3e00a42aa23b13",
+                "width": 1024,
+                "height": 576,
+                "size": 58913,
+                "url": "https://media.sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/thumbnails/cc0817afdd684c33add63d0455704dfd/004411514dd8420caf8adae8719f80d4.jpeg"
+            },
+            {
+                "uid": "6de2014a6a31426b8dca6f5237a8a11c",
+                "width": 720,
+                "height": 405,
+                "size": 35001,
+                "url": "https://media.sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/thumbnails/cc0817afdd684c33add63d0455704dfd/a2f755b9d7e8441ea4cfbaae343cf68d.jpeg"
+            },
+            {
+                "uid": "bbdf4d072855431d9587039e789f27c9",
+                "width": 256,
+                "height": 144,
+                "size": 7730,
+                "url": "https://media.sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/thumbnails/cc0817afdd684c33add63d0455704dfd/89660e96de6447da8d14188b36ab58b0.jpeg"
+            },
+            {
+                "uid": "b0a2493c1df44031a0c3062d33504d38",
+                "width": 64,
+                "height": 36,
+                "size": 1560,
+                "url": "https://media.sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/thumbnails/cc0817afdd684c33add63d0455704dfd/3c857d282ba8458497521d3ccba6cabf.jpeg"
+            }
+        ]
+    },
+    "vertexCount": 79381,
+    "faceCount": 130811,
+    "viewCount": 2948,
+    "likeCount": 28,
+    "animationCount": 0,
+    "staffpickedAt": null,
+    "publishedAt": "2020-04-11T12:00:41.942577",
+    "createdAt": "2020-04-11T11:40:38.521198",
+    "tags": [
+        "cow",
+        "sheep",
+        "track",
+        "cars",
+        "animals",
+        "sportscar",
+        "props",
+        "unrealengine4",
+        "mobilephone",
+        "rasing",
+        "unity",
+        "game",
+        "lowpoly",
+        "low",
+        "poly",
+        "car",
+        "sport",
+        "race",
+        "racning"
+    ],
+    "orgTags": [],
+    "categories": [
+        {
+            "uid": "22a2f677efad4d7bbca5ad45f9b5868e",
+            "name": "Cars & Vehicles",
+            "slug": "cars-vehicles"
+        },
+        {
+            "uid": "ac8a0065d9e34fca8a3ffa9c6db39bff",
+            "name": "Sports & Fitness",
+            "slug": "sports-fitness"
+        }
+    ],
+    "license": {
+        "uid": "783b685da9bf457d81e829fa283f3567",
+        "label": "Standard",
+        "fullname": "Standard",
+        "slug": "st",
+        "summary": "Standard",
+        "requirements": "Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works",
+        "url": "https://sketchfab.com/licenses",
+        "free": false,
+        "isCc": false,
+        "needsAttribution": false,
+        "ccClauses": null
+    },
+    "isStoreLicenseLocked": false,
+    "viewerUrl": "https://sketchfab.com/3d-models/racing-assets-pack-with-14-cars-19cb2cd4f039432ea9951728d8d44d85",
+    "embedUrl": "https://sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/embed",
+    "editorUrl": "https://sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/edit",
+    "reviewUrl": "https://sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/review",
+    "publicCommentCount": 0,
+    "orgCommentCount": 0,
+    "downloadType": "no",
+    "isInspectable": true,
+    "hasPromotionalContent": false,
+    "downloadCount": 15,
+    "status": {
+        "processing": "SUCCEEDED"
+    },
+    "isPublished": true,
+    "originalFileName": "Car_Racer_AssetsPack",
+    "processingStatus": 2,
+    "archiveSize": 2883264,
+    "ext": "obj",
+    "isDeleted": false,
+    "isRestricted": false,
+    "processedAt": "2020-05-05T14:31:36.937409",
+    "files": [
+        {
+            "uid": "8cd6b53d2fc74195af87a48fd4487d15",
+            "flag": 0,
+            "osgjsUrl": "https://media.sketchfab.com/models/19cb2cd4f039432ea9951728d8d44d85/f2505dfda33347328538c3073344bdd5/files/8cd6b53d2fc74195af87a48fd4487d15/file.binz",
+            "modelSize": 1376626,
+            "osgjsSize": 22874,
+            "wireframeSize": 878595,
+            "p": [
+                {
+                    "v": 1,
+                    "b": "vJ7rXEDLrkeD62bL7sJtAV8tn9nHLWEbhh/3YSkPifyfrdBWRNZd9sLJVyD4qY1QLCSps46oWzkM\nLvvOVNo8FDhho5Sj+wClW2HamttGttxSpkIAQgBMAN1urAE/DIqAHcSgRvU4qMGM62XQth/qViPH\ns0kNbrPIOLf2ft9WY/Qy5FAx4jpytUgagHzGjRYX/4GCguKcEoiTB7aJ1re1rffp4tbWF+9kXlY6\nLvOCPUjdrCw8dbOq8GxlTKryQ5rSgHfYhlPbAGO4dKR5fILzpGJOgSkZ5FZjehnkYCWSDg5eIvEQ\nw4TVRbgJa4RlBkYEx2dgRGImrNSkUPCVmhU0eRsUgpPboBYUUI04kLhqxKLZ6ImijxAXxR4UniG3\nTQy+6dMCbscN7zbpIHrhStUDIEsAOU0ApLKOLZ0vpKoJrsxUhaB5Mq6nQY0sAnwZVIEhVZ+u/WDw\n+GaXfFq4vOTjckKV6GzH5NsAaEQNIChwJBg68wFAhpmkNXQrxA2TXIcv/RORHmsYXrET495j2Y0M\nZImyusvVE3Ye0Ba3O7j3rvpamaDUYw9pJmfTgm/6kHEqQYzDFGGAwnk=",
+                    "d": true
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "quad": 56546,
+        "triangle": 9027,
+        "polygon": 743,
+        "line": 4,
+        "point": 0,
+        "totalTriangle": 130811,
+        "vertexCount": 79381,
+        "hasNormal": true,
+        "hasTangent": false,
+        "hasVertexColor": false,
+        "pbrType": null,
+        "textureCount": 2,
+        "materialCount": 20,
+        "isRigged": false,
+        "morph": 0,
+        "scale": false,
+        "animation": 0,
+        "uvMapped": true,
+        "sourceFiles": {
+            "3d": [
+                {
+                    "version": "",
+                    "filepath": "sports car4 Sketchfab.mtl",
+                    "filesize": 4074,
+                    "extension": "mtl",
+                    "fileformat": "Alias/WaveFront Material"
+                },
+                {
+                    "version": "",
+                    "filepath": "sports car4 Sketchfab.obj",
+                    "filesize": 9449759,
+                    "extension": "obj",
+                    "fileformat": "OBJ"
+                }
+            ],
+            "misc": [],
+            "count": 4,
+            "image": [
+                {
+                    "width": 1024,
+                    "format": "RGBA",
+                    "height": 1024,
+                    "is8bit": true,
+                    "filepath": "textures/Landpatch_diffuse.png",
+                    "filesize": 1250045,
+                    "extension": "png",
+                    "fileformat": "Portable Network Graphics"
+                },
+                {
+                    "width": 32,
+                    "format": "RGBA",
+                    "height": 32,
+                    "is8bit": true,
+                    "filepath": "textures/car1_textures-pixilart.png",
+                    "filesize": 206,
+                    "extension": "png",
+                    "fileformat": "Portable Network Graphics"
+                }
+            ]
+        },
+        "textureFiles": [
+            {
+                "width": 1024,
+                "format": "RGB",
+                "height": 1024,
+                "is8bit": true,
+                "filepath": "textures/Landpatch_diffuse.png",
+                "filesize": 1232357,
+                "extension": "png",
+                "fileformat": "Portable Network Graphics"
+            },
+            {
+                "width": 32,
+                "format": "RGB",
+                "height": 32,
+                "is8bit": true,
+                "filepath": "textures/car1_textures-pixilart.png",
+                "filesize": 163,
+                "extension": "png",
+                "fileformat": "Portable Network Graphics"
+            }
+        ]
+    },
+    "price": null,
+    "inStore": false,
+    "averageRating": 0.0,
+    "reviewCount": 0,
+    "preferOriginalNormalMap": false,
+    "isDisabled": false,
+    "hasCommentsDisabled": false,
+    "useNewViewer": false,
+    "exporter": null,
+    "displayStatus": "ok",
+    "version": {
+        "uid": "f2505dfda33347328538c3073344bdd5",
+        "status": {
+            "processing": "SUCCEEDED"
+        },
+        "isCurrentVersion": true,
+        "isCandidateVersion": false,
+        "createdAt": "2020-05-05T14:30:57.649953",
+        "processedAt": "2020-05-05T14:31:36.829399",
+        "reason": "reupload"
+    },
+    "visibility": "public",
+    "org": null,
+    "isAiGenerated": false,
+    "isFabAi": false,
+    "isArEnabled": false,
+    "isArAvailable": false,
+    "archivesStatus": [
+        {
+            "type": "source",
+            "exists": true,
+            "status": "Succeeded"
+        },
+        {
+            "type": "gltf",
+            "exists": true,
+            "status": "Succeeded"
+        },
+        {
+            "type": "extra",
+            "exists": true,
+            "status": "Succeeded"
+        },
+        {
+            "type": "usdz",
+            "exists": true,
+            "status": "Succeeded"
+        },
+        {
+            "type": "gltf-ar",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "uasset",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "glb",
+            "exists": true,
+            "status": "Succeeded"
+        }
+    ],
+    "mayDownloadThisModel": false,
+    "hasDoptions": false,
+    "fabMigrationListingId": null
+}

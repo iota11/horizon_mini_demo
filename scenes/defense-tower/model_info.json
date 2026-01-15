@@ -1,0 +1,265 @@
+{
+    "uid": "cac685bfb8b94a14b555e0050587660d",
+    "slug": "defense-tower",
+    "user": {
+        "account": "basic",
+        "avatars": {
+            "uid": "dd8d5765532d47ddb56db91e5ff49420",
+            "images": [
+                {
+                    "width": 32,
+                    "height": 32,
+                    "size": 968,
+                    "url": "https://media.sketchfab.com/avatars/dd8d5765532d47ddb56db91e5ff49420/fad3bd6f492f4c968750ed18249a588a.jpeg"
+                },
+                {
+                    "width": 48,
+                    "height": 48,
+                    "size": 1175,
+                    "url": "https://media.sketchfab.com/avatars/dd8d5765532d47ddb56db91e5ff49420/cc47e29b5dd5403287afd6be1580e9cd.jpeg"
+                },
+                {
+                    "width": 90,
+                    "height": 90,
+                    "size": 2207,
+                    "url": "https://media.sketchfab.com/avatars/dd8d5765532d47ddb56db91e5ff49420/5d0ff1ac008f475f86539ee12e1523c8.jpeg"
+                },
+                {
+                    "width": 100,
+                    "height": 100,
+                    "size": 2473,
+                    "url": "https://media.sketchfab.com/avatars/dd8d5765532d47ddb56db91e5ff49420/5e1b3e40a73143f782ecc45ddbebf5a2.jpeg"
+                }
+            ]
+        },
+        "displayName": "MChahin",
+        "isAiRestricted": false,
+        "traderSettings": {
+            "isTrader": null,
+            "isVerifiedTrader": false
+        },
+        "planDetail": null,
+        "profileUrl": "https://sketchfab.com/beastochahin",
+        "uid": "983fe3d1d49848bca6383b97ad91f3f8",
+        "username": "beastochahin"
+    },
+    "name": "Defense tower",
+    "description": "A scene I made for quick practice",
+    "htmlDescription": "<p>A scene I made for quick practice</p>",
+    "thumbnails": {
+        "uid": "1f8ed1f8676844b29e437a01ce00b2fc",
+        "images": [
+            {
+                "uid": "e1b583ba51e54ea29878600e1d61d27c",
+                "width": 50,
+                "height": 50,
+                "size": 1121,
+                "url": "https://media.sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/thumbnails/1f8ed1f8676844b29e437a01ce00b2fc/50x50.jpeg"
+            },
+            {
+                "uid": "43e2ab76c0eb4e8193a7004a36e72b7c",
+                "width": 100,
+                "height": 100,
+                "size": 2598,
+                "url": "https://media.sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/thumbnails/1f8ed1f8676844b29e437a01ce00b2fc/100x100.jpeg"
+            },
+            {
+                "uid": "ad86a1c2243c46e08df951c52b59c0f1",
+                "width": 200,
+                "height": 200,
+                "size": 6277,
+                "url": "https://media.sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/thumbnails/1f8ed1f8676844b29e437a01ce00b2fc/200x200.jpeg"
+            },
+            {
+                "uid": "95a4245bd13c42f9a13ff3db44555371",
+                "width": 448,
+                "height": 252,
+                "size": 10841,
+                "url": "https://media.sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/thumbnails/1f8ed1f8676844b29e437a01ce00b2fc/448x252.jpeg"
+            },
+            {
+                "uid": "a16d0eda0d934bb886385a9e9b5f745e",
+                "width": 640,
+                "height": 360,
+                "size": 17757,
+                "url": "https://media.sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/thumbnails/1f8ed1f8676844b29e437a01ce00b2fc/640x360.jpeg"
+            },
+            {
+                "uid": "219b90065f6e4837a6831317f2b2c082",
+                "width": 864,
+                "height": 486,
+                "size": 27728,
+                "url": "https://media.sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/thumbnails/1f8ed1f8676844b29e437a01ce00b2fc/864x486.jpeg"
+            },
+            {
+                "uid": "648a98ad1c1844efbdd1d9cba05691bb",
+                "width": 1024,
+                "height": 576,
+                "size": 36059,
+                "url": "https://media.sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/thumbnails/1f8ed1f8676844b29e437a01ce00b2fc/1024x576.jpeg"
+            }
+        ]
+    },
+    "vertexCount": 20726,
+    "faceCount": 23591,
+    "viewCount": 778,
+    "likeCount": 31,
+    "animationCount": 0,
+    "staffpickedAt": null,
+    "publishedAt": "2016-08-08T18:04:22.795441",
+    "createdAt": "2016-08-08T17:34:29.467104",
+    "tags": [
+        "tower",
+        "assets",
+        "medieval",
+        "defense",
+        "blender",
+        "lowpoly",
+        "blender3d",
+        "gameart"
+    ],
+    "orgTags": [],
+    "categories": [],
+    "license": null,
+    "isStoreLicenseLocked": false,
+    "viewerUrl": "https://sketchfab.com/3d-models/defense-tower-cac685bfb8b94a14b555e0050587660d",
+    "embedUrl": "https://sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/embed",
+    "editorUrl": "https://sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/edit",
+    "reviewUrl": "https://sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/review",
+    "publicCommentCount": 0,
+    "orgCommentCount": 0,
+    "downloadType": "no",
+    "isInspectable": false,
+    "hasPromotionalContent": false,
+    "downloadCount": 1,
+    "status": {
+        "processing": "SUCCEEDED"
+    },
+    "isPublished": true,
+    "originalFileName": "c32296906fd343b7aa7d5538fc6b4404.blend",
+    "processingStatus": 2,
+    "archiveSize": 1492740,
+    "ext": "blend",
+    "isDeleted": false,
+    "isRestricted": false,
+    "processedAt": "2016-08-08T17:51:03.397820",
+    "files": [
+        {
+            "uid": "4448d24540da4c54ac7455c3ad7baf75",
+            "flag": 0,
+            "osgjsUrl": "https://media.sketchfab.com/models/cac685bfb8b94a14b555e0050587660d/0ac094cf343a4db8b3c08cb4a681d518/files/4448d24540da4c54ac7455c3ad7baf75/file.binz",
+            "modelSize": 270874,
+            "osgjsSize": 28975,
+            "wireframeSize": 211848,
+            "p": [
+                {
+                    "v": 1,
+                    "b": "vJ7rXEA+rV+A68YG3LmtU3QiNkx9OZWYVfX5Np9gDgxB3P8Fiu9zohF2k4XEXR6/bMMKM7Ds2H3U\nY3I4jB7incVKvtFOMqWUAjQANAA7AOwsfu31uhS73kzJ7iLroxI96+OC+U+yB4iqUl9V56ek/p5o\nCzGJ1zPIWDS+w5tpPYbPWj4g9+BoqvxEMRDY9vdiH3ZAYzRUj1SBRmi74Wl09WmWTXrqU9efZF+x\n66+nlC7r0dSlnm3qWwLDQqAZyYdAJhMO41QAeBiHwuKnlho+1BCZT4Uij8uHIs+LqoQgyHh1t0gi\nnG+RPlao5RT4VaV94CirATZFW14OTh04XUXgUFI9to0b5gXRdpe3xNOsS9Fr9pHO2DWqN8yq0lyd\nB9/VGflgJRsoQCWIbg6ggkJTBw7x4OAO8Ck9KHHzxd2L5GegGw5hMjZORtJ2W1PIifZqGpwRAiOF\nZeukQvE=",
+                    "d": true
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "quad": null,
+        "triangle": null,
+        "polygon": null,
+        "line": null,
+        "point": null,
+        "totalTriangle": null,
+        "vertexCount": null,
+        "hasNormal": null,
+        "hasTangent": null,
+        "hasVertexColor": null,
+        "pbrType": null,
+        "textureCount": null,
+        "materialCount": null,
+        "isRigged": false,
+        "morph": null,
+        "scale": null,
+        "animation": null,
+        "uvMapped": false,
+        "sourceFiles": {
+            "3d": [
+                {
+                    "version": "2.77",
+                    "filepath": "source/c32296906fd343b7aa7d5538fc6b4404.blend.blend",
+                    "filesize": 2558948,
+                    "extension": "blend",
+                    "fileformat": "Blender"
+                }
+            ],
+            "misc": [],
+            "count": 1,
+            "image": []
+        },
+        "textureFiles": []
+    },
+    "price": null,
+    "inStore": false,
+    "averageRating": 0.0,
+    "reviewCount": 0,
+    "preferOriginalNormalMap": false,
+    "isDisabled": false,
+    "hasCommentsDisabled": false,
+    "useNewViewer": false,
+    "exporter": null,
+    "displayStatus": "ok",
+    "version": {
+        "uid": "0ac094cf343a4db8b3c08cb4a681d518",
+        "status": {
+            "processing": "SUCCEEDED"
+        },
+        "isCurrentVersion": true,
+        "isCandidateVersion": false,
+        "createdAt": "2018-12-15T00:42:02.817713",
+        "processedAt": null,
+        "reason": "operation"
+    },
+    "visibility": "public",
+    "org": null,
+    "isAiGenerated": false,
+    "isFabAi": false,
+    "isArEnabled": false,
+    "isArAvailable": false,
+    "archivesStatus": [
+        {
+            "type": "source",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "gltf",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "extra",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "usdz",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "gltf-ar",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "uasset",
+            "exists": false,
+            "status": null
+        },
+        {
+            "type": "glb",
+            "exists": false,
+            "status": null
+        }
+    ],
+    "mayDownloadThisModel": false,
+    "hasDoptions": false,
+    "fabMigrationListingId": null
+}
