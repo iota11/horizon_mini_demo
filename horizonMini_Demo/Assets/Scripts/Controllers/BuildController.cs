@@ -260,14 +260,22 @@ namespace HorizonMini.Controllers
                 gridObj.transform.localPosition = Vector3.zero;
                 currentVolumeGrid.Initialize(dimensions);
 
-                // DON'T setup camera yet - wait until user clicks Create button
+                // Setup camera to focus on volume preview
+                if (cameraController != null)
+                {
+                    cameraController.SetupForMaxVolume(dimensions, currentVolumeGrid.volumeSize);
+                }
             }
             else
             {
                 // Update existing volume grid
                 currentVolumeGrid.Initialize(dimensions);
 
-                // DON'T update camera while adjusting sliders
+                // Update camera to focus on new volume size
+                if (cameraController != null)
+                {
+                    cameraController.SetupForMaxVolume(dimensions, currentVolumeGrid.volumeSize);
+                }
             }
         }
 
@@ -504,7 +512,8 @@ namespace HorizonMini.Controllers
 
         private void HandlePinch(float delta)
         {
-            if (currentMode == BuildMode.View || currentMode == BuildMode.Edit)
+            // Allow zoom in SizePicker, View, and Edit modes
+            if (currentMode == BuildMode.SizePicker || currentMode == BuildMode.View || currentMode == BuildMode.Edit)
             {
                 cameraController.Zoom(delta);
             }
@@ -640,12 +649,86 @@ namespace HorizonMini.Controllers
                 return;
 
             GameObject obj = Instantiate(asset.prefab, position, Quaternion.identity, buildContainer);
+
+            // Fix materials to use URP shader
+            FixMaterialsToURP(obj);
+
             PlacedObject placedObj = obj.AddComponent<PlacedObject>();
             placedObj.assetId = asset.assetId;
             placedObj.sourceAsset = asset;
             placedObj.UpdateSavedTransform();
 
             placedObjects.Add(placedObj);
+        }
+
+        private void FixMaterialsToURP(GameObject obj)
+        {
+            Shader urpLitShader = Shader.Find("Universal Render Pipeline/Lit");
+            if (urpLitShader == null)
+            {
+                Debug.LogWarning("URP Lit shader not found!");
+                return;
+            }
+
+            // Get all renderers in object and children
+            Renderer[] renderers = obj.GetComponentsInChildren<Renderer>(true);
+
+            foreach (Renderer renderer in renderers)
+            {
+                if (renderer.sharedMaterials == null || renderer.sharedMaterials.Length == 0)
+                    continue;
+
+                Material[] newMaterials = new Material[renderer.sharedMaterials.Length];
+
+                for (int i = 0; i < renderer.sharedMaterials.Length; i++)
+                {
+                    Material oldMat = renderer.sharedMaterials[i];
+
+                    if (oldMat == null)
+                    {
+                        newMaterials[i] = oldMat;
+                        continue;
+                    }
+
+                    // Check if material is using wrong shader (pink/purple material)
+                    bool needsFix = oldMat.shader == null ||
+                                   oldMat.shader.name.Contains("Standard") ||
+                                   oldMat.shader.name.Contains("Legacy") ||
+                                   oldMat.shader.name == "Hidden/InternalErrorShader";
+
+                    if (needsFix)
+                    {
+                        // Create new material with URP shader
+                        Material newMat = new Material(urpLitShader);
+
+                        // Preserve color
+                        if (oldMat.HasProperty("_Color"))
+                        {
+                            newMat.SetColor("_BaseColor", oldMat.color);
+                        }
+                        else if (oldMat.HasProperty("_BaseColor"))
+                        {
+                            newMat.SetColor("_BaseColor", oldMat.GetColor("_BaseColor"));
+                        }
+
+                        // Preserve texture
+                        if (oldMat.HasProperty("_MainTex") && oldMat.mainTexture != null)
+                        {
+                            newMat.SetTexture("_MainTex", oldMat.mainTexture);
+                        }
+
+                        newMat.name = oldMat.name + "_URP";
+                        newMaterials[i] = newMat;
+                    }
+                    else
+                    {
+                        // Material is fine, keep it
+                        newMaterials[i] = oldMat;
+                    }
+                }
+
+                renderer.sharedMaterials = newMaterials;
+            }
         }
 
         public void DeleteSelectedObject()

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: dandelion_flower_big_and_small_LOD_group
+  m_EditorClassIdentifier: 
+  assetId: 8a40d618-6c91-4383-bb4e-cd59ab02b6e1
+  displayName: dandelion_flower_big_and_small_LOD_group
+  category: 4
+  prefab: {fileID: 3129617531267616008, guid: 572b6afd890a94d22ac1c5b3993dfb7e, type: 3}
+  icon: {fileID: 21300000, guid: ce763a2b436a444e6ac85d49b1234077, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

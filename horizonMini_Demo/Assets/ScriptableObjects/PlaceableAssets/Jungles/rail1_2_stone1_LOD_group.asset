@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: rail1_2_stone1_LOD_group
+  m_EditorClassIdentifier: 
+  assetId: acb05109-b09e-46cd-8b58-589ac6b40a46
+  displayName: rail1_2_stone1_LOD_group
+  category: 4
+  prefab: {fileID: 2038830958701208011, guid: ecf70a66da3324bc3831e47988918efc, type: 3}
+  icon: {fileID: 21300000, guid: 59a7b84c1b24d41d5bde26f7e5dbc537, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

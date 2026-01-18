@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: door_large_face_stone_LOD_group
+  m_EditorClassIdentifier: 
+  assetId: c53a9a46-91b0-474f-bfcb-1db144f9b87d
+  displayName: door_large_face_stone_LOD_group
+  category: 4
+  prefab: {fileID: 1251499113302555968, guid: 87b2e761b22bb4d6ba512c8fa70a5be4, type: 3}
+  icon: {fileID: 21300000, guid: 88efb4a3dde9744fab255cc13420fd32, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

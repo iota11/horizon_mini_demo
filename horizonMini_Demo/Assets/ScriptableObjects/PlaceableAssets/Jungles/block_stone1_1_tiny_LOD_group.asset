@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: block_stone1_1_tiny_LOD_group
+  m_EditorClassIdentifier: 
+  assetId: 34113ad3-21fe-49f0-82bf-fc4673a635df
+  displayName: block_stone1_1_tiny_LOD_group
+  category: 4
+  prefab: {fileID: 2394869400593707858, guid: f1506ce76c81d4f44ad29742400171e6, type: 3}
+  icon: {fileID: 21300000, guid: 051d617a8e7864f058f37ee3ceb53597, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

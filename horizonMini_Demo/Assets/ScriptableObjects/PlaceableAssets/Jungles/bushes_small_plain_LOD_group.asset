@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: bushes_small_plain_LOD_group
+  m_EditorClassIdentifier: 
+  assetId: bcdcf2ae-0408-453a-a6ba-e8c308cbf6ea
+  displayName: bushes_small_plain_LOD_group
+  category: 4
+  prefab: {fileID: 9201586057462061879, guid: 7cbbaed33352d41adab75f1ff7efaf05, type: 3}
+  icon: {fileID: 21300000, guid: aa85b588fde75429f95be008c2dd42b8, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

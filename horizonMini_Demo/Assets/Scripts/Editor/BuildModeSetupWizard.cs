@@ -281,8 +281,8 @@ namespace HorizonMini.Editor
             testCube.name = "TestCube";
 
             // Add material
-            Material mat = new Material(Shader.Find("Standard"));
-            mat.color = Color.cyan;
+            Material mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            mat.SetColor("_BaseColor", Color.cyan);
             testCube.GetComponent<Renderer>().sharedMaterial = mat;
 
             // Save as prefab

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: stair_stone1_corner_conc_LOD_group
+  m_EditorClassIdentifier: 
+  assetId: 714ddd82-3ec4-4b0e-b384-a501c2af8aa6
+  displayName: stair_stone1_corner_conc_LOD_group
+  category: 4
+  prefab: {fileID: 6638446643715217498, guid: 4a80ed0ecdcab495db8530a4c252dc22, type: 3}
+  icon: {fileID: 21300000, guid: 7c03146ced62f4c87848112631a02660, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}
