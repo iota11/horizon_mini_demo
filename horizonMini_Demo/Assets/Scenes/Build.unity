@@ -6262,6 +6262,7 @@ MonoBehaviour:
   gestureDetector: {fileID: 0}
   volumeGridPrefab: {fileID: 3297983965376111536, guid: 6da2f5452ab424806858d0c587f859e4, type: 3}
   editCursorPrefab: {fileID: 5320411404640564667, guid: 6f66ac7518dc54cb4a82b95a6498ba8c, type: 3}
+  assetCatalog: {fileID: 11400000, guid: fb8062a1dd96d4725a95bc95fdb9d68e, type: 2}
   autoInitialize: 1
   maxVolumeSize: {x: 4, y: 4, z: 4}
   volumeUnitSize: 8
@@ -6975,6 +6976,8 @@ MonoBehaviour:
   panel: {fileID: 2016242562}
   createButton: {fileID: 1462760451}
   cancelButton: {fileID: 524646954}
+  worldNameInput: {fileID: 0}
+  worldNameLabel: {fileID: 0}
   xSlider: {fileID: 512902448}
   ySlider: {fileID: 715505954}
   zSlider: {fileID: 1474653681}

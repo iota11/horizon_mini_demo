@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using HorizonMini.Core;
 using HorizonMini.Build;
 using HorizonMini.UI;
 using System.Collections.Generic;
+using SaveService = HorizonMini.Core.SaveService;
 
 namespace HorizonMini.Controllers
 {
@@ -26,6 +28,9 @@ namespace HorizonMini.Controllers
         [Header("Prefabs")]
         [SerializeField] private GameObject volumeGridPrefab;
         [SerializeField] private GameObject editCursorPrefab;
+
+        [Header("Asset References")]
+        [SerializeField] private HorizonMini.Build.AssetCatalog assetCatalog;
 
         [Header("Standalone Mode")]
         [SerializeField] private bool autoInitialize = true; // Auto-initialize in standalone mode
@@ -50,6 +55,7 @@ namespace HorizonMini.Controllers
 
         // Temp data for new world
         private Vector3Int selectedVolumeSize = new Vector3Int(2, 1, 2);
+        private string currentWorldId = null; // Track if editing existing world
 
         public BuildMode CurrentMode => currentMode;
         public PlacedObject SelectedObject => selectedObject;
@@ -61,8 +67,30 @@ namespace HorizonMini.Controllers
             if (autoInitialize && !isInitialized)
             {
                 Initialize(null);
-                SetActive(true);
-                Debug.Log("BuildController started in standalone mode");
+
+                // Check if we should load an existing world for editing
+                if (HorizonMini.Core.SceneTransitionData.HasWorldToEdit())
+                {
+                    string worldId = HorizonMini.Core.SceneTransitionData.GetAndClearWorldToEdit();
+                    Debug.Log($"BuildController: Loading world {worldId} for editing");
+
+                    // Activate first, then load world (LoadWorldForEditing will set the correct mode)
+                    isActive = true;
+                    gameObject.SetActive(true);
+                    if (buildCamera != null)
+                    {
+                        buildCamera.gameObject.SetActive(true);
+                    }
+
+                    LoadWorldForEditing(worldId);
+                }
+                else
+                {
+                    // Start with fresh world
+                    StartNewWorld();
+                    Debug.Log("BuildController started in standalone mode with new world");
+                    SetActive(true); // This will trigger SizePicker mode
+                }
             }
         }
 
@@ -86,6 +114,18 @@ namespace HorizonMini.Controllers
             if (buildModeUI == null)
             {
                 buildModeUI = FindFirstObjectByType<BuildModeUI>();
+            }
+
+            // Ensure SaveService exists in standalone mode
+            if (appRoot == null)
+            {
+                SaveService existingSaveService = FindFirstObjectByType<SaveService>();
+                if (existingSaveService == null)
+                {
+                    GameObject saveServiceObj = new GameObject("SaveService");
+                    saveServiceObj.AddComponent<SaveService>();
+                    Debug.Log("Created SaveService for standalone mode");
+                }
             }
 
             // Initialize systems
@@ -141,6 +181,169 @@ namespace HorizonMini.Controllers
             {
                 SwitchMode(BuildMode.SizePicker);
             }
+        }
+
+        public void StartNewWorld()
+        {
+            Debug.Log("StartNewWorld called - clearing all build data");
+
+            // Clear worldId - this is a new world
+            currentWorldId = null;
+
+            // Clear existing volume grid
+            if (currentVolumeGrid != null)
+            {
+                Debug.Log($"Destroying existing VolumeGrid: {currentVolumeGrid.name}");
+                Destroy(currentVolumeGrid.gameObject);
+                currentVolumeGrid = null;
+            }
+
+            // Clear placed objects
+            Debug.Log($"Clearing {placedObjects.Count} placed objects");
+            foreach (var obj in placedObjects)
+            {
+                if (obj != null)
+                {
+                    Debug.Log($"Destroying placed object: {obj.name}");
+                    Destroy(obj.gameObject);
+                }
+            }
+            placedObjects.Clear();
+
+            // Clear selection
+            selectedObject = null;
+            if (currentEditCursor != null)
+            {
+                Destroy(currentEditCursor.gameObject);
+                currentEditCursor = null;
+            }
+
+            // Also find and destroy any orphaned VolumeGrid or PlacedObject in the scene
+            VolumeGrid[] allGrids = FindObjectsByType<VolumeGrid>(FindObjectsSortMode.None);
+            Debug.Log($"Found {allGrids.Length} VolumeGrid objects in scene");
+            foreach (var grid in allGrids)
+            {
+                if (grid != currentVolumeGrid) // Already null, but just in case
+                {
+                    Debug.Log($"Destroying orphaned VolumeGrid: {grid.name}");
+                    Destroy(grid.gameObject);
+                }
+            }
+
+            PlacedObject[] allPlacedObjects = FindObjectsByType<PlacedObject>(FindObjectsSortMode.None);
+            Debug.Log($"Found {allPlacedObjects.Length} PlacedObject objects in scene");
+            foreach (var obj in allPlacedObjects)
+            {
+                Debug.Log($"Destroying orphaned PlacedObject: {obj.name}");
+                Destroy(obj.gameObject);
+            }
+
+            // Reset to default size
+            selectedVolumeSize = new Vector3Int(2, 1, 2);
+            cameraSetupForVolume = false;
+
+            Debug.Log("StartNewWorld complete - scene cleared");
+        }
+
+        public void LoadWorldForEditing(string worldId)
+        {
+            Debug.Log($"LoadWorldForEditing: {worldId}");
+
+            // Store the worldId for updating when saving
+            currentWorldId = worldId;
+
+            // Clear existing data first (but keep currentWorldId)
+            string savedWorldId = currentWorldId;
+            StartNewWorld();
+            currentWorldId = savedWorldId;
+
+            // Load world data from SaveService
+            SaveService saveService = FindFirstObjectByType<SaveService>();
+            if (saveService == null)
+            {
+                Debug.LogError("SaveService not found! Cannot load world.");
+                return;
+            }
+
+            HorizonMini.Data.WorldData worldData = saveService.LoadCreatedWorld(worldId);
+            if (worldData == null)
+            {
+                Debug.LogError($"World {worldId} not found in SaveService!");
+                return;
+            }
+
+            Debug.Log($"Loaded world: {worldData.worldTitle}, Grid: {worldData.gridDimensions}, Props: {worldData.props.Count}");
+
+            // Set volume size
+            selectedVolumeSize = worldData.gridDimensions;
+
+            // Create volume grid
+            CreateVolumeGrid(worldData.gridDimensions);
+
+            // Load placed objects
+            if (worldData.props != null && worldData.props.Count > 0)
+            {
+                Debug.Log($"Loading {worldData.props.Count} props...");
+
+                // Get AssetCatalog - try serialized field first, then search scene
+                HorizonMini.Build.AssetCatalog catalog = assetCatalog;
+                if (catalog == null)
+                {
+                    Debug.LogWarning("AssetCatalog not assigned, searching in scene...");
+                    catalog = FindFirstObjectByType<HorizonMini.Build.AssetCatalog>();
+                }
+
+                if (catalog == null)
+                {
+                    Debug.LogError("AssetCatalog not found! Cannot load props.");
+                    Debug.LogError("Please assign AssetCatalog to BuildController in Inspector.");
+                    return;
+                }
+                Debug.Log($"Found AssetCatalog with {catalog.GetAllAssets().Count} assets");
+
+                int loadedCount = 0;
+                foreach (var propData in worldData.props)
+                {
+                    Debug.Log($"Attempting to load prop: {propData.prefabName}");
+
+                    HorizonMini.Build.PlaceableAsset asset = catalog.GetAssetById(propData.prefabName);
+                    if (asset == null)
+                    {
+                        Debug.LogWarning($"Asset not found for ID: {propData.prefabName}");
+                        continue;
+                    }
+                    if (asset.prefab == null)
+                    {
+                        Debug.LogWarning($"Asset {propData.prefabName} has null prefab!");
+                        continue;
+                    }
+
+                    GameObject obj = Instantiate(asset.prefab, buildContainer);
+                    obj.transform.position = propData.position;
+                    obj.transform.rotation = propData.rotation;
+                    obj.transform.localScale = propData.scale;
+                    obj.name = asset.displayName;
+
+                    PlacedObject placedObj = obj.AddComponent<PlacedObject>();
+                    placedObj.assetId = propData.prefabName;
+                    placedObj.sourceAsset = asset;
+                    placedObj.UpdateSavedTransform();
+
+                    placedObjects.Add(placedObj);
+                    loadedCount++;
+
+                    Debug.Log($"✓ Loaded prop #{loadedCount}: {obj.name} at {obj.transform.position}");
+                }
+
+                Debug.Log($"Finished loading props: {loadedCount}/{worldData.props.Count} successful");
+            }
+            else
+            {
+                Debug.LogWarning("worldData.props is null or empty - no props to load");
+            }
+
+            Debug.Log($"World loaded successfully. Switching to View mode.");
+            SwitchMode(BuildMode.View);
         }
 
         public void SwitchMode(BuildMode newMode)
@@ -762,14 +965,53 @@ namespace HorizonMini.Controllers
 
         private void SaveWorld()
         {
-            // Create WorldData
-            HorizonMini.Data.WorldData worldData = ScriptableObject.CreateInstance<HorizonMini.Data.WorldData>();
-            worldData.Initialize();
-            worldData.worldTitle = "My Build";
-            worldData.worldAuthor = "Me";
-            worldData.gridDimensions = selectedVolumeSize;
+            // Get world name from UI
+            string worldName = "My World";
+            if (buildModeUI != null)
+            {
+                VolumeSizePickerUI sizePickerUI = FindFirstObjectByType<VolumeSizePickerUI>();
+                if (sizePickerUI != null)
+                {
+                    worldName = sizePickerUI.GetWorldName();
+                }
+            }
 
-            // Save placed objects
+            // Create or update WorldData
+            HorizonMini.Data.WorldData worldData;
+
+            if (!string.IsNullOrEmpty(currentWorldId))
+            {
+                // Editing existing world - load and update it
+                Debug.Log($"Updating existing world: {currentWorldId}");
+                SaveService saveService = appRoot != null ? appRoot.SaveService : FindFirstObjectByType<SaveService>();
+                worldData = saveService?.LoadCreatedWorld(currentWorldId);
+
+                if (worldData == null)
+                {
+                    Debug.LogWarning($"Could not load existing world {currentWorldId}, creating new one");
+                    worldData = ScriptableObject.CreateInstance<HorizonMini.Data.WorldData>();
+                    worldData.Initialize();
+                    worldData.worldId = currentWorldId; // Preserve the ID
+                }
+
+                // Update fields
+                worldData.worldTitle = worldName;
+                worldData.gridDimensions = selectedVolumeSize;
+            }
+            else
+            {
+                // Creating new world
+                Debug.Log("Creating new world");
+                worldData = ScriptableObject.CreateInstance<HorizonMini.Data.WorldData>();
+                worldData.Initialize();
+                worldData.worldTitle = worldName;
+                worldData.worldAuthor = "Creator";
+                worldData.gridDimensions = selectedVolumeSize;
+            }
+
+            // Clear existing props and save current placed objects
+            worldData.props.Clear();
+            Debug.Log($"Saving {placedObjects.Count} placed objects...");
             foreach (var obj in placedObjects)
             {
                 HorizonMini.Data.PropData propData = new HorizonMini.Data.PropData
@@ -780,13 +1022,50 @@ namespace HorizonMini.Controllers
                     scale = obj.transform.localScale
                 };
                 worldData.props.Add(propData);
+                Debug.Log($"  - Saved {obj.name} at {obj.transform.position}");
             }
 
-            // Save via AppRoot
+            // Save via AppRoot or SaveService
             if (appRoot != null)
             {
                 appRoot.SaveService.SaveCreatedWorld(worldData);
-                Debug.Log($"World published: {worldData.worldTitle}");
+                Debug.Log($"<color=green>✓ World published: {worldData.worldTitle}</color>");
+                Debug.Log($"<color=green>  World ID: {worldData.worldId}</color>");
+                Debug.Log($"<color=green>  Grid Size: {worldData.gridDimensions}</color>");
+                Debug.Log($"<color=green>  Props Count: {worldData.props.Count}</color>");
+
+                // Return to Main scene (AppRoot mode)
+                appRoot.SwitchToMode(HorizonMini.Core.AppMode.Home);
+            }
+            else
+            {
+                // Standalone mode - find SaveService manually
+                SaveService saveService = FindFirstObjectByType<SaveService>();
+                if (saveService != null)
+                {
+                    saveService.SaveCreatedWorld(worldData);
+                    Debug.Log($"<color=green>✓ World published (standalone): {worldData.worldTitle}</color>");
+                    Debug.Log($"<color=green>  World ID: {worldData.worldId}</color>");
+                    Debug.Log($"<color=green>  Grid Size: {worldData.gridDimensions}</color>");
+                    Debug.Log($"<color=green>  Props Count: {worldData.props.Count}</color>");
+
+                    // Return to Main scene
+                    // LoadSceneMode.Single will destroy everything including DontDestroyOnLoad objects
+                    // The new Main scene will create a fresh AppRoot
+                    if (Application.CanStreamedLevelBeLoaded("Main"))
+                    {
+                        Debug.Log("Returning to Main scene");
+                        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+                    }
+                    else
+                    {
+                        Debug.Log("Main scene not found. Staying in BuildMode.");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("SaveService not found! Cannot save world.");
+                }
             }
         }
     }

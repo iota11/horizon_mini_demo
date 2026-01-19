@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 using HorizonMini.Data;
+using HorizonMini.Build;
 
 namespace HorizonMini.Core
 {
+
     /// <summary>
     /// Manages the library of available worlds (both built-in and user-created)
     /// </summary>
@@ -15,6 +17,9 @@ namespace HorizonMini.Core
         [Header("Prefabs")]
         [SerializeField] private GameObject volumePrefab;
         [SerializeField] private GridSettings gridSettings;
+
+        [Header("Asset Catalog")]
+        [SerializeField] private AssetCatalog assetCatalog;
 
         private List<WorldMeta> allWorldMetas = new List<WorldMeta>();
         private SaveService saveService;
@@ -29,17 +34,17 @@ namespace HorizonMini.Core
         {
             allWorldMetas.Clear();
 
-            // Add built-in worlds
-            foreach (var worldData in builtInWorlds)
-            {
-                if (worldData != null)
-                {
-                    worldData.Initialize();
-                    allWorldMetas.Add(worldData.ToMeta());
-                }
-            }
+            // Skip built-in worlds - only show user-created worlds
+            // foreach (var worldData in builtInWorlds)
+            // {
+            //     if (worldData != null)
+            //     {
+            //         worldData.Initialize();
+            //         allWorldMetas.Add(worldData.ToMeta());
+            //     }
+            // }
 
-            // Add user-created worlds
+            // Add user-created worlds only
             if (saveService != null)
             {
                 foreach (string worldId in saveService.GetCreatedWorldIds())
@@ -118,7 +123,113 @@ namespace HorizonMini.Core
                 volumeObj.name = $"Volume_{volumeCell.gridPosition.x}_{volumeCell.gridPosition.y}_{volumeCell.gridPosition.z}";
             }
 
+            // Instantiate props (placed objects)
+            if (data.props != null && data.props.Count > 0)
+            {
+                foreach (var propData in data.props)
+                {
+                    InstantiateProp(propData, container.transform);
+                }
+            }
+
             return instance;
+        }
+
+        private void InstantiateProp(PropData propData, Transform parent)
+        {
+            if (assetCatalog == null)
+            {
+                Debug.LogWarning("AssetCatalog not assigned to WorldLibrary! Cannot load props.");
+                return;
+            }
+
+            // Find asset by ID
+            PlaceableAsset asset = assetCatalog.GetAssetById(propData.prefabName);
+            if (asset == null || asset.prefab == null)
+            {
+                Debug.LogWarning($"Asset not found for ID: {propData.prefabName}");
+                return;
+            }
+
+            // Instantiate prefab
+            GameObject obj = Instantiate(asset.prefab, parent);
+            obj.transform.position = propData.position;
+            obj.transform.rotation = propData.rotation;
+            obj.transform.localScale = propData.scale;
+            obj.name = asset.displayName;
+
+            // Fix materials to URP
+            FixMaterialsToURP(obj);
+
+            // Add PlacedObject component
+            PlacedObject placedObj = obj.AddComponent<PlacedObject>();
+            placedObj.assetId = propData.prefabName;
+            placedObj.sourceAsset = asset;
+            placedObj.UpdateSavedTransform();
+        }
+
+        private void FixMaterialsToURP(GameObject obj)
+        {
+            Shader urpLitShader = Shader.Find("Universal Render Pipeline/Lit");
+            if (urpLitShader == null)
+            {
+                Debug.LogWarning("URP Lit shader not found!");
+                return;
+            }
+
+            Renderer[] renderers = obj.GetComponentsInChildren<Renderer>(true);
+
+            foreach (Renderer renderer in renderers)
+            {
+                if (renderer.sharedMaterials == null || renderer.sharedMaterials.Length == 0)
+                    continue;
+
+                Material[] newMaterials = new Material[renderer.sharedMaterials.Length];
+
+                for (int i = 0; i < renderer.sharedMaterials.Length; i++)
+                {
+                    Material oldMat = renderer.sharedMaterials[i];
+
+                    if (oldMat == null)
+                    {
+                        newMaterials[i] = oldMat;
+                        continue;
+                    }
+
+                    bool needsFix = oldMat.shader == null ||
+                                   oldMat.shader.name.Contains("Standard") ||
+                                   oldMat.shader.name.Contains("Legacy") ||
+                                   oldMat.shader.name == "Hidden/InternalErrorShader";
+
+                    if (needsFix)
+                    {
+                        Material newMat = new Material(urpLitShader);
+
+                        if (oldMat.HasProperty("_Color"))
+                        {
+                            newMat.SetColor("_BaseColor", oldMat.color);
+                        }
+                        else if (oldMat.HasProperty("_BaseColor"))
+                        {
+                            newMat.SetColor("_BaseColor", oldMat.GetColor("_BaseColor"));
+                        }
+
+                        if (oldMat.HasProperty("_MainTex") && oldMat.mainTexture != null)
+                        {
+                            newMat.SetTexture("_MainTex", oldMat.mainTexture);
+                        }
+
+                        newMat.name = oldMat.name + "_URP";
+                        newMaterials[i] = newMat;
+                    }
+                    else
+                    {
+                        newMaterials[i] = oldMat;
+                    }
+                }
+
+                renderer.sharedMaterials = newMaterials;
+            }
         }
 
         public GameObject GetVolumePrefab()

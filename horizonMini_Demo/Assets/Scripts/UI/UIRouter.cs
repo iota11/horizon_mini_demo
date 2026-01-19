@@ -41,6 +41,31 @@ namespace HorizonMini.UI
         {
             appRoot = root;
 
+            // Auto-find tab buttons if not assigned
+            if (worldTabButton == null || addTabButton == null || homeTabButton == null)
+            {
+                Debug.Log("Auto-finding tab buttons...");
+                Button[] buttons = GetComponentsInChildren<Button>(true);
+                foreach (Button btn in buttons)
+                {
+                    if (btn.name == "WorldTab" && worldTabButton == null)
+                    {
+                        worldTabButton = btn;
+                        Debug.Log("Found WorldTab button");
+                    }
+                    else if (btn.name == "BuildTab" && addTabButton == null)
+                    {
+                        addTabButton = btn;
+                        Debug.Log("Found BuildTab button");
+                    }
+                    else if (btn.name == "HomeTab" && homeTabButton == null)
+                    {
+                        homeTabButton = btn;
+                        Debug.Log("Found HomeTab button");
+                    }
+                }
+            }
+
             SetupTabButtons();
             SetupBrowseButtons();
             SetupBuildButtons();
@@ -51,17 +76,56 @@ namespace HorizonMini.UI
         {
             if (worldTabButton != null)
             {
-                worldTabButton.onClick.AddListener(() => appRoot.SwitchToMode(AppMode.Browse));
+                // Clear existing listeners first
+                worldTabButton.onClick.RemoveAllListeners();
+                worldTabButton.onClick.AddListener(() => {
+                    Debug.Log("Browse tab button clicked");
+                    appRoot.SwitchToMode(AppMode.Browse);
+                });
+                Debug.Log($"Browse tab button listener added. Interactable: {worldTabButton.interactable}");
+            }
+            else
+            {
+                Debug.LogWarning("WorldTabButton is null in UIRouter!");
             }
 
             if (addTabButton != null)
             {
-                addTabButton.onClick.AddListener(() => appRoot.SwitchToMode(AppMode.Build));
+                // Clear existing listeners first
+                addTabButton.onClick.RemoveAllListeners();
+                addTabButton.onClick.AddListener(() => {
+                    Debug.Log("Build tab button clicked - Loading Build scene");
+                    // Load Build scene instead of switching mode
+                    if (UnityEngine.SceneManagement.SceneManager.GetSceneByName("Build").isLoaded ||
+                        Application.CanStreamedLevelBeLoaded("Build"))
+                    {
+                        UnityEngine.SceneManagement.SceneManager.LoadScene("Build");
+                    }
+                    else
+                    {
+                        Debug.LogError("Build scene not found! Please create Build scene first.");
+                    }
+                });
+                Debug.Log($"Build tab button listener added. Interactable: {addTabButton.interactable}");
+            }
+            else
+            {
+                Debug.LogWarning("AddTabButton is null in UIRouter!");
             }
 
             if (homeTabButton != null)
             {
-                homeTabButton.onClick.AddListener(() => appRoot.SwitchToMode(AppMode.Home));
+                // Clear existing listeners first
+                homeTabButton.onClick.RemoveAllListeners();
+                homeTabButton.onClick.AddListener(() => {
+                    Debug.Log("Home tab button clicked");
+                    appRoot.SwitchToMode(AppMode.Home);
+                });
+                Debug.Log($"Home tab button listener added. Interactable: {homeTabButton.interactable}");
+            }
+            else
+            {
+                Debug.LogWarning("HomeTabButton is null in UIRouter!");
             }
         }
 

@@ -41,7 +41,7 @@ namespace HorizonMini.Core
             }
         }
 
-        public void SaveToFile()
+        public void SaveToFile(bool silent = false)
         {
             string path = Path.Combine(Application.persistentDataPath, SAVE_FILE);
 
@@ -49,7 +49,10 @@ namespace HorizonMini.Core
             {
                 string json = JsonUtility.ToJson(currentSave, true);
                 File.WriteAllText(path, json);
-                Debug.Log($"Save successful: {path}");
+                if (!silent)
+                {
+                    Debug.Log($"Save successful: {path}");
+                }
             }
             catch (System.Exception e)
             {
@@ -165,7 +168,7 @@ namespace HorizonMini.Core
         {
             if (pause)
             {
-                SaveToFile();
+                SaveToFile(silent: true); // Don't log during auto-save
             }
         }
 
@@ -191,6 +194,7 @@ namespace HorizonMini.Core
         public string worldAuthor;
         public Vector3IntSerializable gridDimensions;
         public List<VolumeCellSerializable> volumes = new List<VolumeCellSerializable>();
+        public List<PropDataSerializable> props = new List<PropDataSerializable>();
         public ColorSerializable skyColor;
         public float gravity;
 
@@ -206,6 +210,11 @@ namespace HorizonMini.Core
             foreach (var vol in data.volumes)
             {
                 volumes.Add(new VolumeCellSerializable(vol));
+            }
+
+            foreach (var prop in data.props)
+            {
+                props.Add(new PropDataSerializable(prop));
             }
 
             skyColor = new ColorSerializable(data.skyColor);
@@ -224,6 +233,12 @@ namespace HorizonMini.Core
             foreach (var vol in volumes)
             {
                 data.volumes.Add(vol.ToVolumeCell());
+            }
+
+            data.props = new List<PropData>();
+            foreach (var prop in props)
+            {
+                data.props.Add(prop.ToPropData());
             }
 
             data.skyColor = skyColor.ToColor();
@@ -272,6 +287,80 @@ namespace HorizonMini.Core
         public Vector3Int ToVector3Int()
         {
             return new Vector3Int(x, y, z);
+        }
+    }
+
+    [System.Serializable]
+    public class PropDataSerializable
+    {
+        public string propId;
+        public string prefabName;
+        public Vector3Serializable position;
+        public QuaternionSerializable rotation;
+        public Vector3Serializable scale;
+
+        public PropDataSerializable() { }
+
+        public PropDataSerializable(PropData data)
+        {
+            propId = data.propId;
+            prefabName = data.prefabName;
+            position = new Vector3Serializable(data.position);
+            rotation = new QuaternionSerializable(data.rotation);
+            scale = new Vector3Serializable(data.scale);
+        }
+
+        public PropData ToPropData()
+        {
+            return new PropData
+            {
+                propId = propId,
+                prefabName = prefabName,
+                position = position.ToVector3(),
+                rotation = rotation.ToQuaternion(),
+                scale = scale.ToVector3()
+            };
+        }
+    }
+
+    [System.Serializable]
+    public class Vector3Serializable
+    {
+        public float x, y, z;
+
+        public Vector3Serializable() { }
+
+        public Vector3Serializable(Vector3 v)
+        {
+            x = v.x;
+            y = v.y;
+            z = v.z;
+        }
+
+        public Vector3 ToVector3()
+        {
+            return new Vector3(x, y, z);
+        }
+    }
+
+    [System.Serializable]
+    public class QuaternionSerializable
+    {
+        public float x, y, z, w;
+
+        public QuaternionSerializable() { }
+
+        public QuaternionSerializable(Quaternion q)
+        {
+            x = q.x;
+            y = q.y;
+            z = q.z;
+            w = q.w;
+        }
+
+        public Quaternion ToQuaternion()
+        {
+            return new Quaternion(x, y, z, w);
         }
     }
 

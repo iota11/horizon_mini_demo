@@ -12,22 +12,25 @@ namespace HorizonMini.Controllers
     {
         [Header("Settings")]
         [SerializeField] private Camera homeCamera;
-        [SerializeField] private Transform myWorldsRow;
-        [SerializeField] private Transform collectedWorldsRow;
-        [SerializeField] private float cardSpacing = 15f;
-        [SerializeField] private float cardScale = 0.5f;
-        [SerializeField] private float scrollSpeed = 5f;
+        [SerializeField] private Transform worldContainer;
+        [SerializeField] private float worldSpacing = 20f; // Spacing between worlds
+        [SerializeField] private float worldScale = 1f;
 
-        [Header("Row Positions")]
-        [SerializeField] private Vector3 myWorldsPosition = new Vector3(0, 5, 0);
-        [SerializeField] private Vector3 collectedWorldsPosition = new Vector3(0, -5, 0);
+        [Header("Camera Controls")]
+        [SerializeField] private float panSpeed = 0.5f;
+        [SerializeField] private float zoomSpeed = 2f;
+        [SerializeField] private float minZoom = 10f;
+        [SerializeField] private float maxZoom = 100f;
+        [SerializeField] private float cameraHeight = 20f;
 
         private AppRoot appRoot;
-        private List<WorldInstance> myWorldInstances = new List<WorldInstance>();
-        private List<WorldInstance> collectedWorldInstances = new List<WorldInstance>();
+        private List<WorldInstance> allWorldInstances = new List<WorldInstance>();
 
-        private int myWorldsIndex = 0;
-        private int collectedWorldsIndex = 0;
+        // Camera control state
+        private Vector3 cameraTargetPosition;
+        private float currentZoom = 30f;
+        private Vector2 touchStartPos;
+        private bool isDragging = false;
 
         private bool isActive = false;
 
@@ -40,21 +43,16 @@ namespace HorizonMini.Controllers
                 homeCamera = Camera.main;
             }
 
-            if (myWorldsRow == null)
+            if (worldContainer == null)
             {
-                GameObject row = new GameObject("MyWorldsRow");
-                myWorldsRow = row.transform;
-                myWorldsRow.SetParent(transform);
-                myWorldsRow.localPosition = myWorldsPosition;
+                GameObject container = new GameObject("WorldContainer");
+                worldContainer = container.transform;
+                worldContainer.SetParent(transform);
+                worldContainer.localPosition = Vector3.zero;
             }
 
-            if (collectedWorldsRow == null)
-            {
-                GameObject row = new GameObject("CollectedWorldsRow");
-                collectedWorldsRow = row.transform;
-                collectedWorldsRow.SetParent(transform);
-                collectedWorldsRow.localPosition = collectedWorldsPosition;
-            }
+            currentZoom = 30f;
+            cameraTargetPosition = Vector3.zero;
         }
 
         public void SetActive(bool active)
@@ -81,79 +79,63 @@ namespace HorizonMini.Controllers
         private void RefreshRows()
         {
             ClearAllWorlds();
-            LoadMyWorlds();
-            LoadCollectedWorlds();
+            LoadAllWorlds();
         }
 
-        private void LoadMyWorlds()
+        private void LoadAllWorlds()
         {
+            // Load all created worlds in a continuous line
             List<string> worldIds = appRoot.SaveService.GetCreatedWorldIds();
 
+            float currentX = 0f;
+
             for (int i = 0; i < worldIds.Count; i++)
             {
-                WorldInstance instance = appRoot.WorldLibrary.InstantiateWorld(worldIds[i], myWorldsRow);
+                WorldInstance instance = appRoot.WorldLibrary.InstantiateWorld(worldIds[i], worldContainer);
                 if (instance != null)
                 {
-                    instance.transform.localPosition = new Vector3(i * cardSpacing, 0, 0);
-                    instance.transform.localScale = Vector3.one * cardScale;
-                    instance.SetActivationLevel(ActivationLevel.Preloaded);
-                    myWorldInstances.Add(instance);
+                    // Position worlds in a continuous line
+                    instance.transform.localPosition = new Vector3(currentX, 0, 0);
+                    instance.transform.localScale = Vector3.one * worldScale;
+                    instance.SetActivationLevel(ActivationLevel.FullyActive);
+                    allWorldInstances.Add(instance);
+
+                    // Calculate next position based on world bounds
+                    Bounds worldBounds = instance.GetWorldBounds();
+                    currentX += worldBounds.size.x + worldSpacing;
+
+                    Debug.Log($"Loaded world '{instance.WorldData.worldTitle}' at x={instance.transform.localPosition.x}");
                 }
             }
 
             // If no worlds, show a placeholder message
-            if (myWorldInstances.Count == 0)
+            if (allWorldInstances.Count == 0)
             {
-                Debug.Log("No created worlds yet");
+                Debug.Log("No created worlds yet. Click Build to create your first world!");
             }
-        }
-
-        private void LoadCollectedWorlds()
-        {
-            List<string> worldIds = appRoot.SaveService.GetCollectedWorldIds();
-
-            for (int i = 0; i < worldIds.Count; i++)
+            else
             {
-                WorldInstance instance = appRoot.WorldLibrary.InstantiateWorld(worldIds[i], collectedWorldsRow);
-                if (instance != null)
-                {
-                    instance.transform.localPosition = new Vector3(i * cardSpacing, 0, 0);
-                    instance.transform.localScale = Vector3.one * cardScale;
-                    instance.SetActivationLevel(ActivationLevel.Preloaded);
-                    collectedWorldInstances.Add(instance);
-                }
-            }
-
-            // If no worlds, show a placeholder message
-            if (collectedWorldInstances.Count == 0)
-            {
-                Debug.Log("No collected worlds yet");
+                Debug.Log($"Loaded {allWorldInstances.Count} worlds in continuous layout");
             }
         }
 
         private void ClearAllWorlds()
         {
-            foreach (var instance in myWorldInstances)
+            foreach (var instance in allWorldInstances)
             {
                 if (instance != null)
                     Destroy(instance.gameObject);
             }
-            myWorldInstances.Clear();
-
-            foreach (var instance in collectedWorldInstances)
-            {
-                if (instance != null)
-                    Destroy(instance.gameObject);
-            }
-            collectedWorldInstances.Clear();
+            allWorldInstances.Clear();
         }
 
         private void PositionCamera()
         {
             if (homeCamera != null)
             {
-                homeCamera.transform.position = new Vector3(0, 0, -30);
-                homeCamera.transform.LookAt(Vector3.zero);
+                Vector3 targetPos = cameraTargetPosition + new Vector3(0, cameraHeight, -currentZoom);
+                homeCamera.transform.position = targetPos;
+                homeCamera.transform.LookAt(cameraTargetPosition);
             }
         }
 
@@ -163,103 +145,86 @@ namespace HorizonMini.Controllers
                 return;
 
             HandleInput();
+            UpdateCamera();
+        }
+
+        private void UpdateCamera()
+        {
+            if (homeCamera != null)
+            {
+                Vector3 targetPos = cameraTargetPosition + new Vector3(0, cameraHeight, -currentZoom);
+                homeCamera.transform.position = Vector3.Lerp(homeCamera.transform.position, targetPos, Time.deltaTime * 5f);
+                homeCamera.transform.LookAt(cameraTargetPosition);
+            }
         }
 
         private void HandleInput()
         {
-            // Keyboard controls for testing
-            // Arrow keys to navigate rows
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            // Mouse wheel zoom
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (Mathf.Abs(scroll) > 0.01f)
             {
-                ScrollMyWorldsLeft();
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                ScrollMyWorldsRight();
+                currentZoom -= scroll * zoomSpeed * 10f;
+                currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
             }
 
-            // Touch/swipe controls
+            // Touch/Mouse pan controls
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
 
-                if (touch.phase == TouchPhase.Ended)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    Vector2 delta = touch.deltaPosition;
+                    touchStartPos = touch.position;
+                    isDragging = true;
+                }
+                else if (touch.phase == TouchPhase.Moved && isDragging)
+                {
+                    Vector2 delta = touch.position - touchStartPos;
+                    touchStartPos = touch.position;
 
-                    // Determine which row was swiped
-                    Vector3 touchWorldPos = homeCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 10));
+                    // Pan camera
+                    cameraTargetPosition -= new Vector3(delta.x * panSpeed * Time.deltaTime, 0, 0);
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    isDragging = false;
 
-                    if (touchWorldPos.y > 0)
+                    // Check if it was a tap (not a drag)
+                    if ((touch.position - touchStartPos).magnitude < 50f)
                     {
-                        // My Worlds row
-                        if (delta.x > 50)
-                            ScrollMyWorldsLeft();
-                        else if (delta.x < -50)
-                            ScrollMyWorldsRight();
-                    }
-                    else
-                    {
-                        // Collected Worlds row
-                        if (delta.x > 50)
-                            ScrollCollectedWorldsLeft();
-                        else if (delta.x < -50)
-                            ScrollCollectedWorldsRight();
+                        HandleWorldSelection(touch.position);
                     }
                 }
             }
-
-            // Mouse click for selection
-            if (Input.GetMouseButtonDown(0))
+            // Mouse controls
+            else if (Input.GetMouseButtonDown(0))
             {
-                HandleWorldSelection(Input.mousePosition);
+                touchStartPos = Input.mousePosition;
+                isDragging = true;
+            }
+            else if (Input.GetMouseButton(0) && isDragging)
+            {
+                Vector2 currentPos = Input.mousePosition;
+                Vector2 delta = currentPos - touchStartPos;
+                touchStartPos = currentPos;
+
+                // Pan camera
+                cameraTargetPosition -= new Vector3(delta.x * panSpeed * Time.deltaTime, 0, 0);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                Vector2 currentPos = Input.mousePosition;
+                isDragging = false;
+
+                // Check if it was a click (not a drag)
+                if ((currentPos - touchStartPos).magnitude < 5f)
+                {
+                    HandleWorldSelection(currentPos);
+                }
             }
         }
 
-        private void ScrollMyWorldsLeft()
-        {
-            if (myWorldsIndex > 0)
-            {
-                myWorldsIndex--;
-                AnimateRowScroll(myWorldsRow, myWorldsIndex);
-            }
-        }
-
-        private void ScrollMyWorldsRight()
-        {
-            if (myWorldsIndex < myWorldInstances.Count - 1)
-            {
-                myWorldsIndex++;
-                AnimateRowScroll(myWorldsRow, myWorldsIndex);
-            }
-        }
-
-        private void ScrollCollectedWorldsLeft()
-        {
-            if (collectedWorldsIndex > 0)
-            {
-                collectedWorldsIndex--;
-                AnimateRowScroll(collectedWorldsRow, collectedWorldsIndex);
-            }
-        }
-
-        private void ScrollCollectedWorldsRight()
-        {
-            if (collectedWorldsIndex < collectedWorldInstances.Count - 1)
-            {
-                collectedWorldsIndex++;
-                AnimateRowScroll(collectedWorldsRow, collectedWorldsIndex);
-            }
-        }
-
-        private void AnimateRowScroll(Transform row, int index)
-        {
-            float targetX = -index * cardSpacing;
-            Vector3 targetPos = new Vector3(targetX, row.localPosition.y, row.localPosition.z);
-
-            // Simple immediate scroll (can be enhanced with lerp/animation)
-            row.localPosition = targetPos;
-        }
 
         private void HandleWorldSelection(Vector2 screenPos)
         {
@@ -280,26 +245,21 @@ namespace HorizonMini.Controllers
         {
             Debug.Log($"Selected world: {instance.WorldData.worldTitle}");
 
-            // Option 1: Enter browse mode at this world
-            // Option 2: Show detail panel
-            // For now, enter play mode directly
-            appRoot.EnterPlayMode(instance.WorldId);
-        }
-
-        // Public methods for UI buttons
-        public void OnMyWorldCardTapped(int index)
-        {
-            if (index >= 0 && index < myWorldInstances.Count)
+            // Enter Build mode to edit this world
+            string worldId = instance.WorldId;
+            if (!string.IsNullOrEmpty(worldId))
             {
-                OnWorldSelected(myWorldInstances[index]);
+                Debug.Log($"Opening world '{instance.WorldData.worldTitle}' (ID: {worldId}) for editing...");
+
+                // Pass worldId to Build scene via SceneTransitionData
+                HorizonMini.Core.SceneTransitionData.SetWorldToEdit(worldId);
+
+                // Load Build scene
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Build");
             }
-        }
-
-        public void OnCollectedWorldCardTapped(int index)
-        {
-            if (index >= 0 && index < collectedWorldInstances.Count)
+            else
             {
-                OnWorldSelected(collectedWorldInstances[index]);
+                Debug.LogError("WorldInstance has no WorldId!");
             }
         }
     }

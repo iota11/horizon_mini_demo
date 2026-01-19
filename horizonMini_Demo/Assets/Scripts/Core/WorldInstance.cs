@@ -53,17 +53,60 @@ namespace HorizonMini.Core
 
         public Bounds GetWorldBounds()
         {
+            // Default values if data is missing
+            float defaultCellSize = 8f;
+            Vector3Int defaultDimensions = new Vector3Int(2, 1, 2);
+
             if (worldData == null)
-                return new Bounds(transform.position, Vector3.one * 8f);
+            {
+                Vector3 defaultSize = new Vector3(
+                    defaultDimensions.x * defaultCellSize,
+                    defaultDimensions.y * defaultCellSize,
+                    defaultDimensions.z * defaultCellSize
+                );
+                return new Bounds(transform.position + defaultSize * 0.5f, defaultSize);
+            }
+
+            float cellSize = (gridSettings != null) ? gridSettings.cellSize : defaultCellSize;
 
             Vector3 size = new Vector3(
-                worldData.gridDimensions.x * gridSettings.cellSize,
-                worldData.gridDimensions.y * gridSettings.cellSize,
-                worldData.gridDimensions.z * gridSettings.cellSize
+                worldData.gridDimensions.x * cellSize,
+                worldData.gridDimensions.y * cellSize,
+                worldData.gridDimensions.z * cellSize
             );
 
             Vector3 center = transform.position + size * 0.5f;
             return new Bounds(center, size);
+        }
+
+        public Vector3 GetVolumeGridCenter()
+        {
+            // Returns the center of the volume grid in world space
+            // This is where the world should rotate around
+            float defaultCellSize = 8f;
+            Vector3Int defaultDimensions = new Vector3Int(2, 1, 2);
+
+            if (worldData == null)
+            {
+                Vector3 defaultSize = new Vector3(
+                    defaultDimensions.x * defaultCellSize,
+                    defaultDimensions.y * defaultCellSize,
+                    defaultDimensions.z * defaultCellSize
+                );
+                // Center is at half the size from the pivot (bottom-left-back corner)
+                return transform.position + defaultSize * 0.5f;
+            }
+
+            float cellSize = (gridSettings != null) ? gridSettings.cellSize : defaultCellSize;
+
+            Vector3 size = new Vector3(
+                worldData.gridDimensions.x * cellSize,
+                worldData.gridDimensions.y * cellSize,
+                worldData.gridDimensions.z * cellSize
+            );
+
+            // Center is at half the size from the pivot
+            return transform.position + size * 0.5f;
         }
 
         public void OnWorldEnter()

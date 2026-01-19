@@ -15,11 +15,12 @@ namespace HorizonMini.Controllers
         [SerializeField] private float worldSpacing = 20f;
         [SerializeField] private float swipeThreshold = 50f;
         [SerializeField] private float transitionSpeed = 5f;
-        [SerializeField] private float rotationSpeed = 100f;
+        [SerializeField] private float rotationSpeed = 1f; // Degrees per pixel
 
         [Header("Camera")]
         [SerializeField] private Camera browseCamera;
         [SerializeField] private float cameraDistance = 30f;
+        [SerializeField] private float cameraAngle = 45f; // 45 degree top-down view
 
         private AppRoot appRoot;
         private List<WorldMeta> worldFeed;
@@ -31,8 +32,9 @@ namespace HorizonMini.Controllers
 
         // Gesture tracking
         private Vector2 touchStartPos;
+        private Vector2 lastTouchPos;
         private bool isDragging = false;
-        private float currentRotation = 0f;
+        private float currentOrbitAngle = 0f; // Camera's orbit angle around world
         private float targetYPosition = 0f;
 
         private bool isActive = false;
@@ -164,10 +166,28 @@ namespace HorizonMini.Controllers
 
         private void PositionCamera()
         {
-            if (browseCamera != null && loadedWorlds[1] != null)
+            if (browseCamera != null && worldContainer != null)
             {
-                Vector3 worldCenter = loadedWorlds[1].GetWorldBounds().center;
-                browseCamera.transform.position = worldCenter + Vector3.back * cameraDistance;
+                Vector3 worldCenter = worldContainer.position;
+
+                if (loadedWorlds[1] != null)
+                {
+                    try
+                    {
+                        worldCenter = loadedWorlds[1].GetWorldBounds().center;
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogWarning($"Failed to get world bounds in PositionCamera: {e.Message}");
+                    }
+                }
+
+                // Calculate 45-degree top-down camera position
+                float angleRad = cameraAngle * Mathf.Deg2Rad;
+                float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
+                float verticalDist = cameraDistance * Mathf.Sin(angleRad);
+
+                browseCamera.transform.position = worldCenter + new Vector3(0, verticalDist, -horizontalDist);
                 browseCamera.transform.LookAt(worldCenter);
             }
         }
@@ -183,6 +203,21 @@ namespace HorizonMini.Controllers
 
         private void HandleInput()
         {
+            // Mouse wheel scrolling - vertical = switch worlds
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (Mathf.Abs(scroll) > 0.01f)
+            {
+                if (scroll > 0)
+                {
+                    NavigateToPrevious();
+                }
+                else
+                {
+                    NavigateToNext();
+                }
+                return; // Don't process other input when scrolling
+            }
+
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
@@ -191,22 +226,25 @@ namespace HorizonMini.Controllers
                 {
                     case TouchPhase.Began:
                         touchStartPos = touch.position;
+                        lastTouchPos = touch.position;
                         isDragging = true;
                         break;
 
                     case TouchPhase.Moved:
                         if (isDragging)
                         {
-                            Vector2 delta = touch.position - touchStartPos;
-                            HandleDrag(delta);
+                            Vector2 currentPos = touch.position;
+                            Vector2 frameDelta = currentPos - lastTouchPos;
+                            lastTouchPos = currentPos;
+                            HandleDrag(frameDelta);
                         }
                         break;
 
                     case TouchPhase.Ended:
                         if (isDragging)
                         {
-                            Vector2 delta = touch.position - touchStartPos;
-                            HandleSwipe(delta);
+                            Vector2 totalDelta = touch.position - touchStartPos;
+                            HandleSwipe(totalDelta);
                         }
                         isDragging = false;
                         break;
@@ -216,41 +254,66 @@ namespace HorizonMini.Controllers
             else if (Input.GetMouseButtonDown(0))
             {
                 touchStartPos = Input.mousePosition;
+                lastTouchPos = Input.mousePosition;
                 isDragging = true;
             }
             else if (Input.GetMouseButton(0) && isDragging)
             {
-                Vector2 delta = (Vector2)Input.mousePosition - touchStartPos;
-                HandleDrag(delta);
+                Vector2 currentPos = Input.mousePosition;
+                Vector2 frameDelta = currentPos - lastTouchPos;
+                lastTouchPos = currentPos;
+                HandleDrag(frameDelta);
             }
             else if (Input.GetMouseButtonUp(0) && isDragging)
             {
-                Vector2 delta = (Vector2)Input.mousePosition - touchStartPos;
-                HandleSwipe(delta);
+                Vector2 totalDelta = (Vector2)Input.mousePosition - touchStartPos;
+                HandleSwipe(totalDelta);
                 isDragging = false;
             }
         }
 
-        private void HandleDrag(Vector2 delta)
+        private void HandleDrag(Vector2 frameDelta)
         {
-            // Determine if vertical or horizontal swipe
-            float angle = Mathf.Abs(Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
-
-            if (angle > 45f && angle < 135f)
+            // Horizontal drag - orbit camera around current world's volume grid center
+            // frameDelta is per-frame movement, so we don't multiply by Time.deltaTime
+            if (Mathf.Abs(frameDelta.x) > Mathf.Abs(frameDelta.y))
             {
-                // Vertical drag - preview paging
-                // (Can add visual feedback here)
-            }
-            else
-            {
-                // Horizontal drag - rotate current world
-                if (loadedWorlds[1] != null)
+                // Horizontal movement dominates - rotate camera around world
+                if (loadedWorlds[1] != null && browseCamera != null)
                 {
-                    float rotationDelta = delta.x * Time.deltaTime * rotationSpeed * 0.1f;
-                    currentRotation += rotationDelta;
-                    loadedWorlds[1].transform.localRotation = Quaternion.Euler(0, currentRotation, 0);
+                    float rotationDelta = -frameDelta.x * rotationSpeed; // Negative to reverse direction
+                    currentOrbitAngle += rotationDelta;
+
+                    // Get volume grid center - this is the pivot point for camera orbit
+                    Vector3 gridCenter;
+                    try
+                    {
+                        gridCenter = loadedWorlds[1].GetVolumeGridCenter();
+                    }
+                    catch
+                    {
+                        return;
+                    }
+
+                    // Calculate new camera position orbiting around grid center
+                    // Keep the same distance and vertical angle (45 degrees)
+                    float angleRad = cameraAngle * Mathf.Deg2Rad;
+                    float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
+                    float verticalDist = cameraDistance * Mathf.Sin(angleRad);
+
+                    // Calculate position on orbit circle
+                    float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
+                    Vector3 offset = new Vector3(
+                        Mathf.Sin(orbitRad) * horizontalDist,
+                        verticalDist,
+                        -Mathf.Cos(orbitRad) * horizontalDist
+                    );
+
+                    browseCamera.transform.position = gridCenter + offset;
+                    browseCamera.transform.LookAt(gridCenter);
                 }
             }
+            // Vertical drag - just for visual feedback, actual navigation happens on swipe end
         }
 
         private void HandleSwipe(Vector2 delta)
@@ -302,8 +365,11 @@ namespace HorizonMini.Controllers
 
             UpdateWorldPositions();
             UpdateActivationLevels();
-            PositionCamera();
-            currentRotation = 0f;
+
+            // Reset orbit angle when switching worlds
+            currentOrbitAngle = 0f;
+
+            // Camera will smoothly move to new world in UpdateCameraPosition()
         }
 
         private void NavigateToPrevious()
@@ -332,8 +398,11 @@ namespace HorizonMini.Controllers
 
             UpdateWorldPositions();
             UpdateActivationLevels();
-            PositionCamera();
-            currentRotation = 0f;
+
+            // Reset orbit angle when switching worlds
+            currentOrbitAngle = 0f;
+
+            // Camera will smoothly move to new world in UpdateCameraPosition()
         }
 
         private void UpdateActivationLevels()
@@ -356,22 +425,44 @@ namespace HorizonMini.Controllers
 
         private void UpdateCameraPosition()
         {
-            if (browseCamera != null)
+            if (browseCamera != null && loadedWorlds[1] != null)
             {
-                // Smooth camera movement
-                Vector3 targetPos = worldContainer.position + Vector3.up * targetYPosition + Vector3.back * cameraDistance;
+                // Get current world's volume grid center
+                Vector3 gridCenter;
+                try
+                {
+                    gridCenter = loadedWorlds[1].GetVolumeGridCenter();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning($"Failed to get volume grid center: {e.Message}");
+                    return;
+                }
+
+                // Calculate camera position based on orbit angle
+                // Keep the same distance and vertical angle (45 degrees)
+                float angleRad = cameraAngle * Mathf.Deg2Rad;
+                float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
+                float verticalDist = cameraDistance * Mathf.Sin(angleRad);
+
+                // Calculate position on orbit circle
+                float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
+                Vector3 offset = new Vector3(
+                    Mathf.Sin(orbitRad) * horizontalDist,
+                    verticalDist,
+                    -Mathf.Cos(orbitRad) * horizontalDist
+                );
+
+                Vector3 targetPos = gridCenter + offset;
+
+                // Smooth camera movement when switching worlds
                 browseCamera.transform.position = Vector3.Lerp(
                     browseCamera.transform.position,
                     targetPos,
                     Time.deltaTime * transitionSpeed
                 );
 
-                // Look at current world
-                if (loadedWorlds[1] != null)
-                {
-                    Vector3 lookTarget = loadedWorlds[1].GetWorldBounds().center;
-                    browseCamera.transform.LookAt(lookTarget);
-                }
+                browseCamera.transform.LookAt(gridCenter);
             }
         }
 

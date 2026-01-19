@@ -20,6 +20,10 @@ namespace HorizonMini.UI
         [SerializeField] private Button createButton;
         [SerializeField] private Button cancelButton;
 
+        [Header("World Naming")]
+        [SerializeField] private TMP_InputField worldNameInput;
+        [SerializeField] private TextMeshProUGUI worldNameLabel;
+
         [Header("Size Controls")]
         [SerializeField] private Slider xSlider;
         [SerializeField] private Slider ySlider;
@@ -33,12 +37,36 @@ namespace HorizonMini.UI
         [SerializeField] private TextMeshProUGUI previewSizeText;
 
         private Vector3Int selectedSize = new Vector3Int(2, 1, 2);
+        private string worldName = "";
 
         private void Awake()
         {
             SetupSliders();
             SetupButtons();
+            SetupWorldNameInput();
             UpdateUI();
+        }
+
+        private void SetupWorldNameInput()
+        {
+            if (worldNameInput != null)
+            {
+                // Set default name
+                worldName = $"My World {System.DateTime.Now:MM-dd HH:mm}";
+                worldNameInput.text = worldName;
+
+                worldNameInput.onValueChanged.AddListener(OnWorldNameChanged);
+            }
+        }
+
+        private void OnWorldNameChanged(string newName)
+        {
+            worldName = newName;
+        }
+
+        public string GetWorldName()
+        {
+            return string.IsNullOrWhiteSpace(worldName) ? $"My World {System.DateTime.Now:MM-dd HH:mm}" : worldName;
         }
 
         private void SetupSliders()

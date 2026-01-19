@@ -36,23 +36,29 @@ namespace HorizonMini.Core
             }
 
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            // Don't use DontDestroyOnLoad - let each scene have its own AppRoot
+            // This avoids conflicts when switching between Main and Build scenes
+            // DontDestroyOnLoad(gameObject);
 
             InitializeSystems();
         }
 
         private void InitializeSystems()
         {
+            Debug.Log("AppRoot: InitializeSystems started");
+
             // Initialize save service first
             if (saveService == null)
             {
                 saveService = gameObject.AddComponent<SaveService>();
+                Debug.Log("AppRoot: Created SaveService");
             }
 
             // Initialize world library
             if (worldLibrary == null)
             {
                 worldLibrary = gameObject.AddComponent<WorldLibrary>();
+                Debug.Log("AppRoot: Created WorldLibrary");
             }
             worldLibrary.Initialize(saveService);
 
@@ -62,10 +68,16 @@ namespace HorizonMini.Core
             // Initialize UI
             if (uiRouter != null)
             {
+                Debug.Log("AppRoot: Initializing UIRouter");
                 uiRouter.Initialize(this);
+            }
+            else
+            {
+                Debug.LogError("AppRoot: UIRouter is null! Cannot initialize UI.");
             }
 
             // Start in Browse mode
+            Debug.Log("AppRoot: Starting in Browse mode");
             SwitchToMode(AppMode.Browse);
         }
 
@@ -94,6 +106,8 @@ namespace HorizonMini.Core
 
         public void SwitchToMode(AppMode mode)
         {
+            Debug.Log($"AppRoot: Switching to {mode} mode");
+
             // Disable all controllers
             if (browseController != null) browseController.SetActive(false);
             if (buildController != null) buildController.SetActive(false);
@@ -106,28 +120,48 @@ namespace HorizonMini.Core
                 case AppMode.Browse:
                     if (browseController != null)
                     {
+                        Debug.Log("Activating Browse mode");
                         browseController.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.LogError("BrowseController is null!");
                     }
                     break;
 
                 case AppMode.Build:
                     if (buildController != null)
                     {
+                        Debug.Log("Activating Build mode");
                         buildController.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.LogError("BuildController is null!");
                     }
                     break;
 
                 case AppMode.Home:
                     if (homeController != null)
                     {
+                        Debug.Log("Activating Home mode");
                         homeController.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.LogError("HomeController is null!");
                     }
                     break;
 
                 case AppMode.Play:
                     if (playController != null)
                     {
+                        Debug.Log("Activating Play mode");
                         playController.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.LogError("PlayController is null!");
                     }
                     break;
             }
@@ -136,6 +170,10 @@ namespace HorizonMini.Core
             if (uiRouter != null)
             {
                 uiRouter.OnModeChanged(mode);
+            }
+            else
+            {
+                Debug.LogWarning("UIRouter is null!");
             }
         }
 
