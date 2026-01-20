@@ -32,6 +32,9 @@ namespace HorizonMini.Controllers
         [Header("Asset References")]
         [SerializeField] private HorizonMini.Build.AssetCatalog assetCatalog;
 
+        [Header("Effects")]
+        [SerializeField] private HorizonMini.Build.PlacementEffectSettings effectSettings;
+
         [Header("Standalone Mode")]
         [SerializeField] private bool autoInitialize = true; // Auto-initialize in standalone mode
 
@@ -146,6 +149,12 @@ namespace HorizonMini.Controllers
                 placementSystem = gameObject.AddComponent<PlacementSystem>();
             }
             placementSystem.Initialize(this, buildCamera);
+
+            // Apply effect settings to placement system
+            if (effectSettings != null)
+            {
+                effectSettings.ApplyPickupSoundToPlacementSystem(placementSystem);
+            }
 
             if (gestureDetector == null)
             {
@@ -860,6 +869,17 @@ namespace HorizonMini.Controllers
             placedObj.assetId = asset.assetId;
             placedObj.sourceAsset = asset;
             placedObj.UpdateSavedTransform();
+
+            // Add placement effect
+            ObjectPlacementEffect effect = obj.AddComponent<ObjectPlacementEffect>();
+
+            // Apply settings if available
+            if (effectSettings != null)
+            {
+                effectSettings.ApplyToEffect(effect);
+            }
+
+            effect.PlayPlacementEffect(position);
 
             placedObjects.Add(placedObj);
         }

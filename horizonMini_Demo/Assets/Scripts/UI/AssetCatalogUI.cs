@@ -18,6 +18,7 @@ namespace HorizonMini.UI
         [SerializeField] private BuildController buildController;
         [SerializeField] private AssetCatalog assetCatalog;
         [SerializeField] private Camera buildCamera;
+        [SerializeField] private HorizonMini.Build.BuildCameraController buildCameraController;
 
         [Header("UI Elements")]
         [SerializeField] private GameObject panel;
@@ -34,12 +35,17 @@ namespace HorizonMini.UI
 
         private Dictionary<AssetCategory, GameObject> categoryTabs = new Dictionary<AssetCategory, GameObject>();
         private List<GameObject> currentAssetItems = new List<GameObject>();
-        private AssetCategory currentCategory = AssetCategory.Furniture;
+        private AssetCategory currentCategory = AssetCategory.Trees;
         private bool isExpanded = true;
         private RectTransform panelRect;
         private float expandedYPosition; // Expanded position (anchoredPosition.y)
         private float collapsedYPosition; // Collapsed position (moved down to hide content)
         private Coroutine animationCoroutine;
+
+        // Camera viewport adjustment
+        private Rect originalViewportRect;
+        private Coroutine viewportAnimationCoroutine;
+        private float originalCameraDistance;
 
         private void Start()
         {
@@ -82,6 +88,28 @@ namespace HorizonMini.UI
             if (toggleButton != null)
             {
                 toggleButton.onClick.AddListener(ToggleExpandCollapse);
+            }
+
+            // Auto-find BuildCameraController if not assigned
+            if (buildCameraController == null && buildController != null)
+            {
+                buildCameraController = buildController.GetComponent<HorizonMini.Build.BuildCameraController>();
+                if (buildCameraController != null)
+                {
+                    Debug.Log("AssetCatalogUI: Auto-assigned BuildCameraController reference");
+                }
+            }
+
+            // Store original camera viewport and distance
+            if (buildCamera != null)
+            {
+                originalViewportRect = buildCamera.rect;
+
+                // Store original camera distance from BuildCameraController
+                if (buildCameraController != null)
+                {
+                    originalCameraDistance = buildCameraController.GetCurrentDistance();
+                }
             }
 
             if (assetCatalog != null)
@@ -138,6 +166,7 @@ namespace HorizonMini.UI
                 if (tabText != null)
                 {
                     tabText.text = category.ToString();
+                    tabText.color = new Color(0.5f, 0.5f, 0.5f, 1f); // Gray color
                 }
 
                 Button tabButton = tabObj.GetComponent<Button>();
@@ -323,6 +352,12 @@ namespace HorizonMini.UI
             // Start collapse animation - move panel down
             animationCoroutine = StartCoroutine(AnimatePanelPosition(collapsedYPosition, false));
 
+            // Restore camera viewport and distance when collapsing
+            if (buildCamera != null && viewportAnimationCoroutine == null)
+            {
+                viewportAnimationCoroutine = StartCoroutine(AnimateCameraViewport(originalViewportRect, originalCameraDistance));
+            }
+
             // Update button text
             UpdateToggleButtonText("▲ Expand");
 
@@ -343,6 +378,28 @@ namespace HorizonMini.UI
 
             // Start expand animation - move panel up
             animationCoroutine = StartCoroutine(AnimatePanelPosition(expandedYPosition, true));
+
+            // Adjust camera viewport and zoom in when expanding
+            if (buildCamera != null && viewportAnimationCoroutine == null && panelRect != null)
+            {
+                // Calculate new viewport rect that excludes the panel area
+                Canvas canvas = panelRect.GetComponentInParent<Canvas>();
+                if (canvas != null)
+                {
+                    RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+                    float screenHeight = canvasRect.rect.height;
+                    float panelHeightRatio = panelRect.anchorMax.y - panelRect.anchorMin.y; // e.g., 0.4
+
+                    // Adjust viewport to only render the top portion (1.0 - panelHeightRatio)
+                    Rect newViewport = new Rect(0, panelHeightRatio, 1, 1 - panelHeightRatio);
+
+                    // Zoom in by 1/3 to compensate for smaller viewport
+                    float zoomFactor = 2f / 3f; // Reduce distance by 1/3
+                    float newDistance = originalCameraDistance * zoomFactor;
+
+                    viewportAnimationCoroutine = StartCoroutine(AnimateCameraViewport(newViewport, newDistance));
+                }
+            }
 
             // Update button text
             UpdateToggleButtonText("▼ Collapse");
@@ -401,6 +458,48 @@ namespace HorizonMini.UI
             // Ensure final position is exact
             panelRect.anchoredPosition = targetPos;
             animationCoroutine = null;
+        }
+
+        private System.Collections.IEnumerator AnimateCameraViewport(Rect targetViewport, float targetDistance)
+        {
+            Rect startViewport = buildCamera.rect;
+            float startDistance = buildCameraController != null ? buildCameraController.GetCurrentDistance() : originalCameraDistance;
+            float elapsed = 0f;
+
+            while (elapsed < animationDuration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / animationDuration);
+
+                // Smooth easing
+                t = t * t * (3f - 2f * t); // Smoothstep
+
+                // Lerp viewport rect
+                buildCamera.rect = new Rect(
+                    Mathf.Lerp(startViewport.x, targetViewport.x, t),
+                    Mathf.Lerp(startViewport.y, targetViewport.y, t),
+                    Mathf.Lerp(startViewport.width, targetViewport.width, t),
+                    Mathf.Lerp(startViewport.height, targetViewport.height, t)
+                );
+
+                // Lerp camera distance
+                if (buildCameraController != null)
+                {
+                    float currentDistance = Mathf.Lerp(startDistance, targetDistance, t);
+                    buildCameraController.SetDistance(currentDistance, true);
+                }
+
+                yield return null;
+            }
+
+            // Ensure final viewport and distance are exact
+            buildCamera.rect = targetViewport;
+            if (buildCameraController != null)
+            {
+                buildCameraController.SetDistance(targetDistance, true);
+            }
+
+            viewportAnimationCoroutine = null;
         }
 
         private void UpdateToggleButtonText(string text)

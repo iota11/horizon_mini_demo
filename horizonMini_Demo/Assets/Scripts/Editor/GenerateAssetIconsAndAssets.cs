@@ -22,7 +22,7 @@ namespace HorizonMini.Editor
         private string assetOutputPath = "Assets/ScriptableObjects/PlaceableAssets/CubeWorld";
 
         private int iconSize = 256;
-        private AssetCategory defaultCategory = AssetCategory.Structures;
+        private AssetCategory defaultCategory = AssetCategory.Blocks;
         private bool updateExistingAssets = true; // Update existing assets instead of creating new ones
         private Vector2 scrollPos;
         private int totalPrefabs = 0;

@@ -13,8 +13,10 @@ namespace HorizonMini.Controllers
         [Header("Settings")]
         [SerializeField] private Camera homeCamera;
         [SerializeField] private Transform worldContainer;
-        [SerializeField] private float worldSpacing = 20f; // Spacing between worlds
+        [SerializeField] private float worldSpacing = 20f; // Vertical spacing between rows
         [SerializeField] private float worldScale = 1f;
+        [SerializeField] private float orthographicSize = 10f; // Camera orthographic size
+        [SerializeField] private float rowWidth = 32f; // Width of one row (4 volume grids * 8 = 32)
 
         [Header("Camera Controls")]
         [SerializeField] private float panSpeed = 0.5f;
@@ -41,6 +43,13 @@ namespace HorizonMini.Controllers
             if (homeCamera == null)
             {
                 homeCamera = Camera.main;
+            }
+
+            // Set camera to orthographic
+            if (homeCamera != null)
+            {
+                homeCamera.orthographic = true;
+                homeCamera.orthographicSize = orthographicSize;
             }
 
             if (worldContainer == null)
@@ -84,27 +93,41 @@ namespace HorizonMini.Controllers
 
         private void LoadAllWorlds()
         {
-            // Load all created worlds in a continuous line
+            // Load all created worlds in grid-based vertical rows
             List<string> worldIds = appRoot.SaveService.GetCreatedWorldIds();
 
             float currentX = 0f;
+            float currentY = 0f;
+            float rowMaxHeight = 0f;
 
             for (int i = 0; i < worldIds.Count; i++)
             {
                 WorldInstance instance = appRoot.WorldLibrary.InstantiateWorld(worldIds[i], worldContainer);
                 if (instance != null)
                 {
-                    // Position worlds in a continuous line
-                    instance.transform.localPosition = new Vector3(currentX, 0, 0);
+                    Bounds worldBounds = instance.GetWorldBounds();
+                    float worldWidth = worldBounds.size.x;
+
+                    // Check if world fits in current row
+                    if (currentX > 0 && currentX + worldWidth > rowWidth)
+                    {
+                        // Move to next row
+                        currentX = 0f;
+                        currentY -= (rowMaxHeight + worldSpacing);
+                        rowMaxHeight = 0f;
+                    }
+
+                    // Position world at current slot
+                    instance.transform.localPosition = new Vector3(currentX, currentY, 0);
                     instance.transform.localScale = Vector3.one * worldScale;
                     instance.SetActivationLevel(ActivationLevel.FullyActive);
                     allWorldInstances.Add(instance);
 
-                    // Calculate next position based on world bounds
-                    Bounds worldBounds = instance.GetWorldBounds();
-                    currentX += worldBounds.size.x + worldSpacing;
+                    // Update row tracking
+                    rowMaxHeight = Mathf.Max(rowMaxHeight, worldBounds.size.y);
+                    currentX += worldWidth + worldSpacing;
 
-                    Debug.Log($"Loaded world '{instance.WorldData.worldTitle}' at x={instance.transform.localPosition.x}");
+                    Debug.Log($"Loaded world '{instance.WorldData.worldTitle}' at ({instance.transform.localPosition.x}, {instance.transform.localPosition.y})");
                 }
             }
 
@@ -115,7 +138,7 @@ namespace HorizonMini.Controllers
             }
             else
             {
-                Debug.Log($"Loaded {allWorldInstances.Count} worlds in continuous layout");
+                Debug.Log($"Loaded {allWorldInstances.Count} worlds in grid-based vertical layout");
             }
         }
 
@@ -135,7 +158,8 @@ namespace HorizonMini.Controllers
             {
                 Vector3 targetPos = cameraTargetPosition + new Vector3(0, cameraHeight, -currentZoom);
                 homeCamera.transform.position = targetPos;
-                homeCamera.transform.LookAt(cameraTargetPosition);
+                // Fixed rotation - 45 degree downward angle
+                homeCamera.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
             }
         }
 
@@ -154,7 +178,10 @@ namespace HorizonMini.Controllers
             {
                 Vector3 targetPos = cameraTargetPosition + new Vector3(0, cameraHeight, -currentZoom);
                 homeCamera.transform.position = Vector3.Lerp(homeCamera.transform.position, targetPos, Time.deltaTime * 5f);
-                homeCamera.transform.LookAt(cameraTargetPosition);
+
+                // Fixed rotation - camera always looks forward/down at same angle
+                // Don't use LookAt during pan to avoid camera shaking
+                homeCamera.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
             }
         }
 
@@ -183,8 +210,8 @@ namespace HorizonMini.Controllers
                     Vector2 delta = touch.position - touchStartPos;
                     touchStartPos = touch.position;
 
-                    // Pan camera
-                    cameraTargetPosition -= new Vector3(delta.x * panSpeed * Time.deltaTime, 0, 0);
+                    // Pan camera vertically
+                    cameraTargetPosition -= new Vector3(0, delta.y * panSpeed * Time.deltaTime, 0);
                 }
                 else if (touch.phase == TouchPhase.Ended)
                 {
@@ -209,8 +236,8 @@ namespace HorizonMini.Controllers
                 Vector2 delta = currentPos - touchStartPos;
                 touchStartPos = currentPos;
 
-                // Pan camera
-                cameraTargetPosition -= new Vector3(delta.x * panSpeed * Time.deltaTime, 0, 0);
+                // Pan camera vertically
+                cameraTargetPosition -= new Vector3(0, delta.y * panSpeed * Time.deltaTime, 0);
             }
             else if (Input.GetMouseButtonUp(0))
             {

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using HorizonMini.Core;
 using HorizonMini.Data;
+using HorizonMini.UI;
 
 namespace HorizonMini.Controllers
 {
@@ -12,15 +13,32 @@ namespace HorizonMini.Controllers
     {
         [Header("Settings")]
         [SerializeField] private Transform worldContainer;
-        [SerializeField] private float worldSpacing = 20f;
+        [SerializeField] private float worldSpacing = 100f; // Large fixed spacing between worlds
         [SerializeField] private float swipeThreshold = 50f;
         [SerializeField] private float transitionSpeed = 5f;
         [SerializeField] private float rotationSpeed = 1f; // Degrees per pixel
+
+        [Header("Scroll Settings")]
+        [SerializeField] private float scrollSensitivity = 0.02f; // How much camera moves per pixel drag
+        [SerializeField] private float snapThreshold = 0.3f; // 30% of worldSpacing to trigger snap to next
+        [SerializeField] private float snapSpeed = 0.15f; // SmoothDamp time for snap animation
+        [SerializeField] private float velocityThreshold = 5f; // Minimum velocity to trigger snap
+
+        [Header("Auto Rotation")]
+        [SerializeField] private bool enableAutoRotation = true;
+        [SerializeField] private float autoRotationSpeed = 5f; // Degrees per second
+        [SerializeField] private float autoRotationDelay = 1f; // Seconds of inactivity before auto-rotation starts
 
         [Header("Camera")]
         [SerializeField] private Camera browseCamera;
         [SerializeField] private float cameraDistance = 30f;
         [SerializeField] private float cameraAngle = 45f; // 45 degree top-down view
+        [SerializeField] private float orthographicSize = 10f; // Camera orthographic size
+        [SerializeField] private float minOrthographicSize = 5f; // Minimum size for auto-zoom (zoom in)
+        [SerializeField] private float maxOrthographicSize = 20f; // Maximum size for auto-zoom (zoom out)
+        [SerializeField] private float cameraZoomSpeed = 0.2f; // SmoothDamp time for camera zoom
+        [SerializeField] private float scrollWheelZoomSpeed = 2f; // How much scroll wheel affects zoom
+        [SerializeField] private float pinchZoomSpeed = 0.5f; // How much pinch affects zoom
 
         private AppRoot appRoot;
         private List<WorldMeta> worldFeed;
@@ -36,6 +54,28 @@ namespace HorizonMini.Controllers
         private bool isDragging = false;
         private float currentOrbitAngle = 0f; // Camera's orbit angle around world
         private float targetYPosition = 0f;
+
+        // Vertical scroll tracking for feed-style browsing
+        private float currentScrollOffset = 0f; // Current Y offset from snapped position
+        private float scrollVelocity = 0f; // Vertical scroll velocity
+        private bool isSnapping = false; // Currently animating snap to world
+        private float snapAnimationVelocity = 0f; // For SmoothDamp
+        private float snapToTargetOffset = 0f; // Target offset for snap animation
+        private float lastDragTime = 0f;
+
+        // Camera zoom tracking (orthographic size)
+        private float currentOrthographicSize = 10f;
+        private float targetOrthographicSize = 10f;
+        private float orthographicSizeVelocity = 0f;
+        private float manualZoomOffset = 0f; // User's manual zoom adjustment
+
+        // Pinch gesture tracking
+        private float lastPinchDistance = 0f;
+        private bool isPinching = false;
+
+        // Auto rotation tracking
+        private bool isAutoRotating = false;
+        private float lastInteractionTime = 0f;
 
         private bool isActive = false;
 
@@ -53,6 +93,13 @@ namespace HorizonMini.Controllers
             if (browseCamera == null)
             {
                 browseCamera = Camera.main;
+            }
+
+            // Set camera to orthographic
+            if (browseCamera != null)
+            {
+                browseCamera.orthographic = true;
+                browseCamera.orthographicSize = orthographicSize;
             }
         }
 
@@ -93,6 +140,11 @@ namespace HorizonMini.Controllers
 
             currentIndex = Mathf.Clamp(currentIndex, 0, worldFeed.Count - 1);
             LoadWorldsAroundIndex(currentIndex);
+
+            // Calculate optimal orthographic size for initial world
+            CalculateOptimalOrthographicSize();
+            currentOrthographicSize = targetOrthographicSize; // Set immediately for first world
+
             PositionCamera();
         }
 
@@ -152,16 +204,35 @@ namespace HorizonMini.Controllers
 
         private void UpdateWorldPositions()
         {
+            // Position worlds at fixed Y coordinates based on their slot index
+            // World positions are based on currentIndex, not slot position
             for (int i = 0; i < loadedWorlds.Length; i++)
             {
-                if (loadedWorlds[i] != null)
+                if (loadedWorlds[i] != null && loadedIndices[i] >= 0)
                 {
-                    float yPos = (i - 1) * worldSpacing; // -1, 0, +1
-                    loadedWorlds[i].transform.localPosition = new Vector3(0, yPos, 0);
+                    // Calculate Y position based on world index in feed
+                    float yPos = loadedIndices[i] * worldSpacing;
+
+                    // Get the volume grid center to align all worlds by their centers
+                    Vector3 volumeCenter;
+                    try
+                    {
+                        volumeCenter = loadedWorlds[i].GetVolumeGridCenter();
+                    }
+                    catch
+                    {
+                        volumeCenter = loadedWorlds[i].transform.position;
+                    }
+
+                    // Calculate offset: move world so its volume center is at (0, yPos, 0)
+                    Vector3 currentWorldPos = loadedWorlds[i].transform.position;
+                    Vector3 offsetFromPivotToCenter = volumeCenter - currentWorldPos;
+
+                    // Position world so volume center ends up at target position
+                    Vector3 targetCenterPos = new Vector3(0, yPos, 0);
+                    loadedWorlds[i].transform.position = targetCenterPos - offsetFromPivotToCenter;
                 }
             }
-
-            targetYPosition = 0f;
         }
 
         private void PositionCamera()
@@ -198,24 +269,30 @@ namespace HorizonMini.Controllers
                 return;
 
             HandleInput();
+            UpdateAutoRotation();
             UpdateCameraPosition();
         }
 
         private void HandleInput()
         {
-            // Mouse wheel scrolling - vertical = switch worlds
+            // Mouse wheel zoom
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (Mathf.Abs(scroll) > 0.01f)
             {
-                if (scroll > 0)
-                {
-                    NavigateToPrevious();
-                }
-                else
-                {
-                    NavigateToNext();
-                }
+                HandleScrollWheelZoom(scroll);
                 return; // Don't process other input when scrolling
+            }
+
+            // Handle pinch gesture (two finger touch)
+            if (Input.touchCount == 2)
+            {
+                HandlePinchGesture();
+                return; // Don't process other input when pinching
+            }
+            else if (isPinching)
+            {
+                // Pinch ended
+                isPinching = false;
             }
 
             if (Input.touchCount > 0)
@@ -272,69 +349,179 @@ namespace HorizonMini.Controllers
             }
         }
 
+        private void HandleScrollWheelZoom(float scrollDelta)
+        {
+            // Record interaction
+            RecordInteraction();
+
+            // Scroll up = zoom in (decrease size), scroll down = zoom out (increase size)
+            manualZoomOffset -= scrollDelta * scrollWheelZoomSpeed;
+            manualZoomOffset = Mathf.Clamp(manualZoomOffset,
+                minOrthographicSize - orthographicSize,
+                maxOrthographicSize - orthographicSize);
+        }
+
+        private void HandlePinchGesture()
+        {
+            // Record interaction
+            RecordInteraction();
+
+            Touch touch0 = Input.GetTouch(0);
+            Touch touch1 = Input.GetTouch(1);
+
+            // Calculate current distance between touches
+            float currentPinchDistance = Vector2.Distance(touch0.position, touch1.position);
+
+            if (!isPinching)
+            {
+                // Start pinching
+                isPinching = true;
+                lastPinchDistance = currentPinchDistance;
+            }
+            else
+            {
+                // Calculate pinch delta
+                float pinchDelta = currentPinchDistance - lastPinchDistance;
+
+                // Pinch in = zoom in (decrease size), pinch out = zoom out (increase size)
+                manualZoomOffset -= pinchDelta * pinchZoomSpeed * 0.01f;
+                manualZoomOffset = Mathf.Clamp(manualZoomOffset,
+                    minOrthographicSize - orthographicSize,
+                    maxOrthographicSize - orthographicSize);
+
+                lastPinchDistance = currentPinchDistance;
+            }
+        }
+
         private void HandleDrag(Vector2 frameDelta)
         {
-            // Horizontal drag - orbit camera around current world's volume grid center
-            // frameDelta is per-frame movement, so we don't multiply by Time.deltaTime
+            // Record interaction
+            RecordInteraction();
+
+            // Determine if horizontal or vertical drag dominates
             if (Mathf.Abs(frameDelta.x) > Mathf.Abs(frameDelta.y))
             {
                 // Horizontal movement dominates - rotate camera around world
+                isSnapping = false; // Cancel any ongoing snap animation
+
                 if (loadedWorlds[1] != null && browseCamera != null)
                 {
                     float rotationDelta = -frameDelta.x * rotationSpeed; // Negative to reverse direction
                     currentOrbitAngle += rotationDelta;
 
-                    // Get volume grid center - this is the pivot point for camera orbit
-                    Vector3 gridCenter;
-                    try
-                    {
-                        gridCenter = loadedWorlds[1].GetVolumeGridCenter();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-
-                    // Calculate new camera position orbiting around grid center
-                    // Keep the same distance and vertical angle (45 degrees)
-                    float angleRad = cameraAngle * Mathf.Deg2Rad;
-                    float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
-                    float verticalDist = cameraDistance * Mathf.Sin(angleRad);
-
-                    // Calculate position on orbit circle
-                    float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
-                    Vector3 offset = new Vector3(
-                        Mathf.Sin(orbitRad) * horizontalDist,
-                        verticalDist,
-                        -Mathf.Cos(orbitRad) * horizontalDist
-                    );
-
-                    browseCamera.transform.position = gridCenter + offset;
-                    browseCamera.transform.LookAt(gridCenter);
+                    // Immediately update camera for responsive rotation
+                    UpdateCameraOrbitPosition();
                 }
             }
-            // Vertical drag - just for visual feedback, actual navigation happens on swipe end
+            else
+            {
+                // Vertical movement dominates - scroll through worlds (feed-style)
+                isSnapping = false; // Cancel any ongoing snap animation
+
+                // Update scroll offset based on drag (negative because drag down = see previous world)
+                float scrollDelta = -frameDelta.y * scrollSensitivity;
+                currentScrollOffset += scrollDelta;
+
+                // Clamp to prevent scrolling beyond bounds
+                float maxScroll = (currentIndex < worldFeed.Count - 1) ? worldSpacing : 0;
+                float minScroll = (currentIndex > 0) ? -worldSpacing : 0;
+                currentScrollOffset = Mathf.Clamp(currentScrollOffset, minScroll, maxScroll);
+
+                // Calculate velocity for later snap decision
+                float deltaTime = Time.time - lastDragTime;
+                if (deltaTime > 0)
+                {
+                    scrollVelocity = scrollDelta / deltaTime;
+                }
+                lastDragTime = Time.time;
+
+                // Camera will update in UpdateCameraPosition with scroll offset
+            }
         }
 
         private void HandleSwipe(Vector2 delta)
         {
-            if (delta.magnitude < swipeThreshold)
-                return;
+            // New feed-style snap logic
+            // Decide whether to snap to next/previous world or return to current
 
-            float angle = Mathf.Abs(Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
+            // Check if scrolled enough distance or has enough velocity
+            float scrollDistance = Mathf.Abs(currentScrollOffset);
+            float absVelocity = Mathf.Abs(scrollVelocity);
 
-            // Vertical swipe = page
-            if (angle > 45f && angle < 135f)
+            bool shouldSnapToNext = false;
+            bool shouldSnapToPrevious = false;
+
+            // Snap based on distance threshold
+            if (scrollDistance > worldSpacing * snapThreshold)
             {
-                if (delta.y > 0)
+                if (currentScrollOffset > 0)
                 {
-                    // Swipe down = previous world
-                    NavigateToPrevious();
+                    shouldSnapToNext = (currentIndex < worldFeed.Count - 1);
                 }
                 else
                 {
-                    // Swipe up = next world
-                    NavigateToNext();
+                    shouldSnapToPrevious = (currentIndex > 0);
+                }
+            }
+            // Or snap based on velocity (flick gesture)
+            else if (absVelocity > velocityThreshold)
+            {
+                if (scrollVelocity > 0)
+                {
+                    shouldSnapToNext = (currentIndex < worldFeed.Count - 1);
+                }
+                else
+                {
+                    shouldSnapToPrevious = (currentIndex > 0);
+                }
+            }
+
+            // Execute snap
+            if (shouldSnapToNext)
+            {
+                NavigateToNext();
+            }
+            else if (shouldSnapToPrevious)
+            {
+                NavigateToPrevious();
+            }
+            else
+            {
+                // Snap back to current world
+                isSnapping = true;
+                snapToTargetOffset = 0f; // Snap back to zero offset
+            }
+
+            // Reset velocity
+            scrollVelocity = 0f;
+        }
+
+        private void RecordInteraction()
+        {
+            lastInteractionTime = Time.time;
+            isAutoRotating = false;
+        }
+
+        private void UpdateAutoRotation()
+        {
+            if (!enableAutoRotation) return;
+
+            // Check if enough time has passed since last interaction
+            float timeSinceInteraction = Time.time - lastInteractionTime;
+
+            if (timeSinceInteraction >= autoRotationDelay && !isSnapping)
+            {
+                isAutoRotating = true;
+            }
+
+            // Apply auto rotation
+            if (isAutoRotating)
+            {
+                currentOrbitAngle += autoRotationSpeed * Time.deltaTime;
+                // Keep angle in 0-360 range
+                if (currentOrbitAngle >= 360f)
+                {
+                    currentOrbitAngle -= 360f;
                 }
             }
         }
@@ -343,6 +530,14 @@ namespace HorizonMini.Controllers
         {
             if (currentIndex >= worldFeed.Count - 1)
                 return;
+
+            // Before changing index, compensate scrollOffset
+            // Camera is currently at: oldIndex * spacing + currentScrollOffset
+            // After increment: newIndex * spacing + newScrollOffset
+            // We want camera to stay in same Y position, so:
+            // oldIndex * spacing + currentScrollOffset = newIndex * spacing + newScrollOffset
+            // newScrollOffset = currentScrollOffset - worldSpacing
+            currentScrollOffset -= worldSpacing;
 
             currentIndex++;
 
@@ -363,19 +558,34 @@ namespace HorizonMini.Controllers
             }
             LoadWorldAtSlot(2, newNextIndex);
 
+            // Update world positions (worlds stay at their fixed positions)
             UpdateWorldPositions();
             UpdateActivationLevels();
 
-            // Reset orbit angle when switching worlds
-            currentOrbitAngle = 0f;
+            // Calculate optimal orthographic size for new world
+            CalculateOptimalOrthographicSize();
 
-            // Camera will smoothly move to new world in UpdateCameraPosition()
+            // Reset orbit and snap camera to new world center (scrollOffset = 0)
+            currentOrbitAngle = 0f;
+            isSnapping = true;
+            snapToTargetOffset = 0f;
+
+            // Start auto rotation immediately after switching
+            isAutoRotating = true;
         }
 
         private void NavigateToPrevious()
         {
             if (currentIndex <= 0)
                 return;
+
+            // Before changing index, compensate scrollOffset
+            // Camera is currently at: oldIndex * spacing + currentScrollOffset
+            // After decrement: newIndex * spacing + newScrollOffset
+            // We want camera to stay in same Y position, so:
+            // oldIndex * spacing + currentScrollOffset = newIndex * spacing + newScrollOffset
+            // newScrollOffset = currentScrollOffset + worldSpacing
+            currentScrollOffset += worldSpacing;
 
             currentIndex--;
 
@@ -396,13 +606,20 @@ namespace HorizonMini.Controllers
             }
             LoadWorldAtSlot(0, newPrevIndex);
 
+            // Update world positions (worlds stay at their fixed positions)
             UpdateWorldPositions();
             UpdateActivationLevels();
 
-            // Reset orbit angle when switching worlds
-            currentOrbitAngle = 0f;
+            // Calculate optimal orthographic size for new world
+            CalculateOptimalOrthographicSize();
 
-            // Camera will smoothly move to new world in UpdateCameraPosition()
+            // Reset orbit and snap camera to new world center (scrollOffset = 0)
+            currentOrbitAngle = 0f;
+            isSnapping = true;
+            snapToTargetOffset = 0f;
+
+            // Start auto rotation immediately after switching
+            isAutoRotating = true;
         }
 
         private void UpdateActivationLevels()
@@ -423,47 +640,155 @@ namespace HorizonMini.Controllers
             }
         }
 
+
+        private void CalculateOptimalOrthographicSize()
+        {
+            if (loadedWorlds[1] == null) return;
+
+            try
+            {
+                // Get world bounds
+                Bounds worldBounds = loadedWorlds[1].GetWorldBounds();
+
+                // For orthographic camera, size is based on how much we want to show
+                // Orthographic size = half of the vertical viewing area
+                // We want to fit the world with some margin
+                float worldSizeXZ = Mathf.Max(worldBounds.size.x, worldBounds.size.z);
+
+                // Add 20% margin and divide by aspect ratio to get proper size
+                float margin = 1.2f;
+                targetOrthographicSize = Mathf.Clamp(worldSizeXZ * margin * 0.5f, minOrthographicSize, maxOrthographicSize);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning($"Failed to calculate optimal orthographic size: {e.Message}");
+                targetOrthographicSize = orthographicSize; // Fallback to default
+            }
+        }
+
+
+
         private void UpdateCameraPosition()
         {
-            if (browseCamera != null && loadedWorlds[1] != null)
+            if (browseCamera == null)
+                return;
+
+            // Handle snap animation
+            if (isSnapping)
             {
-                // Get current world's volume grid center
-                Vector3 gridCenter;
+                currentScrollOffset = Mathf.SmoothDamp(
+                    currentScrollOffset,
+                    snapToTargetOffset,
+                    ref snapAnimationVelocity,
+                    snapSpeed
+                );
+
+                // Stop snapping when close enough to target
+                if (Mathf.Abs(currentScrollOffset - snapToTargetOffset) < 0.01f)
+                {
+                    currentScrollOffset = snapToTargetOffset;
+                    isSnapping = false;
+                    snapAnimationVelocity = 0f;
+                }
+            }
+
+            // Calculate camera target Y position (in world space)
+            // currentIndex * worldSpacing gives the Y position of current world
+            float targetWorldY = currentIndex * worldSpacing;
+            float cameraTargetY = targetWorldY + currentScrollOffset;
+
+            // Get current world's XZ center (if available)
+            Vector3 lookAtPoint = new Vector3(0, cameraTargetY, 0);
+            if (loadedWorlds[1] != null)
+            {
                 try
                 {
-                    gridCenter = loadedWorlds[1].GetVolumeGridCenter();
+                    Vector3 gridCenter = loadedWorlds[1].GetVolumeGridCenter();
+                    lookAtPoint.x = gridCenter.x;
+                    lookAtPoint.z = gridCenter.z;
                 }
-                catch (System.Exception e)
+                catch
                 {
-                    Debug.LogWarning($"Failed to get volume grid center: {e.Message}");
-                    return;
+                    // Use default (0, 0)
                 }
-
-                // Calculate camera position based on orbit angle
-                // Keep the same distance and vertical angle (45 degrees)
-                float angleRad = cameraAngle * Mathf.Deg2Rad;
-                float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
-                float verticalDist = cameraDistance * Mathf.Sin(angleRad);
-
-                // Calculate position on orbit circle
-                float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
-                Vector3 offset = new Vector3(
-                    Mathf.Sin(orbitRad) * horizontalDist,
-                    verticalDist,
-                    -Mathf.Cos(orbitRad) * horizontalDist
-                );
-
-                Vector3 targetPos = gridCenter + offset;
-
-                // Smooth camera movement when switching worlds
-                browseCamera.transform.position = Vector3.Lerp(
-                    browseCamera.transform.position,
-                    targetPos,
-                    Time.deltaTime * transitionSpeed
-                );
-
-                browseCamera.transform.LookAt(gridCenter);
             }
+
+            // Smooth orthographic size to target (for zoom effect)
+            float baseTargetSize = targetOrthographicSize + manualZoomOffset;
+            baseTargetSize = Mathf.Clamp(baseTargetSize, minOrthographicSize, maxOrthographicSize);
+
+            currentOrthographicSize = Mathf.SmoothDamp(
+                currentOrthographicSize,
+                baseTargetSize,
+                ref orthographicSizeVelocity,
+                cameraZoomSpeed
+            );
+
+            // Apply orthographic size to camera
+            if (browseCamera.orthographic)
+            {
+                browseCamera.orthographicSize = currentOrthographicSize;
+            }
+
+            // Calculate camera position based on orbit angle (use fixed cameraDistance)
+            float angleRad = cameraAngle * Mathf.Deg2Rad;
+            float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
+            float verticalDist = cameraDistance * Mathf.Sin(angleRad);
+
+            // Calculate position on orbit circle
+            float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
+            Vector3 offset = new Vector3(
+                Mathf.Sin(orbitRad) * horizontalDist,
+                verticalDist,
+                -Mathf.Cos(orbitRad) * horizontalDist
+            );
+
+            Vector3 targetPos = lookAtPoint + offset;
+
+            // Direct update - SmoothDamp already handles smoothing via currentScrollOffset
+            browseCamera.transform.position = targetPos;
+            browseCamera.transform.LookAt(lookAtPoint);
+        }
+
+        private void UpdateCameraOrbitPosition()
+        {
+            // Immediate camera update for responsive rotation during drag
+            if (browseCamera == null)
+                return;
+
+            // Calculate camera target Y position
+            float targetWorldY = currentIndex * worldSpacing;
+            float cameraTargetY = targetWorldY + currentScrollOffset;
+
+            // Get current world's XZ center
+            Vector3 lookAtPoint = new Vector3(0, cameraTargetY, 0);
+            if (loadedWorlds[1] != null)
+            {
+                try
+                {
+                    Vector3 gridCenter = loadedWorlds[1].GetVolumeGridCenter();
+                    lookAtPoint.x = gridCenter.x;
+                    lookAtPoint.z = gridCenter.z;
+                }
+                catch
+                {
+                    // Use default (0, 0)
+                }
+            }
+
+            float angleRad = cameraAngle * Mathf.Deg2Rad;
+            float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
+            float verticalDist = cameraDistance * Mathf.Sin(angleRad);
+
+            float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
+            Vector3 offset = new Vector3(
+                Mathf.Sin(orbitRad) * horizontalDist,
+                verticalDist,
+                -Mathf.Cos(orbitRad) * horizontalDist
+            );
+
+            browseCamera.transform.position = lookAtPoint + offset;
+            browseCamera.transform.LookAt(lookAtPoint);
         }
 
         private void ClearAllWorlds()
