@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8d48e0ba-09b9-4d67-8a7c-a5dc00ee398c
   displayName: powerup_coin_1
-  category: 10
+  category: 6
   prefab: {fileID: 1994167017423174, guid: 187a65e427b09c648af34d93f2a9eb18, type: 3}
   icon: {fileID: 21300000, guid: aa6ffe47d1ad2408f9b0dbbd264a245f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

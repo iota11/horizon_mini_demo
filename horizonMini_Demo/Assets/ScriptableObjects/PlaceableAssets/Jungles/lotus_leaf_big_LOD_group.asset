@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 64e546bf-51ef-4566-b221-c42acd1b00d3
   displayName: lotus_leaf_big_LOD_group
-  category: 4
+  category: 0
   prefab: {fileID: 1394105316673741571, guid: 64a8d4215c62e49f0be3bcdfda0530d6, type: 3}
   icon: {fileID: 21300000, guid: 02506bba1a49a4858afa8b2099e54239, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

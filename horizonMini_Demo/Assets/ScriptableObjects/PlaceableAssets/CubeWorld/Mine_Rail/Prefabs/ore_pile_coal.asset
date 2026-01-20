@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a77f91af-85bc-4dbd-b928-013d92b878e0
   displayName: ore_pile_coal
-  category: 8
+  category: 6
   prefab: {fileID: 1103989887314348, guid: 0413056bf0726f943a4b33b62777620c, type: 3}
   icon: {fileID: 21300000, guid: ee6e4e7e2f8f54533a28e433c99e1aa3, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

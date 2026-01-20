@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a91c176e-e300-40bf-a541-c144e0b1368b
   displayName: pipe_T
-  category: 8
+  category: 4
   prefab: {fileID: 1952519462827802, guid: ef9993e2606f4d749b594ef66c938b3c, type: 3}
   icon: {fileID: 21300000, guid: 5efeee83429a4452abcff2695d521c38, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e1fed511-412b-4ece-9c54-d135305b4a4b
   displayName: rail_tracks_turn
-  category: 8
+  category: 4
   prefab: {fileID: 1081682139035486, guid: 5d756df882d93234aa4d89e3fecd7d08, type: 3}
   icon: {fileID: 21300000, guid: 8f21312ca50744117866661ec7ee6aa9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

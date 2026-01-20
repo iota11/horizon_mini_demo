@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 5b70b9e5-3aa4-4732-8b12-e9d1fdea28bb
   displayName: ore_ruby
-  category: 8
+  category: 1
   prefab: {fileID: 1579271386312838, guid: d7fa3436d83204b4eb6b434b68a3eaea, type: 3}
   icon: {fileID: 21300000, guid: 33ea9e4462803478baa9f5409848cedb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9b82c72a-aa60-4c91-aa63-3fc752c276b7
   displayName: bow_metal
-  category: 12
+  category: 7
   prefab: {fileID: 1254573932841548, guid: 9d8737b7e4f1eb247bf01cb0737661f9, type: 3}
   icon: {fileID: 21300000, guid: cf39cc35434494f61b0e8cf8df1fa783, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

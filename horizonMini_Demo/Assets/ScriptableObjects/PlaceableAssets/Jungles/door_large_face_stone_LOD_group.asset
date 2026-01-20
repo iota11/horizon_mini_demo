@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c53a9a46-91b0-474f-bfcb-1db144f9b87d
   displayName: door_large_face_stone_LOD_group
-  category: 6
+  category: 4
   prefab: {fileID: 1251499113302555968, guid: 87b2e761b22bb4d6ba512c8fa70a5be4, type: 3}
   icon: {fileID: 21300000, guid: 88efb4a3dde9744fab255cc13420fd32, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 41b4bb61-e0f8-4de7-b873-59dbba05884f
   displayName: wooden_box_4
-  category: 12
+  category: 5
   prefab: {fileID: 1033362047712600, guid: 9b5734242bcf11b4e829582b987934e6, type: 3}
   icon: {fileID: 21300000, guid: 6823ef93349e94128985967aa7607203, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

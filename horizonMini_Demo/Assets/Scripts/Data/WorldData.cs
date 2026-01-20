@@ -77,6 +77,9 @@ namespace HorizonMini.Data
         public Quaternion rotation;
         public Vector3 scale = Vector3.one;
 
+        // SmartTerrain specific data
+        public Vector3 smartTerrainControlPoint = Vector3.zero; // Control point local position for SmartTerrain
+
         public PropData()
         {
             propId = Guid.NewGuid().ToString();

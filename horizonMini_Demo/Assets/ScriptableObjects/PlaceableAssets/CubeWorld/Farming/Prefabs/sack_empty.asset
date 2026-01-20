@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b05897b8-8572-4c40-9ea1-f54cbf4b14f1
   displayName: sack_empty
-  category: 12
+  category: 6
   prefab: {fileID: 2783303554188923371, guid: eb5ccafaca65d4d228a146845adce2b7, type: 3}
   icon: {fileID: 21300000, guid: b3ce54624f57a48f8ad0700f717b9d9d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

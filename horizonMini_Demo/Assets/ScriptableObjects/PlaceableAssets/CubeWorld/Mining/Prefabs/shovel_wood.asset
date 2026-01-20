@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 32195d06-b6c1-4774-ba35-2496f20a13fc
   displayName: shovel_wood
-  category: 12
+  category: 7
   prefab: {fileID: 1217466371948736, guid: b0ea0cb7e29eb3748a1fcdcb65dc3488, type: 3}
   icon: {fileID: 21300000, guid: cbe72819e820649a5bb2486d586e14ac, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

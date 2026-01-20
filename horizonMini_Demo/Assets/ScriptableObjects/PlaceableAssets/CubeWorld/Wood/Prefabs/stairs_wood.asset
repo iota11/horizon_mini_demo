@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: fd56be60-73f5-4c09-9f14-ea225aaa8134
   displayName: stairs_wood
-  category: 5
+  category: 4
   prefab: {fileID: 1214069166459090, guid: 2ef5faf473b6d794ea31a7eb1015cfe2, type: 3}
   icon: {fileID: 21300000, guid: 02570c022b6a5421ea16e9d9d66e58e7, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 6a35a3b2-2b3c-4b0f-a90f-7f9b391b40c5
   displayName: powerup_star_1
-  category: 10
+  category: 6
   prefab: {fileID: 1676252188339422, guid: e308c2032566af64d9a827b846714915, type: 3}
   icon: {fileID: 21300000, guid: 1499359e21fbe4d21bc0dfe4f6bc9bc9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

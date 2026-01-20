@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1f4bc5a3-85cc-4206-ac46-b42a1a8e7263
   displayName: crop_ground_lines
-  category: 12
+  category: 1
   prefab: {fileID: 9087089482889845678, guid: 45b79ad5b5b554a67b3e3615a34e0492, type: 3}
   icon: {fileID: 21300000, guid: e2517975b90b240af9fd7b1dfa5191e8, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

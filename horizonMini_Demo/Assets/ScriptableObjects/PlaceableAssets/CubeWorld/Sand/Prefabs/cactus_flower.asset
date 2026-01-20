@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 77980a2b-d7cb-4e8c-ac6a-8e76481c87d3
   displayName: cactus_flower
-  category: 5
+  category: 0
   prefab: {fileID: 1132184581070744, guid: 4d374ce5bf75e9343915e5f413d2d7c1, type: 3}
   icon: {fileID: 21300000, guid: df9093d708c9644289285851d399320a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

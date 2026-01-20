@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 4c460ea0-4a53-417f-8f5c-2ffc98546451
   displayName: hammer_stone
-  category: 12
+  category: 7
   prefab: {fileID: 1065817811318592, guid: 9f17c290db1ee4347962a4beaa58ce9f, type: 3}
   icon: {fileID: 21300000, guid: 4a2a3aa19c3b54586b259fb0ebb49121, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

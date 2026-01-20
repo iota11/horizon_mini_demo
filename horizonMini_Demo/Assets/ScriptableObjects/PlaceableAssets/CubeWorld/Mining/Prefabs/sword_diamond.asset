@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a07d6c2c-e984-470e-9541-9f7a65e01427
   displayName: sword_diamond
-  category: 12
+  category: 7
   prefab: {fileID: 1325437523561550, guid: 860378f479fa41f4d92a67c63ce6c214, type: 3}
   icon: {fileID: 21300000, guid: 46ad07e10bff546b8a8d6cc2931548ce, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

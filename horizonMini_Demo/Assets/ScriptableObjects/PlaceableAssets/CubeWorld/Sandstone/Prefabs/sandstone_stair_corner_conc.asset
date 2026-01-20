@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9799b1b9-a266-491b-b395-2fc32d72c8fe
   displayName: sandstone_stair_corner_conc
-  category: 5
+  category: 4
   prefab: {fileID: 1606373845990690, guid: 200f006e468fb0649ae352dcc295c42d, type: 3}
   icon: {fileID: 21300000, guid: 3b55f214ccaef42418593fbdc3e70ea9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

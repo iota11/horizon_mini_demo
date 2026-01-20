@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b83422bd-1b55-4aa4-92e6-d0880e6c9b38
   displayName: coal_block
-  category: 12
+  category: 1
   prefab: {fileID: 1378255393876958, guid: 128413b4f7020f04695c39e209e79334, type: 3}
   icon: {fileID: 21300000, guid: 88c0184febe064095b1ffbedb782c842, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

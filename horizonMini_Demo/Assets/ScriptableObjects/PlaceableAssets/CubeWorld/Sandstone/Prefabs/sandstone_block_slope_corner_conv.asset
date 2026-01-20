@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 26575613-f304-41f4-8c4e-5fb803f0d366
   displayName: sandstone_block_slope_corner_conv
-  category: 5
+  category: 4
   prefab: {fileID: 1220148799173894, guid: c1f3f9d9f05d81844a2166e18b39377d, type: 3}
   icon: {fileID: 21300000, guid: 8e911d246ccff4a47b8f3647dc87e2a9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

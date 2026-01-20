@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 537fbc9e-7c35-4352-9e4e-d8f2b06f0474
   displayName: powerup_lightning_1
-  category: 10
+  category: 6
   prefab: {fileID: 1233311225407362, guid: 20fbbb25c2212674e90510a00197751e, type: 3}
   icon: {fileID: 21300000, guid: fa47ff13f91fc4bcabd907dc3e949f04, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

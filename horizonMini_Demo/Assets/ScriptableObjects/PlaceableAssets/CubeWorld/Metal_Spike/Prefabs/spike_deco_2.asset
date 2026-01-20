@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 56500844-fb58-4cfc-8292-ea6ab1555438
   displayName: spike_deco_2
-  category: 11
+  category: 6
   prefab: {fileID: 1327848827139556, guid: 9e41c755ce39e9147990174ac9c9c1fc, type: 3}
   icon: {fileID: 21300000, guid: 7c9d303f583c340d2846f1a0ecae48ae, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

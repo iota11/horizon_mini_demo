@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1ac56462fd504a749ba16897851ec189
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Prefabs/Tiles/Bricks.prefab
+  uploadId: 843972

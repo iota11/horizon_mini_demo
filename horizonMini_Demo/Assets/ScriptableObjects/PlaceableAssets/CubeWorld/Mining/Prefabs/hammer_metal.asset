@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ffa2d884-7839-4d4f-8150-292f414b48ae
   displayName: hammer_metal
-  category: 12
+  category: 7
   prefab: {fileID: 1655956193651012, guid: ca056d48a54096e4c9acf074ef540988, type: 3}
   icon: {fileID: 21300000, guid: 8b3bf66d3a29649dfb4c6af7b58b9192, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

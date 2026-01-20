@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1f1c4b88-07f7-4a5d-b212-468f2bc0ab99
   displayName: cloud_half
-  category: 10
+  category: 9
   prefab: {fileID: 1549835250844810, guid: 2ef74e03c678dcb4d88dfa8a3336b6e2, type: 3}
   icon: {fileID: 21300000, guid: 81f1a5d46c3004ef2a186ecb9596b709, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 47d2ea94-63df-4125-958d-b6bde423e5e4
   displayName: crop_carrot_sack
-  category: 12
+  category: 6
   prefab: {fileID: 3428986575664557700, guid: b6562adfb500044de828cd36614d0437, type: 3}
   icon: {fileID: 21300000, guid: b41ad524f413c4db7ad8fd9db9cb69f1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

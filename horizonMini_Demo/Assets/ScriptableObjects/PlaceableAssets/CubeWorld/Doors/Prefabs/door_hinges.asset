@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e3a67183-f52c-4831-8411-8c68dc0d7180
   displayName: door_hinges
-  category: 6
+  category: 4
   prefab: {fileID: 1624150446318540, guid: cd24db3a3bf3bad4a923c2ddb299eefd, type: 3}
   icon: {fileID: 21300000, guid: 7bd0c11f0792d4968a65896ced5001ff, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

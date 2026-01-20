@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: debf6ea2-4e3b-4547-b123-6586ba5e8801
   displayName: wooden_barrel_2
-  category: 12
+  category: 5
   prefab: {fileID: 1855122608725610, guid: 045ab7d05f890d043bbc38da4c7742da, type: 3}
   icon: {fileID: 21300000, guid: 88649fc53d9d24ad8a32c9babc428f80, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

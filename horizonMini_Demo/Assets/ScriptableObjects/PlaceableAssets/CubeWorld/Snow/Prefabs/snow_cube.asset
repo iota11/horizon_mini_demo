@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d5f3c666-5407-4b15-9a10-ab5e15858061
   displayName: snow_cube
-  category: 5
+  category: 1
   prefab: {fileID: 1474760786853166, guid: 5de6e5182afa9b74f944cf0d73928a26, type: 3}
   icon: {fileID: 21300000, guid: bc1ff8df8c4af4841980030658bfb94a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

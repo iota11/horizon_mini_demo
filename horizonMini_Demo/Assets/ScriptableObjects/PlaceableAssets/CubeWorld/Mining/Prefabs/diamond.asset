@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 93a3a2ca-1d52-4e6d-9828-989128e2cc17
   displayName: diamond
-  category: 12
+  category: 6
   prefab: {fileID: 1218119507857064, guid: a72c8e00c04f4ee459fabf68e0725d68, type: 3}
   icon: {fileID: 21300000, guid: dce42f54fd7b940f4ae4117a17a88949, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

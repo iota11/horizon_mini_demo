@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aa121aecea2d0db4b80626f1d59bcf24
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Prefabs/Attachments/Lantern.prefab
+  uploadId: 843972

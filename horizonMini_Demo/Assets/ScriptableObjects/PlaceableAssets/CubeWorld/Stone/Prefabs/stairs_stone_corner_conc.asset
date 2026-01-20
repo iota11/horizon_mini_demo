@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 54f9bc05-3527-4e7c-8936-a908ad26f604
   displayName: stairs_stone_corner_conc
-  category: 5
+  category: 4
   prefab: {fileID: 1644708134816684, guid: 60d022d826b2fb04eb849dc0b2717c91, type: 3}
   icon: {fileID: 21300000, guid: 9082f24a9bdd94a83a8d8a9d5fc4e714, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

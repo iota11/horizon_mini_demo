@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 50149a60-8348-4813-8676-89de17ca0cd7
   displayName: door_small_stone_LOD_group
-  category: 6
+  category: 4
   prefab: {fileID: 3672789258663221318, guid: 2bf18834ccbc94ff1959c42a4f0197f2, type: 3}
   icon: {fileID: 21300000, guid: 1fa78734f20df4282a042c8fba32eb09, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

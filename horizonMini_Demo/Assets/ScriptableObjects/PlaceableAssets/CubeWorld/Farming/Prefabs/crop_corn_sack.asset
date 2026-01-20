@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: bc9976b8-29de-43db-9483-0cac1e49fa26
   displayName: crop_corn_sack
-  category: 12
+  category: 6
   prefab: {fileID: 3819045241813605703, guid: 461ef1e150b9d4ab9aeb2437422f66fd, type: 3}
   icon: {fileID: 21300000, guid: 4dcf95941903e4409b029fd81d9031ee, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

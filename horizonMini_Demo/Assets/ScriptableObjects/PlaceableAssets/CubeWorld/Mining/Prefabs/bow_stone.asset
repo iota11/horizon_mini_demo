@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a0777aa1-c3eb-414d-b91d-08c27a997f46
   displayName: bow_stone
-  category: 12
+  category: 7
   prefab: {fileID: 1561825657440498, guid: 7db3a1e22615ab34b9ca9535443e9a69, type: 3}
   icon: {fileID: 21300000, guid: 7b9066dd2cd694d2793e0d0ae66fcf8b, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

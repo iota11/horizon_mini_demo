@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: f083f583-fee2-49c5-81cc-9ba351fdcd8d
   displayName: coal_pile
-  category: 12
+  category: 6
   prefab: {fileID: 1292034598291544, guid: 2828ebf2fc928d742a0b7d2e25c8e06c, type: 3}
   icon: {fileID: 21300000, guid: 51c3334fe5148483cae92e0218d66605, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

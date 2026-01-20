@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 877c6074-1510-4dff-b00f-6f68976c8842
   displayName: mortar_head_lvl4
-  category: 11
+  category: 7
   prefab: {fileID: 6190221765686535229, guid: 3a0728c3797e5443c8399a1555676d36, type: 3}
   icon: {fileID: 21300000, guid: f7519116dba264980b75e644b8d99321, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

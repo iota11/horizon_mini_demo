@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8f105ae2-c711-4a24-a1b6-0be7430f1525
   displayName: shovel_stone
-  category: 12
+  category: 7
   prefab: {fileID: 1695920895596488, guid: fc90c20c45cd08642bd6b40c8b008d3d, type: 3}
   icon: {fileID: 21300000, guid: e2c8fb14cb65d4fa8b90b590b6c97bfb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

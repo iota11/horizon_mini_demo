@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 309fe966-42d3-4a87-ba43-3b2a19abb0f9
   displayName: rail_tracks_tile_up_half
-  category: 8
+  category: 4
   prefab: {fileID: 1995013938283892, guid: 7f957e40c0c5f224d914e623b75f897b, type: 3}
   icon: {fileID: 21300000, guid: 848fbd9ad891642bab5226188d6ee4e1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

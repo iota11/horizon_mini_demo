@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 7bd7273f-90fb-4c1c-a850-68fb1271b20c
   displayName: canopy_block_1
-  category: 12
+  category: 3
   prefab: {fileID: 1859024359650604, guid: 80647bdd8960e954ab1eac6a70ea47ef, type: 3}
   icon: {fileID: 21300000, guid: c24aadb7557e2488186e3cbe3dbc383d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

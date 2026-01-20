@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 960f97d6-d1ec-4016-b22c-9cb582737fb4
   displayName: ore_silver
-  category: 8
+  category: 1
   prefab: {fileID: 1624007751846540, guid: a992c583663380545809e831ac581cd6, type: 3}
   icon: {fileID: 21300000, guid: f498e6758a179401a839952935a41647, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

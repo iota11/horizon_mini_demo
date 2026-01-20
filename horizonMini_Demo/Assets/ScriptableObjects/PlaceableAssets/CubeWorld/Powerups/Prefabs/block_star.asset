@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 0a559e72-338e-42ef-bc6c-750c9aa06f1f
   displayName: block_star
-  category: 10
+  category: 4
   prefab: {fileID: 1216445806996416, guid: c58693769b0e8824bbfe972351428b25, type: 3}
   icon: {fileID: 21300000, guid: 9b35833b8d55d47a18370e9c9db67975, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

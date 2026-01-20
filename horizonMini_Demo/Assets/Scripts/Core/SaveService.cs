@@ -299,6 +299,9 @@ namespace HorizonMini.Core
         public QuaternionSerializable rotation;
         public Vector3Serializable scale;
 
+        // SmartTerrain specific data
+        public Vector3Serializable smartTerrainControlPoint;
+
         public PropDataSerializable() { }
 
         public PropDataSerializable(PropData data)
@@ -308,11 +311,17 @@ namespace HorizonMini.Core
             position = new Vector3Serializable(data.position);
             rotation = new QuaternionSerializable(data.rotation);
             scale = new Vector3Serializable(data.scale);
+
+            // Save SmartTerrain control point if it exists (not zero)
+            if (data.smartTerrainControlPoint != Vector3.zero)
+            {
+                smartTerrainControlPoint = new Vector3Serializable(data.smartTerrainControlPoint);
+            }
         }
 
         public PropData ToPropData()
         {
-            return new PropData
+            PropData propData = new PropData
             {
                 propId = propId,
                 prefabName = prefabName,
@@ -320,6 +329,14 @@ namespace HorizonMini.Core
                 rotation = rotation.ToQuaternion(),
                 scale = scale.ToVector3()
             };
+
+            // Restore SmartTerrain control point if it was saved
+            if (smartTerrainControlPoint != null)
+            {
+                propData.smartTerrainControlPoint = smartTerrainControlPoint.ToVector3();
+            }
+
+            return propData;
         }
     }
 

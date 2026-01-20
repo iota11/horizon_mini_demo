@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: f802f09a-8e2f-4757-9886-989abe80d081
   displayName: stand_wooden_1
-  category: 12
+  category: 6
   prefab: {fileID: 1055441477560906, guid: 8dbff35490a8fe042876402903e52374, type: 3}
   icon: {fileID: 21300000, guid: 347d8fa00c5c7497b8938d69906abb67, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

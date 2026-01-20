@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9990ab99-bae4-4952-aac3-9e3b927983ea
   displayName: ground_cube_grass
-  category: 5
+  category: 1
   prefab: {fileID: 1979290889500462, guid: 98dd8e405a3f26848b63e1b78dfb7c5b, type: 3}
   icon: {fileID: 21300000, guid: 07026605002094850ad80de4a17f94e2, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

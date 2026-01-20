@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: fa64f198914217843977e0816d308e4f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Shaders/CozyGizmosBillboardUnlit.shader
+  uploadId: 843972

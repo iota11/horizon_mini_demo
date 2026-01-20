@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c05270d1-8a51-4753-8707-3d422ff4bdec
   displayName: head_statue_gold
-  category: 5
+  category: 6
   prefab: {fileID: 1445461502138832, guid: c960e2d4889acfc49b51db56df0c46d6, type: 3}
   icon: {fileID: 21300000, guid: 8aaf2550f27d948be92b203219d99370, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

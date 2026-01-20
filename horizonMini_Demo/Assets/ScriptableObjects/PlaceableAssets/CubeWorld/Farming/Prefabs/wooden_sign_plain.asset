@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a35f9fac-31b4-44a7-af75-782286ae6af3
   displayName: wooden_sign_plain
-  category: 12
+  category: 6
   prefab: {fileID: 3388577941839721262, guid: 2feade9ace4f8445fb95a24f97157b4f, type: 3}
   icon: {fileID: 21300000, guid: a37bcd518df0341e98b13c803b536689, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

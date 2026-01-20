@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: af980f7e-58e7-40ff-b71d-c68b91fdc15c
   displayName: powerup_heart_1
-  category: 10
+  category: 6
   prefab: {fileID: 1376490007801174, guid: 29fa11f8314634e45a63c9359c9705b2, type: 3}
   icon: {fileID: 21300000, guid: 04e100d3d0b58438ba6311f52a3ef8eb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

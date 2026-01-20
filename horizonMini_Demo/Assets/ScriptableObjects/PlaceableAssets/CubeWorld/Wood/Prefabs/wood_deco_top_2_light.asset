@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 24acf054-2ee6-4781-b08a-a0d88316b6ec
   displayName: wood_deco_top_2_light
-  category: 5
+  category: 6
   prefab: {fileID: 223825027576061821, guid: 02f098f6e83a64ff9bdff0822b6d68a9, type: 3}
   icon: {fileID: 21300000, guid: 0af7462c02f6b46cd8137db7abd451de, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: cab5164e-4382-4421-8019-f2fe9c0c091d
   displayName: block_stone_torch_LOD_group
-  category: 5
+  category: 4
   prefab: {fileID: 8594651629625896150, guid: 06f189df5bea0444aa2ad2a67acd272f, type: 3}
   icon: {fileID: 21300000, guid: ffcb47eb94e524c39bfe9e26c445c7b5, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

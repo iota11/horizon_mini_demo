@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8ccdadfd-ae4a-4b7b-bbbd-e1ead7f617f1
   displayName: arrow_wood
-  category: 12
+  category: 7
   prefab: {fileID: 1168869912157620, guid: 225096255fc5870428840fb992897d86, type: 3}
   icon: {fileID: 21300000, guid: 60c6fc335c5454cef88680778129750e, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

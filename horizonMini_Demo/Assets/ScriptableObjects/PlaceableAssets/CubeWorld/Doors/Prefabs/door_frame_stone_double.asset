@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 815e5ba0-fb3e-49bd-be3c-b4e36e6829a3
   displayName: door_frame_stone_double
-  category: 6
+  category: 4
   prefab: {fileID: 1591176143020740, guid: f1441591d9e079b4d8f6ef49f2513af6, type: 3}
   icon: {fileID: 21300000, guid: 42c6b8b1356074ee1ba8c798e361ae55, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

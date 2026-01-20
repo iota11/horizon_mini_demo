@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 926f80d6-d18a-47d3-b581-bda5ec2d323e
   displayName: pickaxe_stone
-  category: 12
+  category: 7
   prefab: {fileID: 1423153177408078, guid: b0c828c8d855381469d6aafa51f07b95, type: 3}
   icon: {fileID: 21300000, guid: 298f9233db9164652b00f498242ceed2, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

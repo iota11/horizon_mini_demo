@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9b995668-0b7e-4957-bb9b-770a94b85d06
   displayName: pipe_end
-  category: 8
+  category: 4
   prefab: {fileID: 1501686444787016, guid: 37901761291162046a58c287d33eed41, type: 3}
   icon: {fileID: 21300000, guid: e5b73ecb88a53418592192e03cfe1d83, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

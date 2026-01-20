@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c8cc3138-33f0-4b86-923b-1d50cf3a35ee
   displayName: presi_medium_empty_color4
-  category: 10
+  category: 6
   prefab: {fileID: 1025755292779476, guid: 6f31db4aafa0643d1ab6ffbb39d8ff58, type: 3}
   icon: {fileID: 21300000, guid: 49bf19dcdf6014ce5bda90f7321951ed, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

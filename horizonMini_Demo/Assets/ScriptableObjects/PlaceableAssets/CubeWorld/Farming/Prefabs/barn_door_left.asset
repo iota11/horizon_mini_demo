@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8ff0d187-23ef-42f4-a618-dd32bc51d794
   displayName: barn_door_left
-  category: 12
+  category: 4
   prefab: {fileID: 805625495583195350, guid: ccbf677e3a3d5422888b277f81ff6721, type: 3}
   icon: {fileID: 21300000, guid: ddbcc58863bbc4313b5050d8a29260a3, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

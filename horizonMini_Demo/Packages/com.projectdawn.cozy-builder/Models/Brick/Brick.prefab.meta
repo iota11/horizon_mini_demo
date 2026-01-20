@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8eafdf37718e9c642809d1397d363a2a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Models/Brick/Brick.prefab
+  uploadId: 843972

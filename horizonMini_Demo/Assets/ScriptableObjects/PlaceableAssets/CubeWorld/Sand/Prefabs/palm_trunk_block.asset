@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 36e9162a-d5e5-40a9-8ca3-64fb04749eac
   displayName: palm_trunk_block
-  category: 5
+  category: 0
   prefab: {fileID: 1112815721267748, guid: 005067759eaed58418e3bdd30b904f84, type: 3}
   icon: {fileID: 21300000, guid: 915c49d0288e84e5daa9a5853ce61bc5, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

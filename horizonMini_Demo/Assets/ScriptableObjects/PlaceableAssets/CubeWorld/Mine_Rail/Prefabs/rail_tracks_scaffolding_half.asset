@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: bef6077e-9bc1-44eb-b6c4-5c5a7db632b7
   displayName: rail_tracks_scaffolding_half
-  category: 8
+  category: 4
   prefab: {fileID: 1027255703629766, guid: 159c940ec737b3d47b9e71aa8a3acc8b, type: 3}
   icon: {fileID: 21300000, guid: 58965fad3aa274fcf8738e2f3b04066d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

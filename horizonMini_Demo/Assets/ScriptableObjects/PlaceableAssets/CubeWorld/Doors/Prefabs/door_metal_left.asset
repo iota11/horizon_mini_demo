@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 5b4491c1-32a7-4e31-a098-f4ee4aa944f2
   displayName: door_metal_left
-  category: 6
+  category: 4
   prefab: {fileID: 1303571826420004, guid: c37a1c48c0b10ed4cb54c2949e174d11, type: 3}
   icon: {fileID: 21300000, guid: 968b122465ca142b9b14a575e6f213b4, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

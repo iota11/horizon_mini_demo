@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 6303af4c-ea3b-4ffe-983d-b131afa7481f
   displayName: rocketlauncher_head_lvl4
-  category: 11
+  category: 7
   prefab: {fileID: 8285365353663109076, guid: eddadbdbf625d40f4a6b68404c138508, type: 3}
   icon: {fileID: 21300000, guid: 670d6ce02392146f0a5d3be1ab9a1774, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 64cc35fa-5fe9-4b3f-b6e1-232aea09f31a
   displayName: lotus_flower_white_LOD_group
-  category: 2
+  category: 0
   prefab: {fileID: 4656393689829229565, guid: df3fc2761d9b948258b6d6947132febd, type: 3}
   icon: {fileID: 21300000, guid: fb1f1de8fc88f4bfb9d13ffeb1c11c7d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

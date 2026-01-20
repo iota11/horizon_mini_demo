@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1031b534-03ff-431b-b598-f6f538ca250a
   displayName: powerup_health_1
-  category: 10
+  category: 6
   prefab: {fileID: 1981366073399832, guid: 1f771af0c00d28741b4076ea1c003c68, type: 3}
   icon: {fileID: 21300000, guid: b2a040c1cdbc54bad83a791c2a58d59f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

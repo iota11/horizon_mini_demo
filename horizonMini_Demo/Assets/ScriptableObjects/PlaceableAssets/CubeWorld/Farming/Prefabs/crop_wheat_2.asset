@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 0b0dce2e-3b0b-4f4a-aa27-16370661d7f4
   displayName: crop_wheat_2
-  category: 12
+  category: 0
   prefab: {fileID: 8725264510280794563, guid: d6cef1c9285664d23add9d6669f96c1c, type: 3}
   icon: {fileID: 21300000, guid: 12822fc7aa18c45e4802640e8043abfe, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

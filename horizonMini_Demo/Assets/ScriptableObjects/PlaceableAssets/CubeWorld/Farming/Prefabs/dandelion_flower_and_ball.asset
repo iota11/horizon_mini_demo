@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 26f468d1-d6f7-44e3-9b4f-e450bc6f8e10
   displayName: dandelion_flower_and_ball
-  category: 12
+  category: 0
   prefab: {fileID: 3623278599217026653, guid: bcddc848310004fc29be899a82b08630, type: 3}
   icon: {fileID: 21300000, guid: fd0ef779918344503bd7b887170e84fe, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

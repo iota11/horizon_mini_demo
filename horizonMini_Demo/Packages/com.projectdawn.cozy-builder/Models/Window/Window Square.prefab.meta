@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fad67338ac16f85428fb8e432bbb6f54
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Models/Window/Window Square.prefab
+  uploadId: 843972

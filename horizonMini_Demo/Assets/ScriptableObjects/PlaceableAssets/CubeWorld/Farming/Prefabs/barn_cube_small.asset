@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1342ff72-7414-44dc-8064-ca49f05978ce
   displayName: barn_cube_small
-  category: 12
+  category: 4
   prefab: {fileID: 8019692138808286237, guid: 62808962bc9324ffcb68e433704f9de9, type: 3}
   icon: {fileID: 21300000, guid: 9e52139ac6c424ea69bca797ca1d883a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

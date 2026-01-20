@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: f9a54f55-c95c-4880-bda1-6f5ab74d991f
   displayName: snowman
-  category: 5
+  category: 6
   prefab: {fileID: 1821515724851386, guid: 85f0a3d68c9b31041b249c323d38471e, type: 3}
   icon: {fileID: 21300000, guid: 69536eef9f8ad45daaad2a480fc7f426, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

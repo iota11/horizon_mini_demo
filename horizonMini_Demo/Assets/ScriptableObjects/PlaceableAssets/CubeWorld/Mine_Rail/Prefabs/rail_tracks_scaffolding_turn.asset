@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c309e4bb-7f51-4f68-9bcd-e3de5adb88f3
   displayName: rail_tracks_scaffolding_turn
-  category: 8
+  category: 4
   prefab: {fileID: 1922620750991514, guid: 350ffc006a7ed1640a157e6efb637c5c, type: 3}
   icon: {fileID: 21300000, guid: 37684a78814b84be2944a1cd93c0a5a9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

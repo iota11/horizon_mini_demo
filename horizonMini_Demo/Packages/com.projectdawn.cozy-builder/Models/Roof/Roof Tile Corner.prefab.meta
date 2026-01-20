@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 907147daa25625b46a24373c7e5a677e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Models/Roof/Roof Tile Corner.prefab
+  uploadId: 843972

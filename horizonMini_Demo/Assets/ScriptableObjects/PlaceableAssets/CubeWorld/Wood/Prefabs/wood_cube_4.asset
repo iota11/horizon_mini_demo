@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e5806563-55e4-4451-a93e-532c6b917187
   displayName: wood_cube_4
-  category: 5
+  category: 4
   prefab: {fileID: 1433296106323872, guid: 12d725465d74d744ca4490821e85fc17, type: 3}
   icon: {fileID: 21300000, guid: f1fec89ca8bc44d6baa2bd5b56f8c7a9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

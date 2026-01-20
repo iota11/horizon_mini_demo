@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b066ece8d1e70954d9ed371d1cf1cadd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/ProjectDawn.CozyBuilder/Modifiers/CozyDraw.cs
+  uploadId: 843972

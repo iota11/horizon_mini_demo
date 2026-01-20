@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2cfd05a7-9ded-4ca0-8085-711afae26f10
   displayName: vase_col3
-  category: 5
+  category: 6
   prefab: {fileID: 1530489987920284, guid: 8f1e2613fd87c89438ff8be474fb1d55, type: 3}
   icon: {fileID: 21300000, guid: 962f4c3ea6cfe41e6b41f110c5ba3950, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

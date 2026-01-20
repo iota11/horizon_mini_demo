@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 8f96770d56ffa1644854ca6deaf566a1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/ProjectDawn.CozyBuilder/Utility/ListExtension.cs
+  uploadId: 843972

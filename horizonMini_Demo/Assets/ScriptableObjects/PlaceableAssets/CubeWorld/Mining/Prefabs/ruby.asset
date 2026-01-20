@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ee0c1971-e187-44ca-9f5b-7ef1cf25c4c7
   displayName: ruby
-  category: 12
+  category: 6
   prefab: {fileID: 1061513679825182, guid: 7eba0f49c0673d348a4dcad8d9eb4e17, type: 3}
   icon: {fileID: 21300000, guid: f34fc9b7306be4b6786069e75d8391a3, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

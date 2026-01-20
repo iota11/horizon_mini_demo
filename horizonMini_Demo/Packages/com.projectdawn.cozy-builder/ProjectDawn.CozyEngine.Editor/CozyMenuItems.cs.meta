@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3002079887c2cac41af695ef6aa590bb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/ProjectDawn.CozyEngine.Editor/CozyMenuItems.cs
+  uploadId: 843972

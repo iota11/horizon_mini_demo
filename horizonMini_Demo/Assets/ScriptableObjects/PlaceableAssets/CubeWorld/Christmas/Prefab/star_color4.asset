@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2287018a-fdae-4ea7-8fec-0c255a3ba29a
   displayName: star_color4
-  category: 10
+  category: 6
   prefab: {fileID: 1568663240982522, guid: fc163db0a0a8544f1a9d4cc38ded9fa0, type: 3}
   icon: {fileID: 21300000, guid: 9a0f6744f36a141e4b874bdcf2ff9126, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

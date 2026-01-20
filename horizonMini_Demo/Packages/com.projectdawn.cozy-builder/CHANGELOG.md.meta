@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 281f7aea311936f43a6e1c36cb394337
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/CHANGELOG.md
+  uploadId: 843972

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a62ca6af-1a47-406c-91d8-c92756ef968d
   displayName: brick_black_1
-  category: 5
+  category: 4
   prefab: {fileID: 1127292094840876, guid: 932b3807536acd049a86de16b7d8f278, type: 3}
   icon: {fileID: 21300000, guid: a19c18d9f5c1a4e36a6a4df9f531da47, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

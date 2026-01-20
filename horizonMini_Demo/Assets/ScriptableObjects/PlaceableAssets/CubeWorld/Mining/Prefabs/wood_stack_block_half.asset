@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 96d7a6ee-7e87-4410-be6d-c625c6c9da2b
   displayName: wood_stack_block_half
-  category: 12
+  category: 6
   prefab: {fileID: 1230153832853254, guid: b89755d3cf860e942b45d854fdeaa8dc, type: 3}
   icon: {fileID: 21300000, guid: f1110725593d340d8bb6e61cddf27761, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

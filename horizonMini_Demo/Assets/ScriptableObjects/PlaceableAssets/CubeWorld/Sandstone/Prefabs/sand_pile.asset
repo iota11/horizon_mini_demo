@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a0e531a9-bfe7-4fe1-837a-14b394eb6f1f
   displayName: sand_pile
-  category: 5
+  category: 1
   prefab: {fileID: 1643365263485536, guid: a66437d58ba388a47a95e753d7b3fa75, type: 3}
   icon: {fileID: 21300000, guid: 71001c82bed4b4bc182db49382080748, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

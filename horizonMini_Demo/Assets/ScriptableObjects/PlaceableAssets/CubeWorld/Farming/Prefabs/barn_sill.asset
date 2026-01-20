@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 57c102f3-0cd9-4fef-b9f3-4ca6c6d57391
   displayName: barn_sill
-  category: 12
+  category: 4
   prefab: {fileID: 8296430179928793201, guid: 4fbb8d1cb246243169d4e5a8cacb281c, type: 3}
   icon: {fileID: 21300000, guid: 4abaed9139aee4716b95b0bf4ae1ffac, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e7941a70-792f-4c3e-99cd-f85edd83080d
   displayName: bauble_medium_color3_ornate
-  category: 10
+  category: 6
   prefab: {fileID: 1357690801492016, guid: c1b36636a06a24c4da2f8919e2dea221, type: 3}
   icon: {fileID: 21300000, guid: 0c6b0833641b94bd59e1ec4aafecbb35, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

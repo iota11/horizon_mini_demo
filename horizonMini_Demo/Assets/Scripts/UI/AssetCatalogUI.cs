@@ -35,7 +35,7 @@ namespace HorizonMini.UI
 
         private Dictionary<AssetCategory, GameObject> categoryTabs = new Dictionary<AssetCategory, GameObject>();
         private List<GameObject> currentAssetItems = new List<GameObject>();
-        private AssetCategory currentCategory = AssetCategory.Trees;
+        private AssetCategory currentCategory = AssetCategory.Vegetation;
         private bool isExpanded = true;
         private RectTransform panelRect;
         private float expandedYPosition; // Expanded position (anchoredPosition.y)

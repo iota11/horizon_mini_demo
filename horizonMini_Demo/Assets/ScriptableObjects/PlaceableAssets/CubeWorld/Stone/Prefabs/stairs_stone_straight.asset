@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: f51efd69-fb1c-420b-ba42-7a5e6ca7dd8f
   displayName: stairs_stone_straight
-  category: 5
+  category: 4
   prefab: {fileID: 1593169746609854, guid: 3cf1b9c6c7c4d584288f0e9300b6190d, type: 3}
   icon: {fileID: 21300000, guid: 1ae02b4d9283b40c1904cdab2bd5fde3, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

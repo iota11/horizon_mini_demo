@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bef8110345892a14cb2ce1875d24a28f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/ProjectDawn.CozyBuilder/Builders/CozyAttachment.cs
+  uploadId: 843972

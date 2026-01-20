@@ -12156,7 +12156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldContainer: {fileID: 0}
-  worldSpacing: 20
+  worldSpacing: 40
   swipeThreshold: 50
   transitionSpeed: 5
   rotationSpeed: 1
@@ -12164,10 +12164,18 @@ MonoBehaviour:
   snapThreshold: 0.3
   snapSpeed: 0.15
   velocityThreshold: 5
+  enableAutoRotation: 1
+  autoRotationSpeed: 5
+  autoRotationDelay: 1
   browseCamera: {fileID: 0}
   cameraDistance: 30
   cameraAngle: 45
   orthographicSize: 10
+  minOrthographicSize: 5
+  maxOrthographicSize: 20
+  cameraZoomSpeed: 0.2
+  scrollWheelZoomSpeed: 2
+  pinchZoomSpeed: 0.5
 --- !u!4 &1047169511
 Transform:
   m_ObjectHideFlags: 0
@@ -13556,6 +13564,7 @@ MonoBehaviour:
   volumeGridPrefab: {fileID: 0}
   editCursorPrefab: {fileID: 0}
   assetCatalog: {fileID: 0}
+  effectSettings: {fileID: 0}
   autoInitialize: 1
   maxVolumeSize: {x: 4, y: 4, z: 4}
   volumeUnitSize: 8

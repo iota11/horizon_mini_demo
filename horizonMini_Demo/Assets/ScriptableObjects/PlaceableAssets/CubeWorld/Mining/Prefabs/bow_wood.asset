@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 546b54ed-7af7-48df-b4ce-7366c76a8a99
   displayName: bow_wood
-  category: 12
+  category: 7
   prefab: {fileID: 1379247801522954, guid: e1dfb88105ac20d4fb9e6eb085ac9181, type: 3}
   icon: {fileID: 21300000, guid: 0c1ea28fbf0b74e6f89a16c17cb511e1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 86666729-9967-45dc-a26c-c006e3075eb2
   displayName: mortar_bullet_lvl1
-  category: 11
+  category: 7
   prefab: {fileID: 7142669683089539447, guid: f9b30422f62434d9f9ef5aa8080d72f9, type: 3}
   icon: {fileID: 21300000, guid: 39003d45d7dc14bc78529a2631d70ce1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

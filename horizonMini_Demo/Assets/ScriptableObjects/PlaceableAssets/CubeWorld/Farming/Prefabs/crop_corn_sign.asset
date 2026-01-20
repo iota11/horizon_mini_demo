@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 3938c72a-63c3-4b6e-87c8-b173263920e8
   displayName: crop_corn_sign
-  category: 12
+  category: 6
   prefab: {fileID: 3303760029606228050, guid: a06744d97c2a94e97a495d83e80b525d, type: 3}
   icon: {fileID: 21300000, guid: 9ae6fcc9eea3642a1bef63171f78eb8f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

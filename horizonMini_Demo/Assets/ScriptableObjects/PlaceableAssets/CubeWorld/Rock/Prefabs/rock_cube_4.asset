@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: acaa927e-222a-4d4d-ab31-f0b1d4ed928d
   displayName: rock_cube_4
-  category: 5
+  category: 1
   prefab: {fileID: 1280830913543736, guid: 32fd45d637212cc4e9facd8cc7d8a4cf, type: 3}
   icon: {fileID: 21300000, guid: 8abc83cd4cfa8470cb5f6ceb5fc6cb00, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

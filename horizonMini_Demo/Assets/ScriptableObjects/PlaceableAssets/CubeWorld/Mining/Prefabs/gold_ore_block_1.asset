@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a62b3b9d-39fa-4a17-b118-11fae7851638
   displayName: gold_ore_block_1
-  category: 12
+  category: 1
   prefab: {fileID: 1549080131868968, guid: c231fda52154d3f4aa490fc22294271e, type: 3}
   icon: {fileID: 21300000, guid: 31464efc0985243999aaaa06159d36cd, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

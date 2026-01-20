@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 44e11893-9e88-4793-97d4-cfcefd87b003
   displayName: grass_swamp
-  category: 12
+  category: 0
   prefab: {fileID: 1139166577693769347, guid: f2fbb5b1bdbd14d1e81186423eb01468, type: 3}
   icon: {fileID: 21300000, guid: dcfb0f04438ce41b1b26112306e4f242, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

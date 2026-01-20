@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8110930a-c5a7-4f54-aa6b-e1847e90ada2
   displayName: metal_ore_block_2
-  category: 12
+  category: 1
   prefab: {fileID: 1480768979952956, guid: a2c6968b2a4256b44bde8b97e4fcd290, type: 3}
   icon: {fileID: 21300000, guid: 5ebb7facc4c944d86abaf5c7fd30c60d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

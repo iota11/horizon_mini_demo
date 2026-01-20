@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 7fdb8bb8-e99a-4168-a659-790037ac5b3c
   displayName: bushes_small_orange_berries_LOD_group
-  category: 1
+  category: 0
   prefab: {fileID: 1541453605376172325, guid: 4e3f57299e3d94d729ad71f3a7406f3c, type: 3}
   icon: {fileID: 21300000, guid: db4aa920e6f974d75a85bc4b86d7ebf7, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

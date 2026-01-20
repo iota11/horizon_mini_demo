@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b78621fa-fc06-4502-9514-a9ef41ed77bf
   displayName: gold_pile
-  category: 12
+  category: 6
   prefab: {fileID: 1071232866975638, guid: 98af9c35917209b4398de64b3502a192, type: 3}
   icon: {fileID: 21300000, guid: 1b4b75feedeff4e58954d47d224f9130, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

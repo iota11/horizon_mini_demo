@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: bea768c6-31aa-415e-9672-07083c5d1189
   displayName: door_metal_rounded_right
-  category: 6
+  category: 4
   prefab: {fileID: 1664582900837748, guid: e7b210b9dc076674eaf1bf7d3ded4e9f, type: 3}
   icon: {fileID: 21300000, guid: 875cb36a545464f1db1242293c31dc99, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 49844bf4-1165-4f96-87a0-9cfc17b1eb17
   displayName: key_silver
-  category: 6
+  category: 7
   prefab: {fileID: 8048869395554533122, guid: 3b84873e67da24e438f3281f154bb645, type: 3}
   icon: {fileID: 21300000, guid: fff162590c95a4fcc92d78642ed9ede8, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

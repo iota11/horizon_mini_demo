@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c52f27b2-82b8-4834-b857-6a5acbb57161
   displayName: gold_bar
-  category: 12
+  category: 6
   prefab: {fileID: 1612194893962862, guid: f3287c5883b849b4dbcb82580a69744e, type: 3}
   icon: {fileID: 21300000, guid: 1af8632f5c5714f3abfa1fb9c707999b, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

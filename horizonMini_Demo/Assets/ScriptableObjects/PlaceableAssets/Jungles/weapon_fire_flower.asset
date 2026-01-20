@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 352726b5-c980-400e-8d0e-3aaa70ffd894
   displayName: weapon_fire_flower
-  category: 11
+  category: 7
   prefab: {fileID: 3556215971115493122, guid: 7b1b29d76fd644db2814929ef5ee70cd, type: 3}
   icon: {fileID: 21300000, guid: a8b67c0936c7040da86261ec75c12290, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

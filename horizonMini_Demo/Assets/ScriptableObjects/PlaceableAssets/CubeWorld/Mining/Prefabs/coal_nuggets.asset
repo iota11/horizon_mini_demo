@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 4f8b9240-6de3-4514-a6ba-02153c7db12b
   displayName: coal_nuggets
-  category: 12
+  category: 6
   prefab: {fileID: 1964171826334888, guid: 00569c27c8a46294fb7da9928c5aea10, type: 3}
   icon: {fileID: 21300000, guid: 5c62968afe63d4173ae68af8f0fa077a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

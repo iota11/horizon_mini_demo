@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: test_cube_001
   displayName: Test Cube
-  category: 0
+  category: 4
   prefab: {fileID: 1945423401344240048, guid: e6821a18f28a542a382ef25eed0a4079, type: 3}
   icon: {fileID: 0}
   defaultScale: {x: 1, y: 1, z: 1}

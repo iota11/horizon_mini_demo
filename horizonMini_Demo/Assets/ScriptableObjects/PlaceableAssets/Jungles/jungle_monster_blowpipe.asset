@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 57b447f2-7906-4ffb-8ed2-7c37d5bcca6b
   displayName: jungle_monster_blowpipe
-  category: 9
+  category: 8
   prefab: {fileID: 5784468666528863893, guid: 15da5581969e64c4eaceaae7f5d16f46, type: 3}
   icon: {fileID: 21300000, guid: f0a9bfd422108422890e4b4931ca67be, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

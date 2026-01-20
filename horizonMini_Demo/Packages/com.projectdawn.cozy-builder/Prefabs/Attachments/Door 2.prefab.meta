@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: acb4af66614ea6148b0b0dd32f5915bc
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Prefabs/Attachments/Door 2.prefab
+  uploadId: 843972

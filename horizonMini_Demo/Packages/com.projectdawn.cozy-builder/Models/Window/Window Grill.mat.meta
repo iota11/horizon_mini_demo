@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ddc69e7db0d479448a493764fe1a264c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Models/Window/Window Grill.mat
+  uploadId: 843972

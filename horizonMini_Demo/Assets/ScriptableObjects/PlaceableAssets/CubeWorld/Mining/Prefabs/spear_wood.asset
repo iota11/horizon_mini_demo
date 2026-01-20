@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1ec0db14-dc2c-482f-9005-bf1bb2a73c7a
   displayName: spear_wood
-  category: 12
+  category: 7
   prefab: {fileID: 1896393305323558, guid: e2e6074ecb11d484085bcaf483c2222c, type: 3}
   icon: {fileID: 21300000, guid: c6d537a92f8794613bf42fd0c1fbe467, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

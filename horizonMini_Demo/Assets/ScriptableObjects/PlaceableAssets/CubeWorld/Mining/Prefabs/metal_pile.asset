@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 61d84bc0-5f1c-4840-883d-f27bb1e18bc9
   displayName: metal_pile
-  category: 12
+  category: 6
   prefab: {fileID: 1550305172331776, guid: f03b808c36538f041a700559b6663aa6, type: 3}
   icon: {fileID: 21300000, guid: 64f38a14168dc46ba881efe278f39c8d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -328,6 +328,37 @@ namespace HorizonMini.Controllers
                     }
 
                     GameObject obj = Instantiate(asset.prefab, buildContainer);
+
+                    // Check if it's a SmartTerrain - restore control point position BEFORE setting transform
+                    // This ensures the mesh is regenerated with correct size
+                    SmartTerrain terrain = obj.GetComponent<SmartTerrain>();
+                    if (terrain != null)
+                    {
+                        Debug.Log($"[LOAD] Found SmartTerrain: {obj.name}");
+                        Debug.Log($"[LOAD] Saved control point data: {propData.smartTerrainControlPoint}");
+                        Debug.Log($"[LOAD] Current control point exists: {terrain.controlPoint != null}");
+                        if (terrain.controlPoint != null)
+                        {
+                            Debug.Log($"[LOAD] Current control point position BEFORE restore: {terrain.controlPoint.localPosition}");
+                        }
+
+                        // Check if we have saved control point data (will be zero if not saved or default)
+                        if (propData.smartTerrainControlPoint != Vector3.zero)
+                        {
+                            terrain.SetControlPointPosition(propData.smartTerrainControlPoint, forceImmediate: true);
+                            Debug.Log($"[LOAD] ✓ Called SetControlPointPosition with: {propData.smartTerrainControlPoint}");
+                            if (terrain.controlPoint != null)
+                            {
+                                Debug.Log($"[LOAD] Control point position AFTER restore: {terrain.controlPoint.localPosition}");
+                            }
+                            Debug.Log($"[LOAD] Resulting terrain size: {terrain.GetSize()}");
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"[LOAD] SmartTerrain loaded without saved control point data (was zero) - using default");
+                        }
+                    }
+
                     obj.transform.position = propData.position;
                     obj.transform.rotation = propData.rotation;
                     obj.transform.localScale = propData.scale;
@@ -340,8 +371,6 @@ namespace HorizonMini.Controllers
 
                     placedObjects.Add(placedObj);
                     loadedCount++;
-
-                    Debug.Log($"✓ Loaded prop #{loadedCount}: {obj.name} at {obj.transform.position}");
                 }
 
                 Debug.Log($"Finished loading props: {loadedCount}/{worldData.props.Count} successful");
@@ -392,6 +421,9 @@ namespace HorizonMini.Controllers
                         cameraController.UpdateTarget(currentVolumeGrid.GetCenter());
                     }
 
+                    // Hide SmartTerrain control points in View mode
+                    SmartTerrainManager.Instance.EnterViewMode();
+
                     Debug.Log("Entered View mode");
                     break;
 
@@ -406,6 +438,9 @@ namespace HorizonMini.Controllers
                         Debug.Log($"Edit mode - focusing camera on {selectedObject.name} at {selectedObject.transform.position}");
                         cameraController.UpdateTarget(selectedObject.transform.position);
                     }
+
+                    // Show SmartTerrain control points in Edit mode
+                    SmartTerrainManager.Instance.EnterEditMode();
 
                     Debug.Log("Entered Edit mode");
                     break;
@@ -541,11 +576,35 @@ namespace HorizonMini.Controllers
                 {
                     Debug.Log($"Raycast hit: {hit.collider.gameObject.name}");
 
+                    SmartTerrain terrain = hit.collider.GetComponentInParent<SmartTerrain>();
                     PlacedObject obj = hit.collider.GetComponentInParent<PlacedObject>();
+
                     if (obj != null)
                     {
                         Debug.Log($"PlacedObject found: {obj.name}");
-                        SelectObject(obj);
+
+                        // Check if it's also a SmartTerrain
+                        SmartTerrain objTerrain = obj.GetComponent<SmartTerrain>();
+                        if (objTerrain != null)
+                        {
+                            Debug.Log($"SmartTerrain with PlacedObject: {obj.name}");
+                            // Select it as PlacedObject (for dragging) AND set as active terrain (for handlers)
+                            SelectObject(obj);
+                            SmartTerrainManager.Instance.SetActiveTerrain(objTerrain);
+                        }
+                        else
+                        {
+                            // Normal PlacedObject
+                            SelectObject(obj);
+                        }
+
+                        SwitchMode(BuildMode.Edit);
+                        return;
+                    }
+                    else if (terrain != null)
+                    {
+                        Debug.Log($"SmartTerrain without PlacedObject: {terrain.name}");
+                        SmartTerrainManager.Instance.SetActiveTerrain(terrain);
                         SwitchMode(BuildMode.Edit);
                         return;
                     }
@@ -557,6 +616,8 @@ namespace HorizonMini.Controllers
                 else
                 {
                     Debug.Log("Raycast hit nothing");
+                    // Clear active terrain when clicking empty space
+                    SmartTerrainManager.Instance.ClearActiveTerrain();
                 }
             }
             else if (currentMode == BuildMode.Edit)
@@ -588,12 +649,27 @@ namespace HorizonMini.Controllers
                 // Check if clicked another object or empty space
                 if (Physics.Raycast(ray, out hit, 1000f))
                 {
+                    SmartTerrain terrain = hit.collider.GetComponentInParent<SmartTerrain>();
                     PlacedObject obj = hit.collider.GetComponentInParent<PlacedObject>();
+
                     if (obj != null && obj != selectedObject)
                     {
                         // Switch to editing different object
                         Debug.Log($"Switching to edit another object: {obj.name}");
-                        SelectObject(obj);
+
+                        // Check if it's also a SmartTerrain
+                        SmartTerrain objTerrain = obj.GetComponent<SmartTerrain>();
+                        if (objTerrain != null)
+                        {
+                            // Select as PlacedObject AND set as active terrain
+                            SelectObject(obj);
+                            SmartTerrainManager.Instance.SetActiveTerrain(objTerrain);
+                        }
+                        else
+                        {
+                            SelectObject(obj);
+                        }
+
                         SwitchMode(BuildMode.Edit);
                         return;
                     }
@@ -603,11 +679,29 @@ namespace HorizonMini.Controllers
                         // Clicked on the selected object itself - stay in Edit mode
                         return;
                     }
+                    else if (terrain != null)
+                    {
+                        // Clicked on SmartTerrain without PlacedObject
+                        SmartTerrain currentActiveTerrain = SmartTerrainManager.Instance.GetActiveTerrain();
+                        if (terrain != currentActiveTerrain)
+                        {
+                            // Switch to different SmartTerrain
+                            Debug.Log($"Switching to different SmartTerrain: {terrain.name}");
+                            SmartTerrainManager.Instance.SetActiveTerrain(terrain);
+                            return;
+                        }
+                        else
+                        {
+                            Debug.Log("Clicked on active SmartTerrain - stay in Edit mode");
+                            return;
+                        }
+                    }
                     else
                     {
                         Debug.Log($"Clicked on non-placeable object: {hit.collider.name}");
                         // Clicked something else (like volume grid) - exit to View mode
                         DeselectObject();
+                        SmartTerrainManager.Instance.ClearActiveTerrain();
                         SwitchMode(BuildMode.View);
                     }
                 }
@@ -626,45 +720,68 @@ namespace HorizonMini.Controllers
             isDraggingCursor = false;
             cursorDragStartPos = screenPos;
 
-            // In Edit mode, check if drag started on cursor component or target object
-            if (currentMode == BuildMode.Edit && currentEditCursor != null && selectedObject != null)
+            Ray ray = buildCamera.ScreenPointToRay(screenPos);
+
+            // First check UI layer (includes SmartTerrainCursor handlers and EditCursor components)
+            int uiLayerMask = 1 << LayerMask.NameToLayer("UI");
+            RaycastHit[] uiHits = Physics.RaycastAll(ray, 1000f, uiLayerMask);
+
+            if (uiHits.Length > 0)
             {
-                Ray ray = buildCamera.ScreenPointToRay(screenPos);
+                // Hit UI layer - check if it's EditCursor or SmartTerrainCursor
+                RaycastHit hit = uiHits[0];
+                GameObject hitObj = hit.collider.gameObject;
 
-                // First raycast: Check cursor components (UI layer)
-                int cursorLayerMask = 1 << LayerMask.NameToLayer("UI");
-                RaycastHit[] cursorHits = Physics.RaycastAll(ray, 1000f, cursorLayerMask);
-
-                if (cursorHits.Length > 0)
+                // Check if it's EditCursor component (for PlacedObject)
+                if (currentMode == BuildMode.Edit && currentEditCursor != null)
                 {
-                    // Hit cursor component - prioritize it
-                    RaycastHit hit = cursorHits[0];
-                    GameObject hitObj = hit.collider.gameObject;
-
-                    isDraggingCursor = true;
-
-                    // Determine which component was hit
-                    GameObject draggedComponent = null;
                     if (currentEditCursor.UpArrow != null && (hitObj == currentEditCursor.UpArrow || hitObj.transform.IsChildOf(currentEditCursor.UpArrow.transform)))
-                        draggedComponent = currentEditCursor.UpArrow;
-                    else if (currentEditCursor.RotateButton != null && (hitObj == currentEditCursor.RotateButton || hitObj.transform.IsChildOf(currentEditCursor.RotateButton.transform)))
-                        draggedComponent = currentEditCursor.RotateButton;
-                    else if (currentEditCursor.DeleteButton != null && (hitObj == currentEditCursor.DeleteButton || hitObj.transform.IsChildOf(currentEditCursor.DeleteButton.transform)))
-                        draggedComponent = currentEditCursor.DeleteButton;
-
-                    currentEditCursor.OnDragStart(draggedComponent, screenPos);
-                }
-                else
-                {
-                    // Second raycast: Check other objects (target object for XZ movement)
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, 1000f))
                     {
-                        if (hit.collider.GetComponentInParent<PlacedObject>() == selectedObject)
-                        {
-                            isDraggingCursor = true;
-                            currentEditCursor.OnDragStart(selectedObject.gameObject, screenPos);
-                        }
+                        isDraggingCursor = true;
+                        currentEditCursor.OnDragStart(currentEditCursor.UpArrow, screenPos);
+                        return;
+                    }
+                    else if (currentEditCursor.RotateButton != null && (hitObj == currentEditCursor.RotateButton || hitObj.transform.IsChildOf(currentEditCursor.RotateButton.transform)))
+                    {
+                        isDraggingCursor = true;
+                        currentEditCursor.OnDragStart(currentEditCursor.RotateButton, screenPos);
+                        return;
+                    }
+                    else if (currentEditCursor.DeleteButton != null && (hitObj == currentEditCursor.DeleteButton || hitObj.transform.IsChildOf(currentEditCursor.DeleteButton.transform)))
+                    {
+                        isDraggingCursor = true;
+                        currentEditCursor.OnDragStart(currentEditCursor.DeleteButton, screenPos);
+                        return;
+                    }
+                }
+
+                // Otherwise it's SmartTerrainCursor handler - SmartTerrainCursor handles its own input
+                return;
+            }
+
+            // No UI layer hit - check if we should drag the object/terrain itself
+            // But first, make sure no SmartTerrainCursor is being dragged
+            if (SmartTerrainManager.Instance.IsAnyTerrainCursorDragging())
+            {
+                // SmartTerrainCursor is handling the drag, don't interfere
+                return;
+            }
+
+            RaycastHit objHit;
+            if (Physics.Raycast(ray, out objHit, 1000f))
+            {
+                // Check if we can drag the selected object
+                if (currentMode == BuildMode.Edit && currentEditCursor != null && selectedObject != null)
+                {
+                    PlacedObject hitObj = objHit.collider.GetComponentInParent<PlacedObject>();
+                    if (hitObj == selectedObject)
+                    {
+                        // Allow dragging all PlacedObjects (including SmartTerrain)
+                        // If it's a SmartTerrain and user clicked handler, that was already handled above
+                        // If we reach here, user clicked the terrain body itself, so drag it
+                        isDraggingCursor = true;
+                        currentEditCursor.OnDragStart(selectedObject.gameObject, screenPos);
+                        return;
                     }
                 }
             }
@@ -677,6 +794,12 @@ namespace HorizonMini.Controllers
             {
                 currentEditCursor.OnDragUpdate(currentPos);
                 return; // Don't move camera
+            }
+
+            // Check if any SmartTerrainCursor is being dragged
+            if (SmartTerrainManager.Instance.IsAnyTerrainCursorDragging())
+            {
+                return; // Don't move camera while dragging terrain control points
             }
 
             // Don't move camera if drag started over UI
@@ -1041,8 +1164,26 @@ namespace HorizonMini.Controllers
                     rotation = obj.transform.rotation,
                     scale = obj.transform.localScale
                 };
+
+                // Check if it's a SmartTerrain - save control point position
+                SmartTerrain terrain = obj.GetComponent<SmartTerrain>();
+                if (terrain != null)
+                {
+                    Vector3 cpPos = terrain.GetControlPointPosition();
+                    propData.smartTerrainControlPoint = cpPos;
+                    Debug.Log($"  - Saved SmartTerrain {obj.name}:");
+                    Debug.Log($"    Position: {obj.transform.position}");
+                    Debug.Log($"    Control Point Local Position: {cpPos}");
+                    Debug.Log($"    Control Point World Position: {terrain.controlPoint?.position}");
+                    Debug.Log($"    Control Point Exists: {terrain.controlPoint != null}");
+                    Debug.Log($"    Terrain Size: {terrain.GetSize()}");
+                }
+                else
+                {
+                    Debug.Log($"  - Saved {obj.name} at {obj.transform.position}");
+                }
+
                 worldData.props.Add(propData);
-                Debug.Log($"  - Saved {obj.name} at {obj.transform.position}");
             }
 
             // Save via AppRoot or SaveService

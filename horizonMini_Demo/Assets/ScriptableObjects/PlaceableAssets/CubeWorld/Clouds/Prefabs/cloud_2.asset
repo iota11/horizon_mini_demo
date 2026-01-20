@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 6e87130d-53ef-449f-bf7d-8c14754d1e13
   displayName: cloud_2
-  category: 10
+  category: 9
   prefab: {fileID: 1663691202653200, guid: 5cf177c9f5bf3d84687a5ce7063c6cec, type: 3}
   icon: {fileID: 21300000, guid: d1a06a4ca2e15411d891309c1ab72d60, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

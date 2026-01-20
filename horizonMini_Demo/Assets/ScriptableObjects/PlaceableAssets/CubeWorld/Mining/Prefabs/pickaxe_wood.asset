@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 91b3fede-b69e-48f5-8e44-aba92a2327ff
   displayName: pickaxe_wood
-  category: 12
+  category: 7
   prefab: {fileID: 1199802200098038, guid: f6f3b2f20fb883141806ea0caa47b67c, type: 3}
   icon: {fileID: 21300000, guid: 7fa04a938edb24eb0954b67fba60f317, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

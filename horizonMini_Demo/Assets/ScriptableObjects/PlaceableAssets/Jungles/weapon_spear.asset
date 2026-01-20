@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 52e338c0-3408-420a-866e-881fb6cdcdc6
   displayName: weapon_spear
-  category: 11
+  category: 7
   prefab: {fileID: 1310477566521306425, guid: 04f6d580aaafa41f09ddc0ccab8a1875, type: 3}
   icon: {fileID: 21300000, guid: 2298f0b3a1cf14b32bca04099d4e17fc, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

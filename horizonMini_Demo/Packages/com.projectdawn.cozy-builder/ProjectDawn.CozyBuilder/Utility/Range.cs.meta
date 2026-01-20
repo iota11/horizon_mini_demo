@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 360c43d4c08b39549aae0d6aaf8ac024
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/ProjectDawn.CozyBuilder/Utility/Range.cs
+  uploadId: 843972

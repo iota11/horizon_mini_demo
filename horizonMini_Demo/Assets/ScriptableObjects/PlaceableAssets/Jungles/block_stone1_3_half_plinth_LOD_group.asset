@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e427ae7d-612c-4446-b963-9879ee83953f
   displayName: block_stone1_3_half_plinth_LOD_group
-  category: 5
+  category: 4
   prefab: {fileID: 5039911797462990926, guid: 60c57317dd9cc4b17901d8190ab53aa0, type: 3}
   icon: {fileID: 21300000, guid: f17d5389dcc8b4816b30555d5a1df356, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

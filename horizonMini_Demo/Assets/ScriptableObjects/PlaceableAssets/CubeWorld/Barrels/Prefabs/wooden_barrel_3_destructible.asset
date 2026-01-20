@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 958be57a-be98-4d04-9a92-625331e88d2d
   displayName: wooden_barrel_3_destructible
-  category: 12
+  category: 5
   prefab: {fileID: 1326051437780190, guid: e82c52646f4dcf34dae2ba194bdb9586, type: 3}
   icon: {fileID: 21300000, guid: 9355e6b2751dc4ebc9b2445104cf472a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

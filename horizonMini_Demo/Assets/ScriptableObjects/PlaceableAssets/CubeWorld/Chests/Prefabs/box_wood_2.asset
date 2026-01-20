@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 57eab7a0-e89d-4980-8709-6dddff76b053
   displayName: box_wood_2
-  category: 12
+  category: 5
   prefab: {fileID: 1992363495215008, guid: faf8c1e283ed74c919d92db643ceab95, type: 3}
   icon: {fileID: 21300000, guid: 63fe63cb52ac942068e43da48dae5f72, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

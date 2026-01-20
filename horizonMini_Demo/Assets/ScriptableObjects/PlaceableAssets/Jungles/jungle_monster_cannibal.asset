@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: fdc334aa-a0bc-47c1-a21b-63065d76bb2e
   displayName: jungle_monster_cannibal
-  category: 9
+  category: 8
   prefab: {fileID: 7756421242681572222, guid: 7655fcb8793d14becadc8538e703b985, type: 3}
   icon: {fileID: 21300000, guid: de8abc24a50424ea382206a00d680aa2, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -9,6 +9,7 @@ namespace HorizonMini.Core
     /// <summary>
     /// Manages the library of available worlds (both built-in and user-created)
     /// </summary>
+    /// 
     ///
     
     public class WorldLibrary : MonoBehaviour
@@ -155,6 +156,38 @@ namespace HorizonMini.Core
 
             // Instantiate prefab
             GameObject obj = Instantiate(asset.prefab, parent);
+
+            // Check if it's a SmartTerrain - restore control point position BEFORE setting transform
+            // This ensures the mesh is regenerated with correct size
+            HorizonMini.Build.SmartTerrain terrain = obj.GetComponent<HorizonMini.Build.SmartTerrain>();
+            if (terrain != null)
+            {
+                Debug.Log($"[BROWSE LOAD] Found SmartTerrain: {obj.name}");
+                Debug.Log($"[BROWSE LOAD] Saved control point data: {propData.smartTerrainControlPoint}");
+                Debug.Log($"[BROWSE LOAD] Current control point exists: {terrain.controlPoint != null}");
+                if (terrain.controlPoint != null)
+                {
+                    Debug.Log($"[BROWSE LOAD] Current control point position BEFORE restore: {terrain.controlPoint.localPosition}");
+                }
+
+                // Check if we have saved control point data (will be zero if not saved or default)
+                if (propData.smartTerrainControlPoint != Vector3.zero)
+                {
+                    terrain.SetControlPointPosition(propData.smartTerrainControlPoint, forceImmediate: true);
+                    Debug.Log($"[BROWSE LOAD] ✓ Called SetControlPointPosition with: {propData.smartTerrainControlPoint}");
+                    if (terrain.controlPoint != null)
+                    {
+                        Debug.Log($"[BROWSE LOAD] Control point position AFTER restore: {terrain.controlPoint.localPosition}");
+                    }
+                    Debug.Log($"[BROWSE LOAD] Resulting terrain size: {terrain.GetSize()}");
+                }
+                else
+                {
+                    Debug.LogWarning($"[BROWSE LOAD] SmartTerrain loaded without saved control point data (was zero) - using default");
+                    Debug.LogWarning($"[BROWSE LOAD] Using default control point position");
+                }
+            }
+
             obj.transform.position = propData.position;
             obj.transform.rotation = propData.rotation;
             obj.transform.localScale = propData.scale;

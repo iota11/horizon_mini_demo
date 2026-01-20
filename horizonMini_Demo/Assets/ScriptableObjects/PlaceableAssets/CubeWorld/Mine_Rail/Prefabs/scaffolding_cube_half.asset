@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1ec247b4-d906-4b4a-9a66-df5bb4f6f26f
   displayName: scaffolding_cube_half
-  category: 8
+  category: 4
   prefab: {fileID: 1141010047262634, guid: f16f3637ce05bcd4a8d4e4349c189553, type: 3}
   icon: {fileID: 21300000, guid: f1d893347a1924743a0cdb1dd9d90f78, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

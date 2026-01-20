@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 28afc49f-e33a-481b-97a9-68ab303aad50
   displayName: door_stone_rounded_top
-  category: 6
+  category: 4
   prefab: {fileID: 1583712209060140, guid: 98f23d62c66da914ab52be05d8d86a09, type: 3}
   icon: {fileID: 21300000, guid: 85f4c5cbbdc8f41919f14acc1e38292e, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

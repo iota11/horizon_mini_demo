@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: db09b033f42348d409a253e3bfc037d8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Models/Roof/Roof Tile.prefab
+  uploadId: 843972

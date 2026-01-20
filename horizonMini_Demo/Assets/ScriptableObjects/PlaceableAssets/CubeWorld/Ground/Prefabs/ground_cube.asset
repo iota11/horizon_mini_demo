@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 77bb7b4c-9c8b-458d-bf4f-253a8a83737b
   displayName: ground_cube
-  category: 5
+  category: 1
   prefab: {fileID: 1149535237560096, guid: c980d1f27dc965a44af9a3652477671c, type: 3}
   icon: {fileID: 21300000, guid: a4195b7edb3fa4c359ce605d84ac6209, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 067de5c7866fec74f892d1f7fe45fb2d
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Samples~/Cozy Village/README
+  uploadId: 843972

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 85aea244-2d2b-4f41-b6a5-66b1f0f4723f
   displayName: vine_vertical_curled_green_LOD_group
-  category: 4
+  category: 0
   prefab: {fileID: 5290142229541468882, guid: ddc01ddb9557b4690b8ae3297f5e89ea, type: 3}
   icon: {fileID: 21300000, guid: 9bb577a32b84a42d189bc1be45d178b4, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

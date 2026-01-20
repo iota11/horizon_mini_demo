@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 0f1aa71c-8c45-4cb0-9744-e0fac7e8bd00
   displayName: block_heart
-  category: 10
+  category: 4
   prefab: {fileID: 1856096004725288, guid: a9c386c6817ed0f499c31ac2254d98d0, type: 3}
   icon: {fileID: 21300000, guid: 43f47a54fd96f4532ad551a336590895, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 57bb42a7-622f-499f-b901-f10da7bd3d87
   displayName: ladder_wood_light
-  category: 5
+  category: 4
   prefab: {fileID: 1975915162003930, guid: 25bf559a1c9604f4a9a6546959593248, type: 3}
   icon: {fileID: 21300000, guid: ecd0399ae9d4844bf8c94e66efc0b829, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

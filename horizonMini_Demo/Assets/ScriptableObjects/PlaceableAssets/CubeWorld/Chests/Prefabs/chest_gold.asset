@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: f2a72f36-788d-4d80-9f66-79c1d1af924b
   displayName: chest_gold
-  category: 12
+  category: 5
   prefab: {fileID: 1496087725447764, guid: 1fbe49dcde4d34cc3905aebf9a198601, type: 3}
   icon: {fileID: 21300000, guid: d41c9f5f6ca5042d09e7269aca1ed83a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

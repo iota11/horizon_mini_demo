@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ab4b2bda-e1fc-4f89-81f8-55ceb290a7ed
   displayName: door_frame_metal_rounded_double
-  category: 6
+  category: 4
   prefab: {fileID: 1804231441433386, guid: c8aaa466181bee14b9302d72529e54e4, type: 3}
   icon: {fileID: 21300000, guid: 3a1b3825cbbad4bd3b5282371a597a4e, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

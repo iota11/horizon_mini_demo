@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7305ade7bb555e2468b836622110b77f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Samples~/Cozy Village/URP/URP
+    Render  Setup.unity
+  uploadId: 843972

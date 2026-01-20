@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d7f0ffcd-5ff7-4648-a39a-8554df0d59db
   displayName: sandstone_block_fountain
-  category: 5
+  category: 4
   prefab: {fileID: 1246395485445324, guid: 3b4349d9b60f1144098726eb72c235b8, type: 3}
   icon: {fileID: 21300000, guid: 1632d303d580545d693aca06bc7e3afb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

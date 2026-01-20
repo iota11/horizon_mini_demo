@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8e211360-771d-4a79-a1b1-cad01b3b28f6
   displayName: bone_ribcage_LOD_group
-  category: 10
+  category: 6
   prefab: {fileID: 1051182574224160544, guid: 40010ef256af2420b8376e4d000851ca, type: 3}
   icon: {fileID: 21300000, guid: 4e60b12eaebb64787a20ef1a115ddad5, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

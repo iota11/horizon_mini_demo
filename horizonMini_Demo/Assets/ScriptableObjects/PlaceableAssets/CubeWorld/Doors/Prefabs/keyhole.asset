@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 6dab4b70-6131-4fb4-a62a-76329933348e
   displayName: keyhole
-  category: 6
+  category: 7
   prefab: {fileID: 1295027806099200, guid: 63a04f0aab412674c88eb51c5ff68001, type: 3}
   icon: {fileID: 21300000, guid: c1f691d589b2641cfbdb133e80359563, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

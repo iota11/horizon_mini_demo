@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b9653e9e-a49e-463b-b8be-fc56c3fe34b1
   displayName: dandelion_double_balls_LOD_group
-  category: 2
+  category: 0
   prefab: {fileID: 9101003926346653889, guid: a40056826cef443e396fe16608a397b3, type: 3}
   icon: {fileID: 21300000, guid: c19ce70a60b664ccd899bbde3068c6b9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

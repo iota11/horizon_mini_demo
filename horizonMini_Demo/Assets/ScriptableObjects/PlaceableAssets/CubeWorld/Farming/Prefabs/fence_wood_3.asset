@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c4f3833d-1705-4caa-a7ab-b8d6e4a04f92
   displayName: fence_wood_3
-  category: 12
+  category: 2
   prefab: {fileID: 512188466335348247, guid: 06f32a8a35cb24996948da0dcc8eabef, type: 3}
   icon: {fileID: 21300000, guid: b84a89616a1d24431a46421b20f771af, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 75ba4117-71d2-44f1-a472-6435504f8033
   displayName: dummy_2
-  category: 10
+  category: 6
   prefab: {fileID: 1393700610744320, guid: fb672b358ab59e04c9406a2b439f8bdc, type: 3}
   icon: {fileID: 21300000, guid: 4a551e77a4de547ed9c1e558a4fb826c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

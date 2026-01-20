@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cd3322b3fddc5ed44ac28d9bf5af2b6b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Models/Wood.mat
+  uploadId: 843972

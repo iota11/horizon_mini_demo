@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 75e38b95-e723-46f5-84b7-77c8b17f2b2e
   displayName: head_statue_stone
-  category: 5
+  category: 6
   prefab: {fileID: 1356365954066760, guid: 9c3efbf41550d8d4a93ec902c0458d0e, type: 3}
   icon: {fileID: 21300000, guid: dc69c3e79e630454595e0e9a1bec283d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

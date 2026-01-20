@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 061276f2-1483-4120-a7c3-8d34e8680700
   displayName: dandelion_leaves_LOD_group
-  category: 2
+  category: 0
   prefab: {fileID: 5337734989219371033, guid: f1f908d3a725f470bb4dc20c6c68d0ed, type: 3}
   icon: {fileID: 21300000, guid: 103148a9595c04affbf13c684bd239f1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

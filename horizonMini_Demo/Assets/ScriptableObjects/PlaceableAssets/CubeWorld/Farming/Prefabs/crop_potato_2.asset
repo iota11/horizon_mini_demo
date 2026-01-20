@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2cc504f1-3b3b-4769-aee2-09afa8c371e9
   displayName: crop_potato_2
-  category: 12
+  category: 0
   prefab: {fileID: 1372710039627948449, guid: 9b665c663c133445f93565dbd4e923a3, type: 3}
   icon: {fileID: 21300000, guid: 18d3934edc9bc45cf865a0051d663026, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 5c57bf4b-48e4-45af-a903-2d166bc712b4
   displayName: door_large_crown_stone_LOD_group
-  category: 6
+  category: 4
   prefab: {fileID: 8769444785837254041, guid: 4b85480b53724490ab57b5a1931e1e07, type: 3}
   icon: {fileID: 21300000, guid: 65bbf2876a03347359eed592a4939ac6, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

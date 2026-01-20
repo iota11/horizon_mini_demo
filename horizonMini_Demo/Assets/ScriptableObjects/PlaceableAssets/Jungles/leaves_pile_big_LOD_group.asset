@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b4afaf16-a96f-484f-9c7f-93a43c40591f
   displayName: leaves_pile_big_LOD_group
-  category: 10
+  category: 0
   prefab: {fileID: 1531181925769507799, guid: e13f88bdabea04088bd8f025f78a87c1, type: 3}
   icon: {fileID: 21300000, guid: e3369e7c9e7a745c2b59db1df076edbf, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

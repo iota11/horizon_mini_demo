@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c59b0bfc-c6f2-475a-8fb8-aa2e41bc0b6a
   displayName: block_1_health
-  category: 10
+  category: 4
   prefab: {fileID: 1575012638220784, guid: 92d0e6560b4ba48438d3ef084106194d, type: 3}
   icon: {fileID: 21300000, guid: 4a4d3c77295d642f6a78bcf0dfbffb4c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

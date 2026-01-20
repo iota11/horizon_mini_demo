@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 6e0b5ee9-da1e-4c7e-a9f2-c1a23f98713f
   displayName: door_frame_wood_single
-  category: 6
+  category: 4
   prefab: {fileID: 1061350794054480, guid: a7f0b5b0d77c1c1408c813b1aa62030c, type: 3}
   icon: {fileID: 21300000, guid: 1911656e49ad046d5b9c8954307d8396, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

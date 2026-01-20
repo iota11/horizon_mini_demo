@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d906447c-12bf-477c-8cdf-0b77fdf15fd2
   displayName: block_lightning
-  category: 10
+  category: 4
   prefab: {fileID: 1719521976284110, guid: fbdf97981db797846a398915a2b01a91, type: 3}
   icon: {fileID: 21300000, guid: c7791b2dfcb764d5ebd5f494c7fcdb31, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

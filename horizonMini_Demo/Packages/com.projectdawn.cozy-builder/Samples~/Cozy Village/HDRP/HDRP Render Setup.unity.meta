@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7a1abd210c37f8840a8f78de22db408d
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Samples~/Cozy Village/HDRP/HDRP
+    Render Setup.unity
+  uploadId: 843972

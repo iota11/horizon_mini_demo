@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 270b8478-7af7-475c-804e-2b207cc5334d
   displayName: grasstop_deco
-  category: 5
+  category: 6
   prefab: {fileID: 1955443390100158, guid: 000d3b56373a9e34c8d39d3012511058, type: 3}
   icon: {fileID: 21300000, guid: 66233f973394349099611edcaa7c406a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 859b11ee-c9b7-4c71-8f3a-ab2433d97691
   displayName: ground_tile_stone_3
-  category: 12
+  category: 1
   prefab: {fileID: 719045463638132692, guid: df99e640082ac452fbe07009638d1b2d, type: 3}
   icon: {fileID: 21300000, guid: 170060e7c33d047d39eb940f4b76f30f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

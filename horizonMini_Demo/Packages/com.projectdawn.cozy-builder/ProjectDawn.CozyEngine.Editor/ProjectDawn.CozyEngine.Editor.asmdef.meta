@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8e402e4cf7bd1fb41b43d32724ac2df7
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/ProjectDawn.CozyEngine.Editor/ProjectDawn.CozyEngine.Editor.asmdef
+  uploadId: 843972

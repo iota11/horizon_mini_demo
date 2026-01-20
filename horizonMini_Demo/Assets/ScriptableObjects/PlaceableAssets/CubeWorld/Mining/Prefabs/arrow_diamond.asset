@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 48744757-9d2a-4b67-8b75-33595781e991
   displayName: arrow_diamond
-  category: 12
+  category: 7
   prefab: {fileID: 1082527104651818, guid: 822b98c53de020746b6c04aa2ddc34a1, type: 3}
   icon: {fileID: 21300000, guid: ad2604b927e60457280e38631b639119, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -47,7 +47,7 @@ namespace HorizonMini.Editor
 
             // ===== CHARACTERS =====
             if (lower.Contains("jungle_boy") || lower.Contains("jungle_girl") ||
-                lower.Contains("jungle_monster"))
+                lower.Contains("jungle_monster") || lower.Contains("character"))
             {
                 return AssetCategory.Characters;
             }
@@ -58,89 +58,80 @@ namespace HorizonMini.Editor
                 return AssetCategory.Effects;
             }
 
-            // ===== WEAPONS =====
-            if (lower.Contains("weapon_"))
+            // ===== WALLS (rails, fences, walls) =====
+            if (lower.Contains("rail") || lower.Contains("fence") ||
+                lower.Contains("wall") || lower.Contains("barrier"))
             {
-                return AssetCategory.Weapons;
+                return AssetCategory.Walls;
             }
 
-            // ===== TOOLS (cauldron, drum, trap) =====
-            if (lower.Contains("cauldron") || lower.Contains("drum") ||
-                lower.Contains("trap_"))
+            // ===== ROOFS (roof structures) =====
+            if (lower.Contains("roof") || lower.Contains("thatch") ||
+                lower.Contains("shingle"))
+            {
+                return AssetCategory.Roofs;
+            }
+
+            // ===== STRUCTURES (blocks, doors, stairs) =====
+            if (lower.Contains("block_") || lower.Contains("door_") ||
+                lower.Contains("stair_") || lower.Contains("column") ||
+                lower.Contains("pillar"))
+            {
+                return AssetCategory.Structures;
+            }
+
+            // ===== TERRAIN (ground, rocks, water, natural terrain) =====
+            if (lower.Contains("terrain") || lower.Contains("ground") ||
+                lower.Contains("rock") || lower.Contains("stone") && !lower.Contains("block") ||
+                lower.Contains("water") || lower.Contains("cliff"))
+            {
+                return AssetCategory.Terrain;
+            }
+
+            // ===== FURNITURE (tables, chairs, beds, etc.) =====
+            if (lower.Contains("table") || lower.Contains("chair") ||
+                lower.Contains("bed") || lower.Contains("bench") ||
+                lower.Contains("shelf") || lower.Contains("cabinet"))
+            {
+                return AssetCategory.Furniture;
+            }
+
+            // ===== DECORATIONS (bones, skulls, piles - pure decorative) =====
+            if (lower.Contains("bone") || lower.Contains("skull") ||
+                lower.Contains("grasstop") || lower.Contains("leaves_pile") ||
+                lower.Contains("decoration") || lower.Contains("ornament"))
+            {
+                return AssetCategory.Decorations;
+            }
+
+            // ===== TOOLS (weapons, tools, cauldron, drum, trap) =====
+            if (lower.Contains("weapon_") || lower.Contains("cauldron") ||
+                lower.Contains("drum") || lower.Contains("trap_") ||
+                lower.Contains("tool") || lower.Contains("axe") ||
+                lower.Contains("hammer") || lower.Contains("spear"))
             {
                 return AssetCategory.Tools;
             }
 
-            // ===== DECORATION (bones, skulls, piles) =====
-            if (lower.Contains("bone") || lower.Contains("skull") ||
-                lower.Contains("grasstop") || lower.Contains("leaves_pile"))
-            {
-                return AssetCategory.Decoration;
-            }
-
-            // ===== DOORS =====
-            if (lower.Contains("door_"))
-            {
-                return AssetCategory.Doors;
-            }
-
-            // ===== STAIRS =====
-            if (lower.Contains("stair_"))
-            {
-                return AssetCategory.Stairs;
-            }
-
-            // ===== RAILS =====
-            if (lower.Contains("rail"))
-            {
-                return AssetCategory.Rails;
-            }
-
-            // ===== BLOCKS (stone blocks) =====
-            if (lower.Contains("block_"))
-            {
-                return AssetCategory.Blocks;
-            }
-
-            // ===== TREES =====
+            // ===== VEGETATION (trees, bushes, flowers, grass, vines, leaves) =====
             if (lower.Contains("tree") || lower.Contains("banana_stamm") ||
                 lower.Contains("banana_tree") || lower.Contains("palm_tree") ||
                 lower.Contains("fern_tree") || lower.Contains("sample_big_tree") ||
-                lower.Contains("stump"))
-            {
-                return AssetCategory.Trees;
-            }
-
-            // ===== BUSHES =====
-            if (lower.Contains("bush"))
-            {
-                return AssetCategory.Bushes;
-            }
-
-            // ===== FLOWERS =====
-            if (lower.Contains("flower") || lower.Contains("dandelion") ||
+                lower.Contains("stump") || lower.Contains("bush") ||
+                lower.Contains("flower") || lower.Contains("dandelion") ||
                 lower.Contains("heliconia") || lower.Contains("lotus_flower") ||
-                lower.Contains("philodendron") || lower.Contains("oval_leave"))
-            {
-                return AssetCategory.Flowers;
-            }
-
-            // ===== GRASS =====
-            if (lower.Contains("grass") || lower.Contains("tall_grass"))
-            {
-                return AssetCategory.Grass;
-            }
-
-            // ===== VINES (vines, leaves, branches, logs) =====
-            if (lower.Contains("vine") || lower.Contains("leaf") ||
+                lower.Contains("philodendron") || lower.Contains("oval_leave") ||
+                lower.Contains("grass") || lower.Contains("tall_grass") ||
+                lower.Contains("vine") || lower.Contains("leaf") ||
                 lower.Contains("leaves") || lower.Contains("branch") ||
-                lower.Contains("log") || lower.Contains("lotus_leaf"))
+                lower.Contains("log") || lower.Contains("lotus_leaf") ||
+                lower.Contains("plant") || lower.Contains("fern"))
             {
-                return AssetCategory.Vines;
+                return AssetCategory.Vegetation;
             }
 
-            // Default to Trees for unknown jungle assets
-            return AssetCategory.Trees;
+            // Default to Vegetation for unknown jungle assets
+            return AssetCategory.Vegetation;
         }
     }
 }

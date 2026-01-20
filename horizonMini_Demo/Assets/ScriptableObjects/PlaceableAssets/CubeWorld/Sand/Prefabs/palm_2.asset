@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 56a63188-8856-45b2-b50c-cd450ebee5de
   displayName: palm_2
-  category: 5
+  category: 0
   prefab: {fileID: 1924128176262846, guid: 27a977fb5afb3e5429c13ca8a608b3b0, type: 3}
   icon: {fileID: 21300000, guid: c5180905d16ff4f54ab3d9bb70bec1a6, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

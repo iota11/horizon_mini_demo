@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: bb377e5e-36ec-45b5-a4b2-d15638ffbb9c
   displayName: rail_tracks_Y_right
-  category: 8
+  category: 4
   prefab: {fileID: 2480201201379211005, guid: 84fc7a59a82324072b9663f5bbedfadd, type: 3}
   icon: {fileID: 21300000, guid: e7d0ffd2fde6d42f3a2330921aec9104, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

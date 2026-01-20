@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 38a25548-8414-4106-afb4-5f93fa0c843c
   displayName: drum_LOD_group
-  category: 12
+  category: 7
   prefab: {fileID: 889847693723990550, guid: 6436c45e19b764767bfed769ace04e6f, type: 3}
   icon: {fileID: 21300000, guid: f9530b72acfe444cbb8df7253efec75d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

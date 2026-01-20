@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9bf8dd9a-de64-4a8f-87dd-040233a43d4c
   displayName: spear_short_diamond
-  category: 12
+  category: 7
   prefab: {fileID: 1507206388833882, guid: 064f6e8a5255265429c93d66258bce16, type: 3}
   icon: {fileID: 21300000, guid: 4950a5c08d1504ed4aa490ebdaa59e4a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

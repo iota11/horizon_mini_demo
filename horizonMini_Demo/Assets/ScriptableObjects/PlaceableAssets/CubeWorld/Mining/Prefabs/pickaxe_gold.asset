@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a52e9c06-afe5-4d0d-ae3e-78f9936bb3e2
   displayName: pickaxe_gold
-  category: 12
+  category: 7
   prefab: {fileID: 1601738865437548, guid: 1703d42f8bfd5404ba4991b2fce49d26, type: 3}
   icon: {fileID: 21300000, guid: 959c0d7395743454b906794ea7351245, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

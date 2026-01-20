@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b95d52fe-2c95-417f-9a24-7af7510d559e
   displayName: door_frame_wood_double
-  category: 6
+  category: 4
   prefab: {fileID: 1149089271704264, guid: bd7b25c85ff31fc4dae483c7113cbf04, type: 3}
   icon: {fileID: 21300000, guid: 09cce5192dd6d4c80a39abca2d464958, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

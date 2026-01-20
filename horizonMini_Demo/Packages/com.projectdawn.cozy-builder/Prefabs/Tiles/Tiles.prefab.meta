@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 714197e61c6cc0948874d28ce9081482
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Prefabs/Tiles/Tiles.prefab
+  uploadId: 843972

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a6bbec3bbcdd55c42b8949e859f7e0db
+PackageManifestImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/package.json
+  uploadId: 843972

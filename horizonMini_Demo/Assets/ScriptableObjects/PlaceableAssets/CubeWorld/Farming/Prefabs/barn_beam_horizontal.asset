@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: abbc245f-4516-43f7-b2d8-5ebbccff493c
   displayName: barn_beam_horizontal
-  category: 12
+  category: 4
   prefab: {fileID: 6198988958329438175, guid: fabc0a5e6bbd84b7ba677d4c11ab065f, type: 3}
   icon: {fileID: 21300000, guid: b60a5a58a199a40e296924bd5647f980, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

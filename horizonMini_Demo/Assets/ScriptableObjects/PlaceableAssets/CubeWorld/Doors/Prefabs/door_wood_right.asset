@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 10e1f25b-e473-4218-b10a-28e38fd3e195
   displayName: door_wood_right
-  category: 6
+  category: 4
   prefab: {fileID: 1182935031830750, guid: c264643f201c5024994302fef009afd5, type: 3}
   icon: {fileID: 21300000, guid: 191d4192608724061bef9e20f662b7cd, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

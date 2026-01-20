@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 780fe9aeb5f5eda4491565e551431bdc
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Prefabs/Geometry/Cubic.prefab
+  uploadId: 843972

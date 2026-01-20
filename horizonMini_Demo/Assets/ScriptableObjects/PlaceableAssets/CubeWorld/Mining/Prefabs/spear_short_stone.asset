@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 721bf01c-e78a-4e20-847e-5a7468980f5e
   displayName: spear_short_stone
-  category: 12
+  category: 7
   prefab: {fileID: 1376272884993548, guid: 4aed8c42540401141ba2cc2407ea37f2, type: 3}
   icon: {fileID: 21300000, guid: c54bfc3c295bd4fb7953972eadc3170c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

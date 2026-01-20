@@ -294,7 +294,7 @@ namespace HorizonMini.Editor
             PlaceableAsset asset = ScriptableObject.CreateInstance<PlaceableAsset>();
             asset.assetId = "test_cube_001";
             asset.displayName = "Test Cube";
-            asset.category = AssetCategory.Blocks;
+            asset.category = AssetCategory.Structures;
             asset.prefab = cubePrefab;
             asset.defaultScale = Vector3.one;
 

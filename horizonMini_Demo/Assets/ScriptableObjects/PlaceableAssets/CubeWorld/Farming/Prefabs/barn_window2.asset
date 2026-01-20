@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 43f0614d-4b01-4016-be0a-3e46bfb85d2d
   displayName: barn_window2
-  category: 12
+  category: 4
   prefab: {fileID: 8712090272286405805, guid: 34f8d6a1c41954f3d972fbb6e7b09f58, type: 3}
   icon: {fileID: 21300000, guid: 9cc5e1c5468f74f8ca50dc312a5b1875, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

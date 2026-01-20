@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 486386ba-111e-4887-b295-01167f87f0eb
   displayName: fence_pole_wood_light
-  category: 5
+  category: 2
   prefab: {fileID: 1590005481078200, guid: 2a9f2661399d05346a46901f8f15283b, type: 3}
   icon: {fileID: 21300000, guid: bdac5fe56170643719f348fea0ddb5ec, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

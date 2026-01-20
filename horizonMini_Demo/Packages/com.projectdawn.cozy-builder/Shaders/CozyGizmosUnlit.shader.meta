@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 565d8e7844750954980be52147df8d6f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Shaders/CozyGizmosUnlit.shader
+  uploadId: 843972

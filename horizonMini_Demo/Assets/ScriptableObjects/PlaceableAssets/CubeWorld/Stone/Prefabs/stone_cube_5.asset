@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: fe55ce92-19a1-48ac-af32-8cb8f131de0a
   displayName: stone_cube_5
-  category: 5
+  category: 4
   prefab: {fileID: 1654105625470868, guid: 5a2a14fa952f0394e808a25703dc77fd, type: 3}
   icon: {fileID: 21300000, guid: 7bf08491b6e8d49568d7fe4ab7ef392c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

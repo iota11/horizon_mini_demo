@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: f2a4fe45-75f6-4966-9546-58785cffdd58
   displayName: icicle_1
-  category: 5
+  category: 1
   prefab: {fileID: 1533623006470548, guid: 288da78b784e2364a83cccda8c093385, type: 3}
   icon: {fileID: 21300000, guid: 0f2341de246a44d2787248e252e44077, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

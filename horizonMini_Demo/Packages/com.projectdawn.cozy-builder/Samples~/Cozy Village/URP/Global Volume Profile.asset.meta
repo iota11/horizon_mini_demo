@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3bada77cb041aa04b812b264256a9652
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Samples~/Cozy Village/URP/Global
+    Volume Profile.asset
+  uploadId: 843972

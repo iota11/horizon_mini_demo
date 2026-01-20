@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 29db12cd-298a-4237-a7e5-79f8c7879878
   displayName: door_metal_rounded_top
-  category: 6
+  category: 4
   prefab: {fileID: 1038987260634162, guid: c52696a938e2258409210b839cb359d9, type: 3}
   icon: {fileID: 21300000, guid: 9faa9b4099c0f4ef08d5627a315b928f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

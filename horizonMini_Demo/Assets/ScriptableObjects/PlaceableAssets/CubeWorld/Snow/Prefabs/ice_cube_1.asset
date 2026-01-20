@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e423ff35-3ffa-412c-a7e6-a30afaac7f4d
   displayName: ice_cube_1
-  category: 5
+  category: 1
   prefab: {fileID: 1954857893755312, guid: ae3bc788ba8ef1a409b06711e992b4dd, type: 3}
   icon: {fileID: 21300000, guid: cace10de5b6ee449ca0a0b68851288b4, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6527764a91e7c2b4dbf703a132ba106a
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/SAMPLES.md
+  uploadId: 843972

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 32385a9a-e59a-4582-b804-5578b0feb687
   displayName: ore_pile_gold
-  category: 8
+  category: 6
   prefab: {fileID: 1949231507660532, guid: 69750458041118e458f4bdc935658a49, type: 3}
   icon: {fileID: 21300000, guid: c512c60b2964c4d63a89b1bc1f608e83, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

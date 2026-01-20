@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 597bdc55-ca2f-47f2-8108-60c99c2b7673
   displayName: vine1_LOD_group
-  category: 4
+  category: 0
   prefab: {fileID: 1511750479552017692, guid: df46dda91ea6e4e678dccb9176cd23a3, type: 3}
   icon: {fileID: 21300000, guid: cfdefb680a63d4e109d9982991f8208f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}
