@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: wood_window_light
+  m_EditorClassIdentifier: 
+  assetId: 3199f236-1dbb-431d-a27e-8eafd027d9ea
+  displayName: wood_window_light
+  category: 5
+  prefab: {fileID: 1129480311323752, guid: 9a44089b11a810445bd881c18bbf649b, type: 3}
+  icon: {fileID: 21300000, guid: 431f57c6c382846d9aefa582db37c02c, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

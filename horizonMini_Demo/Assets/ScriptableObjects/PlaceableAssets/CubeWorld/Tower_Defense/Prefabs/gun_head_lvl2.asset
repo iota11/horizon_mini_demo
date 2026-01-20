@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: gun_head_lvl2
+  m_EditorClassIdentifier: 
+  assetId: b2918417-419f-41c9-bf06-12a186c81f4d
+  displayName: gun_head_lvl2
+  category: 11
+  prefab: {fileID: 5915403234139369738, guid: cb0bc497516fd4f49a970395b8bf298a, type: 3}
+  icon: {fileID: 21300000, guid: 20f0a86a6c02741e4874f7ff0b8afc67, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: pickaxe_metal
+  m_EditorClassIdentifier: 
+  assetId: 6e9cf353-15b3-45de-8471-c7b201900ffe
+  displayName: pickaxe_metal
+  category: 12
+  prefab: {fileID: 1097413369561490, guid: 1e79aaba3053ea7419c5d48b0fd05e33, type: 3}
+  icon: {fileID: 21300000, guid: a5d51dcae7acb4e0bb373f934a124b1d, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

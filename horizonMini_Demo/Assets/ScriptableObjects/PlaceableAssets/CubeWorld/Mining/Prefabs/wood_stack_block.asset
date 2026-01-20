@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: wood_stack_block
+  m_EditorClassIdentifier: 
+  assetId: 9034ee7c-fd8a-4457-9ff3-9608280751a7
+  displayName: wood_stack_block
+  category: 12
+  prefab: {fileID: 1618198600523498, guid: 016d7f000eceb334f830e456158e16ee, type: 3}
+  icon: {fileID: 21300000, guid: eba2086cadbd54bb1a0e51773e346376, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

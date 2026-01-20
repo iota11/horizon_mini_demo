@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: door_frame_metal_rounded_double
+  m_EditorClassIdentifier: 
+  assetId: ab4b2bda-e1fc-4f89-81f8-55ceb290a7ed
+  displayName: door_frame_metal_rounded_double
+  category: 6
+  prefab: {fileID: 1804231441433386, guid: c8aaa466181bee14b9302d72529e54e4, type: 3}
+  icon: {fileID: 21300000, guid: 3a1b3825cbbad4bd3b5282371a597a4e, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

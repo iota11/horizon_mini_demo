@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: bcdcf2ae-0408-453a-a6ba-e8c308cbf6ea
   displayName: bushes_small_plain_LOD_group
-  category: 4
+  category: 1
   prefab: {fileID: 9201586057462061879, guid: 7cbbaed33352d41adab75f1ff7efaf05, type: 3}
   icon: {fileID: 21300000, guid: aa85b588fde75429f95be008c2dd42b8, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

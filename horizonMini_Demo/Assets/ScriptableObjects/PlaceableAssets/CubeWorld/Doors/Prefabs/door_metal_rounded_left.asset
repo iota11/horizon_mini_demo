@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: door_metal_rounded_left
+  m_EditorClassIdentifier: 
+  assetId: 0a9cc01d-9a8a-4cb1-9ec1-c7955f00926a
+  displayName: door_metal_rounded_left
+  category: 6
+  prefab: {fileID: 1792864054854440, guid: 3f574f683881f904d9d5fabf46168aa9, type: 3}
+  icon: {fileID: 21300000, guid: 049718f0202d74bfe80ed1d95e5bf0bc, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

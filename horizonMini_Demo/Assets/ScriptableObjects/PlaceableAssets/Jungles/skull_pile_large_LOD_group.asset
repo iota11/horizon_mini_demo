@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8dbf0eed-9bf8-42b0-9e40-2174b80e2979
   displayName: skull_pile_large_LOD_group
-  category: 4
+  category: 10
   prefab: {fileID: 6066130395253448282, guid: 44d5638cfde3d4fb28e1ef30588460cb, type: 3}
   icon: {fileID: 21300000, guid: 2589a2bce0a1e4c0a9f841eef20854bf, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

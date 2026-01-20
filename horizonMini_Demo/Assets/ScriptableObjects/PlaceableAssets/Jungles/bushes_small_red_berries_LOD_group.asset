@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 276bf03c-16a2-4b0b-bafc-47a6f7eac330
   displayName: bushes_small_red_berries_LOD_group
-  category: 4
+  category: 1
   prefab: {fileID: 6429975077315367485, guid: 47891e8f38e824055a84275989f949d0, type: 3}
   icon: {fileID: 21300000, guid: a9c2f976a34d04c63acb52dafce3fa30, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

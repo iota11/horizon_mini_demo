@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: cloud_2_double
+  m_EditorClassIdentifier: 
+  assetId: c2f75016-4257-48e9-b1d0-639a8238f5f5
+  displayName: cloud_2_double
+  category: 10
+  prefab: {fileID: 1623386976207110, guid: f18aae01e6a1f774ba6347c8d4a24d98, type: 3}
+  icon: {fileID: 21300000, guid: db05171b5979c4453a2f52fad46a4291, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

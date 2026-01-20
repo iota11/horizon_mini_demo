@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1e72b444-3ca5-472f-9b68-7876471aad84
   displayName: flower_trio_yellow_LOD_group
-  category: 4
+  category: 2
   prefab: {fileID: 2762985761295827132, guid: 75e23c79079f9497ea2597369f10bfdd, type: 3}
   icon: {fileID: 21300000, guid: 6046fe8acc4b44be3938caf7b989c7e2, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

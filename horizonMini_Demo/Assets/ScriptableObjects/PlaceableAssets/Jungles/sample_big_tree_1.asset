@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 43a7e10d-5f76-4534-bd67-9c0c355c7b97
   displayName: sample_big_tree_1
-  category: 4
+  category: 0
   prefab: {fileID: 4937507675837987918, guid: 056f38958caa744ed86f899799c84b6d, type: 3}
   icon: {fileID: 21300000, guid: 4957a8a688b0440dc9c16adea905143c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 3b957b07-47a3-4bdd-ab19-7f0578817f5c
   displayName: flower_single_yellow_LOD_group
-  category: 4
+  category: 2
   prefab: {fileID: 1425939876032667332, guid: 0adc47af9293e41858d541f9c5a8ff74, type: 3}
   icon: {fileID: 21300000, guid: 717fb67e1e46e48b9abd9d11f37f80e0, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

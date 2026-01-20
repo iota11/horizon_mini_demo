@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 506fb659-3823-43fa-8d11-e4e5dc2027a9
   displayName: bush_square_big_plain_LOD_group
-  category: 4
+  category: 1
   prefab: {fileID: 9094538583992984085, guid: 12164f1a94d6d4b859f104ac3b4d01cd, type: 3}
   icon: {fileID: 21300000, guid: 5a8f7fa13e4d44c149d2331319d363a3, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: presi_medium_empty_color3
+  m_EditorClassIdentifier: 
+  assetId: ba4a357d-2cdd-48ca-9d74-c209b4bcb853
+  displayName: presi_medium_empty_color3
+  category: 10
+  prefab: {fileID: 1093678718645510, guid: 7d640a91f47514343ab4fb55a4f4d034, type: 3}
+  icon: {fileID: 21300000, guid: 9d77b9bd51e2b44e2b4b39208afcb043, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: sandstone_pillar_bottom
+  m_EditorClassIdentifier: 
+  assetId: d477d868-18b5-4612-810e-c6e9920194e6
+  displayName: sandstone_pillar_bottom
+  category: 5
+  prefab: {fileID: 1095116155852058, guid: 17ce62ed8ba1ecf408a67817ad7892ce, type: 3}
+  icon: {fileID: 21300000, guid: b212ce2c6f74042ee84801116619787a, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

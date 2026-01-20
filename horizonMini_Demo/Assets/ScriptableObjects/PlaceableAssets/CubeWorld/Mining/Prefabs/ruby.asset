@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: ruby
+  m_EditorClassIdentifier: 
+  assetId: ee0c1971-e187-44ca-9f5b-7ef1cf25c4c7
+  displayName: ruby
+  category: 12
+  prefab: {fileID: 1061513679825182, guid: 7eba0f49c0673d348a4dcad8d9eb4e17, type: 3}
+  icon: {fileID: 21300000, guid: f34fc9b7306be4b6786069e75d8391a3, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

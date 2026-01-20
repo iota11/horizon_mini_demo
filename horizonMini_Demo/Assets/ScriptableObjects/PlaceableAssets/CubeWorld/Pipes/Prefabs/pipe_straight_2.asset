@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: pipe_straight_2
+  m_EditorClassIdentifier: 
+  assetId: 061a70c2-9bdc-48e6-b4b2-f79bfddb8c21
+  displayName: pipe_straight_2
+  category: 8
+  prefab: {fileID: 1214361783123928, guid: 7f4f50d24a61cca46aab0e8c76dac916, type: 3}
+  icon: {fileID: 21300000, guid: 5b3375842e62d4ea2af1e4dd037ece50, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

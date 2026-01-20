@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: grass_deco_2
+  m_EditorClassIdentifier: 
+  assetId: 65f29552-27b7-4f41-8f4c-65620416cbbf
+  displayName: grass_deco_2
+  category: 5
+  prefab: {fileID: 1196235458804410, guid: 31060757561fbca4aa04ce09707be53c, type: 3}
+  icon: {fileID: 21300000, guid: fb03ffd1a63344990a58e0f7f4ca99cc, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

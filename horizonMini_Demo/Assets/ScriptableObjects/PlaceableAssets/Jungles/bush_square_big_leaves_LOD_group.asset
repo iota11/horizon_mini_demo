@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a7b1ce97-ded4-4f0d-9575-8d655b4ead30
   displayName: bush_square_big_leaves_LOD_group
-  category: 4
+  category: 1
   prefab: {fileID: 277952605900375665, guid: 57a864d9d8ec8494a965e8f1dff5c0c8, type: 3}
   icon: {fileID: 21300000, guid: abe167ca3893a42c1a6e5c78bbb75b35, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

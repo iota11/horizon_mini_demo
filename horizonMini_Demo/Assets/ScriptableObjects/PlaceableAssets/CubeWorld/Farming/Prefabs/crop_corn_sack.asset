@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: crop_corn_sack
+  m_EditorClassIdentifier: 
+  assetId: bc9976b8-29de-43db-9483-0cac1e49fa26
+  displayName: crop_corn_sack
+  category: 12
+  prefab: {fileID: 3819045241813605703, guid: 461ef1e150b9d4ab9aeb2437422f66fd, type: 3}
+  icon: {fileID: 21300000, guid: 4dcf95941903e4409b029fd81d9031ee, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

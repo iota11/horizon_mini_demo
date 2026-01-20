@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: cloud_half
+  m_EditorClassIdentifier: 
+  assetId: 1f1c4b88-07f7-4a5d-b212-468f2bc0ab99
+  displayName: cloud_half
+  category: 10
+  prefab: {fileID: 1549835250844810, guid: 2ef74e03c678dcb4d88dfa8a3336b6e2, type: 3}
+  icon: {fileID: 21300000, guid: 81f1a5d46c3004ef2a186ecb9596b709, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

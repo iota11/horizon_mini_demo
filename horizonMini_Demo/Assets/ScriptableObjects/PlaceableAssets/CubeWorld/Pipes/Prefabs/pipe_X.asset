@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: pipe_X
+  m_EditorClassIdentifier: 
+  assetId: c8e740e3-43d1-424b-a1ff-38626bdbdb9e
+  displayName: pipe_X
+  category: 8
+  prefab: {fileID: 1939135829880670, guid: c2174a9a36d287945b19596ac8feeb1f, type: 3}
+  icon: {fileID: 21300000, guid: ba3372cf199774083adbabf089bbdd0c, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

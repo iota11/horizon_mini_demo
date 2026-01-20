@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: crop_salad_1
+  m_EditorClassIdentifier: 
+  assetId: 2b8414f4-0806-468c-a41b-a4f7c731ab4b
+  displayName: crop_salad_1
+  category: 12
+  prefab: {fileID: 1030675848838158225, guid: 33c68e025d00e49bda163d72c84ca4d0, type: 3}
+  icon: {fileID: 21300000, guid: aa4cc32ce6eac49978627afcb759b85f, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

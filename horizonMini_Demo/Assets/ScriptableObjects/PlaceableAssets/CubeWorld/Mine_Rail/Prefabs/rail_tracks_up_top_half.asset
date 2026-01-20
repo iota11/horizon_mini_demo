@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: rail_tracks_up_top_half
+  m_EditorClassIdentifier: 
+  assetId: c412591c-216c-4c10-98e0-3403665e56b1
+  displayName: rail_tracks_up_top_half
+  category: 8
+  prefab: {fileID: 1785394537977508, guid: 98050c286dbe12f4aad0b550ac31165a, type: 3}
+  icon: {fileID: 21300000, guid: f8197c6280e164d85808c452b640d9e6, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

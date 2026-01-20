@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 29341863-34af-4962-b6b8-f79d265a9df4
   displayName: bone_jaw_LOD_group
-  category: 4
+  category: 10
   prefab: {fileID: 4642451754535108374, guid: 676dc2b49d8bf4ec1b93229a3c70d96f, type: 3}
   icon: {fileID: 21300000, guid: 541652d8e21b3491185dcc341181a4be, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8dd29e2a-e825-4462-8168-175488b92aea
   displayName: door_large_floor_stone_LOD_group
-  category: 4
+  category: 6
   prefab: {fileID: 3741168264046409852, guid: 8ace347f67d1d47839eb47c954f12fb2, type: 3}
   icon: {fileID: 21300000, guid: 66b34958a73124da68a7e85808b4e62d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

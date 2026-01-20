@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: rail_tracks_up_tile
+  m_EditorClassIdentifier: 
+  assetId: e9825b17-cb8f-432a-958d-853de6bb15b6
+  displayName: rail_tracks_up_tile
+  category: 8
+  prefab: {fileID: 1169443637163190, guid: f1fd3588277581b438d6a54f2bcc4eb8, type: 3}
+  icon: {fileID: 21300000, guid: 2ed28476886b041df94c79b1c1166717, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

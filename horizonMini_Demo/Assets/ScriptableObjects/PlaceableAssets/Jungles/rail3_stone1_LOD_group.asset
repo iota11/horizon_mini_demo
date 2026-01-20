@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2ae067a6-53dc-40ad-a770-91fee0ff22f6
   displayName: rail3_stone1_LOD_group
-  category: 4
+  category: 8
   prefab: {fileID: 8241572425240741358, guid: 85702a8db772d409e847f93851fffab9, type: 3}
   icon: {fileID: 21300000, guid: aa920e388bb6649d7907148a0c70d396, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

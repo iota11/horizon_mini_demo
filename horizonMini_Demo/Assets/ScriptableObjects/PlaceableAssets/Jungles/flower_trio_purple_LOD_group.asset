@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 935a89a7-0c8e-4cf3-9f07-c091a9e196ff
   displayName: flower_trio_purple_LOD_group
-  category: 4
+  category: 2
   prefab: {fileID: 506770965863314196, guid: 134780dafc37642a5b11cf970ad5698f, type: 3}
   icon: {fileID: 21300000, guid: 1fff365ade3774450914791ddefdd764, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

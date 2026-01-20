@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: bow_metal
+  m_EditorClassIdentifier: 
+  assetId: 9b82c72a-aa60-4c91-aa63-3fc752c276b7
+  displayName: bow_metal
+  category: 12
+  prefab: {fileID: 1254573932841548, guid: 9d8737b7e4f1eb247bf01cb0737661f9, type: 3}
+  icon: {fileID: 21300000, guid: cf39cc35434494f61b0e8cf8df1fa783, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

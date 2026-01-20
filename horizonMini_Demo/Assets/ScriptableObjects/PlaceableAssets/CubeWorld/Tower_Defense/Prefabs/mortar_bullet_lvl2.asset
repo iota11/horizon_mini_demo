@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: mortar_bullet_lvl2
+  m_EditorClassIdentifier: 
+  assetId: 61fa6f11-015c-4d5f-86bf-67a023bda54a
+  displayName: mortar_bullet_lvl2
+  category: 11
+  prefab: {fileID: 5708491752189238129, guid: 472866a33833a40208f7d1867123e67d, type: 3}
+  icon: {fileID: 21300000, guid: 5979881aa615b4de29a63df241db4111, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

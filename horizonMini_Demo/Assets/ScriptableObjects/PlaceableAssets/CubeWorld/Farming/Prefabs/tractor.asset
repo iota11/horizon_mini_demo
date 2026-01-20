@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: tractor
+  m_EditorClassIdentifier: 
+  assetId: b809bc85-096e-4c04-a28c-7e08f71d9214
+  displayName: tractor
+  category: 12
+  prefab: {fileID: 6332458186138536866, guid: fb2084c40187e40c7a6656d87fdb9b03, type: 3}
+  icon: {fileID: 21300000, guid: 882ea00f7af3145bd8f3680eaa0c65af, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

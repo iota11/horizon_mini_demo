@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2970e740-d73a-4e99-a08e-2b75cceb011d
   displayName: trap_floor_LOD_group
-  category: 4
+  category: 12
   prefab: {fileID: 5098514214249618501, guid: f4659e14c15ef4a2db2d5a46f800e4fc, type: 3}
   icon: {fileID: 21300000, guid: 533b58dbdf5b44a11bd6036edd8e7e32, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

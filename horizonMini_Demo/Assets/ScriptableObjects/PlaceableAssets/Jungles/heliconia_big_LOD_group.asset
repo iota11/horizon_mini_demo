@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c12d7b7c-879a-4a0a-b741-44c3e4aff7c2
   displayName: heliconia_big_LOD_group
-  category: 4
+  category: 2
   prefab: {fileID: 6060636128556780948, guid: 06cee2520965348e2b65cff23a69ebf2, type: 3}
   icon: {fileID: 21300000, guid: 14e05ec509c9e4c30b746991f03bda4a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

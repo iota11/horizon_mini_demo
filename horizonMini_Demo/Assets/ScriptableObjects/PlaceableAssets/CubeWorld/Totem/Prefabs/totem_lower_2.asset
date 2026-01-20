@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: totem_lower_2
+  m_EditorClassIdentifier: 
+  assetId: 4fc2e508-45ee-4e2f-8be4-eb4411701a17
+  displayName: totem_lower_2
+  category: 10
+  prefab: {fileID: 1274293070224236, guid: e3ea06ff39d06f74f9610b14e790771c, type: 3}
+  icon: {fileID: 21300000, guid: 5fcb4c0ecc7dd45788c55da83906495d, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

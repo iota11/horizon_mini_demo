@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: chain
+  m_EditorClassIdentifier: 
+  assetId: 5f23f87a-ea27-4277-bf2b-1f7e422f32cd
+  displayName: chain
+  category: 5
+  prefab: {fileID: 1581702757747902, guid: da66de1e931d1a647abd8268fc6cfd9f, type: 3}
+  icon: {fileID: 21300000, guid: 4b51928dd5c87418ab04a587561f7210, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

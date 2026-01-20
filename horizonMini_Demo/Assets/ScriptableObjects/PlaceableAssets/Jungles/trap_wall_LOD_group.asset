@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8b0a1335-f232-4ea7-8822-21eb4bc1892e
   displayName: trap_wall_LOD_group
-  category: 4
+  category: 12
   prefab: {fileID: 3081138531629580247, guid: 4291c1636248a4a30ac94220cf7bcaae, type: 3}
   icon: {fileID: 21300000, guid: 63a33611428f84301b9cb7dcea6773ac, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

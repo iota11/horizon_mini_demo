@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: crop_ground_mounds
+  m_EditorClassIdentifier: 
+  assetId: b7cbfa63-9035-4c7b-9f86-025d80a1a522
+  displayName: crop_ground_mounds
+  category: 12
+  prefab: {fileID: 4553961815777984427, guid: cb3a2058cc02e4595a8fb1c72c4f6546, type: 3}
+  icon: {fileID: 21300000, guid: ecb49a90d02c944adb8f3dec8cbb9aa1, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: wood_cube_4
+  m_EditorClassIdentifier: 
+  assetId: e5806563-55e4-4451-a93e-532c6b917187
+  displayName: wood_cube_4
+  category: 5
+  prefab: {fileID: 1433296106323872, guid: 12d725465d74d744ca4490821e85fc17, type: 3}
+  icon: {fileID: 21300000, guid: f1fec89ca8bc44d6baa2bd5b56f8c7a9, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

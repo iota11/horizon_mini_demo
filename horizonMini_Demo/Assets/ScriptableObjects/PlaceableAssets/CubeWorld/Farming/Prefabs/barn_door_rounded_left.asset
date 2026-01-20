@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: barn_door_rounded_left
+  m_EditorClassIdentifier: 
+  assetId: 84d71520-a866-4ffd-a7a1-856355c3d7f4
+  displayName: barn_door_rounded_left
+  category: 12
+  prefab: {fileID: 284704651730209453, guid: d0f4e1716d9b04e9f9b827dc7ff0ea0b, type: 3}
+  icon: {fileID: 21300000, guid: b87ee13428d314584bee1492e102b7bf, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

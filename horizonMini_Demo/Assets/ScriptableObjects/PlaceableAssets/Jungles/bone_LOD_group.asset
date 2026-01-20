@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 824e349e-aa0f-4c99-8fb9-5aa92146a984
   displayName: bone_LOD_group
-  category: 4
+  category: 10
   prefab: {fileID: 3944365734973468589, guid: 9a8676697e3f749e6a43a78ab14d5167, type: 3}
   icon: {fileID: 21300000, guid: 8fb47c24616ac4e77b043eb8df029b39, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

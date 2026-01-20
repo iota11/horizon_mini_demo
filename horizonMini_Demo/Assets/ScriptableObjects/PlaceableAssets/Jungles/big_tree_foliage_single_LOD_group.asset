@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ac13ed73-98db-455b-9eb4-028546115d38
   displayName: big_tree_foliage_single_LOD_group
-  category: 4
+  category: 0
   prefab: {fileID: 5697823087895783495, guid: 5e77fcd9992e14023af17b40186c3d87, type: 3}
   icon: {fileID: 21300000, guid: c174d9234805b4065ac820eed15bad9f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

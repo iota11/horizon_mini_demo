@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: cover_wood
+  m_EditorClassIdentifier: 
+  assetId: aef2e9d2-9b22-43bf-ac5f-aa71c44de866
+  displayName: cover_wood
+  category: 8
+  prefab: {fileID: 1061545183951636, guid: d2430f994d02d14409d28a3d0c2a1fc5, type: 3}
+  icon: {fileID: 21300000, guid: aa0f75b0ee1be482f901ee99adc6b13f, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

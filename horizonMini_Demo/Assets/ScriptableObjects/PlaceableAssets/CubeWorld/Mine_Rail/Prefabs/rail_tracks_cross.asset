@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: rail_tracks_cross
+  m_EditorClassIdentifier: 
+  assetId: 6055a5a7-c30a-4ad4-9124-41eef1ddeb4a
+  displayName: rail_tracks_cross
+  category: 8
+  prefab: {fileID: 1954259660839256, guid: 226238c9a6891bb4fbf8c4a3a6a006da, type: 3}
+  icon: {fileID: 21300000, guid: fd820f991646644cd9578e720697b9c2, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

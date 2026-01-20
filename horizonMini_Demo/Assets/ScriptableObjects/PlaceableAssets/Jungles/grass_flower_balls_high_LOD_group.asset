@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1f7857b9-40ba-4e07-9e03-e939cdec1f02
   displayName: grass_flower_balls_high_LOD_group
-  category: 4
+  category: 3
   prefab: {fileID: 5200055345701486149, guid: 5c8971b0973e340ab989f2bdefd8adc8, type: 3}
   icon: {fileID: 21300000, guid: 7603a8b1247e34a86b6444685d0bd121, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}
