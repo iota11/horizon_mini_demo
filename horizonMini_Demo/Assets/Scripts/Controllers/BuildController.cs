@@ -359,6 +359,16 @@ namespace HorizonMini.Controllers
                         }
                     }
 
+                    // Check if it's a SmartWall - restore control points and height BEFORE setting transform
+                    SmartWall wall = obj.GetComponent<SmartWall>();
+                    if (wall != null && propData.smartWallControlPoints != null && propData.smartWallControlPoints.Count > 0)
+                    {
+                        Debug.Log($"[LOAD] Found SmartWall: {obj.name}");
+                        Debug.Log($"[LOAD] Restoring {propData.smartWallControlPoints.Count} control points, height: {propData.smartWallHeight}");
+                        wall.RestoreFromData(propData.smartWallControlPoints, propData.smartWallHeight);
+                        Debug.Log($"[LOAD] ✓ SmartWall restored with {wall.GetControlPointCount()} control points");
+                    }
+
                     obj.transform.position = propData.position;
                     obj.transform.rotation = propData.rotation;
                     obj.transform.localScale = propData.scale;
@@ -424,6 +434,9 @@ namespace HorizonMini.Controllers
                     // Hide SmartTerrain control points in View mode
                     SmartTerrainManager.Instance.EnterViewMode();
 
+                    // Hide SmartWall control points in View mode
+                    SmartWallManager.Instance.EnterViewMode();
+
                     Debug.Log("Entered View mode");
                     break;
 
@@ -441,6 +454,9 @@ namespace HorizonMini.Controllers
 
                     // Show SmartTerrain control points in Edit mode
                     SmartTerrainManager.Instance.EnterEditMode();
+
+                    // Show SmartWall control points in Edit mode
+                    SmartWallManager.Instance.EnterEditMode();
 
                     Debug.Log("Entered Edit mode");
                     break;
@@ -577,6 +593,7 @@ namespace HorizonMini.Controllers
                     Debug.Log($"Raycast hit: {hit.collider.gameObject.name}");
 
                     SmartTerrain terrain = hit.collider.GetComponentInParent<SmartTerrain>();
+                    SmartWall wall = hit.collider.GetComponentInParent<SmartWall>();
                     PlacedObject obj = hit.collider.GetComponentInParent<PlacedObject>();
 
                     if (obj != null)
@@ -592,10 +609,21 @@ namespace HorizonMini.Controllers
                             SelectObject(obj);
                             SmartTerrainManager.Instance.SetActiveTerrain(objTerrain);
                         }
+                        // Check if it's also a SmartWall
                         else
                         {
-                            // Normal PlacedObject
-                            SelectObject(obj);
+                            SmartWall objWall = obj.GetComponent<SmartWall>();
+                            if (objWall != null)
+                            {
+                                Debug.Log($"SmartWall with PlacedObject: {obj.name}");
+                                SelectObject(obj);
+                                SmartWallManager.Instance.SetActiveWall(objWall);
+                            }
+                            else
+                            {
+                                // Normal PlacedObject
+                                SelectObject(obj);
+                            }
                         }
 
                         SwitchMode(BuildMode.Edit);
@@ -605,6 +633,13 @@ namespace HorizonMini.Controllers
                     {
                         Debug.Log($"SmartTerrain without PlacedObject: {terrain.name}");
                         SmartTerrainManager.Instance.SetActiveTerrain(terrain);
+                        SwitchMode(BuildMode.Edit);
+                        return;
+                    }
+                    else if (wall != null)
+                    {
+                        Debug.Log($"SmartWall without PlacedObject: {wall.name}");
+                        SmartWallManager.Instance.SetActiveWall(wall);
                         SwitchMode(BuildMode.Edit);
                         return;
                     }
@@ -618,6 +653,8 @@ namespace HorizonMini.Controllers
                     Debug.Log("Raycast hit nothing");
                     // Clear active terrain when clicking empty space
                     SmartTerrainManager.Instance.ClearActiveTerrain();
+                    // Clear active wall when clicking empty space
+                    SmartWallManager.Instance.ClearActiveWall();
                 }
             }
             else if (currentMode == BuildMode.Edit)
@@ -650,6 +687,7 @@ namespace HorizonMini.Controllers
                 if (Physics.Raycast(ray, out hit, 1000f))
                 {
                     SmartTerrain terrain = hit.collider.GetComponentInParent<SmartTerrain>();
+                    SmartWall wall = hit.collider.GetComponentInParent<SmartWall>();
                     PlacedObject obj = hit.collider.GetComponentInParent<PlacedObject>();
 
                     if (obj != null && obj != selectedObject)
@@ -665,9 +703,19 @@ namespace HorizonMini.Controllers
                             SelectObject(obj);
                             SmartTerrainManager.Instance.SetActiveTerrain(objTerrain);
                         }
+                        // Check if it's also a SmartWall
                         else
                         {
-                            SelectObject(obj);
+                            SmartWall objWall = obj.GetComponent<SmartWall>();
+                            if (objWall != null)
+                            {
+                                SelectObject(obj);
+                                SmartWallManager.Instance.SetActiveWall(objWall);
+                            }
+                            else
+                            {
+                                SelectObject(obj);
+                            }
                         }
 
                         SwitchMode(BuildMode.Edit);
@@ -696,12 +744,30 @@ namespace HorizonMini.Controllers
                             return;
                         }
                     }
+                    else if (wall != null)
+                    {
+                        // Clicked on SmartWall without PlacedObject
+                        SmartWall currentActiveWall = SmartWallManager.Instance.GetActiveWall();
+                        if (wall != currentActiveWall)
+                        {
+                            // Switch to different SmartWall
+                            Debug.Log($"Switching to different SmartWall: {wall.name}");
+                            SmartWallManager.Instance.SetActiveWall(wall);
+                            return;
+                        }
+                        else
+                        {
+                            Debug.Log("Clicked on active SmartWall - stay in Edit mode");
+                            return;
+                        }
+                    }
                     else
                     {
                         Debug.Log($"Clicked on non-placeable object: {hit.collider.name}");
                         // Clicked something else (like volume grid) - exit to View mode
                         DeselectObject();
                         SmartTerrainManager.Instance.ClearActiveTerrain();
+                        SmartWallManager.Instance.ClearActiveWall();
                         SwitchMode(BuildMode.View);
                     }
                 }
@@ -710,6 +776,8 @@ namespace HorizonMini.Controllers
                     // Clicked empty space - exit to View mode
                     Debug.Log("Clicked empty space - exiting Edit mode");
                     DeselectObject();
+                    SmartTerrainManager.Instance.ClearActiveTerrain();
+                    SmartWallManager.Instance.ClearActiveWall();
                     SwitchMode(BuildMode.View);
                 }
             }
@@ -760,10 +828,16 @@ namespace HorizonMini.Controllers
             }
 
             // No UI layer hit - check if we should drag the object/terrain itself
-            // But first, make sure no SmartTerrainCursor is being dragged
+            // But first, make sure no SmartTerrainCursor or SmartWallCursor is being dragged
             if (SmartTerrainManager.Instance.IsAnyTerrainCursorDragging())
             {
                 // SmartTerrainCursor is handling the drag, don't interfere
+                return;
+            }
+
+            if (SmartWallManager.Instance.IsAnyWallCursorDragging())
+            {
+                // SmartWallCursor is handling the drag, don't interfere
                 return;
             }
 
@@ -800,6 +874,12 @@ namespace HorizonMini.Controllers
             if (SmartTerrainManager.Instance.IsAnyTerrainCursorDragging())
             {
                 return; // Don't move camera while dragging terrain control points
+            }
+
+            // Check if any SmartWallCursor is being dragged
+            if (SmartWallManager.Instance.IsAnyWallCursorDragging())
+            {
+                return; // Don't move camera while dragging wall control points
             }
 
             // Don't move camera if drag started over UI
@@ -1178,7 +1258,20 @@ namespace HorizonMini.Controllers
                     Debug.Log($"    Control Point Exists: {terrain.controlPoint != null}");
                     Debug.Log($"    Terrain Size: {terrain.GetSize()}");
                 }
-                else
+
+                // Check if it's a SmartWall - save control points and unified height
+                SmartWall wall = obj.GetComponent<SmartWall>();
+                if (wall != null)
+                {
+                    propData.smartWallControlPoints = wall.GetAllControlPointPositions();
+                    propData.smartWallHeight = wall.GetWallHeight();
+                    Debug.Log($"  - Saved SmartWall {obj.name}:");
+                    Debug.Log($"    Position: {obj.transform.position}");
+                    Debug.Log($"    Control Points: {propData.smartWallControlPoints.Count}");
+                    Debug.Log($"    Unified Wall Height: {propData.smartWallHeight}");
+                }
+
+                if (terrain == null && wall == null)
                 {
                     Debug.Log($"  - Saved {obj.name} at {obj.transform.position}");
                 }

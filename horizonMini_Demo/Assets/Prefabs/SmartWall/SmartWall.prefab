@@ -1,0 +1,373 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2072334172765918989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6123172212524745139}
+  - component: {fileID: 9051948222076432307}
+  m_Layer: 0
+  m_Name: SmartWallCursor_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6123172212524745139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072334172765918989}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4575694707945628414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9051948222076432307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072334172765918989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e4eb931dedb4fe6a262c8f5b3039a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smartWall: {fileID: 9223074307539263443}
+  buildCamera: {fileID: 0}
+  controlPointIndex: 0
+  xzHandlePrefab: {fileID: 0}
+  yHandlePrefab: {fileID: 0}
+  addButtonPrefab: {fileID: 0}
+  deleteButtonPrefab: {fileID: 0}
+  uiLayer:
+    serializedVersion: 2
+    m_Bits: 32
+  dragSensitivity: 1
+  snapInterval: 0.25
+--- !u!1 &2600717780500426684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7805551496818717377}
+  - component: {fileID: 843004895461675641}
+  m_Layer: 0
+  m_Name: SmartWallCursor_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7805551496818717377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2600717780500426684}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4575694707945628414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &843004895461675641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2600717780500426684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e4eb931dedb4fe6a262c8f5b3039a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smartWall: {fileID: 9223074307539263443}
+  buildCamera: {fileID: 0}
+  controlPointIndex: 3
+  xzHandlePrefab: {fileID: 0}
+  yHandlePrefab: {fileID: 0}
+  addButtonPrefab: {fileID: 0}
+  deleteButtonPrefab: {fileID: 0}
+  uiLayer:
+    serializedVersion: 2
+    m_Bits: 32
+  dragSensitivity: 1
+  snapInterval: 0.25
+--- !u!1 &3068255899095298727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 420562168661951929}
+  - component: {fileID: 7068598740854891700}
+  m_Layer: 0
+  m_Name: SmartWallCursor_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &420562168661951929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3068255899095298727}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4575694707945628414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7068598740854891700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3068255899095298727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e4eb931dedb4fe6a262c8f5b3039a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smartWall: {fileID: 9223074307539263443}
+  buildCamera: {fileID: 0}
+  controlPointIndex: 2
+  xzHandlePrefab: {fileID: 0}
+  yHandlePrefab: {fileID: 0}
+  addButtonPrefab: {fileID: 0}
+  deleteButtonPrefab: {fileID: 0}
+  uiLayer:
+    serializedVersion: 2
+    m_Bits: 32
+  dragSensitivity: 1
+  snapInterval: 0.25
+--- !u!1 &5043838373873076306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1869954460001347734}
+  - component: {fileID: 4164612943296073947}
+  m_Layer: 0
+  m_Name: SmartWallCursor_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1869954460001347734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043838373873076306}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4575694707945628414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4164612943296073947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043838373873076306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e4eb931dedb4fe6a262c8f5b3039a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smartWall: {fileID: 9223074307539263443}
+  buildCamera: {fileID: 0}
+  controlPointIndex: 1
+  xzHandlePrefab: {fileID: 0}
+  yHandlePrefab: {fileID: 0}
+  addButtonPrefab: {fileID: 0}
+  deleteButtonPrefab: {fileID: 0}
+  uiLayer:
+    serializedVersion: 2
+    m_Bits: 32
+  dragSensitivity: 1
+  snapInterval: 0.25
+--- !u!1001 &1359220415386575012
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5013747820787805803, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      propertyPath: m_Name
+      value: SmartWall
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6123172212524745139}
+    - targetCorrespondingSourceObject: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869954460001347734}
+    - targetCorrespondingSourceObject: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 420562168661951929}
+    - targetCorrespondingSourceObject: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7805551496818717377}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5013747820787805803, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9223074307539263443}
+  m_SourcePrefab: {fileID: 100100000, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+--- !u!114 &1017565578426302769 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2072769929069765013, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+  m_PrefabInstance: {fileID: 1359220415386575012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b1b336aa7325948bd4c6e00a8c1992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2024681141488031277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1064528472543655561, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+  m_PrefabInstance: {fileID: 1359220415386575012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1024661ba8480f409f78d2e42c92c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3061484856633259709 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4080401474193954329, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+  m_PrefabInstance: {fileID: 1359220415386575012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b1b336aa7325948bd4c6e00a8c1992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &4575694707945628414 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3268709377051755098, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+  m_PrefabInstance: {fileID: 1359220415386575012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6289420709854793423 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5013747820787805803, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+  m_PrefabInstance: {fileID: 1359220415386575012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9223074307539263443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6289420709854793423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdbf8dc3b2c8b407dabdcc3ffad79324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomSpline: {fileID: 3061484856633259709}
+  topSpline: {fileID: 1017565578426302769}
+  plane: {fileID: 2024681141488031277}
+  cozyRenderer: {fileID: 6471243744655613177}
+  defaultHeight: 2.5
+  minHeight: 0.5
+  maxHeight: 10
+  snapInterval: 0.25
+  minControlPoints: {x: 2, y: 2}
+--- !u!114 &6471243744655613177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5409546778791509085, guid: fd2269d4b07cf4e7391c26a30f02dfba, type: 3}
+  m_PrefabInstance: {fileID: 1359220415386575012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6289420709854793423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186fe534d35124746a54f71eecad1838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

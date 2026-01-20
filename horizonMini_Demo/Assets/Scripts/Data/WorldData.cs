@@ -80,6 +80,10 @@ namespace HorizonMini.Data
         // SmartTerrain specific data
         public Vector3 smartTerrainControlPoint = Vector3.zero; // Control point local position for SmartTerrain
 
+        // SmartWall specific data
+        public List<Vector3> smartWallControlPoints = new List<Vector3>(); // All control point positions
+        public float smartWallHeight = 2.5f;                                // Unified wall height
+
         public PropData()
         {
             propId = Guid.NewGuid().ToString();

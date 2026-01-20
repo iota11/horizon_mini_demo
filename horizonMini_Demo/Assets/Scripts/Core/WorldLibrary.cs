@@ -11,6 +11,7 @@ namespace HorizonMini.Core
     /// </summary>
     /// 
     ///
+
     
     public class WorldLibrary : MonoBehaviour
     {
@@ -186,6 +187,16 @@ namespace HorizonMini.Core
                     Debug.LogWarning($"[BROWSE LOAD] SmartTerrain loaded without saved control point data (was zero) - using default");
                     Debug.LogWarning($"[BROWSE LOAD] Using default control point position");
                 }
+            }
+
+            // Check if it's a SmartWall - restore control points and height BEFORE setting transform
+            HorizonMini.Build.SmartWall wall = obj.GetComponent<HorizonMini.Build.SmartWall>();
+            if (wall != null && propData.smartWallControlPoints != null && propData.smartWallControlPoints.Count > 0)
+            {
+                Debug.Log($"[BROWSE LOAD] Found SmartWall: {obj.name}");
+                Debug.Log($"[BROWSE LOAD] Restoring {propData.smartWallControlPoints.Count} control points, height: {propData.smartWallHeight}");
+                wall.RestoreFromData(propData.smartWallControlPoints, propData.smartWallHeight);
+                Debug.Log($"[BROWSE LOAD] ✓ SmartWall restored with {wall.GetControlPointCount()} control points");
             }
 
             obj.transform.position = propData.position;

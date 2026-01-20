@@ -302,6 +302,10 @@ namespace HorizonMini.Core
         // SmartTerrain specific data
         public Vector3Serializable smartTerrainControlPoint;
 
+        // SmartWall specific data
+        public List<Vector3Serializable> smartWallControlPoints;
+        public float smartWallHeight;
+
         public PropDataSerializable() { }
 
         public PropDataSerializable(PropData data)
@@ -316,6 +320,19 @@ namespace HorizonMini.Core
             if (data.smartTerrainControlPoint != Vector3.zero)
             {
                 smartTerrainControlPoint = new Vector3Serializable(data.smartTerrainControlPoint);
+            }
+
+            // Save SmartWall control points if they exist
+            if (data.smartWallControlPoints != null && data.smartWallControlPoints.Count > 0)
+            {
+                smartWallControlPoints = new List<Vector3Serializable>();
+                foreach (var cp in data.smartWallControlPoints)
+                {
+                    smartWallControlPoints.Add(new Vector3Serializable(cp));
+                }
+
+                // Save unified wall height
+                smartWallHeight = data.smartWallHeight;
             }
         }
 
@@ -334,6 +351,19 @@ namespace HorizonMini.Core
             if (smartTerrainControlPoint != null)
             {
                 propData.smartTerrainControlPoint = smartTerrainControlPoint.ToVector3();
+            }
+
+            // Restore SmartWall control points if they exist
+            if (smartWallControlPoints != null && smartWallControlPoints.Count > 0)
+            {
+                propData.smartWallControlPoints = new List<Vector3>();
+                foreach (var cp in smartWallControlPoints)
+                {
+                    propData.smartWallControlPoints.Add(cp.ToVector3());
+                }
+
+                // Restore unified wall height
+                propData.smartWallHeight = smartWallHeight;
             }
 
             return propData;
