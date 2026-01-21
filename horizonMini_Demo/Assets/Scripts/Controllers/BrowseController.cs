@@ -276,11 +276,19 @@ namespace HorizonMini.Controllers
         private void HandleInput()
         {
             // Mouse wheel zoom
-            float scroll = Input.GetAxis("Mouse ScrollWheel");
-            if (Mathf.Abs(scroll) > 0.01f)
+            try
             {
-                HandleScrollWheelZoom(scroll);
-                return; // Don't process other input when scrolling
+                float scroll = Input.GetAxis("Mouse ScrollWheel");
+                if (Mathf.Abs(scroll) > 0.01f)
+                {
+                    HandleScrollWheelZoom(scroll);
+                    return; // Don't process other input when scrolling
+                }
+            }
+            catch (System.ArgumentException)
+            {
+                // Mouse ScrollWheel axis not configured in Input Manager
+                // This is expected on some platforms
             }
 
             // Handle pinch gesture (two finger touch)

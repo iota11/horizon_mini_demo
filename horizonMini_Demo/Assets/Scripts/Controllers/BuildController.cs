@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 using HorizonMini.Core;
 using HorizonMini.Build;
 using HorizonMini.UI;
@@ -31,6 +33,7 @@ namespace HorizonMini.Controllers
 
         [Header("Asset References")]
         [SerializeField] private HorizonMini.Build.AssetCatalog assetCatalog;
+        [SerializeField] private GameObject spawnPointPrefab; // Unique spawn point prefab
 
         [Header("Effects")]
         [SerializeField] private HorizonMini.Build.PlacementEffectSettings effectSettings;
@@ -286,8 +289,17 @@ namespace HorizonMini.Controllers
             // Set volume size
             selectedVolumeSize = worldData.gridDimensions;
 
-            // Create volume grid
-            CreateVolumeGrid(worldData.gridDimensions);
+            // Create volume grid WITHOUT creating initial terrain/spawn point
+            // (those will be loaded from props)
+            UpdateVolumePreview(worldData.gridDimensions);
+
+            // Setup camera for this volume size
+            if (!cameraSetupForVolume && cameraController != null)
+            {
+                cameraController.SetupForMaxVolume(selectedVolumeSize, volumeUnitSize);
+                cameraSetupForVolume = true;
+                Debug.Log($"Camera setup for volume: {selectedVolumeSize}");
+            }
 
             // Load placed objects
             if (worldData.props != null && worldData.props.Count > 0)
@@ -315,19 +327,71 @@ namespace HorizonMini.Controllers
                 {
                     Debug.Log($"Attempting to load prop: {propData.prefabName}");
 
-                    HorizonMini.Build.PlaceableAsset asset = catalog.GetAssetById(propData.prefabName);
-                    if (asset == null)
+                    GameObject obj = null;
+
+                    // Special handling for SpawnPoint
+                    if (propData.prefabName != null && propData.prefabName.Contains("spawn_point"))
                     {
-                        Debug.LogWarning($"Asset not found for ID: {propData.prefabName}");
-                        continue;
+                        Debug.Log("[LoadWorldForEditing] Loading SpawnPoint");
+
+                        // Try to find in catalog first
+                        HorizonMini.Build.PlaceableAsset spawnAsset = catalog.GetAssetById(propData.prefabName);
+                        if (spawnAsset != null && spawnAsset.prefab != null)
+                        {
+                            obj = Instantiate(spawnAsset.prefab, buildContainer);
+                        }
+                        else if (spawnPointPrefab != null)
+                        {
+                            // Use assigned spawn point prefab
+                            obj = Instantiate(spawnPointPrefab, buildContainer);
+                        }
+                        else
+                        {
+                            // Fallback: Create programmatically
+                            Debug.LogWarning("Creating SpawnPoint programmatically (no prefab found)");
+                            obj = new GameObject("SpawnPoint");
+                            obj.transform.SetParent(buildContainer);
+
+                            SpawnPoint sp = obj.AddComponent<SpawnPoint>();
+                            sp.SetSpawnType(SpawnType.Player);
+                            sp.SetInitialSpawn(true);
+
+                            // Add visual marker
+                            GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                            marker.transform.SetParent(obj.transform);
+                            marker.transform.localPosition = Vector3.up * 1f;
+                            marker.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
+                            marker.name = "VisualMarker";
+                            var renderer = marker.GetComponent<Renderer>();
+                            if (renderer != null)
+                            {
+                                renderer.material.color = Color.green;
+                            }
+                        }
                     }
-                    if (asset.prefab == null)
+                    else
                     {
-                        Debug.LogWarning($"Asset {propData.prefabName} has null prefab!");
-                        continue;
+                        // Normal asset loading
+                        HorizonMini.Build.PlaceableAsset asset = catalog.GetAssetById(propData.prefabName);
+                        if (asset == null)
+                        {
+                            Debug.LogWarning($"Asset not found for ID: {propData.prefabName}");
+                            continue;
+                        }
+                        if (asset.prefab == null)
+                        {
+                            Debug.LogWarning($"Asset {propData.prefabName} has null prefab!");
+                            continue;
+                        }
+
+                        obj = Instantiate(asset.prefab, buildContainer);
                     }
 
-                    GameObject obj = Instantiate(asset.prefab, buildContainer);
+                    if (obj == null)
+                    {
+                        Debug.LogError($"Failed to instantiate prop: {propData.prefabName}");
+                        continue;
+                    }
 
                     // Check if it's a SmartTerrain - restore control point position BEFORE setting transform
                     // This ensures the mesh is regenerated with correct size
@@ -372,11 +436,21 @@ namespace HorizonMini.Controllers
                     obj.transform.position = propData.position;
                     obj.transform.rotation = propData.rotation;
                     obj.transform.localScale = propData.scale;
-                    obj.name = asset.displayName;
+
+                    // Set object name (use asset display name if available, otherwise prefab name)
+                    HorizonMini.Build.PlaceableAsset assetRef = catalog.GetAssetById(propData.prefabName);
+                    if (assetRef != null)
+                    {
+                        obj.name = assetRef.displayName;
+                    }
+                    else
+                    {
+                        obj.name = propData.prefabName;
+                    }
 
                     PlacedObject placedObj = obj.AddComponent<PlacedObject>();
                     placedObj.assetId = propData.prefabName;
-                    placedObj.sourceAsset = asset;
+                    placedObj.sourceAsset = assetRef; // May be null for SpawnPoint
                     placedObj.UpdateSavedTransform();
 
                     placedObjects.Add(placedObj);
@@ -412,6 +486,11 @@ namespace HorizonMini.Controllers
 
         private void EnterMode(BuildMode mode)
         {
+            // Declare manager variables once for the entire method
+            SmartTerrainManager terrainMgr;
+            SmartWallManager wallMgr;
+            SpawnPointManager spawnMgr;
+
             switch (mode)
             {
                 case BuildMode.SizePicker:
@@ -432,10 +511,19 @@ namespace HorizonMini.Controllers
                     }
 
                     // Hide SmartTerrain control points in View mode
-                    SmartTerrainManager.Instance.EnterViewMode();
+                    terrainMgr = SmartTerrainManager.Instance;
+                    if (terrainMgr != null) terrainMgr.EnterViewMode();
 
                     // Hide SmartWall control points in View mode
-                    SmartWallManager.Instance.EnterViewMode();
+                    wallMgr = SmartWallManager.Instance;
+                    if (wallMgr != null) wallMgr.EnterViewMode();
+
+                    // Hide SpawnPoint cursors in View mode
+                    spawnMgr = SpawnPointManager.Instance;
+                    if (spawnMgr != null) spawnMgr.EnterViewMode();
+
+                    // Auto-build NavMesh when exiting Edit mode
+                    BuildNavMesh();
 
                     Debug.Log("Entered View mode");
                     break;
@@ -453,21 +541,23 @@ namespace HorizonMini.Controllers
                     }
 
                     // Show SmartTerrain control points in Edit mode
-                    SmartTerrainManager.Instance.EnterEditMode();
+                    terrainMgr = SmartTerrainManager.Instance;
+                    if (terrainMgr != null) terrainMgr.EnterEditMode();
 
                     // Show SmartWall control points in Edit mode
-                    SmartWallManager.Instance.EnterEditMode();
+                    wallMgr = SmartWallManager.Instance;
+                    if (wallMgr != null) wallMgr.EnterEditMode();
+
+                    // Show SpawnPoint cursors in Edit mode
+                    spawnMgr = SpawnPointManager.Instance;
+                    if (spawnMgr != null) spawnMgr.EnterEditMode();
 
                     Debug.Log("Entered Edit mode");
                     break;
 
                 case BuildMode.Play:
-                    // Enter FPS test mode
-                    if (appRoot != null)
-                    {
-                        // Use PlayController
-                        Debug.Log("Entered Play mode");
-                    }
+                    // Play mode is now a separate scene, this shouldn't be reached
+                    Debug.LogWarning("BuildMode.Play entered - this is deprecated, use Play scene instead");
                     break;
             }
         }
@@ -566,8 +656,34 @@ namespace HorizonMini.Controllers
                 Debug.Log($"Camera setup for volume: {selectedVolumeSize}");
             }
 
+            // Create world ID if this is a new world
+            if (string.IsNullOrEmpty(currentWorldId))
+            {
+                currentWorldId = System.Guid.NewGuid().ToString();
+                Debug.Log($"[BuildController] Created new world ID: {currentWorldId}");
+            }
+
+            // Create initial terrain and spawn point BEFORE saving/switching
+            // (this creates the managers that SaveWorld and SwitchMode need)
+            CreateInitialTerrain();
+            CreateInitialSpawnPoint();
+
+            // Save world immediately after creation
+            SaveWorld();
+
             // Switch to View mode
             SwitchMode(BuildMode.View);
+        }
+
+        // Helper methods for safe manager access
+        private bool HasTerrainManager()
+        {
+            return SmartTerrainManager.Instance != null;
+        }
+
+        private bool HasWallManager()
+        {
+            return SmartWallManager.Instance != null;
         }
 
         // Gesture handlers
@@ -594,7 +710,21 @@ namespace HorizonMini.Controllers
 
                     SmartTerrain terrain = hit.collider.GetComponentInParent<SmartTerrain>();
                     SmartWall wall = hit.collider.GetComponentInParent<SmartWall>();
+                    SpawnPoint spawnPoint = hit.collider.GetComponentInParent<SpawnPoint>();
                     PlacedObject obj = hit.collider.GetComponentInParent<PlacedObject>();
+
+                    // Handle SpawnPoint selection
+                    if (spawnPoint != null)
+                    {
+                        Debug.Log($"SpawnPoint clicked: {spawnPoint.name}");
+                        var spawnMgr = SpawnPointManager.Instance;
+                        if (spawnMgr != null)
+                        {
+                            spawnMgr.SetActiveSpawnPoint(spawnPoint);
+                        }
+                        SwitchMode(BuildMode.Edit);
+                        return;
+                    }
 
                     if (obj != null)
                     {
@@ -607,7 +737,11 @@ namespace HorizonMini.Controllers
                             Debug.Log($"SmartTerrain with PlacedObject: {obj.name}");
                             // Select it as PlacedObject (for dragging) AND set as active terrain (for handlers)
                             SelectObject(obj);
-                            SmartTerrainManager.Instance.SetActiveTerrain(objTerrain);
+                            var terrainMgr = SmartTerrainManager.Instance;
+                            if (terrainMgr != null)
+                            {
+                                terrainMgr.SetActiveTerrain(objTerrain);
+                            }
                         }
                         // Check if it's also a SmartWall
                         else
@@ -617,7 +751,8 @@ namespace HorizonMini.Controllers
                             {
                                 Debug.Log($"SmartWall with PlacedObject: {obj.name}");
                                 SelectObject(obj);
-                                SmartWallManager.Instance.SetActiveWall(objWall);
+                                if (HasWallManager())
+                                    SmartWallManager.Instance.SetActiveWall(objWall);
                             }
                             else
                             {
@@ -632,14 +767,16 @@ namespace HorizonMini.Controllers
                     else if (terrain != null)
                     {
                         Debug.Log($"SmartTerrain without PlacedObject: {terrain.name}");
-                        SmartTerrainManager.Instance.SetActiveTerrain(terrain);
+                        if (HasTerrainManager())
+                            SmartTerrainManager.Instance.SetActiveTerrain(terrain);
                         SwitchMode(BuildMode.Edit);
                         return;
                     }
                     else if (wall != null)
                     {
                         Debug.Log($"SmartWall without PlacedObject: {wall.name}");
-                        SmartWallManager.Instance.SetActiveWall(wall);
+                        if (HasWallManager())
+                            SmartWallManager.Instance.SetActiveWall(wall);
                         SwitchMode(BuildMode.Edit);
                         return;
                     }
@@ -652,9 +789,11 @@ namespace HorizonMini.Controllers
                 {
                     Debug.Log("Raycast hit nothing");
                     // Clear active terrain when clicking empty space
-                    SmartTerrainManager.Instance.ClearActiveTerrain();
+                    if (HasTerrainManager())
+                        SmartTerrainManager.Instance.ClearActiveTerrain();
                     // Clear active wall when clicking empty space
-                    SmartWallManager.Instance.ClearActiveWall();
+                    if (HasWallManager())
+                        SmartWallManager.Instance.ClearActiveWall();
                 }
             }
             else if (currentMode == BuildMode.Edit)
@@ -701,7 +840,8 @@ namespace HorizonMini.Controllers
                         {
                             // Select as PlacedObject AND set as active terrain
                             SelectObject(obj);
-                            SmartTerrainManager.Instance.SetActiveTerrain(objTerrain);
+                            if (HasTerrainManager())
+                                SmartTerrainManager.Instance.SetActiveTerrain(objTerrain);
                         }
                         // Check if it's also a SmartWall
                         else
@@ -710,7 +850,8 @@ namespace HorizonMini.Controllers
                             if (objWall != null)
                             {
                                 SelectObject(obj);
-                                SmartWallManager.Instance.SetActiveWall(objWall);
+                                if (HasWallManager())
+                                    SmartWallManager.Instance.SetActiveWall(objWall);
                             }
                             else
                             {
@@ -730,35 +871,41 @@ namespace HorizonMini.Controllers
                     else if (terrain != null)
                     {
                         // Clicked on SmartTerrain without PlacedObject
-                        SmartTerrain currentActiveTerrain = SmartTerrainManager.Instance.GetActiveTerrain();
-                        if (terrain != currentActiveTerrain)
+                        if (HasTerrainManager())
                         {
-                            // Switch to different SmartTerrain
-                            Debug.Log($"Switching to different SmartTerrain: {terrain.name}");
-                            SmartTerrainManager.Instance.SetActiveTerrain(terrain);
-                            return;
-                        }
-                        else
-                        {
-                            Debug.Log("Clicked on active SmartTerrain - stay in Edit mode");
-                            return;
+                            SmartTerrain currentActiveTerrain = SmartTerrainManager.Instance.GetActiveTerrain();
+                            if (terrain != currentActiveTerrain)
+                            {
+                                // Switch to different SmartTerrain
+                                Debug.Log($"Switching to different SmartTerrain: {terrain.name}");
+                                SmartTerrainManager.Instance.SetActiveTerrain(terrain);
+                                return;
+                            }
+                            else
+                            {
+                                Debug.Log("Clicked on active SmartTerrain - stay in Edit mode");
+                                return;
+                            }
                         }
                     }
                     else if (wall != null)
                     {
                         // Clicked on SmartWall without PlacedObject
-                        SmartWall currentActiveWall = SmartWallManager.Instance.GetActiveWall();
-                        if (wall != currentActiveWall)
+                        if (HasWallManager())
                         {
-                            // Switch to different SmartWall
-                            Debug.Log($"Switching to different SmartWall: {wall.name}");
-                            SmartWallManager.Instance.SetActiveWall(wall);
-                            return;
-                        }
-                        else
-                        {
-                            Debug.Log("Clicked on active SmartWall - stay in Edit mode");
-                            return;
+                            SmartWall currentActiveWall = SmartWallManager.Instance.GetActiveWall();
+                            if (wall != currentActiveWall)
+                            {
+                                // Switch to different SmartWall
+                                Debug.Log($"Switching to different SmartWall: {wall.name}");
+                                SmartWallManager.Instance.SetActiveWall(wall);
+                                return;
+                            }
+                            else
+                            {
+                                Debug.Log("Clicked on active SmartWall - stay in Edit mode");
+                                return;
+                            }
                         }
                     }
                     else
@@ -766,8 +913,10 @@ namespace HorizonMini.Controllers
                         Debug.Log($"Clicked on non-placeable object: {hit.collider.name}");
                         // Clicked something else (like volume grid) - exit to View mode
                         DeselectObject();
-                        SmartTerrainManager.Instance.ClearActiveTerrain();
-                        SmartWallManager.Instance.ClearActiveWall();
+                        if (SmartTerrainManager.Instance != null)
+                            SmartTerrainManager.Instance.ClearActiveTerrain();
+                        if (SmartWallManager.Instance != null)
+                            SmartWallManager.Instance.ClearActiveWall();
                         SwitchMode(BuildMode.View);
                     }
                 }
@@ -776,8 +925,10 @@ namespace HorizonMini.Controllers
                     // Clicked empty space - exit to View mode
                     Debug.Log("Clicked empty space - exiting Edit mode");
                     DeselectObject();
-                    SmartTerrainManager.Instance.ClearActiveTerrain();
-                    SmartWallManager.Instance.ClearActiveWall();
+                    if (SmartTerrainManager.Instance != null)
+                        SmartTerrainManager.Instance.ClearActiveTerrain();
+                    if (SmartWallManager.Instance != null)
+                        SmartWallManager.Instance.ClearActiveWall();
                     SwitchMode(BuildMode.View);
                 }
             }
@@ -829,15 +980,24 @@ namespace HorizonMini.Controllers
 
             // No UI layer hit - check if we should drag the object/terrain itself
             // But first, make sure no SmartTerrainCursor or SmartWallCursor is being dragged
-            if (SmartTerrainManager.Instance.IsAnyTerrainCursorDragging())
+            var terrainMgr = SmartTerrainManager.Instance;
+            if (terrainMgr != null && terrainMgr.IsAnyTerrainCursorDragging())
             {
                 // SmartTerrainCursor is handling the drag, don't interfere
                 return;
             }
 
-            if (SmartWallManager.Instance.IsAnyWallCursorDragging())
+            var wallMgr = SmartWallManager.Instance;
+            if (wallMgr != null && wallMgr.IsAnyWallCursorDragging())
             {
                 // SmartWallCursor is handling the drag, don't interfere
+                return;
+            }
+
+            var spawnMgr = SpawnPointManager.Instance;
+            if (spawnMgr != null && spawnMgr.IsAnySpawnPointCursorDragging())
+            {
+                // SpawnPointCursor is handling the drag, don't interfere
                 return;
             }
 
@@ -871,15 +1031,24 @@ namespace HorizonMini.Controllers
             }
 
             // Check if any SmartTerrainCursor is being dragged
-            if (SmartTerrainManager.Instance.IsAnyTerrainCursorDragging())
+            var terrainMgr = SmartTerrainManager.Instance;
+            if (terrainMgr != null && terrainMgr.IsAnyTerrainCursorDragging())
             {
                 return; // Don't move camera while dragging terrain control points
             }
 
             // Check if any SmartWallCursor is being dragged
-            if (SmartWallManager.Instance.IsAnyWallCursorDragging())
+            var wallMgr = SmartWallManager.Instance;
+            if (wallMgr != null && wallMgr.IsAnyWallCursorDragging())
             {
                 return; // Don't move camera while dragging wall control points
+            }
+
+            // Check if any SpawnPointCursor is being dragged
+            var spawnMgr = SpawnPointManager.Instance;
+            if (spawnMgr != null && spawnMgr.IsAnySpawnPointCursorDragging())
+            {
+                return; // Don't move camera while dragging spawn point
             }
 
             // Don't move camera if drag started over UI
@@ -1085,6 +1254,16 @@ namespace HorizonMini.Controllers
             effect.PlayPlacementEffect(position);
 
             placedObjects.Add(placedObj);
+
+            // Auto-save after placing object
+            if (!string.IsNullOrEmpty(currentWorldId))
+            {
+                SaveWorld();
+            }
+
+            // Auto-select the placed object and enter Edit mode
+            SelectObject(placedObj);
+            SwitchMode(BuildMode.Edit);
         }
 
         private void FixMaterialsToURP(GameObject obj)
@@ -1165,6 +1344,13 @@ namespace HorizonMini.Controllers
                 placedObjects.Remove(selectedObject);
                 Destroy(selectedObject.gameObject);
                 DeselectObject();
+
+                // Auto-save after deletion
+                if (!string.IsNullOrEmpty(currentWorldId))
+                {
+                    SaveWorld();
+                }
+
                 SwitchMode(BuildMode.View);
                 Debug.Log("Object deleted, switched to View mode");
             }
@@ -1177,13 +1363,258 @@ namespace HorizonMini.Controllers
         // UI Callbacks
         public void OnGoButtonPressed()
         {
-            SwitchMode(BuildMode.Play);
-            // TODO: Activate PlayController
+            Debug.Log($"[BuildController] Go button pressed. Current world ID: {currentWorldId}");
+
+            // Save world before entering play mode
+            SaveWorld();
+
+            Debug.Log($"[BuildController] World saved. Verifying save...");
+
+            // Verify the world was saved
+            SaveService saveService = appRoot != null ? appRoot.SaveService : FindFirstObjectByType<SaveService>();
+            if (saveService != null)
+            {
+                var savedWorld = saveService.LoadCreatedWorld(currentWorldId);
+                if (savedWorld != null)
+                {
+                    Debug.Log($"[BuildController] ✓ Verified world save: {savedWorld.worldTitle}, Props: {savedWorld.props?.Count ?? 0}");
+                }
+                else
+                {
+                    Debug.LogError($"[BuildController] ✗ Failed to verify world save for ID: {currentWorldId}");
+                }
+            }
+
+            // Pass world ID to Play scene
+            HorizonMini.Core.SceneTransitionData.SetWorldToPlay(currentWorldId);
+
+            // Load Play scene
+            Debug.Log($"[BuildController] Entering Play Mode for world: {currentWorldId}");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Play");
+        }
+
+        public void OnDeleteWorldButtonPressed()
+        {
+            if (string.IsNullOrEmpty(currentWorldId))
+            {
+                Debug.LogWarning("[BuildController] No world to delete");
+                return;
+            }
+
+            Debug.Log($"[BuildController] Deleting world: {currentWorldId}");
+
+            // Delete world from SaveService
+            SaveService saveService = appRoot != null ? appRoot.SaveService : FindFirstObjectByType<SaveService>();
+            if (saveService != null)
+            {
+                saveService.DeleteCreatedWorld(currentWorldId);
+                Debug.Log($"[BuildController] ✓ World deleted: {currentWorldId}");
+            }
+
+            // Return to Main scene
+            Debug.Log("[BuildController] Returning to Main scene");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         }
 
         public void OnPublicButtonPressed()
         {
             SaveWorld();
+        }
+
+        /// <summary>
+        /// Build NavMesh for the current scene
+        /// </summary>
+        private void BuildNavMesh()
+        {
+            // Find all NavMeshSurface components in the scene
+            NavMeshSurface[] surfaces = FindObjectsByType<NavMeshSurface>(FindObjectsSortMode.None);
+
+            if (surfaces.Length == 0)
+            {
+                Debug.LogWarning("No NavMeshSurface found in scene. NavMesh will not be built.");
+                return;
+            }
+
+            // Build all NavMesh surfaces
+            foreach (NavMeshSurface surface in surfaces)
+            {
+                if (surface != null)
+                {
+                    surface.BuildNavMesh();
+                    Debug.Log($"Built NavMesh for surface: {surface.gameObject.name}");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Create initial terrain covering the entire volume XZ with height 0.5m
+        /// </summary>
+        private void CreateInitialTerrain()
+        {
+            if (currentVolumeGrid == null)
+            {
+                Debug.LogWarning("Cannot create initial terrain - no volume grid exists");
+                return;
+            }
+
+            // Find SmartTerrain prefab in AssetCatalog
+            PlaceableAsset terrainAsset = assetCatalog?.GetAssetsByCategory(AssetCategory.SmartTerrain)
+                .Find(a => a.assetId.Contains("terrain") || a.displayName.Contains("Terrain"));
+
+            if (terrainAsset == null || terrainAsset.prefab == null)
+            {
+                Debug.LogWarning("Cannot find SmartTerrain asset in catalog");
+                return;
+            }
+
+            // Calculate volume dimensions in world space
+            float volumeWidth = selectedVolumeSize.x * volumeUnitSize;
+            float volumeDepth = selectedVolumeSize.z * volumeUnitSize;
+            float initialHeight = 0.5f;
+
+            // Position terrain at volume center (XZ plane), ground level (Y=0)
+            Vector3 volumeCenter = currentVolumeGrid.GetCenter();
+            Vector3 terrainPosition = new Vector3(volumeCenter.x, 0, volumeCenter.z);
+            GameObject terrainObj = Instantiate(terrainAsset.prefab, terrainPosition, Quaternion.identity, buildContainer);
+            terrainObj.name = "InitialTerrain";
+
+            SmartTerrain terrain = terrainObj.GetComponent<SmartTerrain>();
+            if (terrain == null)
+            {
+                Debug.LogError("Terrain prefab does not have SmartTerrain component!");
+                Destroy(terrainObj);
+                return;
+            }
+
+            // Set control point position to define terrain size
+            // SmartTerrain: controlPoint at (X, Y, Z) creates terrain of size (X*2, Y, Z*2)
+            // Terrain is centered at origin, so control point at half-size makes total size = volume size
+            if (terrain.controlPoint != null)
+            {
+                Vector3 controlPointPos = new Vector3(volumeWidth * 0.5f, initialHeight, volumeDepth * 0.5f);
+                terrain.SetControlPointPosition(controlPointPos, forceImmediate: true);
+            }
+
+            // Fix materials to URP
+            FixMaterialsToURP(terrainObj);
+
+            // Add PlacedObject component
+            PlacedObject placedObj = terrainObj.GetComponent<PlacedObject>();
+            if (placedObj == null)
+            {
+                placedObj = terrainObj.AddComponent<PlacedObject>();
+            }
+            placedObj.assetId = terrainAsset.assetId;
+            placedObj.sourceAsset = terrainAsset;
+            placedObj.UpdateSavedTransform();
+
+            placedObjects.Add(placedObj);
+
+            Debug.Log($"Created initial terrain covering {volumeWidth}m x {volumeDepth}m with height {initialHeight}m");
+        }
+
+        /// <summary>
+        /// Create initial spawn point at volume center
+        /// </summary>
+        private void CreateInitialSpawnPoint()
+        {
+            // Check if initial spawn point already exists
+            SpawnPoint[] existingSpawnPoints = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
+            foreach (var sp in existingSpawnPoints)
+            {
+                if (sp.IsInitialSpawn)
+                {
+                    Debug.Log("Initial spawn point already exists, skipping creation");
+                    return;
+                }
+            }
+
+            if (currentVolumeGrid == null)
+            {
+                Debug.LogWarning("Cannot create initial spawn point - no volume grid exists");
+                return;
+            }
+
+            // Position at volume center, slightly above ground
+            Vector3 centerPos = currentVolumeGrid.GetCenter();
+            centerPos.y = 0.5f; // Place on initial terrain surface
+
+            GameObject spawnObj;
+
+            if (spawnPointPrefab != null)
+            {
+                // Use assigned prefab
+                spawnObj = Instantiate(spawnPointPrefab, centerPos, Quaternion.identity, buildContainer);
+                spawnObj.name = "InitialSpawnPoint";
+                Debug.Log("Created initial spawn point from assigned prefab");
+            }
+            else
+            {
+                // Fallback: Create simple GameObject
+                spawnObj = new GameObject("InitialSpawnPoint");
+                spawnObj.transform.SetParent(buildContainer);
+                spawnObj.transform.position = centerPos;
+                spawnObj.transform.rotation = Quaternion.identity;
+                Debug.LogWarning("SpawnPoint prefab not assigned - using fallback");
+            }
+
+            // Ensure SpawnPoint component exists
+            SpawnPoint spawnPoint = spawnObj.GetComponent<SpawnPoint>();
+            if (spawnPoint == null)
+            {
+                spawnPoint = spawnObj.AddComponent<SpawnPoint>();
+            }
+
+            spawnPoint.SetInitialSpawn(true); // Mark as initial spawn (cannot be deleted)
+            spawnPoint.SetSpawnType(SpawnType.Player);
+            spawnPoint.UpdateSavedTransform();
+
+            // Add PlacedObject component so it gets saved
+            PlacedObject placedObj = spawnObj.GetComponent<PlacedObject>();
+            if (placedObj == null)
+            {
+                placedObj = spawnObj.AddComponent<PlacedObject>();
+            }
+
+            // Try to find SpawnPoint asset in catalog by ID
+            if (assetCatalog != null)
+            {
+                PlaceableAsset spawnAsset = assetCatalog.GetAssetById("spawn_point_player");
+
+                if (spawnAsset != null)
+                {
+                    placedObj.assetId = spawnAsset.assetId;
+                    placedObj.sourceAsset = spawnAsset;
+                }
+                else
+                {
+                    // Fallback: use a generic ID (WorldLibrary will create procedurally)
+                    placedObj.assetId = "spawn_point_player";
+                    Debug.LogWarning("Could not find SpawnPoint asset in catalog, using generic ID (will be created procedurally on load)");
+                }
+            }
+            else
+            {
+                placedObj.assetId = "spawn_point_player";
+            }
+
+            placedObj.UpdateSavedTransform();
+            placedObjects.Add(placedObj);
+
+            // Ensure cursor exists
+            SpawnPointCursor cursor = spawnObj.GetComponentInChildren<SpawnPointCursor>();
+            if (cursor == null)
+            {
+                // Create cursor for this spawn point
+                GameObject cursorObj = new GameObject("SpawnPointCursor");
+                cursorObj.transform.SetParent(spawnObj.transform);
+                cursorObj.transform.position = spawnObj.transform.position;
+
+                cursor = cursorObj.AddComponent<SpawnPointCursor>();
+                cursor.SetSpawnPoint(spawnPoint);
+            }
+
+            Debug.Log($"Created initial spawn point at {centerPos}");
         }
 
         private void SaveWorld()
@@ -1232,11 +1663,26 @@ namespace HorizonMini.Controllers
                 worldData.gridDimensions = selectedVolumeSize;
             }
 
+            // Save volume grid
+            worldData.volumes.Clear();
+            if (currentVolumeGrid != null)
+            {
+                // For now, save a single volume at origin covering the entire grid
+                HorizonMini.Data.VolumeCell volumeCell = new HorizonMini.Data.VolumeCell(
+                    Vector3Int.zero,
+                    "default",
+                    0
+                );
+                worldData.volumes.Add(volumeCell);
+                Debug.Log($"Saved volume grid: {selectedVolumeSize}");
+            }
+
             // Clear existing props and save current placed objects
             worldData.props.Clear();
-            Debug.Log($"Saving {placedObjects.Count} placed objects...");
+            Debug.Log($"[BuildController] Saving {placedObjects.Count} placed objects...");
             foreach (var obj in placedObjects)
             {
+                Debug.Log($"[BuildController]   - Saving: {obj.name} (assetId: {obj.assetId})");
                 HorizonMini.Data.PropData propData = new HorizonMini.Data.PropData
                 {
                     prefabName = obj.assetId,
@@ -1283,13 +1729,10 @@ namespace HorizonMini.Controllers
             if (appRoot != null)
             {
                 appRoot.SaveService.SaveCreatedWorld(worldData);
-                Debug.Log($"<color=green>✓ World published: {worldData.worldTitle}</color>");
+                Debug.Log($"<color=green>✓ World saved: {worldData.worldTitle}</color>");
                 Debug.Log($"<color=green>  World ID: {worldData.worldId}</color>");
                 Debug.Log($"<color=green>  Grid Size: {worldData.gridDimensions}</color>");
                 Debug.Log($"<color=green>  Props Count: {worldData.props.Count}</color>");
-
-                // Return to Main scene (AppRoot mode)
-                appRoot.SwitchToMode(HorizonMini.Core.AppMode.Home);
             }
             else
             {
@@ -1298,23 +1741,10 @@ namespace HorizonMini.Controllers
                 if (saveService != null)
                 {
                     saveService.SaveCreatedWorld(worldData);
-                    Debug.Log($"<color=green>✓ World published (standalone): {worldData.worldTitle}</color>");
+                    Debug.Log($"<color=green>✓ World saved (standalone): {worldData.worldTitle}</color>");
                     Debug.Log($"<color=green>  World ID: {worldData.worldId}</color>");
                     Debug.Log($"<color=green>  Grid Size: {worldData.gridDimensions}</color>");
                     Debug.Log($"<color=green>  Props Count: {worldData.props.Count}</color>");
-
-                    // Return to Main scene
-                    // LoadSceneMode.Single will destroy everything including DontDestroyOnLoad objects
-                    // The new Main scene will create a fresh AppRoot
-                    if (Application.CanStreamedLevelBeLoaded("Main"))
-                    {
-                        Debug.Log("Returning to Main scene");
-                        SceneManager.LoadScene("Main", LoadSceneMode.Single);
-                    }
-                    else
-                    {
-                        Debug.Log("Main scene not found. Staying in BuildMode.");
-                    }
                 }
                 else
                 {

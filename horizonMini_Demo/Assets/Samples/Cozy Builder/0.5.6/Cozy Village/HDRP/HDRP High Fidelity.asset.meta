@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 36dd385e759c96147b6463dcd1149c11
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Samples~/Cozy Village/HDRP/HDRP
+    High Fidelity.asset
+  uploadId: 843972

@@ -139,6 +139,33 @@ namespace HorizonMini.Core
             return new List<string>(currentSave.createdWorldIds);
         }
 
+        public void DeleteCreatedWorld(string worldId)
+        {
+            // Delete world file
+            string worldPath = Path.Combine(Application.persistentDataPath, $"world_{worldId}.json");
+
+            try
+            {
+                if (File.Exists(worldPath))
+                {
+                    File.Delete(worldPath);
+                    Debug.Log($"Deleted world file: {worldPath}");
+                }
+
+                // Remove from created worlds list
+                if (currentSave.createdWorldIds.Remove(worldId))
+                {
+                    Debug.Log($"Removed world ID from created list: {worldId}");
+                }
+
+                SaveToFile();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to delete world {worldId}: {e.Message}");
+            }
+        }
+
         // Likes
         public void ToggleLike(string worldId)
         {

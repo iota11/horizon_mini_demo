@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c467b8458ee8be642bd94e0ca952e4fe
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Samples~/Cozy Village/HDRP/Global
+    Volume Profile.asset
+  uploadId: 843972

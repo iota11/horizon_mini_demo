@@ -130,10 +130,16 @@ namespace HorizonMini.Core
             // Instantiate props (placed objects)
             if (data.props != null && data.props.Count > 0)
             {
+                Debug.Log($"[WorldLibrary] Instantiating {data.props.Count} props...");
                 foreach (var propData in data.props)
                 {
+                    Debug.Log($"[WorldLibrary] Loading prop: {propData.prefabName}");
                     InstantiateProp(propData, container.transform);
                 }
+            }
+            else
+            {
+                Debug.LogWarning("[WorldLibrary] No props to instantiate!");
             }
 
             return instance;
@@ -141,22 +147,76 @@ namespace HorizonMini.Core
 
         private void InstantiateProp(PropData propData, Transform parent)
         {
-            if (assetCatalog == null)
+            GameObject obj = null;
+
+            // Special handling for SpawnPoint (system-critical, create even if not in catalog)
+            if (propData.prefabName != null && propData.prefabName.Contains("spawn_point"))
             {
-                Debug.LogWarning("AssetCatalog not assigned to WorldLibrary! Cannot load props.");
-                return;
+                Debug.Log($"[WorldLibrary] Creating SpawnPoint from saved data");
+
+                // Try to find SpawnPoint asset in catalog first
+                PlaceableAsset spawnAsset = null;
+                if (assetCatalog != null)
+                {
+                    spawnAsset = assetCatalog.GetAssetById(propData.prefabName);
+                }
+
+                if (spawnAsset != null && spawnAsset.prefab != null)
+                {
+                    obj = Instantiate(spawnAsset.prefab, parent);
+                }
+                else
+                {
+                    // Fallback: Create SpawnPoint GameObject programmatically
+                    Debug.LogWarning($"SpawnPoint asset not found in catalog, creating fallback GameObject");
+                    obj = new GameObject("SpawnPoint");
+                    obj.transform.SetParent(parent);
+
+                    // Add SpawnPoint component
+                    var spawnPoint = obj.AddComponent<HorizonMini.Build.SpawnPoint>();
+                    spawnPoint.SetSpawnType(HorizonMini.Build.SpawnType.Player);
+
+                    // Add visual marker
+                    GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                    marker.transform.SetParent(obj.transform);
+                    marker.transform.localPosition = Vector3.up * 1f;
+                    marker.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
+                    marker.name = "VisualMarker";
+
+                    // Set color
+                    var renderer = marker.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material.color = Color.green;
+                    }
+                }
+            }
+            else
+            {
+                // Normal asset loading
+                if (assetCatalog == null)
+                {
+                    Debug.LogWarning("AssetCatalog not assigned to WorldLibrary! Cannot load props.");
+                    return;
+                }
+
+                // Find asset by ID
+                PlaceableAsset tempAsset = assetCatalog.GetAssetById(propData.prefabName);
+                if (tempAsset == null || tempAsset.prefab == null)
+                {
+                    Debug.LogWarning($"Asset not found for ID: {propData.prefabName}");
+                    return;
+                }
+
+                // Instantiate prefab
+                obj = Instantiate(tempAsset.prefab, parent);
             }
 
-            // Find asset by ID
-            PlaceableAsset asset = assetCatalog.GetAssetById(propData.prefabName);
-            if (asset == null || asset.prefab == null)
+            if (obj == null)
             {
-                Debug.LogWarning($"Asset not found for ID: {propData.prefabName}");
+                Debug.LogError($"Failed to instantiate prop: {propData.prefabName}");
                 return;
             }
-
-            // Instantiate prefab
-            GameObject obj = Instantiate(asset.prefab, parent);
 
             // Check if it's a SmartTerrain - restore control point position BEFORE setting transform
             // This ensures the mesh is regenerated with correct size
@@ -202,7 +262,23 @@ namespace HorizonMini.Core
             obj.transform.position = propData.position;
             obj.transform.rotation = propData.rotation;
             obj.transform.localScale = propData.scale;
-            obj.name = asset.displayName;
+
+            // Get asset reference (may be null for procedurally created objects like SpawnPoint fallback)
+            PlaceableAsset asset = null;
+            if (assetCatalog != null)
+            {
+                asset = assetCatalog.GetAssetById(propData.prefabName);
+            }
+
+            // Set object name
+            if (asset != null)
+            {
+                obj.name = asset.displayName;
+            }
+            else
+            {
+                obj.name = propData.prefabName;
+            }
 
             // Fix materials to URP
             FixMaterialsToURP(obj);
@@ -210,7 +286,7 @@ namespace HorizonMini.Core
             // Add PlacedObject component
             PlacedObject placedObj = obj.AddComponent<PlacedObject>();
             placedObj.assetId = propData.prefabName;
-            placedObj.sourceAsset = asset;
+            placedObj.sourceAsset = asset; // May be null
             placedObj.UpdateSavedTransform();
         }
 

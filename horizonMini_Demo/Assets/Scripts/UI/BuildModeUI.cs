@@ -20,6 +20,7 @@ namespace HorizonMini.UI
         [SerializeField] private AssetCatalogUI assetCatalogUI;
         [SerializeField] private GameObject viewModeUI;
         [SerializeField] private GameObject editModeUI;
+        [SerializeField] private GameObject playModeUI;
 
         [Header("View Mode Buttons")]
         [SerializeField] private Button goButton;
@@ -51,6 +52,7 @@ namespace HorizonMini.UI
             if (sizePickerUI != null) sizePickerUI.Hide();
             if (viewModeUI != null) viewModeUI.SetActive(false);
             if (editModeUI != null) editModeUI.SetActive(false);
+            if (playModeUI != null) playModeUI.SetActive(false);
             if (assetCatalogUI != null) assetCatalogUI.Hide();
 
             Debug.Log("BuildModeUI: All panels hidden");
@@ -143,7 +145,8 @@ namespace HorizonMini.UI
                     break;
 
                 case BuildMode.Play:
-                    UpdateInstructions("Play Mode");
+                    if (playModeUI != null) playModeUI.SetActive(true);
+                    UpdateInstructions("Use joystick to move | Drag to rotate camera");
                     break;
             }
 

@@ -512,25 +512,36 @@ MonoBehaviour:
   cloudTexture: {fileID: 2800000, guid: 27248a215d4e5fe449733cb0631f0785, type: 3}
   chemtrailsTexture: {fileID: 2800000, guid: 9b3476b4df9abf8479476bae1bcd8a84, type: 3}
   cirrusCloudTexture: {fileID: 2800000, guid: 302629ebb64a0e345948779662fc2cf3, type: 3}
-  altocumulusCloudTexture: {fileID: 2800000, guid: b03bb03c5876b954ba45feffa4aaad63, type: 3}
-  cirrostratusCloudTexture: {fileID: 2800000, guid: bf43c8d7b74e204469465f36dfff7d6a, type: 3}
+  altocumulusCloudTexture: {fileID: 2800000, guid: b03bb03c5876b954ba45feffa4aaad63,
+    type: 3}
+  cirrostratusCloudTexture: {fileID: 2800000, guid: bf43c8d7b74e204469465f36dfff7d6a,
+    type: 3}
   starMap: {fileID: 2800000, guid: 610adfdc91abe6e49a06f9b16aaeed7e, type: 3}
   starDomeTexture: {fileID: 8900000, guid: b1f42841d2188984abd1c6031f761eb6, type: 3}
   galaxyDomeTexture: {fileID: 8900000, guid: 8c0915a4637148e4889877c51dc039f6, type: 3}
-  constellationDomeTexture: {fileID: 8900000, guid: 553f4d5edf722524d98275c03e53fd7b, type: 3}
+  constellationDomeTexture: {fileID: 8900000, guid: 553f4d5edf722524d98275c03e53fd7b,
+    type: 3}
   galaxyMap: {fileID: 2800000, guid: 9e328e1f846025e47ad7a9f00ca77f9b, type: 3}
   galaxyStarMap: {fileID: 2800000, guid: 831ed62fbc9349041bf2404184ed2461, type: 3}
   galaxyVariationMap: {fileID: 2800000, guid: 638cc442ec8c58c4fa3027cb13d4c95c, type: 3}
   lightScatteringMap: {fileID: 2800000, guid: 1b337126eb3de9e43895711dbf62bc1e, type: 3}
   texturePanDirection: {x: 0, y: 0, z: 0}
-  partlyCloudyLuxuryClouds: {fileID: 2800000, guid: 4aedeee388f3b8549b4483841794e33d, type: 3}
-  mostlyCloudyLuxuryClouds: {fileID: 2800000, guid: 0134c7641e0c9d74a9f6f685c2896bb9, type: 3}
-  overcastLuxuryClouds: {fileID: 2800000, guid: 46d8a16f4016e1f4a8ac3708aee5235d, type: 3}
-  lowBorderLuxuryClouds: {fileID: 2800000, guid: 9a76ce8f2c182c247834c19603ff2068, type: 3}
-  highBorderLuxuryClouds: {fileID: 2800000, guid: 5054a748d0ecd72408e17cbdc92f07cb, type: 3}
-  lowNimbusLuxuryClouds: {fileID: 2800000, guid: 8b7b5fa7d0504eb4084b8d451bdb4dac, type: 3}
-  midNimbusLuxuryClouds: {fileID: 2800000, guid: aafa15e7fb9760b4d93ef145502eab4b, type: 3}
-  highNimbusLuxuryClouds: {fileID: 2800000, guid: cf1e011d4126f5b45af1e0c5c8162509, type: 3}
+  partlyCloudyLuxuryClouds: {fileID: 2800000, guid: 4aedeee388f3b8549b4483841794e33d,
+    type: 3}
+  mostlyCloudyLuxuryClouds: {fileID: 2800000, guid: 0134c7641e0c9d74a9f6f685c2896bb9,
+    type: 3}
+  overcastLuxuryClouds: {fileID: 2800000, guid: 46d8a16f4016e1f4a8ac3708aee5235d,
+    type: 3}
+  lowBorderLuxuryClouds: {fileID: 2800000, guid: 9a76ce8f2c182c247834c19603ff2068,
+    type: 3}
+  highBorderLuxuryClouds: {fileID: 2800000, guid: 5054a748d0ecd72408e17cbdc92f07cb,
+    type: 3}
+  lowNimbusLuxuryClouds: {fileID: 2800000, guid: 8b7b5fa7d0504eb4084b8d451bdb4dac,
+    type: 3}
+  midNimbusLuxuryClouds: {fileID: 2800000, guid: aafa15e7fb9760b4d93ef145502eab4b,
+    type: 3}
+  highNimbusLuxuryClouds: {fileID: 2800000, guid: cf1e011d4126f5b45af1e0c5c8162509,
+    type: 3}
   luxuryVariation: {fileID: 2800000, guid: c4666b12d12d34d45b89ea8d2fe52b01, type: 3}
   skyFogAmount: 0.697
   cloudsFogAmount: 0.509
@@ -923,7 +934,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479637808}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -1456,7 +1467,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   - {fileID: 2100000, guid: 564d377e6350cb64f92134e6b8c1a733, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -16587,8 +16598,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4567622514f276646babb5c3150f9a7c, type: 2}
   - {fileID: 11400000, guid: f98db20d469ea5f4ebd58dea98f3267d, type: 2}
   weightedAmbience: []
-  currentAmbienceProfile: {fileID: 11400000, guid: e1524d194ad97f34ebbaddeea31a44ca, type: 2}
-  ambienceChangeCheck: {fileID: 11400000, guid: e1524d194ad97f34ebbaddeea31a44ca, type: 2}
+  currentAmbienceProfile: {fileID: 11400000, guid: e1524d194ad97f34ebbaddeea31a44ca,
+    type: 2}
+  ambienceChangeCheck: {fileID: 11400000, guid: e1524d194ad97f34ebbaddeea31a44ca,
+    type: 2}
   timeToChangeProfiles: 7
   ambienceTimer: 0
 --- !u!114 &1666249321
@@ -16695,7 +16708,7 @@ MonoBehaviour:
   biomes: []
   weight: 1
   totalSystemWeight: 0
-  cumulus: 0.2
+  cumulus: 0
   cirrus: 0
   altocumulus: 0
   cirrostratus: 0
@@ -16721,7 +16734,8 @@ MonoBehaviour:
     system: {fileID: 415445191}
     removeProfilesWithNoWeight: 1
     currentWeather: {fileID: 11400000, guid: ae94c1a397a01e442a11e8b23ebb1cef, type: 2}
-    weatherChangeCheck: {fileID: 11400000, guid: ae94c1a397a01e442a11e8b23ebb1cef, type: 2}
+    weatherChangeCheck: {fileID: 11400000, guid: ae94c1a397a01e442a11e8b23ebb1cef,
+      type: 2}
     weightedWeatherProfiles:
     - weight: 1
       profile: {fileID: 11400000, guid: ae94c1a397a01e442a11e8b23ebb1cef, type: 2}
@@ -16886,47 +16900,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1138266676083970809, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 1138266676083970809, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_Name
       value: VolumePrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2, type: 3}
+    - target: {fileID: 8305901336366588598, guid: 6df2e2fa83828472889257ae6385dca2,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}

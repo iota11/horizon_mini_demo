@@ -40,6 +40,23 @@ namespace HorizonMini.Core
             // This avoids conflicts when switching between Main and Build scenes
             // DontDestroyOnLoad(gameObject);
 
+            // Only initialize if we have the required UI components
+            // Play scene creates AppRoot manually without UI
+            if (uiRouter != null || browseController != null || buildController != null || homeController != null)
+            {
+                InitializeSystems();
+            }
+            else
+            {
+                Debug.Log("AppRoot: Skipping full initialization (minimal AppRoot for Play scene)");
+            }
+        }
+
+        /// <summary>
+        /// Public initialize method for standalone scene setup (e.g., Play scene)
+        /// </summary>
+        public void Initialize()
+        {
             InitializeSystems();
         }
 
@@ -98,10 +115,11 @@ namespace HorizonMini.Core
                 homeController.Initialize(this);
             }
 
-            if (playController != null)
-            {
-                playController.Initialize(this);
-            }
+            // PlayController is now standalone in Play scene, doesn't need Initialize from AppRoot
+            // if (playController != null)
+            // {
+            //     playController.Initialize(this);
+            // }
         }
 
         public void SwitchToMode(AppMode mode)
@@ -112,7 +130,8 @@ namespace HorizonMini.Core
             if (browseController != null) browseController.SetActive(false);
             if (buildController != null) buildController.SetActive(false);
             if (homeController != null) homeController.SetActive(false);
-            if (playController != null) playController.SetActive(false);
+            // PlayController is now in separate scene
+            // if (playController != null) playController.SetActive(false);
 
             // Enable the requested mode
             switch (mode)
@@ -154,15 +173,8 @@ namespace HorizonMini.Core
                     break;
 
                 case AppMode.Play:
-                    if (playController != null)
-                    {
-                        Debug.Log("Activating Play mode");
-                        playController.SetActive(true);
-                    }
-                    else
-                    {
-                        Debug.LogError("PlayController is null!");
-                    }
+                    // Play mode is now a separate scene
+                    Debug.LogWarning("AppMode.Play is deprecated - use Play scene instead");
                     break;
             }
 
@@ -177,22 +189,20 @@ namespace HorizonMini.Core
             }
         }
 
+        [System.Obsolete("Use SceneManager.LoadScene(\"Play\") instead")]
         public void EnterPlayMode(string worldId)
         {
-            if (playController != null)
-            {
-                playController.EnterWorld(worldId);
-                SwitchToMode(AppMode.Play);
-            }
+            // Deprecated: Play mode is now a separate scene
+            Debug.LogWarning("EnterPlayMode is deprecated - use SceneTransitionData.SetWorldToPlay() and load Play scene");
+            SceneTransitionData.SetWorldToPlay(worldId);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Play");
         }
 
+        [System.Obsolete("Play mode is now a separate scene")]
         public void ExitPlayMode()
         {
-            if (playController != null)
-            {
-                playController.ExitWorld();
-            }
-            SwitchToMode(AppMode.Browse);
+            // Deprecated: Play mode is now a separate scene
+            Debug.LogWarning("ExitPlayMode is deprecated - use SceneManager to return to desired scene");
         }
     }
 

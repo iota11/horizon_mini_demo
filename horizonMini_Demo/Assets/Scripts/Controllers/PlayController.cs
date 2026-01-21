@@ -1,280 +1,497 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using HorizonMini.Core;
+using HorizonMini.Build;
+using HorizonMini.UI;
+using HorizonMini.Data;
+using System.Reflection;
 
 namespace HorizonMini.Controllers
 {
     /// <summary>
-    /// Manages first-person play mode within a world
+    /// Main controller for Play scene - loads world and manages third-person gameplay
     /// </summary>
     public class PlayController : MonoBehaviour
     {
-        [Header("Camera")]
+        [Header("References")]
         [SerializeField] private Camera playCamera;
-        [SerializeField] private float lookSensitivity = 2f;
-        [SerializeField] private float lookSmoothness = 10f;
+        [SerializeField] private Transform worldContainer;
 
-        [Header("Movement")]
-        [SerializeField] private CharacterController characterController;
-        [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private float gravity = -9.81f;
-        [SerializeField] private float jumpHeight = 2f;
+        [Header("Player Settings")]
+        [SerializeField] private GameObject playerPrefab; // Top Down Engine character prefab
 
-        [Header("Mobile Controls")]
-        [SerializeField] private bool useMobileControls = true;
-        [SerializeField] private float joystickRadius = 100f;
+        [Header("UI References")]
+        [SerializeField] private GameObject virtualJoystickUI;
+        [SerializeField] private VirtualJoystick virtualJoystick;
+
+        [Header("Camera Settings")]
+        [SerializeField] private float cameraHeight = 5f;
+        [SerializeField] private float cameraDistance = 8f;
+        [SerializeField] private float cameraAngle = 45f;
+        [SerializeField] private float cameraSmoothSpeed = 5f;
+        [SerializeField] private float cameraRotationSpeed = 100f;
+
+        [Header("Standalone Mode")]
+        [SerializeField] private bool autoInitialize = true;
+
+        [Header("World Loading (Required)")]
+        [SerializeField] private GameObject volumePrefab;
+        [SerializeField] private GridSettings gridSettings;
+        [SerializeField] private AssetCatalog assetCatalog;
 
         private AppRoot appRoot;
-        private WorldInstance currentWorld;
         private string currentWorldId;
+        private WorldInstance currentWorldInstance;
+        private GameObject spawnedPlayer;
+        private Vector3 cameraOffset;
+        private float currentCameraRotation = 0f;
 
-        private Vector3 velocity;
-        private float verticalRotation = 0f;
-        private Vector2 lookInput;
-        private Vector2 moveInput;
+        // Touch input state
+        private bool isDraggingCamera = false;
+        private Vector2 lastTouchPosition;
 
-        // Touch controls
-        private int leftTouchId = -1;
-        private int rightTouchId = -1;
-        private Vector2 leftTouchStartPos;
-        private Vector2 rightTouchStartPos;
-
-        private bool isActive = false;
-
-        public void Initialize(AppRoot root)
+        private void Start()
         {
-            appRoot = root;
+            Debug.Log($"[PlayController] Start called. autoInitialize={autoInitialize}");
+
+            if (!autoInitialize)
+            {
+                Debug.LogWarning("[PlayController] autoInitialize is false, skipping initialization");
+                return;
+            }
+
+            // Get world ID from scene transition first
+            if (!SceneTransitionData.HasWorldToPlay())
+            {
+                Debug.LogWarning("[PlayController] No world ID provided. " +
+                    "Play scene should be entered from Build scene via 'Go' button.\n" +
+                    "For testing, you can set a world ID via: SceneTransitionData.SetWorldToPlay(\"your_world_id\")");
+
+                // Don't automatically return to Main - let developer stay in scene for testing
+                // ReturnToMain();
+                return;
+            }
+
+            currentWorldId = SceneTransitionData.GetAndClearWorldToPlay();
+            Debug.Log($"[PlayController] Retrieved world ID: {currentWorldId}");
+
+            // Initialize AppRoot if needed (lightweight version for Play scene)
+            appRoot = FindFirstObjectByType<AppRoot>();
+            if (appRoot == null)
+            {
+                Debug.Log("[PlayController] Creating minimal AppRoot");
+                // Create minimal AppRoot for Play scene (no UI, no controllers)
+                InitializeMinimalAppRoot();
+            }
+            else
+            {
+                Debug.Log("[PlayController] Found existing AppRoot");
+            }
+
+            // Load world
+            LoadWorld(currentWorldId);
+        }
+
+        /// <summary>
+        /// Initialize minimal AppRoot for Play scene (no UI/controllers)
+        /// </summary>
+        private void InitializeMinimalAppRoot()
+        {
+            Debug.Log("[PlayController] InitializeMinimalAppRoot: Creating AppRoot GameObject");
+            // Create AppRoot without triggering Awake by adding components manually
+            GameObject appRootObj = new GameObject("AppRoot");
+
+            Debug.Log("[PlayController] InitializeMinimalAppRoot: Adding SaveService");
+            // Add SaveService first
+            SaveService saveService = appRootObj.AddComponent<SaveService>();
+
+            Debug.Log("[PlayController] InitializeMinimalAppRoot: Adding WorldLibrary");
+            // Add WorldLibrary
+            WorldLibrary worldLibrary = appRootObj.AddComponent<WorldLibrary>();
+
+            // Use reflection to set WorldLibrary's required fields
+            var volumePrefabField = typeof(WorldLibrary).GetField("volumePrefab", BindingFlags.NonPublic | BindingFlags.Instance);
+            var gridSettingsField = typeof(WorldLibrary).GetField("gridSettings", BindingFlags.NonPublic | BindingFlags.Instance);
+            var assetCatalogField = typeof(WorldLibrary).GetField("assetCatalog", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (volumePrefabField != null && volumePrefab != null)
+            {
+                volumePrefabField.SetValue(worldLibrary, volumePrefab);
+                Debug.Log("[PlayController] Set WorldLibrary.volumePrefab");
+            }
+            else
+            {
+                Debug.LogError("[PlayController] Failed to set volumePrefab!");
+            }
+
+            if (gridSettingsField != null && gridSettings != null)
+            {
+                gridSettingsField.SetValue(worldLibrary, gridSettings);
+                Debug.Log("[PlayController] Set WorldLibrary.gridSettings");
+            }
+            else
+            {
+                Debug.LogError("[PlayController] Failed to set gridSettings!");
+            }
+
+            if (assetCatalogField != null && assetCatalog != null)
+            {
+                assetCatalogField.SetValue(worldLibrary, assetCatalog);
+                Debug.Log("[PlayController] Set WorldLibrary.assetCatalog");
+            }
+            else
+            {
+                Debug.LogWarning("[PlayController] assetCatalog not set (optional)");
+            }
+
+            worldLibrary.Initialize(saveService);
+
+            Debug.Log("[PlayController] InitializeMinimalAppRoot: Adding AppRoot component");
+            // Add AppRoot last (this will trigger Awake, but we suppress the initialization)
+            appRoot = appRootObj.AddComponent<AppRoot>();
+
+            // Use reflection to set the private fields so AppRoot.Awake doesn't initialize again
+            Debug.Log("[PlayController] InitializeMinimalAppRoot: Setting up reflection");
+            var saveServiceField = typeof(AppRoot).GetField("saveService",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            var worldLibraryField = typeof(AppRoot).GetField("worldLibrary",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (saveServiceField != null)
+            {
+                saveServiceField.SetValue(appRoot, saveService);
+                Debug.Log("[PlayController] InitializeMinimalAppRoot: SaveService field set");
+            }
+            else
+            {
+                Debug.LogError("[PlayController] InitializeMinimalAppRoot: SaveService field not found!");
+            }
+
+            if (worldLibraryField != null)
+            {
+                worldLibraryField.SetValue(appRoot, worldLibrary);
+                Debug.Log("[PlayController] InitializeMinimalAppRoot: WorldLibrary field set");
+            }
+            else
+            {
+                Debug.LogError("[PlayController] InitializeMinimalAppRoot: WorldLibrary field not found!");
+            }
+
+            Debug.Log($"[PlayController] Initialized minimal AppRoot. WorldLibrary={appRoot.WorldLibrary != null}, SaveService={appRoot.SaveService != null}");
+        }
+
+        private void LoadWorld(string worldId)
+        {
+            Debug.Log($"[PlayController] Loading world: {worldId}");
+
+            // Create world container if needed
+            if (worldContainer == null)
+            {
+                Debug.Log("[PlayController] Creating WorldContainer");
+                GameObject containerObj = new GameObject("WorldContainer");
+                worldContainer = containerObj.transform;
+                worldContainer.position = Vector3.zero;
+            }
+
+            // Check if AppRoot and WorldLibrary are available
+            if (appRoot == null)
+            {
+                Debug.LogError("[PlayController] AppRoot is null! Cannot load world.");
+                return;
+            }
+
+            if (appRoot.WorldLibrary == null)
+            {
+                Debug.LogError("[PlayController] WorldLibrary is null! Cannot load world.");
+                return;
+            }
+
+            Debug.Log($"[PlayController] Calling WorldLibrary.InstantiateWorld({worldId})");
+
+            // First check if world data exists
+            var worldData = appRoot.WorldLibrary.GetWorldData(worldId);
+            if (worldData == null)
+            {
+                Debug.LogError($"[PlayController] WorldData not found for world ID: {worldId}");
+                Debug.LogError($"[PlayController] This usually means the world wasn't saved before entering Play mode.");
+                return;
+            }
+            Debug.Log($"[PlayController] Found WorldData: {worldData.worldTitle}, Volumes: {worldData.volumes.Count}, Props: {worldData.props?.Count ?? 0}");
+
+            // Load world using WorldLibrary
+            currentWorldInstance = appRoot.WorldLibrary.InstantiateWorld(worldId, worldContainer);
+
+            if (currentWorldInstance == null)
+            {
+                Debug.LogError($"[PlayController] Failed to load world: {worldId}");
+                return;
+            }
+
+            currentWorldInstance.SetActivationLevel(ActivationLevel.FullyActive);
+            Debug.Log($"[PlayController] World loaded: {currentWorldInstance.WorldData.worldTitle}");
+
+            // Hide all edit cursors (terrain, walls, spawn points)
+            var terrainMgr = SmartTerrainManager.Instance;
+            if (terrainMgr != null) terrainMgr.EnterViewMode();
+
+            var wallMgr = SmartWallManager.Instance;
+            if (wallMgr != null) wallMgr.EnterViewMode();
+
+            var spawnMgr = SpawnPointManager.Instance;
+            if (spawnMgr != null) spawnMgr.EnterViewMode();
+
+            Debug.Log("[PlayController] Spawning player");
+            // Spawn player at spawn point
+            SpawnPlayer();
+
+            Debug.Log("[PlayController] Setting up camera");
+            // Setup camera
+            SetupCamera();
+
+            // Show virtual joystick
+            if (virtualJoystickUI != null)
+            {
+                Debug.Log("[PlayController] Showing virtual joystick");
+                virtualJoystickUI.SetActive(true);
+            }
+
+            // Auto-find joystick if not assigned
+            if (virtualJoystick == null && virtualJoystickUI != null)
+                virtualJoystick = virtualJoystickUI.GetComponentInChildren<VirtualJoystick>();
+
+            Debug.Log("[PlayController] World loading complete");
+        }
+
+        private void SpawnPlayer()
+        {
+            if (playerPrefab == null)
+            {
+                Debug.LogError("[PlayController] Player prefab not assigned!");
+                return;
+            }
+
+            // Find spawn point in the loaded world
+            SpawnPoint[] spawnPoints = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
+            Debug.Log($"[PlayController] Found {spawnPoints.Length} spawn point(s) in scene");
+
+            SpawnPoint playerSpawn = null;
+
+            foreach (var sp in spawnPoints)
+            {
+                Debug.Log($"[PlayController] SpawnPoint found: {sp.name}, Type: {sp.SpawnType}, IsInitial: {sp.IsInitialSpawn}");
+                if (sp.SpawnType == SpawnType.Player)
+                {
+                    playerSpawn = sp;
+                    break;
+                }
+            }
+
+            if (playerSpawn == null)
+            {
+                Debug.LogError("[PlayController] No player spawn point found!");
+
+                // Try to find ANY spawn point as fallback
+                if (spawnPoints.Length > 0)
+                {
+                    Debug.LogWarning($"[PlayController] Using first available spawn point as fallback: {spawnPoints[0].name}");
+                    playerSpawn = spawnPoints[0];
+                }
+                else
+                {
+                    Debug.LogError("[PlayController] No spawn points exist in the world at all!");
+                    return;
+                }
+            }
+
+            Vector3 spawnPosition = playerSpawn.transform.position;
+            Quaternion spawnRotation = playerSpawn.transform.rotation;
+
+            spawnedPlayer = Instantiate(playerPrefab, spawnPosition, spawnRotation);
+            spawnedPlayer.name = "Player";
+
+            // Add CharacterController if not present
+            CharacterController charController = spawnedPlayer.GetComponent<CharacterController>();
+            if (charController == null)
+            {
+                charController = spawnedPlayer.AddComponent<CharacterController>();
+                charController.radius = 0.5f;
+                charController.height = 2f;
+                charController.center = new Vector3(0, 1f, 0);
+                Debug.Log("[PlayController] Added CharacterController to player");
+            }
+
+            // Add SimplePlayerController if not present (temporary until Top Down Engine integration)
+            SimplePlayerController playerController = spawnedPlayer.GetComponent<SimplePlayerController>();
+            if (playerController == null)
+            {
+                spawnedPlayer.AddComponent<SimplePlayerController>();
+                Debug.Log("[PlayController] Added SimplePlayerController to player");
+            }
+
+            Debug.Log($"[PlayController] Spawned player at {spawnPosition}");
+        }
+
+        private void SetupCamera()
+        {
+            if (playCamera == null)
+            {
+                playCamera = Camera.main;
+            }
 
             if (playCamera == null)
             {
-                GameObject camObj = new GameObject("PlayCamera");
-                camObj.transform.SetParent(transform);
-                playCamera = camObj.AddComponent<Camera>();
+                Debug.LogError("[PlayController] Play camera not found!");
+                return;
             }
 
-            if (characterController == null)
+            // Position camera behind and above player
+            if (spawnedPlayer != null)
             {
-                characterController = gameObject.AddComponent<CharacterController>();
-                characterController.height = 2f;
-                characterController.radius = 0.5f;
-                characterController.center = new Vector3(0, 1f, 0);
+                currentCameraRotation = spawnedPlayer.transform.eulerAngles.y;
+                CalculateCameraOffset();
+                UpdateCameraPosition(immediate: true);
             }
-
-            playCamera.transform.SetParent(transform);
-            playCamera.transform.localPosition = new Vector3(0, 1.6f, 0); // Eye level
-        }
-
-        public void SetActive(bool active)
-        {
-            isActive = active;
-            gameObject.SetActive(active);
-
-            if (playCamera != null)
-            {
-                playCamera.gameObject.SetActive(active);
-            }
-
-            if (characterController != null)
-            {
-                characterController.enabled = active;
-            }
-        }
-
-        public void EnterWorld(string worldId)
-        {
-            currentWorldId = worldId;
-
-            // Load world if not already loaded
-            currentWorld = appRoot.WorldLibrary.InstantiateWorld(worldId);
-
-            if (currentWorld != null)
-            {
-                currentWorld.SetActivationLevel(ActivationLevel.FullyActive);
-                currentWorld.OnWorldEnter();
-
-                // Position player at spawn point (center bottom of world)
-                Bounds bounds = currentWorld.GetWorldBounds();
-                Vector3 spawnPos = new Vector3(bounds.center.x, bounds.min.y + 2f, bounds.center.z);
-                transform.position = spawnPos;
-
-                // Reset camera rotation
-                verticalRotation = 0f;
-                transform.rotation = Quaternion.identity;
-                playCamera.transform.localRotation = Quaternion.identity;
-            }
-        }
-
-        public void ExitWorld()
-        {
-            if (currentWorld != null)
-            {
-                currentWorld.OnWorldExit();
-                Destroy(currentWorld.gameObject);
-                currentWorld = null;
-            }
-
-            currentWorldId = null;
         }
 
         private void Update()
         {
-            if (!isActive || currentWorld == null)
+            if (spawnedPlayer == null)
                 return;
 
-            HandleInput();
-            ApplyMovement();
-            ApplyLook();
+            // Update camera to follow player
+            UpdateCameraFollow();
+
+            // Handle camera rotation input
+            HandleCameraRotationInput();
         }
 
-        private void HandleInput()
+        private void CalculateCameraOffset()
         {
-            if (useMobileControls)
-            {
-                HandleTouchInput();
-            }
-            else
-            {
-                HandleKeyboardMouse();
-            }
+            float angleRad = currentCameraRotation * Mathf.Deg2Rad;
+            float heightAngleRad = cameraAngle * Mathf.Deg2Rad;
 
-            // Exit button (always available)
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                appRoot.ExitPlayMode();
-            }
-        }
-
-        private void HandleKeyboardMouse()
-        {
-            // WASD movement
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-            moveInput = new Vector2(horizontal, vertical);
-
-            // Mouse look
-            if (Input.GetMouseButton(1)) // Right mouse button
-            {
-                lookInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            }
-            else
-            {
-                lookInput = Vector2.zero;
-            }
-
-            // Jump
-            if (Input.GetButtonDown("Jump") && characterController.isGrounded)
-            {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            }
-        }
-
-        private void HandleTouchInput()
-        {
-            moveInput = Vector2.zero;
-            lookInput = Vector2.zero;
-
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                Touch touch = Input.GetTouch(i);
-
-                // Left side = movement joystick
-                if (touch.position.x < Screen.width / 2)
-                {
-                    if (touch.phase == TouchPhase.Began)
-                    {
-                        leftTouchId = touch.fingerId;
-                        leftTouchStartPos = touch.position;
-                    }
-                    else if (touch.fingerId == leftTouchId)
-                    {
-                        if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
-                        {
-                            Vector2 delta = touch.position - leftTouchStartPos;
-                            moveInput = new Vector2(
-                                Mathf.Clamp(delta.x / joystickRadius, -1f, 1f),
-                                Mathf.Clamp(delta.y / joystickRadius, -1f, 1f)
-                            );
-                        }
-                        else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-                        {
-                            leftTouchId = -1;
-                            moveInput = Vector2.zero;
-                        }
-                    }
-                }
-                // Right side = look
-                else
-                {
-                    if (touch.phase == TouchPhase.Began)
-                    {
-                        rightTouchId = touch.fingerId;
-                        rightTouchStartPos = touch.position;
-                    }
-                    else if (touch.fingerId == rightTouchId)
-                    {
-                        if (touch.phase == TouchPhase.Moved)
-                        {
-                            lookInput = touch.deltaPosition * 0.1f;
-                        }
-                        else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-                        {
-                            rightTouchId = -1;
-                            lookInput = Vector2.zero;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void ApplyMovement()
-        {
-            // Ground check and gravity
-            if (characterController.isGrounded && velocity.y < 0)
-            {
-                velocity.y = -2f; // Small downward force to keep grounded
-            }
-
-            // Apply gravity
-            velocity.y += gravity * Time.deltaTime;
-
-            // Calculate move direction relative to camera
-            Vector3 forward = transform.forward;
-            Vector3 right = transform.right;
-
-            Vector3 moveDir = (forward * moveInput.y + right * moveInput.x).normalized;
-            Vector3 move = moveDir * moveSpeed * Time.deltaTime;
-
-            // Add vertical velocity
-            move.y = velocity.y * Time.deltaTime;
-
-            // Move
-            characterController.Move(move);
-        }
-
-        private void ApplyLook()
-        {
-            if (lookInput.sqrMagnitude < 0.01f)
-                return;
-
-            // Horizontal rotation (Y-axis)
-            float horizontalRotation = lookInput.x * lookSensitivity;
-            transform.Rotate(Vector3.up * horizontalRotation);
-
-            // Vertical rotation (X-axis, camera only)
-            verticalRotation -= lookInput.y * lookSensitivity;
-            verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
-
-            Quaternion targetRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
-            playCamera.transform.localRotation = Quaternion.Slerp(
-                playCamera.transform.localRotation,
-                targetRotation,
-                Time.deltaTime * lookSmoothness
+            cameraOffset = new Vector3(
+                -Mathf.Sin(angleRad) * cameraDistance * Mathf.Cos(heightAngleRad),
+                cameraHeight,
+                -Mathf.Cos(angleRad) * cameraDistance * Mathf.Cos(heightAngleRad)
             );
         }
 
-        // Called by UI Exit button
-        public void OnExitButtonPressed()
+        private void UpdateCameraFollow()
         {
-            appRoot.ExitPlayMode();
+            UpdateCameraPosition(immediate: false);
+        }
+
+        private void UpdateCameraPosition(bool immediate)
+        {
+            if (playCamera == null || spawnedPlayer == null)
+                return;
+
+            Vector3 targetPosition = spawnedPlayer.transform.position + cameraOffset;
+
+            if (immediate)
+            {
+                playCamera.transform.position = targetPosition;
+            }
+            else
+            {
+                playCamera.transform.position = Vector3.Lerp(
+                    playCamera.transform.position,
+                    targetPosition,
+                    Time.deltaTime * cameraSmoothSpeed
+                );
+            }
+
+            // Look at player
+            Vector3 lookAtPosition = spawnedPlayer.transform.position + Vector3.up * 1.5f;
+            playCamera.transform.LookAt(lookAtPosition);
+        }
+
+        private void HandleCameraRotationInput()
+        {
+            // Handle touch input
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                // Check if touch is over UI (joystick area - left side of screen)
+                bool isTouchOverJoystick = touch.position.x < Screen.width * 0.3f;
+
+                if (touch.phase == TouchPhase.Began && !isTouchOverJoystick)
+                {
+                    isDraggingCamera = true;
+                    lastTouchPosition = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Moved && isDraggingCamera)
+                {
+                    Vector2 delta = touch.position - lastTouchPosition;
+                    RotateCamera(delta.x);
+                    lastTouchPosition = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                {
+                    isDraggingCamera = false;
+                }
+            }
+            // Handle mouse input (for editor testing)
+            else if (Input.GetMouseButton(0))
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    // Check if mouse is over UI (left side)
+                    bool isMouseOverJoystick = Input.mousePosition.x < Screen.width * 0.3f;
+                    if (!isMouseOverJoystick)
+                    {
+                        isDraggingCamera = true;
+                        lastTouchPosition = Input.mousePosition;
+                    }
+                }
+                else if (isDraggingCamera)
+                {
+                    Vector2 currentMousePosition = Input.mousePosition;
+                    Vector2 delta = currentMousePosition - lastTouchPosition;
+                    RotateCamera(delta.x);
+                    lastTouchPosition = currentMousePosition;
+                }
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                isDraggingCamera = false;
+            }
+        }
+
+        private void RotateCamera(float deltaX)
+        {
+            currentCameraRotation += deltaX * cameraRotationSpeed * Time.deltaTime;
+            CalculateCameraOffset();
+        }
+
+        /// <summary>
+        /// Return to Main scene
+        /// </summary>
+        public void ReturnToMain()
+        {
+            Debug.Log("[PlayController] Returning to Main");
+            SceneManager.LoadScene("Main");
+        }
+
+        /// <summary>
+        /// Return to Home scene (alias for ReturnToMain)
+        /// </summary>
+        [System.Obsolete("Use ReturnToMain instead")]
+        public void ReturnToHome()
+        {
+            ReturnToMain();
+        }
+
+        /// <summary>
+        /// Return to Build scene to edit this world
+        /// </summary>
+        public void ReturnToBuild()
+        {
+            Debug.Log("[PlayController] Returning to Build mode");
+            SceneTransitionData.SetWorldToEdit(currentWorldId);
+            SceneManager.LoadScene("Build");
         }
     }
 }

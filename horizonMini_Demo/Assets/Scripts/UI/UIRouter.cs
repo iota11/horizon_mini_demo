@@ -209,16 +209,12 @@ namespace HorizonMini.UI
 
         private void SetupPlayButtons()
         {
+            // Play mode is now a separate scene, no need to setup buttons here
+            // Exit button is handled in the Play scene itself
             if (exitPlayButton != null)
             {
-                var playController = appRoot.GetComponent<PlayController>();
-                if (playController == null)
-                    playController = FindFirstObjectByType<PlayController>();
-
-                if (playController != null)
-                {
-                    exitPlayButton.onClick.AddListener(() => playController.OnExitButtonPressed());
-                }
+                // Deprecated: This button is not used anymore
+                exitPlayButton.gameObject.SetActive(false);
             }
         }
 
