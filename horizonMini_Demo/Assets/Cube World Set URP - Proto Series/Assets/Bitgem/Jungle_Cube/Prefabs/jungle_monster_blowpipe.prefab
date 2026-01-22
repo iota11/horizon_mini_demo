@@ -1676,7 +1676,7 @@ GameObject:
   - component: {fileID: 6561004918896118831}
   - component: {fileID: 2114229602047654750}
   - component: {fileID: 6667550985119363841}
-  - component: {fileID: 7112551770261769932}
+  - component: {fileID: 3997888493620269451}
   m_Layer: 0
   m_Name: jungle_monster_blowpipe
   m_TagString: Untagged
@@ -1776,8 +1776,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &7112551770261769932
-BoxCollider:
+--- !u!136 &3997888493620269451
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1794,9 +1794,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Height: 2.003108
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.66, z: 0}
 --- !u!1 &6036743524589875785
 GameObject:
   m_ObjectHideFlags: 0

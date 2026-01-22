@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3613048679150245906}
   - component: {fileID: 6083624489915676250}
   - component: {fileID: 4099644949988753420}
+  - component: {fileID: 2502504316909748603}
+  - component: {fileID: 6520843502827562640}
   m_Layer: 0
   m_Name: palm_tree_small_LOD1
   m_TagString: Untagged
@@ -86,6 +88,50 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2502504316909748603
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211310594250475330}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5319623545365393404, guid: 9e6080ba423184bfa82643220d7e6700, type: 3}
+--- !u!64 &6520843502827562640
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211310594250475330}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8300333975516819821, guid: 9e6080ba423184bfa82643220d7e6700, type: 3}
 --- !u!1 &2616173834640838797
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +143,7 @@ GameObject:
   - component: {fileID: 889013727296410625}
   - component: {fileID: 2199752930801532493}
   - component: {fileID: 3022372889514462750}
+  - component: {fileID: 1227955513260411403}
   m_Layer: 0
   m_Name: palm_tree_small_LOD3
   m_TagString: Untagged
@@ -172,6 +219,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1227955513260411403
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616173834640838797}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8300333975516819821, guid: 9e6080ba423184bfa82643220d7e6700, type: 3}
 --- !u!1 &3651460530098242859
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +252,8 @@ GameObject:
   - component: {fileID: 6818573278422951669}
   - component: {fileID: 3693218660138072983}
   - component: {fileID: 5219455116601026742}
-  - component: {fileID: 4293588940935122604}
+  - component: {fileID: 4519964435813907993}
+  - component: {fileID: 4198307307162276901}
   m_Layer: 0
   m_Name: palm_tree_small_LOD0
   m_TagString: Untagged
@@ -259,8 +329,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4293588940935122604
-BoxCollider:
+--- !u!64 &4519964435813907993
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -277,9 +347,32 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.928973, y: 3.1386635, z: 5.0340195}
-  m_Center: {x: 0.052523494, y: 1.5371116, z: 0}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2756168297697145211, guid: 9e6080ba423184bfa82643220d7e6700, type: 3}
+--- !u!64 &4198307307162276901
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3651460530098242859}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8300333975516819821, guid: 9e6080ba423184bfa82643220d7e6700, type: 3}
 --- !u!1 &6667130107314616131
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,6 +451,7 @@ GameObject:
   - component: {fileID: 7739696405968317089}
   - component: {fileID: 8403709628254055451}
   - component: {fileID: 1209947446173644396}
+  - component: {fileID: 2534825873454940061}
   m_Layer: 0
   m_Name: palm_tree_small_LOD2
   m_TagString: Untagged
@@ -433,3 +527,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2534825873454940061
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232704251340932142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8300333975516819821, guid: 9e6080ba423184bfa82643220d7e6700, type: 3}

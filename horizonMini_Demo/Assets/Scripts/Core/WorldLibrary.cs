@@ -176,19 +176,7 @@ namespace HorizonMini.Core
                     var spawnPoint = obj.AddComponent<HorizonMini.Build.SpawnPoint>();
                     spawnPoint.SetSpawnType(HorizonMini.Build.SpawnType.Player);
 
-                    // Add visual marker
-                    GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                    marker.transform.SetParent(obj.transform);
-                    marker.transform.localPosition = Vector3.up * 1f;
-                    marker.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
-                    marker.name = "VisualMarker";
-
-                    // Set color
-                    var renderer = marker.GetComponent<Renderer>();
-                    if (renderer != null)
-                    {
-                        renderer.material.color = Color.green;
-                    }
+                    // No visual marker - SpawnPoint shows via Gizmos in Editor only
                 }
             }
             else

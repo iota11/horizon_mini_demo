@@ -15,6 +15,7 @@ namespace HorizonMini.Data
         public string worldId;
         public string worldTitle = "New World";
         public string worldAuthor = "Creator";
+        public bool isDraft = true; // Mark as draft until published
 
         [Header("Grid Layout")]
         public Vector3Int gridDimensions = new Vector3Int(2, 1, 2); // Width, Height, Depth in volumes

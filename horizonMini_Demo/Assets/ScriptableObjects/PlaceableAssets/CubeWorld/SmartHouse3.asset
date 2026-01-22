@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: SmartHouse3
+  m_EditorClassIdentifier: 
+  assetId: ca70c4b3-4294-4f8b-a7ba-5931d57c4be5
+  displayName: SmartHouse3
+  category: 11
+  prefab: {fileID: 1315726887890470731, guid: 8431c985ac9234e62880f537dfc3c7ff, type: 3}
+  icon: {fileID: 21300000, guid: 75d03fb1393db45a4ba242d665680ede, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

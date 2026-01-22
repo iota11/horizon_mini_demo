@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnType: 0
-  characterPrefab: {fileID: 0}
+  characterPrefab: {fileID: 4850409694948474263, guid: b5f7f1f36412a46e7baad20a88ee05e2,
+    type: 3}
   isInitialSpawn: 0
-  visualModel: {fileID: 0}
+  visualModel: {fileID: 4108140960556812769}
 --- !u!1 &4108140960556812769
 GameObject:
   m_ObjectHideFlags: 0

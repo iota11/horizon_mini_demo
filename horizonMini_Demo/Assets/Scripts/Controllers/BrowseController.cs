@@ -33,11 +33,11 @@ namespace HorizonMini.Controllers
         [SerializeField] private Camera browseCamera;
         [SerializeField] private float cameraDistance = 30f;
         [SerializeField] private float cameraAngle = 45f; // 45 degree top-down view
-        [SerializeField] private float orthographicSize = 10f; // Camera orthographic size
-        [SerializeField] private float minOrthographicSize = 5f; // Minimum size for auto-zoom (zoom in)
-        [SerializeField] private float maxOrthographicSize = 20f; // Maximum size for auto-zoom (zoom out)
+        [SerializeField] private float fieldOfView = 60f; // Perspective camera FOV
+        [SerializeField] private float minCameraDistance = 15f; // Minimum distance for zoom in
+        [SerializeField] private float maxCameraDistance = 50f; // Maximum distance for zoom out
         [SerializeField] private float cameraZoomSpeed = 0.2f; // SmoothDamp time for camera zoom
-        [SerializeField] private float scrollWheelZoomSpeed = 2f; // How much scroll wheel affects zoom
+        [SerializeField] private float scrollWheelZoomSpeed = 5f; // How much scroll wheel affects zoom
         [SerializeField] private float pinchZoomSpeed = 0.5f; // How much pinch affects zoom
 
         private AppRoot appRoot;
@@ -63,10 +63,10 @@ namespace HorizonMini.Controllers
         private float snapToTargetOffset = 0f; // Target offset for snap animation
         private float lastDragTime = 0f;
 
-        // Camera zoom tracking (orthographic size)
-        private float currentOrthographicSize = 10f;
-        private float targetOrthographicSize = 10f;
-        private float orthographicSizeVelocity = 0f;
+        // Camera zoom tracking (perspective distance)
+        private float currentCameraDistance = 30f;
+        private float targetCameraDistance = 30f;
+        private float cameraDistanceVelocity = 0f;
         private float manualZoomOffset = 0f; // User's manual zoom adjustment
 
         // Pinch gesture tracking
@@ -95,12 +95,16 @@ namespace HorizonMini.Controllers
                 browseCamera = Camera.main;
             }
 
-            // Set camera to orthographic
+            // Set camera to perspective
             if (browseCamera != null)
             {
-                browseCamera.orthographic = true;
-                browseCamera.orthographicSize = orthographicSize;
+                browseCamera.orthographic = false;
+                browseCamera.fieldOfView = fieldOfView;
             }
+
+            // Initialize camera distance
+            currentCameraDistance = cameraDistance;
+            targetCameraDistance = cameraDistance;
         }
 
         public void SetActive(bool active)
@@ -110,6 +114,13 @@ namespace HorizonMini.Controllers
 
             if (active)
             {
+                // Ensure camera is set to perspective when activating
+                if (browseCamera != null)
+                {
+                    browseCamera.orthographic = false;
+                    browseCamera.fieldOfView = fieldOfView;
+                }
+
                 RefreshFeed();
                 LoadInitialWorlds();
             }
@@ -141,9 +152,9 @@ namespace HorizonMini.Controllers
             currentIndex = Mathf.Clamp(currentIndex, 0, worldFeed.Count - 1);
             LoadWorldsAroundIndex(currentIndex);
 
-            // Calculate optimal orthographic size for initial world
-            CalculateOptimalOrthographicSize();
-            currentOrthographicSize = targetOrthographicSize; // Set immediately for first world
+            // Calculate optimal camera distance for initial world
+            CalculateOptimalCameraDistance();
+            currentCameraDistance = targetCameraDistance; // Set immediately for first world
 
             PositionCamera();
         }
@@ -362,11 +373,11 @@ namespace HorizonMini.Controllers
             // Record interaction
             RecordInteraction();
 
-            // Scroll up = zoom in (decrease size), scroll down = zoom out (increase size)
+            // Scroll up = zoom in (decrease distance), scroll down = zoom out (increase distance)
             manualZoomOffset -= scrollDelta * scrollWheelZoomSpeed;
             manualZoomOffset = Mathf.Clamp(manualZoomOffset,
-                minOrthographicSize - orthographicSize,
-                maxOrthographicSize - orthographicSize);
+                minCameraDistance - cameraDistance,
+                maxCameraDistance - cameraDistance);
         }
 
         private void HandlePinchGesture()
@@ -391,11 +402,11 @@ namespace HorizonMini.Controllers
                 // Calculate pinch delta
                 float pinchDelta = currentPinchDistance - lastPinchDistance;
 
-                // Pinch in = zoom in (decrease size), pinch out = zoom out (increase size)
+                // Pinch in = zoom in (decrease distance), pinch out = zoom out (increase distance)
                 manualZoomOffset -= pinchDelta * pinchZoomSpeed * 0.01f;
                 manualZoomOffset = Mathf.Clamp(manualZoomOffset,
-                    minOrthographicSize - orthographicSize,
-                    maxOrthographicSize - orthographicSize);
+                    minCameraDistance - cameraDistance,
+                    maxCameraDistance - cameraDistance);
 
                 lastPinchDistance = currentPinchDistance;
             }
@@ -571,7 +582,7 @@ namespace HorizonMini.Controllers
             UpdateActivationLevels();
 
             // Calculate optimal orthographic size for new world
-            CalculateOptimalOrthographicSize();
+            CalculateOptimalCameraDistance();
 
             // Reset orbit and snap camera to new world center (scrollOffset = 0)
             currentOrbitAngle = 0f;
@@ -619,7 +630,7 @@ namespace HorizonMini.Controllers
             UpdateActivationLevels();
 
             // Calculate optimal orthographic size for new world
-            CalculateOptimalOrthographicSize();
+            CalculateOptimalCameraDistance();
 
             // Reset orbit and snap camera to new world center (scrollOffset = 0)
             currentOrbitAngle = 0f;
@@ -632,24 +643,51 @@ namespace HorizonMini.Controllers
 
         private void UpdateActivationLevels()
         {
+            // Calculate scroll progress as percentage of worldSpacing
+            float scrollProgress = currentScrollOffset / worldSpacing;
+            float visibilityThreshold = 0.3f; // 30% threshold
+
             for (int i = 0; i < loadedWorlds.Length; i++)
             {
                 if (loadedWorlds[i] != null)
                 {
                     if (i == 1)
                     {
+                        // Current world is always fully active
                         loadedWorlds[i].SetActivationLevel(ActivationLevel.FullyActive);
                     }
-                    else
+                    else if (i == 0)
                     {
-                        loadedWorlds[i].SetActivationLevel(ActivationLevel.Preloaded);
+                        // Previous world (上面的): show only if scrolling up >= 30%
+                        // scrollProgress < 0 means scrolling up (toward previous)
+                        if (scrollProgress < -visibilityThreshold)
+                        {
+                            loadedWorlds[i].SetActivationLevel(ActivationLevel.Preloaded);
+                        }
+                        else
+                        {
+                            loadedWorlds[i].SetActivationLevel(ActivationLevel.Inactive);
+                        }
+                    }
+                    else if (i == 2)
+                    {
+                        // Next world (下面的): show only if scrolling down >= 30%
+                        // scrollProgress > 0 means scrolling down (toward next)
+                        if (scrollProgress > visibilityThreshold)
+                        {
+                            loadedWorlds[i].SetActivationLevel(ActivationLevel.Preloaded);
+                        }
+                        else
+                        {
+                            loadedWorlds[i].SetActivationLevel(ActivationLevel.Inactive);
+                        }
                     }
                 }
             }
         }
 
 
-        private void CalculateOptimalOrthographicSize()
+        private void CalculateOptimalCameraDistance()
         {
             if (loadedWorlds[1] == null) return;
 
@@ -658,19 +696,21 @@ namespace HorizonMini.Controllers
                 // Get world bounds
                 Bounds worldBounds = loadedWorlds[1].GetWorldBounds();
 
-                // For orthographic camera, size is based on how much we want to show
-                // Orthographic size = half of the vertical viewing area
-                // We want to fit the world with some margin
+                // For perspective camera, calculate distance based on world size and FOV
                 float worldSizeXZ = Mathf.Max(worldBounds.size.x, worldBounds.size.z);
 
-                // Add 20% margin and divide by aspect ratio to get proper size
-                float margin = 1.2f;
-                targetOrthographicSize = Mathf.Clamp(worldSizeXZ * margin * 0.5f, minOrthographicSize, maxOrthographicSize);
+                // Calculate distance needed to fit world in view
+                // Using half FOV and some margin
+                float margin = 1.3f;
+                float halfFOV = fieldOfView * 0.5f * Mathf.Deg2Rad;
+                float distance = (worldSizeXZ * margin) / (2f * Mathf.Tan(halfFOV));
+
+                targetCameraDistance = Mathf.Clamp(distance, minCameraDistance, maxCameraDistance);
             }
             catch (System.Exception e)
             {
-                Debug.LogWarning($"Failed to calculate optimal orthographic size: {e.Message}");
-                targetOrthographicSize = orthographicSize; // Fallback to default
+                Debug.LogWarning($"Failed to calculate optimal camera distance: {e.Message}");
+                targetCameraDistance = cameraDistance; // Fallback to default
             }
         }
 
@@ -721,27 +761,21 @@ namespace HorizonMini.Controllers
                 }
             }
 
-            // Smooth orthographic size to target (for zoom effect)
-            float baseTargetSize = targetOrthographicSize + manualZoomOffset;
-            baseTargetSize = Mathf.Clamp(baseTargetSize, minOrthographicSize, maxOrthographicSize);
+            // Smooth camera distance to target (for zoom effect)
+            float baseTargetDistance = targetCameraDistance + manualZoomOffset;
+            baseTargetDistance = Mathf.Clamp(baseTargetDistance, minCameraDistance, maxCameraDistance);
 
-            currentOrthographicSize = Mathf.SmoothDamp(
-                currentOrthographicSize,
-                baseTargetSize,
-                ref orthographicSizeVelocity,
+            currentCameraDistance = Mathf.SmoothDamp(
+                currentCameraDistance,
+                baseTargetDistance,
+                ref cameraDistanceVelocity,
                 cameraZoomSpeed
             );
 
-            // Apply orthographic size to camera
-            if (browseCamera.orthographic)
-            {
-                browseCamera.orthographicSize = currentOrthographicSize;
-            }
-
-            // Calculate camera position based on orbit angle (use fixed cameraDistance)
+            // Calculate camera position based on orbit angle and current distance
             float angleRad = cameraAngle * Mathf.Deg2Rad;
-            float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
-            float verticalDist = cameraDistance * Mathf.Sin(angleRad);
+            float horizontalDist = currentCameraDistance * Mathf.Cos(angleRad);
+            float verticalDist = currentCameraDistance * Mathf.Sin(angleRad);
 
             // Calculate position on orbit circle
             float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
@@ -756,6 +790,9 @@ namespace HorizonMini.Controllers
             // Direct update - SmoothDamp already handles smoothing via currentScrollOffset
             browseCamera.transform.position = targetPos;
             browseCamera.transform.LookAt(lookAtPoint);
+
+            // Update world activation levels based on scroll progress
+            UpdateActivationLevels();
         }
 
         private void UpdateCameraOrbitPosition()

@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -29,7 +30,12 @@ namespace HorizonMini.Controllers
 
         [Header("Prefabs")]
         [SerializeField] private GameObject volumeGridPrefab;
-        [SerializeField] private GameObject editCursorPrefab;
+
+        [Header("Cursor Prefabs")]
+        [SerializeField] private GameObject objectCursorPrefab;
+        [SerializeField] private GameObject groundControlPointCursorPrefab;
+        [SerializeField] private GameObject heightControlPointCursorPrefab;
+        [SerializeField] private GameObject fullControlPointCursorPrefab;
 
         [Header("Asset References")]
         [SerializeField] private HorizonMini.Build.AssetCatalog assetCatalog;
@@ -57,7 +63,10 @@ namespace HorizonMini.Controllers
         private VolumeGrid currentVolumeGrid;
         private List<PlacedObject> placedObjects = new List<PlacedObject>();
         private PlacedObject selectedObject = null;
-        private EditCursor currentEditCursor = null;
+        private Build.Cursors.ObjectCursor currentObjectCursor = null;
+        private Build.Cursors.FullControlPointCursor currentControlPointCursor = null; // For SmartTerrain/SmartWall/SmartHouse XZ control point
+        private Build.Cursors.HeightControlPointCursor currentHeightCursor = null; // For SmartWall/SmartHouse Y1 control
+        private Build.Cursors.HeightControlPointCursor currentHeightCursor2 = null; // For SmartHouse Y2 control
 
         // Temp data for new world
         private Vector3Int selectedVolumeSize = new Vector3Int(2, 1, 2);
@@ -67,8 +76,109 @@ namespace HorizonMini.Controllers
         public PlacedObject SelectedObject => selectedObject;
         public VolumeGrid VolumeGrid => currentVolumeGrid;
 
+        // Cursor Factory Methods
+        public Build.Cursors.ObjectCursor CreateObjectCursor(Transform targetObject, Transform parent = null)
+        {
+            if (objectCursorPrefab == null)
+            {
+                Debug.LogError("[BuildController] ObjectCursor prefab not assigned!");
+                return null;
+            }
+
+            GameObject cursorObj = Instantiate(objectCursorPrefab, parent ?? buildContainer);
+            Build.Cursors.ObjectCursor cursor = cursorObj.GetComponent<Build.Cursors.ObjectCursor>();
+            if (cursor != null)
+            {
+                cursor.SetTargetObject(targetObject);
+                cursor.UpdatePosition(targetObject.position);
+                cursor.SetVisible(true);
+
+                // Apply effect settings for audio feedback
+                if (effectSettings != null)
+                {
+                    cursor.SetEffectSettings(effectSettings);
+                }
+            }
+            else
+            {
+                Debug.LogError("[BuildController] ObjectCursor component not found on prefab!");
+            }
+            return cursor;
+        }
+
+        public Build.Cursors.GroundControlPointCursor CreateGroundControlPointCursor(Vector3 position, Transform parent = null)
+        {
+            if (groundControlPointCursorPrefab == null)
+            {
+                Debug.LogError("[BuildController] GroundControlPointCursor prefab not assigned!");
+                return null;
+            }
+
+            GameObject cursorObj = Instantiate(groundControlPointCursorPrefab, parent ?? buildContainer);
+            Build.Cursors.GroundControlPointCursor cursor = cursorObj.GetComponent<Build.Cursors.GroundControlPointCursor>();
+            if (cursor != null)
+            {
+                cursor.UpdatePosition(position);
+                cursor.SetVisible(true);
+            }
+            else
+            {
+                Debug.LogError("[BuildController] GroundControlPointCursor component not found on prefab!");
+            }
+            return cursor;
+        }
+
+        public Build.Cursors.HeightControlPointCursor CreateHeightControlPointCursor(Vector3 position, float yMin, Transform parent = null)
+        {
+            if (heightControlPointCursorPrefab == null)
+            {
+                Debug.LogError("[BuildController] HeightControlPointCursor prefab not assigned!");
+                return null;
+            }
+
+            GameObject cursorObj = Instantiate(heightControlPointCursorPrefab, parent ?? buildContainer);
+            Build.Cursors.HeightControlPointCursor cursor = cursorObj.GetComponent<Build.Cursors.HeightControlPointCursor>();
+            if (cursor != null)
+            {
+                cursor.SetYMin(yMin);
+                cursor.UpdatePosition(position);
+                cursor.SetVisible(true);
+            }
+            else
+            {
+                Debug.LogError("[BuildController] HeightControlPointCursor component not found on prefab!");
+            }
+            return cursor;
+        }
+
+        public Build.Cursors.FullControlPointCursor CreateFullControlPointCursor(Vector3 position, float yMin, Transform parent = null)
+        {
+            if (fullControlPointCursorPrefab == null)
+            {
+                Debug.LogError("[BuildController] FullControlPointCursor prefab not assigned!");
+                return null;
+            }
+
+            GameObject cursorObj = Instantiate(fullControlPointCursorPrefab, parent ?? buildContainer);
+            Build.Cursors.FullControlPointCursor cursor = cursorObj.GetComponent<Build.Cursors.FullControlPointCursor>();
+            if (cursor != null)
+            {
+                cursor.SetYMin(yMin);
+                cursor.UpdatePosition(position);
+                cursor.SetVisible(true);
+            }
+            else
+            {
+                Debug.LogError("[BuildController] FullControlPointCursor component not found on prefab!");
+            }
+            return cursor;
+        }
+
         private void Start()
         {
+            // Clean up draft worlds on startup
+            CleanupDraftWorlds();
+
             // Standalone mode: auto-initialize
             if (autoInitialize && !isInitialized)
             {
@@ -171,7 +281,8 @@ namespace HorizonMini.Controllers
 
         private void SetupGestureEvents()
         {
-            gestureDetector.OnSingleTap += HandleSingleTap;
+            gestureDetector.OnLongPress += HandleLongPress; // Long press to enter Edit mode
+            gestureDetector.OnSingleTap += HandleSingleTap; // Single tap for other actions
             gestureDetector.OnDragStart += HandleDragStart;
             gestureDetector.OnDrag += HandleDrag;
             gestureDetector.OnDragEnd += HandleDragEnd;
@@ -224,10 +335,10 @@ namespace HorizonMini.Controllers
 
             // Clear selection
             selectedObject = null;
-            if (currentEditCursor != null)
+            if (currentObjectCursor != null)
             {
-                Destroy(currentEditCursor.gameObject);
-                currentEditCursor = null;
+                Destroy(currentObjectCursor.gameObject);
+                currentObjectCursor = null;
             }
 
             // Also find and destroy any orphaned VolumeGrid or PlacedObject in the scene
@@ -334,18 +445,25 @@ namespace HorizonMini.Controllers
                     {
                         Debug.Log("[LoadWorldForEditing] Loading SpawnPoint");
 
-                        // Try to find in catalog first
-                        HorizonMini.Build.PlaceableAsset spawnAsset = catalog.GetAssetById(propData.prefabName);
-                        if (spawnAsset != null && spawnAsset.prefab != null)
+                        // Prioritize assigned spawn point prefab in BuildController
+                        if (spawnPointPrefab != null)
                         {
-                            obj = Instantiate(spawnAsset.prefab, buildContainer);
-                        }
-                        else if (spawnPointPrefab != null)
-                        {
-                            // Use assigned spawn point prefab
                             obj = Instantiate(spawnPointPrefab, buildContainer);
+                            Debug.Log("[LoadWorldForEditing] Using assigned spawnPointPrefab");
                         }
-                        else
+                        // Fallback to catalog
+                        else if (catalog != null)
+                        {
+                            HorizonMini.Build.PlaceableAsset spawnAsset = catalog.GetAssetById(propData.prefabName);
+                            if (spawnAsset != null && spawnAsset.prefab != null)
+                            {
+                                obj = Instantiate(spawnAsset.prefab, buildContainer);
+                                Debug.Log("[LoadWorldForEditing] Using catalog spawn point");
+                            }
+                        }
+
+                        // Last resort: create programmatically
+                        if (obj == null)
                         {
                             // Fallback: Create programmatically
                             Debug.LogWarning("Creating SpawnPoint programmatically (no prefab found)");
@@ -356,17 +474,7 @@ namespace HorizonMini.Controllers
                             sp.SetSpawnType(SpawnType.Player);
                             sp.SetInitialSpawn(true);
 
-                            // Add visual marker
-                            GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                            marker.transform.SetParent(obj.transform);
-                            marker.transform.localPosition = Vector3.up * 1f;
-                            marker.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
-                            marker.name = "VisualMarker";
-                            var renderer = marker.GetComponent<Renderer>();
-                            if (renderer != null)
-                            {
-                                renderer.material.color = Color.green;
-                            }
+                            // No visual marker - SpawnPoint shows via Gizmos in Editor only
                         }
                     }
                     else
@@ -696,10 +804,37 @@ namespace HorizonMini.Controllers
                 return;
             }
 
+            Debug.Log($"HandleSingleTap at {screenPosition}, Mode: {currentMode}");
+
+            // Single tap in Edit mode: exit to View mode
+            if (currentMode == BuildMode.Edit)
+            {
+                Debug.Log("Single tap in Edit mode - exiting to View mode");
+                DeselectObject();
+                if (SmartTerrainManager.Instance != null)
+                    SmartTerrainManager.Instance.ClearActiveTerrain();
+                if (SmartWallManager.Instance != null)
+                    SmartWallManager.Instance.ClearActiveWall();
+                SwitchMode(BuildMode.View);
+                return;
+            }
+
+            // Single tap in View mode: do nothing (need long press to select)
+        }
+
+        private void HandleLongPress(Vector2 screenPosition)
+        {
+            // Ignore long press over UI
+            if (IsPointerOverUI(screenPosition))
+            {
+                Debug.Log("Long press ignored - over UI");
+                return;
+            }
+
             Ray ray = buildCamera.ScreenPointToRay(screenPosition);
             RaycastHit hit;
 
-            Debug.Log($"HandleSingleTap at {screenPosition}, Mode: {currentMode}");
+            Debug.Log($"HandleLongPress at {screenPosition}, Mode: {currentMode}");
 
             if (currentMode == BuildMode.View)
             {
@@ -798,47 +933,20 @@ namespace HorizonMini.Controllers
             }
             else if (currentMode == BuildMode.Edit)
             {
-                // First check cursor components (UI layer - highest priority)
-                int cursorLayerMask = 1 << LayerMask.NameToLayer("UI");
-                RaycastHit[] cursorHits = Physics.RaycastAll(ray, 1000f, cursorLayerMask);
-
-                if (cursorHits.Length > 0 && currentEditCursor != null)
-                {
-                    // Hit cursor component
-                    GameObject hitObj = cursorHits[0].collider.gameObject;
-                    GameObject deleteButton = GetDeleteButton();
-
-                    if (deleteButton != null && (hitObj == deleteButton || hitObj.transform.IsChildOf(deleteButton.transform)))
-                    {
-                        Debug.Log("Delete button clicked");
-                        currentEditCursor.OnDeleteClicked();
-                        return;
-                    }
-                    else
-                    {
-                        Debug.Log($"Clicked cursor component (not delete): {hitObj.name}");
-                        // Clicked on cursor but not delete button - do nothing (stay in Edit mode)
-                        return;
-                    }
-                }
-
-                // Check if clicked another object or empty space
+                // Long press in Edit mode: switch to another object
                 if (Physics.Raycast(ray, out hit, 1000f))
                 {
-                    SmartTerrain terrain = hit.collider.GetComponentInParent<SmartTerrain>();
-                    SmartWall wall = hit.collider.GetComponentInParent<SmartWall>();
                     PlacedObject obj = hit.collider.GetComponentInParent<PlacedObject>();
 
                     if (obj != null && obj != selectedObject)
                     {
                         // Switch to editing different object
-                        Debug.Log($"Switching to edit another object: {obj.name}");
+                        Debug.Log($"Long press - switching to edit another object: {obj.name}");
 
                         // Check if it's also a SmartTerrain
                         SmartTerrain objTerrain = obj.GetComponent<SmartTerrain>();
                         if (objTerrain != null)
                         {
-                            // Select as PlacedObject AND set as active terrain
                             SelectObject(obj);
                             if (HasTerrainManager())
                                 SmartTerrainManager.Instance.SetActiveTerrain(objTerrain);
@@ -862,74 +970,6 @@ namespace HorizonMini.Controllers
                         SwitchMode(BuildMode.Edit);
                         return;
                     }
-                    else if (obj == selectedObject)
-                    {
-                        Debug.Log("Clicked on selected object - stay in Edit mode");
-                        // Clicked on the selected object itself - stay in Edit mode
-                        return;
-                    }
-                    else if (terrain != null)
-                    {
-                        // Clicked on SmartTerrain without PlacedObject
-                        if (HasTerrainManager())
-                        {
-                            SmartTerrain currentActiveTerrain = SmartTerrainManager.Instance.GetActiveTerrain();
-                            if (terrain != currentActiveTerrain)
-                            {
-                                // Switch to different SmartTerrain
-                                Debug.Log($"Switching to different SmartTerrain: {terrain.name}");
-                                SmartTerrainManager.Instance.SetActiveTerrain(terrain);
-                                return;
-                            }
-                            else
-                            {
-                                Debug.Log("Clicked on active SmartTerrain - stay in Edit mode");
-                                return;
-                            }
-                        }
-                    }
-                    else if (wall != null)
-                    {
-                        // Clicked on SmartWall without PlacedObject
-                        if (HasWallManager())
-                        {
-                            SmartWall currentActiveWall = SmartWallManager.Instance.GetActiveWall();
-                            if (wall != currentActiveWall)
-                            {
-                                // Switch to different SmartWall
-                                Debug.Log($"Switching to different SmartWall: {wall.name}");
-                                SmartWallManager.Instance.SetActiveWall(wall);
-                                return;
-                            }
-                            else
-                            {
-                                Debug.Log("Clicked on active SmartWall - stay in Edit mode");
-                                return;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log($"Clicked on non-placeable object: {hit.collider.name}");
-                        // Clicked something else (like volume grid) - exit to View mode
-                        DeselectObject();
-                        if (SmartTerrainManager.Instance != null)
-                            SmartTerrainManager.Instance.ClearActiveTerrain();
-                        if (SmartWallManager.Instance != null)
-                            SmartWallManager.Instance.ClearActiveWall();
-                        SwitchMode(BuildMode.View);
-                    }
-                }
-                else
-                {
-                    // Clicked empty space - exit to View mode
-                    Debug.Log("Clicked empty space - exiting Edit mode");
-                    DeselectObject();
-                    if (SmartTerrainManager.Instance != null)
-                        SmartTerrainManager.Instance.ClearActiveTerrain();
-                    if (SmartWallManager.Instance != null)
-                        SmartWallManager.Instance.ClearActiveWall();
-                    SwitchMode(BuildMode.View);
                 }
             }
         }
@@ -941,92 +981,70 @@ namespace HorizonMini.Controllers
 
             Ray ray = buildCamera.ScreenPointToRay(screenPos);
 
-            // First check UI layer (includes SmartTerrainCursor handlers and EditCursor components)
+            // Check UI layer - ObjectCursor, SmartTerrainCursor, SmartWallCursor, etc. handle their own input
+            // We just need to detect if we hit UI to prevent camera dragging
             int uiLayerMask = 1 << LayerMask.NameToLayer("UI");
             RaycastHit[] uiHits = Physics.RaycastAll(ray, 1000f, uiLayerMask);
 
             if (uiHits.Length > 0)
             {
-                // Hit UI layer - check if it's EditCursor or SmartTerrainCursor
-                RaycastHit hit = uiHits[0];
-                GameObject hitObj = hit.collider.gameObject;
-
-                // Check if it's EditCursor component (for PlacedObject)
-                if (currentMode == BuildMode.Edit && currentEditCursor != null)
-                {
-                    if (currentEditCursor.UpArrow != null && (hitObj == currentEditCursor.UpArrow || hitObj.transform.IsChildOf(currentEditCursor.UpArrow.transform)))
-                    {
-                        isDraggingCursor = true;
-                        currentEditCursor.OnDragStart(currentEditCursor.UpArrow, screenPos);
-                        return;
-                    }
-                    else if (currentEditCursor.RotateButton != null && (hitObj == currentEditCursor.RotateButton || hitObj.transform.IsChildOf(currentEditCursor.RotateButton.transform)))
-                    {
-                        isDraggingCursor = true;
-                        currentEditCursor.OnDragStart(currentEditCursor.RotateButton, screenPos);
-                        return;
-                    }
-                    else if (currentEditCursor.DeleteButton != null && (hitObj == currentEditCursor.DeleteButton || hitObj.transform.IsChildOf(currentEditCursor.DeleteButton.transform)))
-                    {
-                        isDraggingCursor = true;
-                        currentEditCursor.OnDragStart(currentEditCursor.DeleteButton, screenPos);
-                        return;
-                    }
-                }
-
-                // Otherwise it's SmartTerrainCursor handler - SmartTerrainCursor handles its own input
+                // Hit UI layer - cursor handles its own input, prevent camera drag
+                isDraggingCursor = true;
                 return;
             }
 
-            // No UI layer hit - check if we should drag the object/terrain itself
-            // But first, make sure no SmartTerrainCursor or SmartWallCursor is being dragged
+            // Check if ObjectCursor is dragging (it handles input internally)
+            if (currentObjectCursor != null && currentObjectCursor.IsDragging())
+            {
+                isDraggingCursor = true;
+                return;
+            }
+
+            // Check if SmartTerrainCursor is dragging
             var terrainMgr = SmartTerrainManager.Instance;
             if (terrainMgr != null && terrainMgr.IsAnyTerrainCursorDragging())
             {
-                // SmartTerrainCursor is handling the drag, don't interfere
+                isDraggingCursor = true;
                 return;
             }
 
+            // Check if SmartWallCursor is dragging
             var wallMgr = SmartWallManager.Instance;
             if (wallMgr != null && wallMgr.IsAnyWallCursorDragging())
             {
-                // SmartWallCursor is handling the drag, don't interfere
+                isDraggingCursor = true;
                 return;
             }
 
-            var spawnMgr = SpawnPointManager.Instance;
-            if (spawnMgr != null && spawnMgr.IsAnySpawnPointCursorDragging())
-            {
-                // SpawnPointCursor is handling the drag, don't interfere
-                return;
-            }
-
-            RaycastHit objHit;
-            if (Physics.Raycast(ray, out objHit, 1000f))
-            {
-                // Check if we can drag the selected object
-                if (currentMode == BuildMode.Edit && currentEditCursor != null && selectedObject != null)
-                {
-                    PlacedObject hitObj = objHit.collider.GetComponentInParent<PlacedObject>();
-                    if (hitObj == selectedObject)
-                    {
-                        // Allow dragging all PlacedObjects (including SmartTerrain)
-                        // If it's a SmartTerrain and user clicked handler, that was already handled above
-                        // If we reach here, user clicked the terrain body itself, so drag it
-                        isDraggingCursor = true;
-                        currentEditCursor.OnDragStart(selectedObject.gameObject, screenPos);
-                        return;
-                    }
-                }
-            }
+            // SpawnPointCursor no longer used - SpawnPoint now uses ObjectCursor
         }
 
         private void HandleDrag(Vector2 lastPos, Vector2 currentPos)
         {
-            // If dragging cursor, update cursor
-            if (isDraggingCursor && currentEditCursor != null)
+            // Cursors handle their own drag updates
+            // We just prevent camera drag when any cursor is being dragged
+
+            // Check if ObjectCursor is dragging
+            if (currentObjectCursor != null && currentObjectCursor.IsDragging())
             {
-                currentEditCursor.OnDragUpdate(currentPos);
+                return; // Don't move camera
+            }
+
+            // Check if FullControlPointCursor is dragging
+            if (currentControlPointCursor != null && currentControlPointCursor.IsDragging())
+            {
+                return; // Don't move camera
+            }
+
+            // Check if HeightControlPointCursor is dragging
+            if (currentHeightCursor != null && currentHeightCursor.IsDragging())
+            {
+                return; // Don't move camera
+            }
+
+            // Check if HeightControlPointCursor2 is dragging
+            if (currentHeightCursor2 != null && currentHeightCursor2.IsDragging())
+            {
                 return; // Don't move camera
             }
 
@@ -1044,12 +1062,7 @@ namespace HorizonMini.Controllers
                 return; // Don't move camera while dragging wall control points
             }
 
-            // Check if any SpawnPointCursor is being dragged
-            var spawnMgr = SpawnPointManager.Instance;
-            if (spawnMgr != null && spawnMgr.IsAnySpawnPointCursorDragging())
-            {
-                return; // Don't move camera while dragging spawn point
-            }
+            // SpawnPointCursor no longer used - SpawnPoint now uses ObjectCursor (checked above)
 
             // Don't move camera if drag started over UI
             if (gestureDetector != null && gestureDetector.DragStartedOverUI)
@@ -1065,15 +1078,12 @@ namespace HorizonMini.Controllers
 
         private void HandleDragEnd()
         {
-            if (isDraggingCursor && currentEditCursor != null)
+            // ObjectCursor handles its own drag end internally
+            // We just need to refocus camera if object was dragged
+            if (isDraggingCursor && currentObjectCursor != null && selectedObject != null && cameraController != null)
             {
-                currentEditCursor.OnDragEnd();
-
                 // Refocus camera on object's new position after drag
-                if (selectedObject != null && cameraController != null)
-                {
-                    cameraController.UpdateTarget(selectedObject.transform.position);
-                }
+                cameraController.UpdateTarget(selectedObject.transform.position);
             }
 
             isDraggingCursor = false;
@@ -1130,32 +1140,184 @@ namespace HorizonMini.Controllers
 
             if (selectedObject != null)
             {
-                GameObject cursorObj;
-
-                // Create or use prefab
-                if (editCursorPrefab != null)
+                // Check if this is a SmartTerrain
+                SmartTerrain terrain = selectedObject.GetComponent<SmartTerrain>();
+                if (terrain != null)
                 {
-                    cursorObj = Instantiate(editCursorPrefab, selectedObject.transform.position, selectedObject.transform.rotation);
+                    // SmartTerrain: create ObjectCursor + FullControlPointCursor
+                    // Activate control point (needed for FullControlPointCursor to track position)
+                    // The control point itself has no visuals - it's just a transform
+                    terrain.SetControlPointVisible(true);
+
+                    // Create ObjectCursor for terrain
+                    currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
+                    if (currentObjectCursor != null)
+                    {
+                        currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
+                        currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
+                        currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
+                        currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+                    }
+
+                    // Create FullControlPointCursor for control point
+                    if (terrain.controlPoint != null)
+                    {
+                        Vector3 controlPointWorldPos = terrain.controlPoint.position;
+                        float yMin = terrain.transform.position.y + 0.5f; // Use minSize.y
+
+                        currentControlPointCursor = CreateFullControlPointCursor(controlPointWorldPos, yMin, buildContainer);
+                        if (currentControlPointCursor != null)
+                        {
+                            // Set target transform so cursor follows control point when terrain rotates
+                            currentControlPointCursor.SetTargetTransform(terrain.controlPoint);
+                            currentControlPointCursor.OnPositionChanged.AddListener(terrain.OnControlPointPositionChanged);
+                        }
+                    }
                 }
                 else
                 {
-                    // Create default cursor
-                    cursorObj = new GameObject("EditCursor");
-                    cursorObj.transform.position = selectedObject.transform.position;
-                    cursorObj.transform.rotation = selectedObject.transform.rotation;
-                    cursorObj.AddComponent<EditCursor>();
+                    // Check if this is a SmartWall
+                    SmartWall wall = selectedObject.GetComponent<SmartWall>();
+                    if (wall != null)
+                    {
+                        // SmartWall: use ObjectCursor for wall itself + FullControlPointCursor for end point + HeightControlPointCursor for height
+                        currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
+                        if (currentObjectCursor != null)
+                        {
+                            currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
+                            currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
+                            currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
+                            currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+                        }
 
-                    Debug.LogWarning("EditCursor prefab not assigned! Using default cursor without visuals.");
-                }
+                        // Create FullControlPointCursor for the end control point (index 1)
+                        // Wall has 2 points: start (index 0) and end (index 1)
+                        // Only the end point needs a cursor (start point moves with wall)
+                        if (wall.GetControlPointCount() >= 2)
+                        {
+                            Transform endPointTransform = wall.GetControlPointTransform(1);
+                            if (endPointTransform != null)
+                            {
+                                Vector3 endPointWorldPos = endPointTransform.position;
+                                float yMin = wall.transform.position.y; // Wall control points stay at y=0 (local)
 
-                // Initialize cursor
-                currentEditCursor = cursorObj.GetComponent<EditCursor>();
-                if (currentEditCursor != null)
-                {
-                    currentEditCursor.Initialize(selectedObject.transform, buildCamera);
-                    currentEditCursor.OnPositionChanged += OnObjectPositionChanged;
-                    currentEditCursor.OnRotationChanged += OnObjectRotationChanged;
-                    currentEditCursor.OnDeleteRequested += OnObjectDeleteRequested;
+                                currentControlPointCursor = CreateFullControlPointCursor(endPointWorldPos, yMin, buildContainer);
+                                if (currentControlPointCursor != null)
+                                {
+                                    // Set target transform so cursor follows control point when wall rotates
+                                    currentControlPointCursor.SetTargetTransform(endPointTransform);
+                                    currentControlPointCursor.OnPositionChanged.AddListener((newPos) => wall.OnControlPointPositionChanged(1, newPos));
+                                }
+                            }
+
+                            // Create HeightControlPointCursor at the midpoint of the wall, at current height
+                            Vector3 startPos = wall.GetControlPointTransform(0).position;
+                            Vector3 endPos = wall.GetControlPointTransform(1).position;
+                            Vector3 midPoint = (startPos + endPos) * 0.5f;
+
+                            // Position at current wall height
+                            Vector3 heightCursorPos = midPoint;
+                            heightCursorPos.y = wall.transform.position.y + wall.GetWallHeight();
+
+                            float minHeight = 0.5f; // Minimum wall height
+                            currentHeightCursor = CreateHeightControlPointCursor(heightCursorPos, minHeight, buildContainer);
+                            if (currentHeightCursor != null)
+                            {
+                                // Set target wall so cursor follows wall midpoint automatically
+                                currentHeightCursor.SetTargetWall(wall);
+                                currentHeightCursor.OnPositionChanged.AddListener(wall.OnHeightCursorPositionChanged);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Check if this is a SmartHouse
+                        SmartHouse house = selectedObject.GetComponent<SmartHouse>();
+                        if (house != null)
+                        {
+                            // SmartHouse: ObjectCursor + FullControlPointCursor (XZ) + 2x HeightControlPointCursor (Y1, Y2)
+                            house.SetControlPointsVisible(true);
+
+                            // Create ObjectCursor for house
+                            currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
+                            if (currentObjectCursor != null)
+                            {
+                                currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
+                                currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
+                                currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
+                                currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+                            }
+
+                            // Create FullControlPointCursor for XZ control point
+                            if (house.xzControlPoint != null)
+                            {
+                                Vector3 xzControlPointWorldPos = house.xzControlPoint.position;
+                                float yMin = house.transform.position.y;
+
+                                currentControlPointCursor = CreateFullControlPointCursor(xzControlPointWorldPos, yMin, buildContainer);
+                                if (currentControlPointCursor != null)
+                                {
+                                    currentControlPointCursor.SetTargetTransform(house.xzControlPoint);
+                                    currentControlPointCursor.OnPositionChanged.AddListener(house.OnXZControlPointPositionChanged);
+                                }
+                            }
+
+                            // Get house size for positioning height cursors at bbox edges
+                            Vector3 houseSize = house.GetSize();
+                            float halfWidth = houseSize.x * 0.5f;
+
+                            // Create HeightControlPointCursor for Y1 control point (left edge)
+                            if (house.yControlPoint1 != null)
+                            {
+                                Vector3 y1ControlPointWorldPos = house.yControlPoint1.position;
+                                // Offset to left edge of bbox
+                                y1ControlPointWorldPos.x = house.transform.position.x - halfWidth;
+                                float minHeight = 0.5f;
+
+                                currentHeightCursor = CreateHeightControlPointCursor(y1ControlPointWorldPos, minHeight, buildContainer);
+                                if (currentHeightCursor != null)
+                                {
+                                    currentHeightCursor.OnPositionChanged.AddListener(house.OnY1ControlPointPositionChanged);
+                                }
+                            }
+
+                            // Create HeightControlPointCursor for Y2 control point (right edge)
+                            if (house.yControlPoint2 != null)
+                            {
+                                Vector3 y2ControlPointWorldPos = house.yControlPoint2.position;
+                                // Offset to right edge of bbox
+                                y2ControlPointWorldPos.x = house.transform.position.x + halfWidth;
+                                float minHeight = 0.5f;
+
+                                currentHeightCursor2 = CreateHeightControlPointCursor(y2ControlPointWorldPos, minHeight, buildContainer);
+                                if (currentHeightCursor2 != null)
+                                {
+                                    currentHeightCursor2.OnPositionChanged.AddListener(house.OnY2ControlPointPositionChanged);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Check if this is a SpawnPoint
+                            SpawnPoint spawnPoint = selectedObject.GetComponent<SpawnPoint>();
+
+                            // Regular object or SpawnPoint: use ObjectCursor only
+                            currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
+                            if (currentObjectCursor != null)
+                            {
+                                currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
+                                currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
+                                currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
+                                currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+
+                                // If this is the initial spawn point, disable delete button
+                                if (spawnPoint != null && spawnPoint.IsInitialSpawn)
+                                {
+                                    currentObjectCursor.SetDeleteEnabled(false);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1178,10 +1340,48 @@ namespace HorizonMini.Controllers
 
         private void HideEditCursor()
         {
-            if (currentEditCursor != null)
+            // Hide ObjectCursor
+            if (currentObjectCursor != null)
             {
-                Destroy(currentEditCursor.gameObject);
-                currentEditCursor = null;
+                Destroy(currentObjectCursor.gameObject);
+                currentObjectCursor = null;
+            }
+
+            // Hide FullControlPointCursor (for SmartTerrain/SmartWall)
+            if (currentControlPointCursor != null)
+            {
+                Destroy(currentControlPointCursor.gameObject);
+                currentControlPointCursor = null;
+            }
+
+            // Hide HeightControlPointCursor (for SmartWall/SmartHouse Y1)
+            if (currentHeightCursor != null)
+            {
+                Destroy(currentHeightCursor.gameObject);
+                currentHeightCursor = null;
+            }
+
+            // Hide HeightControlPointCursor2 (for SmartHouse Y2)
+            if (currentHeightCursor2 != null)
+            {
+                Destroy(currentHeightCursor2.gameObject);
+                currentHeightCursor2 = null;
+            }
+
+            // Hide SmartTerrain control point
+            if (selectedObject != null)
+            {
+                SmartTerrain terrain = selectedObject.GetComponent<SmartTerrain>();
+                if (terrain != null)
+                {
+                    terrain.SetControlPointVisible(false);
+                }
+
+                SmartHouse house = selectedObject.GetComponent<SmartHouse>();
+                if (house != null)
+                {
+                    house.SetControlPointsVisible(false);
+                }
             }
         }
 
@@ -1191,15 +1391,27 @@ namespace HorizonMini.Controllers
             DeleteSelectedObject();
         }
 
+        private void OnObjectConfirmRequested()
+        {
+            Debug.Log("BuildController: Confirm requested - exiting Edit mode");
+            // Same behavior as clicking empty space: deselect and return to View mode
+            DeselectObject();
+            if (SmartTerrainManager.Instance != null)
+                SmartTerrainManager.Instance.ClearActiveTerrain();
+            if (SmartWallManager.Instance != null)
+                SmartWallManager.Instance.ClearActiveWall();
+            SwitchMode(BuildMode.View);
+        }
+
         private bool IsCursorComponent(GameObject obj)
         {
-            if (currentEditCursor == null) return false;
+            if (currentObjectCursor == null) return false;
 
             // Check if object is part of cursor hierarchy
             Transform current = obj.transform;
             while (current != null)
             {
-                if (current.gameObject == currentEditCursor.gameObject)
+                if (current.gameObject == currentObjectCursor.gameObject)
                     return true;
                 current = current.parent;
             }
@@ -1207,25 +1419,6 @@ namespace HorizonMini.Controllers
             return false;
         }
 
-        private GameObject GetDeleteButton()
-        {
-            if (currentEditCursor == null)
-            {
-                Debug.LogWarning("GetDeleteButton: currentEditCursor is null");
-                return null;
-            }
-
-            GameObject deleteBtn = currentEditCursor.DeleteButton;
-            if (deleteBtn == null)
-            {
-                Debug.LogWarning("GetDeleteButton: DeleteButton is null");
-            }
-            else
-            {
-                Debug.Log($"GetDeleteButton: {deleteBtn.name}");
-            }
-            return deleteBtn;
-        }
 
         public void PlaceObject(PlaceableAsset asset, Vector3 position)
         {
@@ -1418,7 +1611,29 @@ namespace HorizonMini.Controllers
 
         public void OnPublicButtonPressed()
         {
+            Debug.Log("[BuildController] Publish button pressed - saving world and returning to Main");
+
+            // Save world before publishing
             SaveWorld();
+
+            // Mark world as published (no longer a draft)
+            if (!string.IsNullOrEmpty(currentWorldId))
+            {
+                SaveService saveService = appRoot != null ? appRoot.SaveService : FindFirstObjectByType<SaveService>();
+                if (saveService != null)
+                {
+                    HorizonMini.Data.WorldData worldData = saveService.LoadCreatedWorld(currentWorldId);
+                    if (worldData != null)
+                    {
+                        worldData.isDraft = false;
+                        saveService.SaveCreatedWorld(worldData);
+                        Debug.Log($"<color=green>✓ World {currentWorldId} marked as PUBLISHED</color>");
+                    }
+                }
+            }
+
+            // Return to Main scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         }
 
         /// <summary>
@@ -1535,25 +1750,31 @@ namespace HorizonMini.Controllers
                 return;
             }
 
-            // Position at volume center, slightly above ground
-            Vector3 centerPos = currentVolumeGrid.GetCenter();
-            centerPos.y = 0.5f; // Place on initial terrain surface
+            // Position at bottom-right corner of volume (assuming camera looks down from above)
+            Vector3 volumeSize = currentVolumeGrid.GetWorldSize();
+            Vector3 volumeCenter = currentVolumeGrid.GetCenter();
+
+            // Bottom-right corner: positive X (right), negative Z (back/down when viewed from above)
+            Vector3 spawnPos = volumeCenter;
+            spawnPos.x = volumeCenter.x + volumeSize.x / 2f - 0.5f; // Right edge, slightly inset
+            spawnPos.z = volumeCenter.z - volumeSize.z / 2f + 0.5f; // Back edge, slightly inset
+            spawnPos.y = 0.5f; // Place on initial terrain surface
 
             GameObject spawnObj;
 
             if (spawnPointPrefab != null)
             {
                 // Use assigned prefab
-                spawnObj = Instantiate(spawnPointPrefab, centerPos, Quaternion.identity, buildContainer);
+                spawnObj = Instantiate(spawnPointPrefab, spawnPos, Quaternion.identity, buildContainer);
                 spawnObj.name = "InitialSpawnPoint";
-                Debug.Log("Created initial spawn point from assigned prefab");
+                Debug.Log($"Created initial spawn point at bottom-right corner: {spawnPos}");
             }
             else
             {
                 // Fallback: Create simple GameObject
                 spawnObj = new GameObject("InitialSpawnPoint");
                 spawnObj.transform.SetParent(buildContainer);
-                spawnObj.transform.position = centerPos;
+                spawnObj.transform.position = spawnPos;
                 spawnObj.transform.rotation = Quaternion.identity;
                 Debug.LogWarning("SpawnPoint prefab not assigned - using fallback");
             }
@@ -1601,20 +1822,10 @@ namespace HorizonMini.Controllers
             placedObj.UpdateSavedTransform();
             placedObjects.Add(placedObj);
 
-            // Ensure cursor exists
-            SpawnPointCursor cursor = spawnObj.GetComponentInChildren<SpawnPointCursor>();
-            if (cursor == null)
-            {
-                // Create cursor for this spawn point
-                GameObject cursorObj = new GameObject("SpawnPointCursor");
-                cursorObj.transform.SetParent(spawnObj.transform);
-                cursorObj.transform.position = spawnObj.transform.position;
+            // SpawnPoint now uses ObjectCursor (shown when selected in Edit mode)
+            // No need for SpawnPointCursor anymore
 
-                cursor = cursorObj.AddComponent<SpawnPointCursor>();
-                cursor.SetSpawnPoint(spawnPoint);
-            }
-
-            Debug.Log($"Created initial spawn point at {centerPos}");
+            Debug.Log($"Created initial spawn point at {spawnPos}");
         }
 
         private void SaveWorld()
@@ -1661,6 +1872,8 @@ namespace HorizonMini.Controllers
                 worldData.worldTitle = worldName;
                 worldData.worldAuthor = "Creator";
                 worldData.gridDimensions = selectedVolumeSize;
+                worldData.isDraft = true; // Mark as draft until published
+                Debug.Log($"Created new world {worldData.worldId} marked as DRAFT");
             }
 
             // Save volume grid
@@ -1750,6 +1963,57 @@ namespace HorizonMini.Controllers
                 {
                     Debug.LogError("SaveService not found! Cannot save world.");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Clean up all draft worlds on startup
+        /// </summary>
+        private void CleanupDraftWorlds()
+        {
+            SaveService saveService = appRoot != null ? appRoot.SaveService : FindFirstObjectByType<SaveService>();
+            if (saveService == null)
+            {
+                Debug.LogWarning("[BuildController] SaveService not found, cannot cleanup draft worlds");
+                return;
+            }
+
+            // Get all created world IDs
+            var allWorldIds = saveService.GetCreatedWorldIds();
+            if (allWorldIds == null || allWorldIds.Count == 0)
+            {
+                Debug.Log("[BuildController] No worlds found, nothing to cleanup");
+                return;
+            }
+
+            int draftCount = 0;
+            List<string> draftsToDelete = new List<string>();
+
+            // Check each world
+            foreach (var worldId in allWorldIds)
+            {
+                HorizonMini.Data.WorldData worldData = saveService.LoadCreatedWorld(worldId);
+                if (worldData != null && worldData.isDraft)
+                {
+                    Debug.Log($"[BuildController] Found draft world: {worldData.worldTitle} (ID: {worldId})");
+                    draftsToDelete.Add(worldId);
+                    draftCount++;
+                }
+            }
+
+            // Delete all drafts
+            foreach (var worldId in draftsToDelete)
+            {
+                saveService.DeleteCreatedWorld(worldId);
+            }
+
+            if (draftCount > 0)
+            {
+                Debug.Log($"<color=yellow>✓ Cleaned up {draftCount} draft world(s)</color>");
+            }
+            else
+            {
+                Debug.Log("[BuildController] No draft worlds to cleanup");
             }
         }
     }

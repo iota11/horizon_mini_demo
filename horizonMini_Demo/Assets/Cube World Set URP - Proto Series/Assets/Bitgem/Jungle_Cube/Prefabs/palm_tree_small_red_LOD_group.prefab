@@ -96,6 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1210789163120466523}
   - component: {fileID: 6239607530452856106}
+  - component: {fileID: 1477950929009837031}
   m_Layer: 0
   m_Name: palm_tree_small_red_LOD_group
   m_TagString: Untagged
@@ -153,6 +154,28 @@ LODGroup:
     renderers:
     - renderer: {fileID: 342173541704050461}
   m_Enabled: 1
+--- !u!64 &1477950929009837031
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983350719939363041}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8597173877382511356, guid: e6bd9e13059a54505998eb121750ba28, type: 3}
 --- !u!1 &2234451583026615690
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +187,6 @@ GameObject:
   - component: {fileID: 8352894874034548898}
   - component: {fileID: 4476750154642285445}
   - component: {fileID: 667091549269072902}
-  - component: {fileID: 2293648223019504048}
   m_Layer: 0
   m_Name: palm_tree_small_red_LOD0
   m_TagString: Untagged
@@ -240,27 +262,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2293648223019504048
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2234451583026615690}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.928973, y: 3.1386635, z: 5.0340195}
-  m_Center: {x: 0.052523494, y: 1.5371116, z: 0}
 --- !u!1 &7255038047563748925
 GameObject:
   m_ObjectHideFlags: 0

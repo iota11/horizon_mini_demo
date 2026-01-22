@@ -219,6 +219,7 @@ namespace HorizonMini.Core
         public string worldId;
         public string worldTitle;
         public string worldAuthor;
+        public bool isDraft;
         public Vector3IntSerializable gridDimensions;
         public List<VolumeCellSerializable> volumes = new List<VolumeCellSerializable>();
         public List<PropDataSerializable> props = new List<PropDataSerializable>();
@@ -232,6 +233,7 @@ namespace HorizonMini.Core
             worldId = data.worldId;
             worldTitle = data.worldTitle;
             worldAuthor = data.worldAuthor;
+            isDraft = data.isDraft;
             gridDimensions = new Vector3IntSerializable(data.gridDimensions);
 
             foreach (var vol in data.volumes)
@@ -254,6 +256,7 @@ namespace HorizonMini.Core
             data.worldId = worldId;
             data.worldTitle = worldTitle;
             data.worldAuthor = worldAuthor;
+            data.isDraft = isDraft;
             data.gridDimensions = gridDimensions.ToVector3Int();
 
             data.volumes = new List<VolumeCell>();

@@ -1784,7 +1784,7 @@ GameObject:
   - component: {fileID: 3371313748907707439}
   - component: {fileID: 7535454937283984222}
   - component: {fileID: 2973491223520920174}
-  - component: {fileID: 4984197859093905749}
+  - component: {fileID: 12151082327264367}
   m_Layer: 0
   m_Name: jungle_boy
   m_TagString: Untagged
@@ -1885,8 +1885,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &4984197859093905749
-BoxCollider:
+--- !u!136 &12151082327264367
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1903,9 +1903,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.71
+  m_Height: 2.57
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.79, z: 0}
 --- !u!1 &2723526865776356956
 GameObject:
   m_ObjectHideFlags: 0
