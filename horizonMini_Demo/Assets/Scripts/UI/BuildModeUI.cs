@@ -111,6 +111,8 @@ namespace HorizonMini.UI
 
         public void OnModeChanged(BuildMode mode)
         {
+            Debug.Log($"[BuildModeUI] OnModeChanged: {mode}");
+
             // Use initializer to set panel visibility (if exists)
             if (initializer != null)
             {
@@ -129,22 +131,33 @@ namespace HorizonMini.UI
             switch (mode)
             {
                 case BuildMode.SizePicker:
+                    Debug.Log("[BuildModeUI] Showing SizePicker UI");
                     if (sizePickerUI != null) sizePickerUI.Show();
                     UpdateInstructions("Select space size, then click Create");
                     break;
 
+                case BuildMode.VolumeDrawing:
+                    Debug.Log("[BuildModeUI] Showing VolumeDrawing UI");
+                    // Keep sizePickerUI visible (it contains Create/Cancel buttons)
+                    if (sizePickerUI != null) sizePickerUI.Show();
+                    UpdateInstructions("Drag cursor to draw volume size | Click Create to confirm");
+                    break;
+
                 case BuildMode.View:
+                    Debug.Log("[BuildModeUI] Showing View UI");
                     if (viewModeUI != null) viewModeUI.SetActive(true);
                     if (assetCatalogUI != null) assetCatalogUI.Show();
                     UpdateInstructions("Drag to place | Tap object to Edit");
                     break;
 
                 case BuildMode.Edit:
+                    Debug.Log("[BuildModeUI] Showing Edit UI");
                     if (editModeUI != null) editModeUI.SetActive(true);
                     UpdateInstructions("Drag arrow/rotate button/object | Tap X to delete | Tap empty to return");
                     break;
 
                 case BuildMode.Play:
+                    Debug.Log("[BuildModeUI] Showing Play UI");
                     if (playModeUI != null) playModeUI.SetActive(true);
                     UpdateInstructions("Use joystick to move | Drag to rotate camera");
                     break;
@@ -162,6 +175,7 @@ namespace HorizonMini.UI
             switch (mode)
             {
                 case BuildMode.SizePicker: return "Size Picker";
+                case BuildMode.VolumeDrawing: return "Volume Drawing";
                 case BuildMode.View: return "View";
                 case BuildMode.Edit: return "Edit";
                 case BuildMode.Play: return "Play";
