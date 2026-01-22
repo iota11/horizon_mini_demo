@@ -68,6 +68,11 @@ namespace HorizonMini.Controllers
         private Build.Cursors.HeightControlPointCursor currentHeightCursor = null; // For SmartWall/SmartHouse Y1 control
         private Build.Cursors.HeightControlPointCursor currentHeightCursor2 = null; // For SmartHouse Y2 control
 
+        // Volume Drawing state
+        private Build.Cursors.FullControlPointCursor volumeDrawingCursor = null; // Cursor for drawing volume grid
+        private Vector3 volumeDrawingStartCorner = Vector3.zero; // Starting corner (min corner)
+        private Vector3 volumeDrawingEndCorner = Vector3.zero; // End corner (max corner from cursor)
+
         // Temp data for new world
         private Vector3Int selectedVolumeSize = new Vector3Int(2, 1, 2);
         private string currentWorldId = null; // Track if editing existing world
@@ -174,16 +179,24 @@ namespace HorizonMini.Controllers
             return cursor;
         }
 
+        private void Awake()
+        {
+            // Initialize in Awake to ensure BuildController is ready before any UI Start() methods
+            if (autoInitialize && !isInitialized)
+            {
+                Initialize(null);
+                Debug.Log("[BuildController] Initialized in Awake (standalone mode)");
+            }
+        }
+
         private void Start()
         {
             // Clean up draft worlds on startup
             CleanupDraftWorlds();
 
-            // Standalone mode: auto-initialize
-            if (autoInitialize && !isInitialized)
+            // Standalone mode: check what to do after initialization
+            if (autoInitialize)
             {
-                Initialize(null);
-
                 // Check if we should load an existing world for editing
                 if (HorizonMini.Core.SceneTransitionData.HasWorldToEdit())
                 {
@@ -302,7 +315,14 @@ namespace HorizonMini.Controllers
 
             if (active)
             {
-                SwitchMode(BuildMode.SizePicker);
+                // Only switch to SizePicker if we don't have a world yet
+                // (i.e., starting fresh, not loading existing world)
+                if (currentVolumeGrid == null)
+                {
+                    SwitchMode(BuildMode.SizePicker);
+                }
+                // If we already have a world loaded, stay in current mode
+                // (LoadWorldForEditing will set the correct mode)
             }
         }
 
@@ -391,7 +411,9 @@ namespace HorizonMini.Controllers
             HorizonMini.Data.WorldData worldData = saveService.LoadCreatedWorld(worldId);
             if (worldData == null)
             {
-                Debug.LogError($"World {worldId} not found in SaveService!");
+                Debug.LogWarning($"World {worldId} not found in SaveService! Starting with new world instead.");
+                StartNewWorld();
+                SetActive(true); // This will trigger SizePicker mode
                 return;
             }
 
@@ -578,6 +600,8 @@ namespace HorizonMini.Controllers
 
         public void SwitchMode(BuildMode newMode)
         {
+            Debug.Log($"[BuildController] SwitchMode: {currentMode} -> {newMode}");
+
             // Exit current mode
             ExitMode(currentMode);
 
@@ -605,6 +629,32 @@ namespace HorizonMini.Controllers
                     // Enable camera for volume preview
                     cameraController.SetEnabled(true);
                     Debug.Log("Entered Size Picker mode");
+                    break;
+
+                case BuildMode.VolumeDrawing:
+                    // Enable camera interaction (same as View mode)
+                    if (cameraController != null)
+                    {
+                        cameraController.SetEnabled(true);
+
+                        // Position camera to view the max 4x4x4 volume area (immediate positioning)
+                        Vector3 maxVolumeCenter = new Vector3(
+                            maxVolumeSize.x * volumeUnitSize * 0.5f,  // 16
+                            maxVolumeSize.y * volumeUnitSize * 0.5f,  // 16
+                            maxVolumeSize.z * volumeUnitSize * 0.5f   // 16
+                        );
+
+                        cameraController.SetupForMaxVolume(maxVolumeSize, volumeUnitSize, immediate: true);
+                        cameraController.UpdateTarget(maxVolumeCenter, immediate: true);
+
+                        Debug.Log($"[BuildController] Camera positioned at max volume center: {maxVolumeCenter}, camera interaction enabled");
+                    }
+                    else
+                    {
+                        Debug.LogError("[BuildController] cameraController is null in VolumeDrawing mode!");
+                    }
+                    EnterVolumeDrawingMode();
+                    Debug.Log("Entered Volume Drawing mode");
                     break;
 
                 case BuildMode.View:
@@ -674,6 +724,10 @@ namespace HorizonMini.Controllers
         {
             switch (mode)
             {
+                case BuildMode.VolumeDrawing:
+                    ExitVolumeDrawingMode();
+                    break;
+
                 case BuildMode.Edit:
                     HideEditCursor();
                     break;
@@ -1062,14 +1116,20 @@ namespace HorizonMini.Controllers
                 return; // Don't move camera while dragging wall control points
             }
 
+            // Check if VolumeDrawingCursor is being dragged
+            if (volumeDrawingCursor != null && volumeDrawingCursor.IsDragging())
+            {
+                return; // Don't move camera while dragging volume cursor
+            }
+
             // SpawnPointCursor no longer used - SpawnPoint now uses ObjectCursor (checked above)
 
             // Don't move camera if drag started over UI
             if (gestureDetector != null && gestureDetector.DragStartedOverUI)
                 return;
 
-            // Camera orbit in View or Edit mode (when not dragging cursor)
-            if (currentMode == BuildMode.View || currentMode == BuildMode.Edit)
+            // Camera orbit in View, Edit, or VolumeDrawing mode (when not dragging cursor)
+            if (currentMode == BuildMode.View || currentMode == BuildMode.Edit || currentMode == BuildMode.VolumeDrawing)
             {
                 Vector2 delta = currentPos - lastPos;
                 cameraController.Orbit(delta);
@@ -1106,8 +1166,8 @@ namespace HorizonMini.Controllers
 
         private void HandlePinch(float delta)
         {
-            // Allow zoom in SizePicker, View, and Edit modes
-            if (currentMode == BuildMode.SizePicker || currentMode == BuildMode.View || currentMode == BuildMode.Edit)
+            // Allow zoom in SizePicker, VolumeDrawing, View, and Edit modes
+            if (currentMode == BuildMode.SizePicker || currentMode == BuildMode.VolumeDrawing || currentMode == BuildMode.View || currentMode == BuildMode.Edit)
             {
                 cameraController.Zoom(delta);
             }
@@ -1115,7 +1175,7 @@ namespace HorizonMini.Controllers
 
         private void HandleTwoFingerDrag(Vector2 delta)
         {
-            if (currentMode == BuildMode.View || currentMode == BuildMode.Edit)
+            if (currentMode == BuildMode.VolumeDrawing || currentMode == BuildMode.View || currentMode == BuildMode.Edit)
             {
                 cameraController.Pan(delta);
             }
@@ -1176,11 +1236,14 @@ namespace HorizonMini.Controllers
                 }
                 else
                 {
-                    // Check if this is a SmartWall
-                    SmartWall wall = selectedObject.GetComponent<SmartWall>();
-                    if (wall != null)
+                    // Check if this is a SmartTerrainChunk
+                    SmartTerrainChunk chunk = selectedObject.GetComponent<SmartTerrainChunk>();
+                    if (chunk != null)
                     {
-                        // SmartWall: use ObjectCursor for wall itself + FullControlPointCursor for end point + HeightControlPointCursor for height
+                        // SmartTerrainChunk: same as SmartTerrain, create ObjectCursor + FullControlPointCursor
+                        chunk.SetControlPointVisible(true);
+
+                        // Create ObjectCursor for chunk
                         currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
                         if (currentObjectCursor != null)
                         {
@@ -1190,55 +1253,28 @@ namespace HorizonMini.Controllers
                             currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
                         }
 
-                        // Create FullControlPointCursor for the end control point (index 1)
-                        // Wall has 2 points: start (index 0) and end (index 1)
-                        // Only the end point needs a cursor (start point moves with wall)
-                        if (wall.GetControlPointCount() >= 2)
+                        // Create FullControlPointCursor for XYZ control point
+                        if (chunk.xyzControlPoint != null)
                         {
-                            Transform endPointTransform = wall.GetControlPointTransform(1);
-                            if (endPointTransform != null)
+                            Vector3 controlPointWorldPos = chunk.xyzControlPoint.position;
+                            float yMin = chunk.transform.position.y + 0.5f; // Minimum 1m height
+
+                            currentControlPointCursor = CreateFullControlPointCursor(controlPointWorldPos, yMin, buildContainer);
+                            if (currentControlPointCursor != null)
                             {
-                                Vector3 endPointWorldPos = endPointTransform.position;
-                                float yMin = wall.transform.position.y; // Wall control points stay at y=0 (local)
-
-                                currentControlPointCursor = CreateFullControlPointCursor(endPointWorldPos, yMin, buildContainer);
-                                if (currentControlPointCursor != null)
-                                {
-                                    // Set target transform so cursor follows control point when wall rotates
-                                    currentControlPointCursor.SetTargetTransform(endPointTransform);
-                                    currentControlPointCursor.OnPositionChanged.AddListener((newPos) => wall.OnControlPointPositionChanged(1, newPos));
-                                }
-                            }
-
-                            // Create HeightControlPointCursor at the midpoint of the wall, at current height
-                            Vector3 startPos = wall.GetControlPointTransform(0).position;
-                            Vector3 endPos = wall.GetControlPointTransform(1).position;
-                            Vector3 midPoint = (startPos + endPos) * 0.5f;
-
-                            // Position at current wall height
-                            Vector3 heightCursorPos = midPoint;
-                            heightCursorPos.y = wall.transform.position.y + wall.GetWallHeight();
-
-                            float minHeight = 0.5f; // Minimum wall height
-                            currentHeightCursor = CreateHeightControlPointCursor(heightCursorPos, minHeight, buildContainer);
-                            if (currentHeightCursor != null)
-                            {
-                                // Set target wall so cursor follows wall midpoint automatically
-                                currentHeightCursor.SetTargetWall(wall);
-                                currentHeightCursor.OnPositionChanged.AddListener(wall.OnHeightCursorPositionChanged);
+                                // Set target transform so cursor follows control point when chunk rotates
+                                currentControlPointCursor.SetTargetTransform(chunk.xyzControlPoint);
+                                currentControlPointCursor.OnPositionChanged.AddListener(chunk.OnControlPointPositionChanged);
                             }
                         }
                     }
                     else
                     {
-                        // Check if this is a SmartHouse
-                        SmartHouse house = selectedObject.GetComponent<SmartHouse>();
-                        if (house != null)
+                        // Check if this is a SmartWall
+                        SmartWall wall = selectedObject.GetComponent<SmartWall>();
+                        if (wall != null)
                         {
-                            // SmartHouse: ObjectCursor + FullControlPointCursor (XZ) + 2x HeightControlPointCursor (Y1, Y2)
-                            house.SetControlPointsVisible(true);
-
-                            // Create ObjectCursor for house
+                            // SmartWall: use ObjectCursor for wall itself + FullControlPointCursor for end point + HeightControlPointCursor for height
                             currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
                             if (currentObjectCursor != null)
                             {
@@ -1248,72 +1284,133 @@ namespace HorizonMini.Controllers
                                 currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
                             }
 
-                            // Create FullControlPointCursor for XZ control point
-                            if (house.xzControlPoint != null)
+                            // Create FullControlPointCursor for the end control point (index 1)
+                            // Wall has 2 points: start (index 0) and end (index 1)
+                            // Only the end point needs a cursor (start point moves with wall)
+                            if (wall.GetControlPointCount() >= 2)
                             {
-                                Vector3 xzControlPointWorldPos = house.xzControlPoint.position;
-                                float yMin = house.transform.position.y;
-
-                                currentControlPointCursor = CreateFullControlPointCursor(xzControlPointWorldPos, yMin, buildContainer);
-                                if (currentControlPointCursor != null)
+                                Transform endPointTransform = wall.GetControlPointTransform(1);
+                                if (endPointTransform != null)
                                 {
-                                    currentControlPointCursor.SetTargetTransform(house.xzControlPoint);
-                                    currentControlPointCursor.OnPositionChanged.AddListener(house.OnXZControlPointPositionChanged);
+                                    Vector3 endPointWorldPos = endPointTransform.position;
+                                    float yMin = wall.transform.position.y; // Wall control points stay at y=0 (local)
+
+                                    currentControlPointCursor = CreateFullControlPointCursor(endPointWorldPos, yMin, buildContainer);
+                                    if (currentControlPointCursor != null)
+                                    {
+                                        // Set target transform so cursor follows control point when wall rotates
+                                        currentControlPointCursor.SetTargetTransform(endPointTransform);
+                                        currentControlPointCursor.OnPositionChanged.AddListener((newPos) => wall.OnControlPointPositionChanged(1, newPos));
+                                    }
                                 }
-                            }
 
-                            // Get house size for positioning height cursors at bbox edges
-                            Vector3 houseSize = house.GetSize();
-                            float halfWidth = houseSize.x * 0.5f;
+                                // Create HeightControlPointCursor at the midpoint of the wall, at current height
+                                Vector3 startPos = wall.GetControlPointTransform(0).position;
+                                Vector3 endPos = wall.GetControlPointTransform(1).position;
+                                Vector3 midPoint = (startPos + endPos) * 0.5f;
 
-                            // Create HeightControlPointCursor for Y1 control point (left edge)
-                            if (house.yControlPoint1 != null)
-                            {
-                                Vector3 y1ControlPointWorldPos = house.yControlPoint1.position;
-                                // Offset to left edge of bbox
-                                y1ControlPointWorldPos.x = house.transform.position.x - halfWidth;
-                                float minHeight = 0.5f;
+                                // Position at current wall height
+                                Vector3 heightCursorPos = midPoint;
+                                heightCursorPos.y = wall.transform.position.y + wall.GetWallHeight();
 
-                                currentHeightCursor = CreateHeightControlPointCursor(y1ControlPointWorldPos, minHeight, buildContainer);
+                                float minHeight = 0.5f; // Minimum wall height
+                                currentHeightCursor = CreateHeightControlPointCursor(heightCursorPos, minHeight, buildContainer);
                                 if (currentHeightCursor != null)
                                 {
-                                    currentHeightCursor.OnPositionChanged.AddListener(house.OnY1ControlPointPositionChanged);
-                                }
-                            }
-
-                            // Create HeightControlPointCursor for Y2 control point (right edge)
-                            if (house.yControlPoint2 != null)
-                            {
-                                Vector3 y2ControlPointWorldPos = house.yControlPoint2.position;
-                                // Offset to right edge of bbox
-                                y2ControlPointWorldPos.x = house.transform.position.x + halfWidth;
-                                float minHeight = 0.5f;
-
-                                currentHeightCursor2 = CreateHeightControlPointCursor(y2ControlPointWorldPos, minHeight, buildContainer);
-                                if (currentHeightCursor2 != null)
-                                {
-                                    currentHeightCursor2.OnPositionChanged.AddListener(house.OnY2ControlPointPositionChanged);
+                                    // Set target wall so cursor follows wall midpoint automatically
+                                    currentHeightCursor.SetTargetWall(wall);
+                                    currentHeightCursor.OnPositionChanged.AddListener(wall.OnHeightCursorPositionChanged);
                                 }
                             }
                         }
                         else
                         {
-                            // Check if this is a SpawnPoint
-                            SpawnPoint spawnPoint = selectedObject.GetComponent<SpawnPoint>();
-
-                            // Regular object or SpawnPoint: use ObjectCursor only
-                            currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
-                            if (currentObjectCursor != null)
+                            // Check if this is a SmartHouse
+                            SmartHouse house = selectedObject.GetComponent<SmartHouse>();
+                            if (house != null)
                             {
-                                currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
-                                currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
-                                currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
-                                currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+                                // SmartHouse: ObjectCursor + FullControlPointCursor (XZ) + 2x HeightControlPointCursor (Y1, Y2)
+                                house.SetControlPointsVisible(true);
 
-                                // If this is the initial spawn point, disable delete button
-                                if (spawnPoint != null && spawnPoint.IsInitialSpawn)
+                                // Create ObjectCursor for house
+                                currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
+                                if (currentObjectCursor != null)
                                 {
-                                    currentObjectCursor.SetDeleteEnabled(false);
+                                    currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
+                                    currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
+                                    currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
+                                    currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+                                }
+
+                                // Create FullControlPointCursor for XZ control point
+                                if (house.xzControlPoint != null)
+                                {
+                                    Vector3 xzControlPointWorldPos = house.xzControlPoint.position;
+                                    float yMin = house.transform.position.y;
+
+                                    currentControlPointCursor = CreateFullControlPointCursor(xzControlPointWorldPos, yMin, buildContainer);
+                                    if (currentControlPointCursor != null)
+                                    {
+                                        currentControlPointCursor.SetTargetTransform(house.xzControlPoint);
+                                        currentControlPointCursor.OnPositionChanged.AddListener(house.OnXZControlPointPositionChanged);
+                                    }
+                                }
+
+                                // Get house size for positioning height cursors at bbox edges
+                                Vector3 houseSize = house.GetSize();
+                                float halfWidth = houseSize.x * 0.5f;
+
+                                // Create HeightControlPointCursor for Y1 control point (left edge)
+                                if (house.yControlPoint1 != null)
+                                {
+                                    Vector3 y1ControlPointWorldPos = house.yControlPoint1.position;
+                                    // Offset to left edge of bbox
+                                    y1ControlPointWorldPos.x = house.transform.position.x - halfWidth;
+                                    float minHeight = 0.5f;
+
+                                    currentHeightCursor = CreateHeightControlPointCursor(y1ControlPointWorldPos, minHeight, buildContainer);
+                                    if (currentHeightCursor != null)
+                                    {
+                                        currentHeightCursor.SetTargetHouse(house, true); // true = left edge
+                                        currentHeightCursor.OnPositionChanged.AddListener(house.OnY1ControlPointPositionChanged);
+                                    }
+                                }
+
+                                // Create HeightControlPointCursor for Y2 control point (right edge)
+                                if (house.yControlPoint2 != null)
+                                {
+                                    Vector3 y2ControlPointWorldPos = house.yControlPoint2.position;
+                                    // Offset to right edge of bbox
+                                    y2ControlPointWorldPos.x = house.transform.position.x + halfWidth;
+                                    float minHeight = 0.5f;
+
+                                    currentHeightCursor2 = CreateHeightControlPointCursor(y2ControlPointWorldPos, minHeight, buildContainer);
+                                    if (currentHeightCursor2 != null)
+                                    {
+                                        currentHeightCursor2.SetTargetHouse(house, false); // false = right edge
+                                        currentHeightCursor2.OnPositionChanged.AddListener(house.OnY2ControlPointPositionChanged);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Check if this is a SpawnPoint
+                                SpawnPoint spawnPoint = selectedObject.GetComponent<SpawnPoint>();
+
+                                // Regular object or SpawnPoint: use ObjectCursor only
+                                currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
+                                if (currentObjectCursor != null)
+                                {
+                                    currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
+                                    currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
+                                    currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
+                                    currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+
+                                    // If this is the initial spawn point, disable delete button
+                                    if (spawnPoint != null && spawnPoint.IsInitialSpawn)
+                                    {
+                                        currentObjectCursor.SetDeleteEnabled(false);
+                                    }
                                 }
                             }
                         }
@@ -1918,6 +2015,18 @@ namespace HorizonMini.Controllers
                     Debug.Log($"    Terrain Size: {terrain.GetSize()}");
                 }
 
+                // Check if it's a SmartTerrainChunk - save control point position
+                SmartTerrainChunk chunk = obj.GetComponent<SmartTerrainChunk>();
+                if (chunk != null && chunk.xyzControlPoint != null)
+                {
+                    Vector3 cpPos = chunk.xyzControlPoint.localPosition;
+                    propData.smartTerrainControlPoint = cpPos;
+                    Debug.Log($"  - Saved SmartTerrainChunk {obj.name}:");
+                    Debug.Log($"    Position: {obj.transform.position}");
+                    Debug.Log($"    Control Point Local Position: {cpPos}");
+                    Debug.Log($"    Chunk Size: {chunk.GetSize()}");
+                }
+
                 // Check if it's a SmartWall - save control points and unified height
                 SmartWall wall = obj.GetComponent<SmartWall>();
                 if (wall != null)
@@ -1930,7 +2039,7 @@ namespace HorizonMini.Controllers
                     Debug.Log($"    Unified Wall Height: {propData.smartWallHeight}");
                 }
 
-                if (terrain == null && wall == null)
+                if (terrain == null && wall == null && chunk == null)
                 {
                     Debug.Log($"  - Saved {obj.name} at {obj.transform.position}");
                 }
@@ -2014,6 +2123,179 @@ namespace HorizonMini.Controllers
             else
             {
                 Debug.Log("[BuildController] No draft worlds to cleanup");
+            }
+        }
+
+        // ===== Volume Drawing Mode =====
+
+        private void EnterVolumeDrawingMode()
+        {
+            // Validate required components
+            if (!isInitialized)
+            {
+                Debug.LogError("[BuildController] Cannot enter VolumeDrawing mode - BuildController not initialized!");
+                return;
+            }
+
+            if (buildContainer == null)
+            {
+                Debug.LogError("[BuildController] Cannot enter VolumeDrawing mode - buildContainer is null!");
+                return;
+            }
+
+            // Create starting corner at origin (0, 0, 0)
+            volumeDrawingStartCorner = Vector3.zero;
+
+            // Create volume drawing cursor starting at (volumeUnitSize, volumeUnitSize, volumeUnitSize) = minimum 1x1x1 grid
+            volumeDrawingEndCorner = new Vector3(volumeUnitSize, volumeUnitSize, volumeUnitSize);
+
+            // Create Full Control Point cursor for drawing
+            if (fullControlPointCursorPrefab != null)
+            {
+                GameObject cursorObj = Instantiate(fullControlPointCursorPrefab, buildContainer);
+                volumeDrawingCursor = cursorObj.GetComponent<Build.Cursors.FullControlPointCursor>();
+
+                if (volumeDrawingCursor != null)
+                {
+                    volumeDrawingCursor.transform.position = volumeDrawingEndCorner;
+                    volumeDrawingCursor.SetYMin(volumeUnitSize); // Minimum Y = 1 grid unit
+
+                    // Configure cursor using public methods
+                    if (buildCamera != null)
+                    {
+                        volumeDrawingCursor.SetBuildCamera(buildCamera);
+                        Debug.Log($"[BuildController] Set buildCamera for volume drawing cursor");
+                    }
+                    else
+                    {
+                        Debug.LogError("[BuildController] buildCamera is null! Cursor won't work.");
+                    }
+
+                    LayerMask uiLayerMask = LayerMask.GetMask("UI");
+                    volumeDrawingCursor.SetUILayer(uiLayerMask);
+                    Debug.Log($"[BuildController] Set UI layer mask (value: {uiLayerMask.value})");
+
+                    volumeDrawingCursor.SetSnapInterval(volumeUnitSize);
+                    Debug.Log($"[BuildController] Set cursor snap interval to {volumeUnitSize}m");
+
+                    volumeDrawingCursor.SetVisible(true);
+
+                    // Listen to cursor position changes
+                    volumeDrawingCursor.OnPositionChanged.AddListener(OnVolumeDrawingCursorMoved);
+                    Debug.Log($"[BuildController] Volume drawing cursor created at {volumeDrawingEndCorner}");
+                }
+                else
+                {
+                    Debug.LogError("[BuildController] FullControlPointCursor component not found on prefab!");
+                }
+            }
+            else
+            {
+                Debug.LogError("[BuildController] fullControlPointCursorPrefab not assigned! Use Tools -> Setup BuildMode Scene to configure.");
+            }
+
+            // Create initial 1x1x1 volume grid preview
+            UpdateVolumeDrawingPreview();
+        }
+
+        private void ExitVolumeDrawingMode()
+        {
+            // Clean up cursor
+            if (volumeDrawingCursor != null)
+            {
+                Destroy(volumeDrawingCursor.gameObject);
+                volumeDrawingCursor = null;
+            }
+        }
+
+        private void OnVolumeDrawingCursorMoved(Vector3 newPosition)
+        {
+            // Update end corner (snap to volumeUnitSize grid)
+            volumeDrawingEndCorner = newPosition;
+
+            // Snap to volume grid (8m units)
+            volumeDrawingEndCorner.x = Mathf.Round(volumeDrawingEndCorner.x / volumeUnitSize) * volumeUnitSize;
+            volumeDrawingEndCorner.y = Mathf.Round(volumeDrawingEndCorner.y / volumeUnitSize) * volumeUnitSize;
+            volumeDrawingEndCorner.z = Mathf.Round(volumeDrawingEndCorner.z / volumeUnitSize) * volumeUnitSize;
+
+            // Enforce minimum 1 unit in each dimension
+            volumeDrawingEndCorner.x = Mathf.Max(volumeUnitSize, volumeDrawingEndCorner.x);
+            volumeDrawingEndCorner.y = Mathf.Max(volumeUnitSize, volumeDrawingEndCorner.y);
+            volumeDrawingEndCorner.z = Mathf.Max(volumeUnitSize, volumeDrawingEndCorner.z);
+
+            // Enforce maximum 4x4x4 grid
+            volumeDrawingEndCorner.x = Mathf.Min(maxVolumeSize.x * volumeUnitSize, volumeDrawingEndCorner.x);
+            volumeDrawingEndCorner.y = Mathf.Min(maxVolumeSize.y * volumeUnitSize, volumeDrawingEndCorner.y);
+            volumeDrawingEndCorner.z = Mathf.Min(maxVolumeSize.z * volumeUnitSize, volumeDrawingEndCorner.z);
+
+            // Update cursor position to snapped position
+            if (volumeDrawingCursor != null)
+            {
+                volumeDrawingCursor.transform.position = volumeDrawingEndCorner;
+            }
+
+            // Update volume grid preview
+            UpdateVolumeDrawingPreview();
+        }
+
+        private void UpdateVolumeDrawingPreview()
+        {
+            // Calculate grid dimensions from corners
+            Vector3Int dimensions = new Vector3Int(
+                Mathf.RoundToInt(volumeDrawingEndCorner.x / volumeUnitSize),
+                Mathf.RoundToInt(volumeDrawingEndCorner.y / volumeUnitSize),
+                Mathf.RoundToInt(volumeDrawingEndCorner.z / volumeUnitSize)
+            );
+
+            selectedVolumeSize = dimensions;
+
+            // Update volume grid preview
+            UpdateVolumePreview(dimensions);
+
+            // Update UI to show current size
+            VolumeSizePickerUI sizePickerUI = FindFirstObjectByType<VolumeSizePickerUI>();
+            if (sizePickerUI != null)
+            {
+                sizePickerUI.UpdateVolumeSize(dimensions);
+            }
+        }
+
+        /// <summary>
+        /// Called by UI - Confirm volume drawing and switch to View mode
+        /// </summary>
+        public void ConfirmVolumeDrawing()
+        {
+            // Volume grid already exists from preview, confirm it
+            if (currentVolumeGrid != null)
+            {
+                // NOW setup camera to fit the selected volume
+                if (!cameraSetupForVolume && cameraController != null)
+                {
+                    cameraController.SetupForMaxVolume(selectedVolumeSize, volumeUnitSize);
+                    cameraSetupForVolume = true;
+                    Debug.Log($"Camera setup for volume: {selectedVolumeSize}");
+                }
+
+                // Create world ID if this is a new world
+                if (string.IsNullOrEmpty(currentWorldId))
+                {
+                    currentWorldId = System.Guid.NewGuid().ToString();
+                    Debug.Log($"[BuildController] Created new world ID: {currentWorldId}");
+                }
+
+                // Create initial terrain and spawn point BEFORE saving/switching
+                CreateInitialTerrain();
+                CreateInitialSpawnPoint();
+
+                // Save world immediately after creation
+                SaveWorld();
+
+                // Switch to View mode (this will call ExitVolumeDrawingMode)
+                SwitchMode(BuildMode.View);
+            }
+            else
+            {
+                Debug.LogError("[BuildController] No volume grid to confirm!");
             }
         }
     }

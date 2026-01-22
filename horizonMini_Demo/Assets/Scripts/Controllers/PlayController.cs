@@ -30,6 +30,9 @@ namespace HorizonMini.Controllers
         [SerializeField] private float cameraAngle = 45f;
         [SerializeField] private float cameraSmoothSpeed = 5f;
         [SerializeField] private float cameraRotationSpeed = 100f;
+        [SerializeField] private float cameraZoomSpeed = 2f;
+        [SerializeField] private float minCameraDistance = 3f;
+        [SerializeField] private float maxCameraDistance = 20f;
 
         [Header("Standalone Mode")]
         [SerializeField] private bool autoInitialize = true;
@@ -363,6 +366,9 @@ namespace HorizonMini.Controllers
 
             // Handle camera rotation input
             HandleCameraRotationInput();
+
+            // Handle camera zoom input (mouse scroll wheel)
+            HandleCameraZoomInput();
         }
 
         private void CalculateCameraOffset()
@@ -464,6 +470,22 @@ namespace HorizonMini.Controllers
         {
             currentCameraRotation += deltaX * cameraRotationSpeed * Time.deltaTime;
             CalculateCameraOffset();
+        }
+
+        private void HandleCameraZoomInput()
+        {
+            // Use Input.mouseScrollDelta for scroll wheel zoom
+            Vector2 scrollDelta = Input.mouseScrollDelta;
+
+            if (Mathf.Abs(scrollDelta.y) > 0.01f)
+            {
+                // Adjust camera distance
+                cameraDistance -= scrollDelta.y * cameraZoomSpeed;
+                cameraDistance = Mathf.Clamp(cameraDistance, minCameraDistance, maxCameraDistance);
+
+                // Recalculate camera offset with new distance
+                CalculateCameraOffset();
+            }
         }
 
         /// <summary>
