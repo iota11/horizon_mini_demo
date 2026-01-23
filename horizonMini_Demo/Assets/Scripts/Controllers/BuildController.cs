@@ -191,9 +191,6 @@ namespace HorizonMini.Controllers
 
         private void Start()
         {
-            // Clean up draft worlds on startup
-            CleanupDraftWorlds();
-
             // Standalone mode: check what to do after initialization
             if (autoInitialize)
             {
@@ -202,6 +199,9 @@ namespace HorizonMini.Controllers
                 {
                     string worldId = HorizonMini.Core.SceneTransitionData.GetAndClearWorldToEdit();
                     Debug.Log($"BuildController: Loading world {worldId} for editing");
+
+                    // Clean up OTHER draft worlds (exclude the one we're loading)
+                    CleanupDraftWorlds(excludeWorldId: worldId);
 
                     // Activate first, then load world (LoadWorldForEditing will set the correct mode)
                     isActive = true;
@@ -215,6 +215,9 @@ namespace HorizonMini.Controllers
                 }
                 else
                 {
+                    // Clean up all draft worlds on startup (when starting fresh)
+                    CleanupDraftWorlds();
+
                     // Start with fresh world
                     StartNewWorld();
                     Debug.Log("BuildController started in standalone mode with new world");
@@ -2078,7 +2081,8 @@ namespace HorizonMini.Controllers
         /// <summary>
         /// Clean up all draft worlds on startup
         /// </summary>
-        private void CleanupDraftWorlds()
+        /// <param name="excludeWorldId">World ID to exclude from cleanup (e.g., the one we're currently loading)</param>
+        private void CleanupDraftWorlds(string excludeWorldId = null)
         {
             SaveService saveService = appRoot != null ? appRoot.SaveService : FindFirstObjectByType<SaveService>();
             if (saveService == null)
@@ -2101,16 +2105,23 @@ namespace HorizonMini.Controllers
             // Check each world
             foreach (var worldId in allWorldIds)
             {
+                // Skip the world we're currently loading
+                if (!string.IsNullOrEmpty(excludeWorldId) && worldId == excludeWorldId)
+                {
+                    Debug.Log($"[BuildController] Skipping cleanup for currently loading world: {worldId}");
+                    continue;
+                }
+
                 HorizonMini.Data.WorldData worldData = saveService.LoadCreatedWorld(worldId);
                 if (worldData != null && worldData.isDraft)
                 {
-                    Debug.Log($"[BuildController] Found draft world: {worldData.worldTitle} (ID: {worldId})");
+                    Debug.Log($"[BuildController] Found draft world to cleanup: {worldData.worldTitle} (ID: {worldId})");
                     draftsToDelete.Add(worldId);
                     draftCount++;
                 }
             }
 
-            // Delete all drafts
+            // Delete all drafts (except excluded one)
             foreach (var worldId in draftsToDelete)
             {
                 saveService.DeleteCreatedWorld(worldId);
