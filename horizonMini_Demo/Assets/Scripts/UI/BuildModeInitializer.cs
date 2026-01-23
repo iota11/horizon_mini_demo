@@ -72,6 +72,11 @@ namespace HorizonMini.UI
                     if (volumeSizePickerPanel != null) volumeSizePickerPanel.SetActive(true);
                     break;
 
+                case BuildMode.VolumeDrawing:
+                    // VolumeDrawing uses same panel as SizePicker (but with 3D cursor instead of sliders)
+                    if (volumeSizePickerPanel != null) volumeSizePickerPanel.SetActive(true);
+                    break;
+
                 case BuildMode.View:
                     if (viewModeUI != null) viewModeUI.SetActive(true);
                     if (assetCatalogPanel != null) assetCatalogPanel.SetActive(true);

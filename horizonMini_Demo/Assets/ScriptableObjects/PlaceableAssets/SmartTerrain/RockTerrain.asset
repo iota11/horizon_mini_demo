@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
-  m_Name: SmartTerrain
+  m_Name: RockTerrain
   m_EditorClassIdentifier: 
-  assetId: smart_terrain_default
-  displayName: Smart Terrain
+  assetId: 0b1a5412-cab0-4575-a130-6a798893e029
+  displayName: RockTerrain
   category: 11
-  prefab: {fileID: 7847311891633519123, guid: 198acf72c126e43ba84ef8e66f89c659, type: 3}
-  icon: {fileID: 21300000, guid: 36f439c82f1a2423ba0ed58ef7aed894, type: 3}
+  prefab: {fileID: 9213665469399944823, guid: 9d897c1c453e048a9886f2d9d81540af, type: 3}
+  icon: {fileID: 21300000, guid: 9b4b059885394464196c13b816a954d1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}
   pivotOffset: {x: 0, y: 0, z: 0}

@@ -24,10 +24,10 @@ namespace HorizonMini.UI
         [SerializeField] private TMP_InputField worldNameInput;
         [SerializeField] private TextMeshProUGUI worldNameLabel;
 
-        [Header("Size Controls")]
-        [SerializeField] private Slider xSlider;
-        [SerializeField] private Slider ySlider;
-        [SerializeField] private Slider zSlider;
+        [Header("Size Controls - LEGACY (sliders removed, now uses 3D cursor)")]
+        [SerializeField] private Slider xSlider; // LEGACY - not used
+        [SerializeField] private Slider ySlider; // LEGACY - not used
+        [SerializeField] private Slider zSlider; // LEGACY - not used
         [SerializeField] private TextMeshProUGUI xValueText;
         [SerializeField] private TextMeshProUGUI yValueText;
         [SerializeField] private TextMeshProUGUI zValueText;
@@ -36,12 +36,13 @@ namespace HorizonMini.UI
         [Header("Preview")]
         [SerializeField] private TextMeshProUGUI previewSizeText;
 
-        private Vector3Int selectedSize = new Vector3Int(2, 1, 2);
+        private Vector3Int selectedSize = new Vector3Int(1, 1, 1); // Start with 1x1x1
         private string worldName = "";
 
         private void Awake()
         {
-            SetupSliders();
+            // Sliders are now disabled - size is controlled by 3D cursor
+            // SetupSliders(); // LEGACY - disabled
             SetupButtons();
             SetupWorldNameInput();
             UpdateUI();
@@ -168,7 +169,8 @@ namespace HorizonMini.UI
         {
             if (buildController != null)
             {
-                buildController.CreateVolumeGrid(selectedSize);
+                // Confirm the volume drawing (size is already set by 3D cursor)
+                buildController.ConfirmVolumeDrawing();
                 Hide();
             }
         }
@@ -181,13 +183,70 @@ namespace HorizonMini.UI
 
         public void Show()
         {
+            Debug.Log("[VolumeSizePickerUI] Show() called");
+
             if (panel != null)
             {
                 panel.SetActive(true);
+                Debug.Log($"[VolumeSizePickerUI] Panel activated: {panel.name}");
+            }
+            else
+            {
+                Debug.LogError("[VolumeSizePickerUI] Panel is NULL! Please assign it in Inspector.");
             }
 
-            // Show initial volume preview
-            UpdateVolumePreview();
+            // Log button status
+            if (createButton != null)
+                Debug.Log($"[VolumeSizePickerUI] Create button assigned: {createButton.name}, active: {createButton.gameObject.activeSelf}");
+            else
+                Debug.LogError("[VolumeSizePickerUI] Create button is NULL!");
+
+            if (cancelButton != null)
+                Debug.Log($"[VolumeSizePickerUI] Cancel button assigned: {cancelButton.name}, active: {cancelButton.gameObject.activeSelf}");
+            else
+                Debug.LogError("[VolumeSizePickerUI] Cancel button is NULL!");
+
+            // Enter VolumeDrawing mode ONLY if we're starting a new world (not loading existing)
+            if (buildController != null)
+            {
+                // Check if we already have a world loaded
+                // If so, don't switch to VolumeDrawing (we should be in View/Edit mode)
+                if (buildController.CurrentMode == HorizonMini.Build.BuildMode.SizePicker)
+                {
+                    // Wait for BuildController to be initialized before switching modes
+                    StartCoroutine(WaitForInitializationThenEnterDrawingMode());
+                }
+                else
+                {
+                    Debug.Log("[VolumeSizePickerUI] World already loaded, not switching to VolumeDrawing mode");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("[VolumeSizePickerUI] BuildController not assigned! Use Tools -> Setup BuildMode Scene.");
+            }
+        }
+
+        private System.Collections.IEnumerator WaitForInitializationThenEnterDrawingMode()
+        {
+            // Wait a few frames to ensure BuildController is fully initialized
+            // (BuildController initializes in Awake/Start, we need to wait for that)
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+
+            if (buildController != null)
+            {
+                Debug.Log("[VolumeSizePickerUI] Switching to VolumeDrawing mode");
+                try
+                {
+                    buildController.SwitchMode(HorizonMini.Build.BuildMode.VolumeDrawing);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"[VolumeSizePickerUI] Failed to switch to VolumeDrawing mode: {e.Message}");
+                    Debug.LogError("Make sure BuildController is properly configured. Use Tools -> Setup BuildMode Scene.");
+                }
+            }
         }
 
         public void Hide()
@@ -209,6 +268,15 @@ namespace HorizonMini.UI
         public void SetBuildController(BuildController controller)
         {
             buildController = controller;
+        }
+
+        /// <summary>
+        /// Update UI to show current volume size (called by BuildController during cursor dragging)
+        /// </summary>
+        public void UpdateVolumeSize(Vector3Int size)
+        {
+            selectedSize = size;
+            UpdateUI();
         }
     }
 }

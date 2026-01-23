@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
-  m_Name: SmartTerrain
+  m_Name: LavaTerrain
   m_EditorClassIdentifier: 
-  assetId: smart_terrain_default
-  displayName: Smart Terrain
+  assetId: 03527cea-2c10-4676-baea-a0d8504eb59c
+  displayName: LavaTerrain
   category: 11
-  prefab: {fileID: 7847311891633519123, guid: 198acf72c126e43ba84ef8e66f89c659, type: 3}
-  icon: {fileID: 21300000, guid: 36f439c82f1a2423ba0ed58ef7aed894, type: 3}
+  prefab: {fileID: 7830746134998744383, guid: c587ba670c8224f77a04ed549b428541, type: 3}
+  icon: {fileID: 21300000, guid: 2bcda93df06744106b5183e8a612133b, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}
   pivotOffset: {x: 0, y: 0, z: 0}

@@ -207,7 +207,7 @@ namespace HorizonMini.Core
             }
 
             // Check if it's a SmartTerrain - restore control point position BEFORE setting transform
-            // This ensures the mesh is regenerated with correct size
+            // Restore SmartTerrain control point
             HorizonMini.Build.SmartTerrain terrain = obj.GetComponent<HorizonMini.Build.SmartTerrain>();
             if (terrain != null)
             {
@@ -235,6 +235,14 @@ namespace HorizonMini.Core
                     Debug.LogWarning($"[BROWSE LOAD] SmartTerrain loaded without saved control point data (was zero) - using default");
                     Debug.LogWarning($"[BROWSE LOAD] Using default control point position");
                 }
+            }
+
+            // Restore SmartTerrainChunk control point
+            HorizonMini.Build.SmartTerrainChunk chunk = obj.GetComponent<HorizonMini.Build.SmartTerrainChunk>();
+            if (chunk != null && propData.smartTerrainControlPoint != Vector3.zero)
+            {
+                chunk.SetControlPointPosition(propData.smartTerrainControlPoint, forceImmediate: true);
+                Debug.Log($"[BROWSE LOAD] Restored SmartTerrainChunk control point: {propData.smartTerrainControlPoint}");
             }
 
             // Check if it's a SmartWall - restore control points and height BEFORE setting transform
