@@ -3541,6 +3541,8 @@ GameObject:
   - component: {fileID: 2789301586104080053}
   - component: {fileID: 7450415961599704338}
   - component: {fileID: 3743207566908722373}
+  - component: {fileID: 4177689584650225426}
+  - component: {fileID: 4693805022914902461}
   m_Layer: 0
   m_Name: jungle_monster_cannibal
   m_TagString: Untagged
@@ -3646,7 +3648,7 @@ Animator:
   m_GameObject: {fileID: 7756421242681572222}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c17b682ab1a6e43d4965370d24758aa1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8f5f5673c93024236b364ecae0787942, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3677,8 +3679,63 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2.076656, z: 1}
+  m_Center: {x: 0, y: 1.005824, z: 0}
+--- !u!195 &4177689584650225426
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756421242681572222}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &4693805022914902461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756421242681572222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cdaf43df7ca5496e82841673f3f4ae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  detectionRange: 50
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  chaseSpeed: 3.5
+  chaseUpdateInterval: 0.5
+  attackRange: 2
+  attackInterval: 1.5
+  attackDamage: 10
+  wanderSpeed: 2
+  wanderRadius: 20
+  wanderWaitTimeMin: 2
+  wanderWaitTimeMax: 5
+  destinationReachedThreshold: 1
+  animator: {fileID: 0}
+  speedParamName: Speed
+  isChasingParamName: IsChasing
+  attackTriggerName: Attack
+  isDeadParamName: IsDead
 --- !u!1 &7776922802694226871
 GameObject:
   m_ObjectHideFlags: 0

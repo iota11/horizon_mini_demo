@@ -20,6 +20,10 @@ namespace HorizonMini.Controllers
         [SerializeField] private float groundCheckDistance = 0.2f;
         [SerializeField] private LayerMask groundLayer = ~0;
 
+        [Header("Jump")]
+        [SerializeField] private float jumpHeight = 0.7f;
+        [SerializeField] private float jumpCooldown = 0.5f;
+
         [Header("Visual (Optional)")]
         [Tooltip("Assign the visual model child GameObject here if your player has a separate visual mesh. This prevents rotation conflicts with CharacterController.")]
         [SerializeField] private Transform visualTransform; // If player model is a child object
@@ -28,6 +32,7 @@ namespace HorizonMini.Controllers
         private VirtualJoystick virtualJoystick;
         private Vector3 velocity;
         private bool isGrounded;
+        private float lastJumpTime = -999f;
 
         private void Awake()
         {
@@ -102,6 +107,33 @@ namespace HorizonMini.Controllers
             // Apply gravity
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
+        }
+
+        /// <summary>
+        /// Make the player jump (called by jump button or input)
+        /// </summary>
+        public void Jump()
+        {
+            // Check if grounded and cooldown passed
+            if (!isGrounded)
+            {
+                Debug.Log("[SimplePlayerController] Cannot jump - not grounded");
+                return;
+            }
+
+            if (Time.time - lastJumpTime < jumpCooldown)
+            {
+                Debug.Log("[SimplePlayerController] Cannot jump - cooldown active");
+                return;
+            }
+
+            // Calculate jump velocity needed to reach desired height
+            // Using physics: v = sqrt(2 * g * h)
+            float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * jumpHeight);
+            velocity.y = jumpVelocity;
+
+            lastJumpTime = Time.time;
+            Debug.Log($"[SimplePlayerController] Jump! (velocity: {jumpVelocity})");
         }
 
         private void OnDrawGizmosSelected()

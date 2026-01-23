@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 using HorizonMini.Core;
 using HorizonMini.Build;
 using HorizonMini.UI;
 using HorizonMini.Data;
+using HorizonMini.Gameplay;
 using System.Reflection;
 
 namespace HorizonMini.Controllers
@@ -30,9 +33,16 @@ namespace HorizonMini.Controllers
         [SerializeField] private float cameraAngle = 45f;
         [SerializeField] private float cameraSmoothSpeed = 5f;
         [SerializeField] private float cameraRotationSpeed = 100f;
+        [SerializeField] private float cameraVerticalRotationSpeed = 50f;
         [SerializeField] private float cameraZoomSpeed = 2f;
         [SerializeField] private float minCameraDistance = 3f;
         [SerializeField] private float maxCameraDistance = 20f;
+        [SerializeField] private float minCameraAngle = 20f;
+        [SerializeField] private float maxCameraAngle = 80f;
+
+        [Header("Action Buttons")]
+        [SerializeField] private UnityEngine.UI.Button jumpButton;
+        [SerializeField] private UnityEngine.UI.Button attackButton;
 
         [Header("Standalone Mode")]
         [SerializeField] private bool autoInitialize = true;
@@ -221,6 +231,11 @@ namespace HorizonMini.Controllers
             }
             Debug.Log($"[PlayController] Found WorldData: {worldData.worldTitle}, Volumes: {worldData.volumes.Count}, Props: {worldData.props?.Count ?? 0}");
 
+            // IMPORTANT: Create NavMeshSurface BEFORE loading world
+            // This ensures NavMeshAgent components can initialize when props are instantiated
+            Debug.Log("[PlayController] Creating NavMeshSurface before world loading...");
+            EnsureNavMeshSurfaceExists();
+
             // Load world using WorldLibrary
             currentWorldInstance = appRoot.WorldLibrary.InstantiateWorld(worldId, worldContainer);
 
@@ -261,6 +276,22 @@ namespace HorizonMini.Controllers
             // Auto-find joystick if not assigned
             if (virtualJoystick == null && virtualJoystickUI != null)
                 virtualJoystick = virtualJoystickUI.GetComponentInChildren<VirtualJoystick>();
+
+            // Setup action buttons
+            SetupActionButtons();
+
+            // Build NavMesh for AI navigation AFTER world is loaded
+            Debug.Log("[PlayController] Building NavMesh for AI navigation");
+            BuildNavMesh();
+
+            // Notify all AI agents that NavMesh is ready
+            Debug.Log("[PlayController] Initializing AI agents");
+            var aiAgents = FindObjectsByType<AIEnemyBehavior>(FindObjectsSortMode.None);
+            Debug.Log($"[PlayController] Found {aiAgents.Length} AI agent(s)");
+            foreach (var ai in aiAgents)
+            {
+                ai.OnNavMeshReady();
+            }
 
             Debug.Log("[PlayController] World loading complete");
         }
@@ -311,6 +342,19 @@ namespace HorizonMini.Controllers
 
             spawnedPlayer = Instantiate(playerPrefab, spawnPosition, spawnRotation);
             spawnedPlayer.name = "Player";
+            spawnedPlayer.tag = "Player"; // Set tag for AI detection
+
+            // Set player layer (so it's excluded from NavMesh)
+            int playerLayer = LayerMask.NameToLayer("Player");
+            if (playerLayer != -1)
+            {
+                spawnedPlayer.layer = playerLayer;
+                Debug.Log("[PlayController] Set player layer to Player");
+            }
+            else
+            {
+                Debug.LogWarning("[PlayController] 'Player' layer not found. Please create it in Project Settings > Tags and Layers");
+            }
 
             // Add CharacterController if not present
             CharacterController charController = spawnedPlayer.GetComponent<CharacterController>();
@@ -376,10 +420,16 @@ namespace HorizonMini.Controllers
             float angleRad = currentCameraRotation * Mathf.Deg2Rad;
             float heightAngleRad = cameraAngle * Mathf.Deg2Rad;
 
+            // Calculate camera offset maintaining constant distance from player
+            // Horizontal plane distance (XZ)
+            float horizontalDistance = cameraDistance * Mathf.Cos(heightAngleRad);
+            // Vertical height (Y)
+            float verticalHeight = cameraDistance * Mathf.Sin(heightAngleRad);
+
             cameraOffset = new Vector3(
-                -Mathf.Sin(angleRad) * cameraDistance * Mathf.Cos(heightAngleRad),
-                cameraHeight,
-                -Mathf.Cos(angleRad) * cameraDistance * Mathf.Cos(heightAngleRad)
+                -Mathf.Sin(angleRad) * horizontalDistance,
+                verticalHeight,
+                -Mathf.Cos(angleRad) * horizontalDistance
             );
         }
 
@@ -431,7 +481,7 @@ namespace HorizonMini.Controllers
                 else if (touch.phase == TouchPhase.Moved && isDraggingCamera)
                 {
                     Vector2 delta = touch.position - lastTouchPosition;
-                    RotateCamera(delta.x);
+                    RotateCamera(delta.x, delta.y);
                     lastTouchPosition = touch.position;
                 }
                 else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
@@ -456,7 +506,7 @@ namespace HorizonMini.Controllers
                 {
                     Vector2 currentMousePosition = Input.mousePosition;
                     Vector2 delta = currentMousePosition - lastTouchPosition;
-                    RotateCamera(delta.x);
+                    RotateCamera(delta.x, delta.y);
                     lastTouchPosition = currentMousePosition;
                 }
             }
@@ -466,9 +516,15 @@ namespace HorizonMini.Controllers
             }
         }
 
-        private void RotateCamera(float deltaX)
+        private void RotateCamera(float deltaX, float deltaY)
         {
+            // Horizontal rotation
             currentCameraRotation += deltaX * cameraRotationSpeed * Time.deltaTime;
+
+            // Vertical rotation (pitch)
+            cameraAngle -= deltaY * cameraVerticalRotationSpeed * Time.deltaTime;
+            cameraAngle = Mathf.Clamp(cameraAngle, minCameraAngle, maxCameraAngle);
+
             CalculateCameraOffset();
         }
 
@@ -514,6 +570,169 @@ namespace HorizonMini.Controllers
             Debug.Log("[PlayController] Returning to Build mode");
             SceneTransitionData.SetWorldToEdit(currentWorldId);
             SceneManager.LoadScene("Build");
+        }
+
+        /// <summary>
+        /// Ensure NavMeshSurface exists and has initial NavMesh data
+        /// This prevents "Failed to create agent" errors when instantiating NavMeshAgent components
+        /// </summary>
+        private void EnsureNavMeshSurfaceExists()
+        {
+            // Find all NavMeshSurface components in the scene
+            NavMeshSurface[] surfaces = FindObjectsByType<NavMeshSurface>(FindObjectsSortMode.None);
+
+            // If no NavMeshSurface exists, create one automatically
+            if (surfaces.Length == 0)
+            {
+                Debug.Log("[PlayController] Creating NavMeshSurface...");
+
+                // Create NavMesh GameObject
+                GameObject navMeshObj = new GameObject("NavMeshSurface");
+                NavMeshSurface surface = navMeshObj.AddComponent<NavMeshSurface>();
+
+                // Configure NavMeshSurface - use PhysicsColliders to avoid mesh read/write issues
+                surface.collectObjects = CollectObjects.All;
+                surface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+
+                // Exclude dynamic objects and UI from NavMesh
+                // Include: Default, Terrain, Ground layers (modify as needed)
+                // Exclude: Player, Enemies, UI layers
+                surface.layerMask = ~0; // Start with all layers
+
+                int playerLayer = LayerMask.NameToLayer("Player");
+                if (playerLayer != -1)
+                    surface.layerMask &= ~(1 << playerLayer); // Exclude Player layer
+
+                int enemyLayer = LayerMask.NameToLayer("Enemies");
+                if (enemyLayer == -1)
+                    enemyLayer = LayerMask.NameToLayer("Enemy"); // Fallback to singular
+                if (enemyLayer != -1)
+                    surface.layerMask &= ~(1 << enemyLayer); // Exclude Enemies layer
+
+                int uiLayer = LayerMask.NameToLayer("UI");
+                if (uiLayer != -1)
+                    surface.layerMask &= ~(1 << uiLayer); // Exclude UI layer
+
+                // IMPORTANT: Bake an initial empty NavMesh immediately
+                // This allows NavMeshAgent components to initialize without errors
+                // We'll rebake with actual terrain after world loads
+                try
+                {
+                    surface.BuildNavMesh();
+                    Debug.Log("[PlayController] ✓ Created and baked initial NavMeshSurface (will rebake after world loads)");
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning($"[PlayController] Failed to bake initial NavMesh: {e.Message}");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Build NavMesh for AI navigation
+        /// </summary>
+        private void BuildNavMesh()
+        {
+            // Find all NavMeshSurface components in the scene
+            NavMeshSurface[] surfaces = FindObjectsByType<NavMeshSurface>(FindObjectsSortMode.None);
+
+            if (surfaces.Length == 0)
+            {
+                Debug.LogError("[PlayController] No NavMeshSurface found! Call EnsureNavMeshSurfaceExists() first.");
+                return;
+            }
+
+            // Build all NavMesh surfaces
+            foreach (NavMeshSurface surface in surfaces)
+            {
+                if (surface != null)
+                {
+                    // Ensure using PhysicsColliders to avoid mesh read/write issues
+                    if (surface.useGeometry != NavMeshCollectGeometry.PhysicsColliders)
+                    {
+                        Debug.LogWarning($"[PlayController] NavMeshSurface '{surface.gameObject.name}' is using {surface.useGeometry}. Switching to PhysicsColliders to avoid mesh read errors.");
+                        surface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+                    }
+
+                    try
+                    {
+                        surface.BuildNavMesh();
+                        Debug.Log($"[PlayController] ✓ Built NavMesh for surface: {surface.gameObject.name}");
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError($"[PlayController] Failed to build NavMesh: {e.Message}");
+                    }
+                }
+            }
+        }
+
+        private void SetupActionButtons()
+        {
+            // Setup jump button
+            if (jumpButton != null)
+            {
+                jumpButton.onClick.AddListener(OnJumpButtonPressed);
+                Debug.Log("[PlayController] Jump button (A) setup complete");
+            }
+            else
+            {
+                Debug.LogWarning("[PlayController] Jump button (A) not assigned");
+            }
+
+            // Setup attack button
+            if (attackButton != null)
+            {
+                attackButton.onClick.AddListener(OnAttackButtonPressed);
+                Debug.Log("[PlayController] Attack button (B) setup complete");
+            }
+            else
+            {
+                Debug.LogWarning("[PlayController] Attack button (B) not assigned");
+            }
+        }
+
+        private void OnJumpButtonPressed()
+        {
+            if (spawnedPlayer == null)
+                return;
+
+            Debug.Log("[PlayController] Jump button pressed");
+
+            // Get player controller
+            SimplePlayerController playerController = spawnedPlayer.GetComponent<SimplePlayerController>();
+            if (playerController != null)
+            {
+                playerController.Jump();
+            }
+
+            // If using CharacterController directly
+            CharacterController charController = spawnedPlayer.GetComponent<CharacterController>();
+            if (charController != null && charController.isGrounded)
+            {
+                // Simple jump implementation - you may want to add this to SimplePlayerController
+                // For now just log
+                Debug.Log("[PlayController] Player jump triggered");
+            }
+        }
+
+        private void OnAttackButtonPressed()
+        {
+            if (spawnedPlayer == null)
+                return;
+
+            Debug.Log("[PlayController] Attack button pressed");
+
+            // Get player controller or animator
+            Animator animator = spawnedPlayer.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetTrigger("Attack");
+            }
+
+            // TODO: Implement actual attack logic
+            // For now just trigger animation
+            Debug.Log("[PlayController] Player attack triggered");
         }
     }
 }

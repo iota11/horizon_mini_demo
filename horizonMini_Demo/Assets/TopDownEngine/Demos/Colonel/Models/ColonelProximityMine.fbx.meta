@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 08b5d6bbfb2ed37448b3efedbb5d4c9e
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89636
+  packageName: TopDown Engine
+  packageVersion: 4.5
+  assetPath: Assets/TopDownEngine/Demos/Colonel/Models/ColonelProximityMine.fbx
+  uploadId: 846008
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -30,7 +37,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -105,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 89636
-  packageName: TopDown Engine
-  packageVersion: 4.5
-  assetPath: Assets/TopDownEngine/Demos/Colonel/Models/ColonelProximityMine.fbx
-  uploadId: 846008

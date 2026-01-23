@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6953821334104828785}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: neck_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2522675154479065296}
   - component: {fileID: 4491404659784334737}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: torso_monster1_jungle_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4401085791437019976}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: eyebrow_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4362576765323366059}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: handheld_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2304302030298836529}
   - component: {fileID: 4730157101566948064}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: head_monster1_jungle_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9058517284448810937}
   - component: {fileID: 8058511187413080328}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: head_monster1_jungle_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7006143717741327116}
   - component: {fileID: 7001618971541907702}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: head_monster1_jungle_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2920454546627775129}
   - component: {fileID: 5519739750399017672}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: hips_monster1_jungle_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,7 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6754687071927650922}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ball_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,7 +611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 776579615203520464}
   - component: {fileID: 785051033989015055}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: arms_monster1_jungle_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1968592386343471494}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: foot_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,7 +739,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4354833321988598816}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: eyebrow_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,7 +770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8919176145778403930}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: upperarm_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +803,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1643260355118572058}
   - component: {fileID: 4718307572130735034}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: hips_monster1_jungle_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,7 +899,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 280100500575321072}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: hand_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,7 +931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8239961745780298978}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: hand_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -963,7 +963,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 68460769192969438}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: eye_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -994,7 +994,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6238298856842665075}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: clavicle_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,7 +1026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5498620590088506758}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: spine_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1058,7 +1058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 915572343434445878}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: upperarm_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 478823726166321814}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: eye_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1122,7 +1122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3613881154304633343}
   - component: {fileID: 514744713584635069}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: torso_monster1_jungle_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1220,7 +1220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5148069805303412317}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: lowerarm_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1253,7 +1253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7270344890453896607}
   - component: {fileID: 4213276868406680040}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: torso_monster1_jungle_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1352,7 +1352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7531229002283316683}
   - component: {fileID: 7941829266075732156}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: legs_monster1_jungle_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1449,7 +1449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7473143072343759448}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: thigh_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1481,7 +1481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8427398380402895805}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: thigh_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1514,7 +1514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1035149692557926149}
   - component: {fileID: 657430938880179059}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: legs_monster1_jungle_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1611,7 +1611,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6203356497618551299}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: handheld_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1642,7 +1642,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7974479430479632299}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: calf_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1677,7 +1677,7 @@ GameObject:
   - component: {fileID: 2114229602047654750}
   - component: {fileID: 6667550985119363841}
   - component: {fileID: 3997888493620269451}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: jungle_monster_blowpipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1809,7 +1809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4653171428613183198}
   - component: {fileID: 2899740427251010101}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: arms_monster1_jungle_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1908,7 +1908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 559520603508319783}
   - component: {fileID: 6001865345803557053}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: legs_monster1_jungle_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2005,7 +2005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 262663825583985357}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: clavicle_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2037,7 +2037,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7078327275287066272}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: foot_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2069,7 +2069,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4978974538787271004}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: spine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2101,7 +2101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3321492790492535959}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ball_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2133,7 +2133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7880320074686644074}
   - component: {fileID: 8027959083029154678}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: hips_monster1_jungle_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2229,7 +2229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6995591558344361915}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2261,7 +2261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4863241559606590053}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2298,7 +2298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3624605086151436170}
   - component: {fileID: 4533511439400873063}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: arms_monster1_jungle_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2396,7 +2396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4796414161013077878}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2430,7 +2430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4844278478432314973}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: hair_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2461,7 +2461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4147902206752900388}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: calf_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2493,7 +2493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 623634735383648145}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: lowerarm_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2525,7 +2525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 498063693753133545}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: spine_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

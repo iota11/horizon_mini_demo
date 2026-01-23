@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: ebd2c4bdd99eb8e4aacd5d31b4229264
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304585
+  packageName: Cozy Builder
+  packageVersion: 0.5.6
+  assetPath: Packages/com.projectdawn.cozy-builder/Models/Rock/Rocks02.fbx
+  uploadId: 843972
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,8 +23,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -32,7 +37,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -107,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 304585
-  packageName: Cozy Builder
-  packageVersion: 0.5.6
-  assetPath: Packages/com.projectdawn.cozy-builder/Models/Rock/Rocks02.fbx
-  uploadId: 843972

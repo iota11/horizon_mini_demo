@@ -15,7 +15,9 @@ namespace HorizonMini.Controllers
         [SerializeField] private Transform worldContainer;
         [SerializeField] private float worldSpacing = 100f; // Large fixed spacing between worlds
         [SerializeField] private float swipeThreshold = 50f;
-        [SerializeField] private float transitionSpeed = 5f;
+        #pragma warning disable 0414
+        [SerializeField] private float transitionSpeed = 5f; // Reserved for future smooth transitions
+        #pragma warning restore 0414
         [SerializeField] private float rotationSpeed = 1f; // Degrees per pixel
 
         [Header("Scroll Settings")]

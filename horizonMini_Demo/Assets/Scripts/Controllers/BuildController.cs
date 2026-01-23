@@ -50,6 +50,7 @@ namespace HorizonMini.Controllers
         [Header("Volume Settings")]
         [SerializeField] private Vector3Int maxVolumeSize = new Vector3Int(4, 4, 4); // Max slider values
         [SerializeField] private float volumeUnitSize = 8f; // Size of each volume unit in world space
+        [SerializeField] private float volumeDrawingCameraDistance = 80f; // Fixed camera distance in VolumeDrawing mode
 
         private AppRoot appRoot;
         private BuildMode currentMode = BuildMode.SizePicker;
@@ -647,10 +648,12 @@ namespace HorizonMini.Controllers
                             maxVolumeSize.z * volumeUnitSize * 0.5f   // 16
                         );
 
-                        cameraController.SetupForMaxVolume(maxVolumeSize, volumeUnitSize, immediate: true);
                         cameraController.UpdateTarget(maxVolumeCenter, immediate: true);
 
-                        Debug.Log($"[BuildController] Camera positioned at max volume center: {maxVolumeCenter}, camera interaction enabled");
+                        // Set fixed distance for VolumeDrawing mode
+                        cameraController.SetDistance(volumeDrawingCameraDistance, immediate: true);
+
+                        Debug.Log($"[BuildController] Camera positioned at max volume center: {maxVolumeCenter} with fixed distance {volumeDrawingCameraDistance}m, camera interaction enabled");
                     }
                     else
                     {
@@ -781,7 +784,21 @@ namespace HorizonMini.Controllers
                 // Setup camera to focus on volume preview
                 if (cameraController != null)
                 {
-                    cameraController.SetupForMaxVolume(dimensions, currentVolumeGrid.volumeSize);
+                    if (currentMode == BuildMode.VolumeDrawing)
+                    {
+                        // In VolumeDrawing mode: only update target (center), keep fixed 40m distance
+                        Vector3 volumeCenter = new Vector3(
+                            dimensions.x * currentVolumeGrid.volumeSize * 0.5f,
+                            dimensions.y * currentVolumeGrid.volumeSize * 0.5f,
+                            dimensions.z * currentVolumeGrid.volumeSize * 0.5f
+                        );
+                        cameraController.UpdateTarget(volumeCenter);
+                    }
+                    else
+                    {
+                        // Other modes: adjust both target and distance
+                        cameraController.SetupForMaxVolume(dimensions, currentVolumeGrid.volumeSize);
+                    }
                 }
             }
             else
@@ -792,7 +809,21 @@ namespace HorizonMini.Controllers
                 // Update camera to focus on new volume size
                 if (cameraController != null)
                 {
-                    cameraController.SetupForMaxVolume(dimensions, currentVolumeGrid.volumeSize);
+                    if (currentMode == BuildMode.VolumeDrawing)
+                    {
+                        // In VolumeDrawing mode: only update target (center), keep fixed 40m distance
+                        Vector3 volumeCenter = new Vector3(
+                            dimensions.x * currentVolumeGrid.volumeSize * 0.5f,
+                            dimensions.y * currentVolumeGrid.volumeSize * 0.5f,
+                            dimensions.z * currentVolumeGrid.volumeSize * 0.5f
+                        );
+                        cameraController.UpdateTarget(volumeCenter);
+                    }
+                    else
+                    {
+                        // Other modes: adjust both target and distance
+                        cameraController.SetupForMaxVolume(dimensions, currentVolumeGrid.volumeSize);
+                    }
                 }
             }
         }
@@ -1169,8 +1200,20 @@ namespace HorizonMini.Controllers
 
         private void HandlePinch(float delta)
         {
-            // Allow zoom in SizePicker, VolumeDrawing, View, and Edit modes
-            if (currentMode == BuildMode.SizePicker || currentMode == BuildMode.VolumeDrawing || currentMode == BuildMode.View || currentMode == BuildMode.Edit)
+            // Ignore zoom if pointer is over UI (let UI handle scroll/rotation)
+            if (IsPointerOverUI(Input.mousePosition))
+            {
+                return;
+            }
+
+            // VolumeDrawing mode uses fixed camera distance, no zoom allowed
+            if (currentMode == BuildMode.VolumeDrawing)
+            {
+                return;
+            }
+
+            // Allow zoom in SizePicker, View, and Edit modes
+            if (currentMode == BuildMode.SizePicker || currentMode == BuildMode.View || currentMode == BuildMode.Edit)
             {
                 cameraController.Zoom(delta);
             }
@@ -1658,6 +1701,9 @@ namespace HorizonMini.Controllers
         {
             Debug.Log($"[BuildController] Go button pressed. Current world ID: {currentWorldId}");
 
+            // Build NavMesh before entering Play mode
+            BuildNavMesh();
+
             // Save world before entering play mode
             SaveWorld();
 
@@ -1713,6 +1759,9 @@ namespace HorizonMini.Controllers
         {
             Debug.Log("[BuildController] Publish button pressed - saving world and returning to Main");
 
+            // Build NavMesh before publishing
+            BuildNavMesh();
+
             // Save world before publishing
             SaveWorld();
 
@@ -1737,17 +1786,49 @@ namespace HorizonMini.Controllers
         }
 
         /// <summary>
-        /// Build NavMesh for the current scene
+        /// Build NavMesh for the current scene - auto-creates NavMeshSurface if needed
         /// </summary>
         private void BuildNavMesh()
         {
             // Find all NavMeshSurface components in the scene
             NavMeshSurface[] surfaces = FindObjectsByType<NavMeshSurface>(FindObjectsSortMode.None);
 
+            // If no NavMeshSurface exists, create one automatically
             if (surfaces.Length == 0)
             {
-                Debug.LogWarning("No NavMeshSurface found in scene. NavMesh will not be built.");
-                return;
+                Debug.Log("[BuildController] No NavMeshSurface found - creating one automatically");
+
+                // Create NavMesh GameObject
+                GameObject navMeshObj = new GameObject("NavMeshSurface");
+                NavMeshSurface surface = navMeshObj.AddComponent<NavMeshSurface>();
+
+                // Configure NavMeshSurface - use PhysicsColliders to avoid mesh read/write issues
+                surface.collectObjects = CollectObjects.All;
+                surface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+
+                // Exclude dynamic objects and UI from NavMesh
+                // Include: Default, Terrain, Ground layers (modify as needed)
+                // Exclude: Player, Enemies, UI layers
+                surface.layerMask = ~0; // Start with all layers
+
+                int playerLayer = LayerMask.NameToLayer("Player");
+                if (playerLayer != -1)
+                    surface.layerMask &= ~(1 << playerLayer); // Exclude Player layer
+
+                int enemyLayer = LayerMask.NameToLayer("Enemies");
+                if (enemyLayer == -1)
+                    enemyLayer = LayerMask.NameToLayer("Enemy"); // Fallback to singular
+                if (enemyLayer != -1)
+                    surface.layerMask &= ~(1 << enemyLayer); // Exclude Enemies layer
+
+                int uiLayer = LayerMask.NameToLayer("UI");
+                if (uiLayer != -1)
+                    surface.layerMask &= ~(1 << uiLayer); // Exclude UI layer
+
+                // Add to array
+                surfaces = new NavMeshSurface[] { surface };
+
+                Debug.Log("[BuildController] ✓ Created NavMeshSurface (using PhysicsColliders, excluding Player/Enemy layers)");
             }
 
             // Build all NavMesh surfaces
@@ -1755,8 +1836,22 @@ namespace HorizonMini.Controllers
             {
                 if (surface != null)
                 {
-                    surface.BuildNavMesh();
-                    Debug.Log($"Built NavMesh for surface: {surface.gameObject.name}");
+                    // Ensure using PhysicsColliders to avoid mesh read/write issues
+                    if (surface.useGeometry != NavMeshCollectGeometry.PhysicsColliders)
+                    {
+                        Debug.LogWarning($"[BuildController] NavMeshSurface '{surface.gameObject.name}' is using {surface.useGeometry}. Switching to PhysicsColliders to avoid mesh read errors.");
+                        surface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+                    }
+
+                    try
+                    {
+                        surface.BuildNavMesh();
+                        Debug.Log($"[BuildController] ✓ Built NavMesh for surface: {surface.gameObject.name}");
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError($"[BuildController] Failed to build NavMesh: {e.Message}");
+                    }
                 }
             }
         }
