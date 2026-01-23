@@ -1,0 +1,559 @@
+{
+    "uid": "b57471898c00466381b2395f0a204309",
+    "user": {
+        "account": "basic",
+        "avatars": {
+            "uid": "722a584172a1412e87b457bae8bd9af5",
+            "images": [{
+                "width": 32,
+                "height": 32,
+                "size": 1257,
+                "url": "https://media.sketchfab.com/avatars/722a584172a1412e87b457bae8bd9af5/f94b5c9239964588bca51ac28ae56084.png"
+            }, {
+                "width": 48,
+                "height": 48,
+                "size": 1663,
+                "url": "https://media.sketchfab.com/avatars/722a584172a1412e87b457bae8bd9af5/ef09d464daae458f9cf9702c694767a9.png"
+            }, {
+                "width": 90,
+                "height": 90,
+                "size": 2784,
+                "url": "https://media.sketchfab.com/avatars/722a584172a1412e87b457bae8bd9af5/2b1ba024a89d4ef58bbf146975c7ad50.png"
+            }, {
+                "width": 100,
+                "height": 100,
+                "size": 3365,
+                "url": "https://media.sketchfab.com/avatars/722a584172a1412e87b457bae8bd9af5/2e4df46136e5457e97c7c982553c40e0.png"
+            }]
+        },
+        "displayName": "FrozenMistDev",
+        "isAiRestricted": true,
+        "traderSettings": {
+            "isTrader": null,
+            "isVerifiedTrader": false
+        },
+        "planDetail": null,
+        "profileUrl": "https://sketchfab.com/FrozenMistDev",
+        "uid": "9580a909fa1e404b93b0b0f425f0e05f",
+        "username": "FrozenMistDev"
+    },
+    "name": "FM Polygon Japan Sensoji",
+    "description": "**FM Polygon Japan Sensoji** is a complete 3D scene in fbx format. It's mobile ready models, sharing one material with atlas texture.\n\n**Check out more on fab!\nhttps://fab.com/s/c96b26f2b2e9**\n\n* promotion video: youtu.be/s-Tqrh7wTkA\n* 3D Model Import in After Effects Workflow: youtu.be/CfoXVKlwM40\n\n**FM Polygon Japan (Ultimate Collection)**\nWe offer an Ultimate Package if you wish to create your scene with ease.\nskfb.ly/onDJp\n\nMore can be found in our full Unity3D package **FM Polygon Japan**, which give you more flexibility. It is a collection of buildings and environment in Japanese style. As a small team of artist & programmer, we've been researching for many months and are very glad to release this package on store.\n\nAvailable on Unity3D Asset Store\nforum.unity.com/threads/953333/\n\nhome page: www.frozenmist.com/\n\nTwitter: twitter.com/frozenmistdev\n\nInstagram: www.instagram.com/frozenmistadventure/\n\nFacebook: www.facebook.com/FrozenMistAdventure\n\nYoutube: www.youtube.com/channel/UC1ADZ8xSCKDDizmStC5vkow",
+    "thumbnails": {
+        "uid": "d76e7707e91a49219e3746154effe664",
+        "images": [{
+            "uid": "a551107d0b2c468f8c72ad6bc32bad55",
+            "width": 1920,
+            "height": 1080,
+            "size": 373719,
+            "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/thumbnails/d76e7707e91a49219e3746154effe664/6fa85492f4df4db68e63fcfab0dfdd40.jpeg"
+        }, {
+            "uid": "a87bf630daf247a3bbbd6d632f055ea7",
+            "width": 1024,
+            "height": 576,
+            "size": 123403,
+            "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/thumbnails/d76e7707e91a49219e3746154effe664/c91dbef831fe49ccb2f07516f0a6d32d.jpeg"
+        }, {
+            "uid": "77beb53ecc72437ba7965ce66f357535",
+            "width": 720,
+            "height": 405,
+            "size": 72044,
+            "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/thumbnails/d76e7707e91a49219e3746154effe664/bdbabeae5bf04bda8ccf189c01adac5d.jpeg"
+        }, {
+            "uid": "b86d917419d14a3f95a83ff65d3985a9",
+            "width": 256,
+            "height": 144,
+            "size": 13017,
+            "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/thumbnails/d76e7707e91a49219e3746154effe664/31699270d1f040eaaa836112994d21c1.jpeg"
+        }, {
+            "uid": "5edf3c1da39b4397af134d0e54d47f46",
+            "width": 64,
+            "height": 36,
+            "size": 1707,
+            "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/thumbnails/d76e7707e91a49219e3746154effe664/cd92dc643fb14c0a93e75f06552f86c6.jpeg"
+        }]
+    },
+    "viewCount": 16272,
+    "likeCount": 302,
+    "animationCount": 0,
+    "vertexCount": 314058,
+    "faceCount": 462028,
+    "staffpickedAt": "2021-04-16T15:25:27.858181",
+    "publishedAt": "2021-04-13T05:58:13.785903",
+    "viewerUrl": "https://sketchfab.com/3d-models/fm-polygon-japan-sensoji-b57471898c00466381b2395f0a204309",
+    "embedUrl": "https://sketchfab.com/models/b57471898c00466381b2395f0a204309/embed",
+    "editorUrl": "https://sketchfab.com/models/b57471898c00466381b2395f0a204309/edit",
+    "license": {
+        "uid": "783b685da9bf457d81e829fa283f3567",
+        "label": "Standard",
+        "fullname": "Standard",
+        "slug": "st",
+        "summary": "Standard",
+        "requirements": "Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works",
+        "url": "https://sketchfab.com/licenses",
+        "free": false,
+        "isCc": false,
+        "needsAttribution": false,
+        "ccClauses": null
+    },
+    "isPublished": true,
+    "downloadType": "no",
+    "isInspectable": true,
+    "isDeleted": false,
+    "processingStatus": 2,
+    "processedAt": "2021-04-13T05:54:55.889486",
+    "status": {
+        "processing": "SUCCEEDED"
+    },
+    "isRestricted": false,
+    "files": [{
+        "uid": "b2b36d896f524f928c9f2be82a400239",
+        "flag": 0,
+        "osgjsUrl": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/3c47580470a34996b20b6221d1e032f8/files/b2b36d896f524f928c9f2be82a400239/file.binz",
+        "modelSize": 6180194,
+        "osgjsSize": 1137152,
+        "wireframeSize": 1845850,
+        "p": [{
+            "v": 1,
+            "b": "74YBbH5LvvqIn/gjZMxsAeSCV/kqIJztieISWayF9lrogLx8F21ymG622s3+f6hGhOIHIDiE+fwm\nhv+YDEDLUGl9/8+klCmlFDcANwA7ACie83zloXves8fqn/OUY8s7oew5R4+4Mt8jLsR8lbuy5UG5\nzyX0JWF1+wIA/PEqIgzzEScT0welz8XmS5+MkX+lKiD+lUI4PSh7Boy7y88qLvHA2vZkO0CDbaAM\n+zRbq4bbW5azWl5lT64eSjkDLjibwO1xtk0nduvxYpeiUUcx0tdRTCQtvgNhcJATtBCI8bQQ3Tmi\naqCHR9VApt0p8WGG4nc5FPrXozW8AZiFcrPIWRJneT8cl9wZksl1ullGmbmZ5NPwlOPnPWEHuZa7\nvNO9Hp0R1NnvqkRzQxYdKMCiGeQDYMapDTUGUtRN3awHoANZ9YBz8TUejG4mChzW6DjWXJhzFU+i\n9MnAJGU28ufK6B/3Ho1mcQo+AgEP",
+            "d": true
+        }]
+    }],
+    "options": {
+        "scene": {
+            "postProcess": {
+                "dof": {
+                    "enable": false,
+                    "blurFar": 0.5,
+                    "blurNear": 0.5,
+                    "focusPoint": [0, 0, 0]
+                },
+                "ssr": {
+                    "enable": false,
+                    "factor": 1
+                },
+                "taa": {
+                    "enable": true,
+                    "transparent": true
+                },
+                "ssao": {
+                    "bias": 24.868899284816536,
+                    "enable": true,
+                    "radius": 124.34449642408268,
+                    "intensity": 0.5
+                },
+                "bloom": {
+                    "enable": false,
+                    "factor": 0.5,
+                    "radius": 0.7,
+                    "threshold": 0
+                },
+                "grain": {
+                    "enable": false,
+                    "factor": 0.15,
+                    "animated": false
+                },
+                "enable": true,
+                "sharpen": {
+                    "enable": false,
+                    "factor": 0.2
+                },
+                "vignette": {
+                    "amount": 0.475,
+                    "enable": false,
+                    "hardness": 0.725
+                },
+                "toneMapping": {
+                    "enable": true,
+                    "method": "filmic",
+                    "contrast": 0,
+                    "exposure": 1,
+                    "brightness": 0,
+                    "saturation": 1
+                },
+                "colorBalance": {
+                    "low": [0, 0, 0],
+                    "mid": [0, 0, 0],
+                    "high": [0, 0, 0],
+                    "enable": false
+                },
+                "chromaticAberration": {
+                    "enable": false,
+                    "factor": 0.05
+                }
+            },
+            "sssProfiles": [{
+                "falloff": [1, 0.37, 0.3],
+                "strength": [0.48, 0.41, 0.28]
+            }, {
+                "falloff": [0.5, 0.67, 0.6],
+                "strength": [0.38, 0.61, 0.68]
+            }, {
+                "falloff": [0.7, 0.77, 0.3],
+                "strength": [0.88, 0.61, 0.28]
+            }]
+        },
+        "lighting": {
+            "enable": true,
+            "lights": [{
+                "type": "DIRECTION",
+                "angle": 45,
+                "color": [0.6, 0.48, 0.3],
+                "enable": true,
+                "ground": [0.9744897959183674, 0.6276245973191442, 0.3331164098292378],
+                "matrix": [0.7071067811865476, 0, 0.7071067811865476, 0, 0, 1, 0, 0, -0.7071067811865476, 0, 0.7071067811865476, 0, -8663.49919973423, -3559.888880215729, 8336.095670035076, 1],
+                "falloff": 2.52642783830632e-08,
+                "hardness": 0.5,
+                "intensity": 1,
+                "shadowBias": 0.005,
+                "castShadows": false,
+                "intensityGround": 0.06,
+                "attachedToCamera": true
+            }, {
+                "type": "DIRECTION",
+                "angle": 45,
+                "color": [0.42, 0.42, 0.6],
+                "enable": true,
+                "ground": [0.3, 0.2, 0.2],
+                "matrix": [0.7071067811865476, 0, -0.7071067811865476, 0, 0, 1, 0, 0, 0.7071067811865476, 0, 0.7071067811865476, 0, 5404.474660217016, -3559.888880215729, 8336.095670035076, 1],
+                "falloff": 2.52642783830632e-08,
+                "hardness": 0.5,
+                "intensity": 1,
+                "shadowBias": 0.005,
+                "castShadows": false,
+                "intensityGround": 1,
+                "attachedToCamera": true
+            }, {
+                "type": "NONE",
+                "angle": 45,
+                "color": [0.423469387755102, 0.7352665556018328, 1],
+                "enable": true,
+                "ground": [0.9642857142857143, 0.6484128636877489, 0.2607507288629738],
+                "matrix": [-0.44323441566570954, -0.8964057411515592, 0, 0, 0.8964057411515592, -0.44323441566570954, 0, 0, 0, 0, 1, 0, -1629.512269758605, -3559.888880215727, 11249.668453986069, 1],
+                "falloff": 2.52642783830632e-08,
+                "hardness": 0.5,
+                "intensity": 0.12,
+                "shadowBias": 0.005,
+                "castShadows": false,
+                "intensityGround": 0.06,
+                "attachedToCamera": false
+            }]
+        },
+        "shading": {
+            "type": "lit",
+            "renderer": "pbr",
+            "pointSize": 2,
+            "vertexColor": {
+                "enable": false,
+                "useAlpha": false,
+                "colorSpace": "srgb"
+            }
+        },
+        "orientation": {
+            "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "camera": {
+            "up": 1.555089,
+            "fov": 45,
+            "down": -1.555089,
+            "left": -3.141593,
+            "right": 3.141593,
+            "target": [-1083.3948936627162, -4420.268696732853, -2007.8522071614827],
+            "zoomIn": 0,
+            "zoomOut": 1678650,
+            "position": [5387.450075308878, -13938.855953383576, 1515.2376989641423],
+            "nearFarRatio": 0.005,
+            "usePanConstraints": true,
+            "useYawConstraints": false,
+            "useZoomConstraints": false,
+            "usePitchConstraints": false,
+            "useCameraConstraints": false
+        },
+        "wireframe": {
+            "color": "000000FF",
+            "enable": false
+        },
+        "materials": {
+            "updatedAt": 16602885225,
+            "7151ad1d-ff8f-49d0-990f-4736d3903571": {
+                "id": "7151ad1d-ff8f-49d0-990f-4736d3903571",
+                "name": "M_fm_atlas1.002",
+                "version": 3,
+                "channels": {
+                    "AOPBR": {
+                        "enable": false,
+                        "factor": 1,
+                        "occludeSpecular": false
+                    },
+                    "Sheen": {
+                        "enable": false,
+                        "factor": 1,
+                        "colorFactor": [0, 0, 0]
+                    },
+                    "Matcap": {
+                        "color": [1, 1, 1],
+                        "enable": true,
+                        "factor": 1,
+                        "texture": {
+                            "uid": "35c4d334eded44d8a657f390954a32dd",
+                            "wrapS": "REPEAT",
+                            "wrapT": "REPEAT",
+                            "magFilter": "LINEAR",
+                            "minFilter": "LINEAR_MIPMAP_LINEAR",
+                            "texCoordUnit": 0,
+                            "textureTarget": "TEXTURE_2D",
+                            "internalFormat": "RGB"
+                        },
+                        "curvature": 0,
+                        "UVTransforms": {
+                            "scale": [1, 1],
+                            "offset": [0, 0],
+                            "rotation": 0
+                        }
+                    },
+                    "BumpMap": {
+                        "enable": false,
+                        "factor": 0
+                    },
+                    "Opacity": {
+                        "ior": 1.05,
+                        "type": "alphaBlend",
+                        "enable": false,
+                        "factor": 1,
+                        "invert": false,
+                        "thinLayer": false,
+                        "useAlbedoTint": false,
+                        "refractionColor": [1, 1, 1],
+                        "roughnessFactor": 0,
+                        "useNormalOffset": false,
+                        "useMicrosurfaceTexture": true
+                    },
+                    "AlbedoPBR": {
+                        "enable": true,
+                        "factor": 1,
+                        "texture": {
+                            "uid": "88a8833d1ebf48d0a1fd4c511930af11",
+                            "wrapS": "REPEAT",
+                            "wrapT": "REPEAT",
+                            "magFilter": "LINEAR",
+                            "minFilter": "LINEAR_MIPMAP_LINEAR",
+                            "texCoordUnit": 0,
+                            "textureTarget": "TEXTURE_2D",
+                            "internalFormat": "RGB"
+                        },
+                        "UVTransforms": {
+                            "scale": [1, 1],
+                            "offset": [0, 0],
+                            "rotation": 0
+                        }
+                    },
+                    "AlphaMask": {
+                        "enable": false,
+                        "factor": 1,
+                        "invert": false
+                    },
+                    "CavityPBR": {
+                        "enable": false,
+                        "factor": 1
+                    },
+                    "ClearCoat": {
+                        "tint": [0.914, 0.914, 0.914],
+                        "enable": false,
+                        "factor": 1,
+                        "thickness": 5,
+                        "reflectivity": 0
+                    },
+                    "EmitColor": {
+                        "type": "additive",
+                        "color": [0, 0, 0],
+                        "enable": false,
+                        "factor": 1
+                    },
+                    "NormalMap": {
+                        "flipY": true,
+                        "enable": false,
+                        "factor": 1
+                    },
+                    "Anisotropy": {
+                        "enable": false,
+                        "factor": 1,
+                        "flipXY": true,
+                        "direction": 0
+                    },
+                    "DiffusePBR": {
+                        "enable": false,
+                        "factor": 1,
+                        "texture": {
+                            "uid": "88a8833d1ebf48d0a1fd4c511930af11",
+                            "wrapS": "REPEAT",
+                            "wrapT": "REPEAT",
+                            "magFilter": "LINEAR",
+                            "minFilter": "LINEAR_MIPMAP_LINEAR",
+                            "texCoordUnit": 0,
+                            "textureTarget": "TEXTURE_2D",
+                            "internalFormat": "RGB"
+                        },
+                        "UVTransforms": {
+                            "scale": [1, 1],
+                            "offset": [0, 0],
+                            "rotation": 0
+                        }
+                    },
+                    "SpecularF0": {
+                        "enable": true,
+                        "factor": 0.5
+                    },
+                    "SpecularPBR": {
+                        "color": [1, 1, 1],
+                        "enable": false,
+                        "factor": 0.05
+                    },
+                    "DiffuseColor": {
+                        "enable": true,
+                        "factor": 1,
+                        "texture": {
+                            "uid": "88a8833d1ebf48d0a1fd4c511930af11",
+                            "wrapS": "REPEAT",
+                            "wrapT": "REPEAT",
+                            "magFilter": "LINEAR",
+                            "minFilter": "LINEAR_MIPMAP_LINEAR",
+                            "texCoordUnit": 0,
+                            "textureTarget": "TEXTURE_2D",
+                            "internalFormat": "RGB"
+                        },
+                        "UVTransforms": {
+                            "scale": [1, 1],
+                            "offset": [0, 0],
+                            "rotation": 0
+                        }
+                    },
+                    "Displacement": {
+                        "enable": false,
+                        "factor": 0
+                    },
+                    "MetalnessPBR": {
+                        "enable": true,
+                        "factor": 0
+                    },
+                    "RoughnessPBR": {
+                        "enable": false,
+                        "factor": 0.2
+                    },
+                    "GlossinessPBR": {
+                        "enable": true,
+                        "factor": 0.2
+                    },
+                    "SpecularColor": {
+                        "color": [1, 1, 1],
+                        "enable": true,
+                        "factor": 0.25
+                    },
+                    "SheenRoughness": {
+                        "enable": false,
+                        "factor": 1
+                    },
+                    "DiffuseIntensity": {
+                        "color": [1, 1, 1],
+                        "enable": true,
+                        "factor": 1
+                    },
+                    "SpecularHardness": {
+                        "enable": true,
+                        "factor": 20
+                    },
+                    "ClearCoatNormalMap": {
+                        "flipY": true,
+                        "enable": true,
+                        "factor": 1
+                    },
+                    "ClearCoatRoughness": {
+                        "enable": true,
+                        "factor": 0.04
+                    },
+                    "SubsurfaceScattering": {
+                        "enable": false,
+                        "factor": 621.7224821204135,
+                        "profile": 1
+                    },
+                    "SubsurfaceTranslucency": {
+                        "color": [1, 0.36999999999999983, 0.2999999999999998],
+                        "enable": false,
+                        "factor": 1,
+                        "thicknessFactor": 621.7224821204135
+                    }
+                },
+                "cullFace": "DISABLE",
+                "shadeless": false,
+                "reflection": 0.1,
+                "stateSetID": 1
+            }
+        },
+        "environment": {
+            "uid": "3e2ad3e1f1ea47679f045a7eb0e6af49",
+            "blur": 0.1,
+            "enable": true,
+            "exposure": 0.4,
+            "rotation": 2.6373864252358756,
+            "shadowBias": 0,
+            "shadowEnable": true,
+            "lightIntensity": 4,
+            "backgroundExposure": 1
+        },
+        "background": {
+            "uid": "51af6a870cce449eb75b0345feebaebb",
+            "color": [0.4075773314866113, 0.6437174479166666, 0.743421052631579],
+            "enable": "color"
+        },
+        "version": 9,
+        "animation": {
+            "order": [],
+            "speed": 1,
+            "cycleMode": "one",
+            "initializeWithRestPose": false
+        },
+        "hotspot": {
+            "visible": true,
+            "hotspots": []
+        },
+        "vr": {
+            "floorHeight": -1440.1975347315301,
+            "worldFactor": 169.99999999999986,
+            "displayFloor": true,
+            "initialCamera": {
+                "position": [2099.049941615997, -12467.28409908424, -301.3419209179051],
+                "rotation": [0, 0, 0, 1]
+            }
+        },
+        "sound": [],
+        "ground": {
+            "fade": 0.2,
+            "scale": 18651.674463612402,
+            "enable": false,
+            "opacity": 1.2,
+            "position": [-1629.5122697586062, -3559.888880215729, -1439.6490734765719],
+            "shadowMode": "BakedAO",
+            "samplingRange": 1
+        },
+        "createdAt": "2021-04-13T05:53:52.369316",
+        "updatedAt": "2022-08-12T07:15:22.550858"
+    },
+    "preferOriginalNormalMap": false,
+    "inStore": false,
+    "isDisabled": false,
+    "displayStatus": "ok",
+    "visibility": "public",
+    "org": null,
+    "isArEnabled": false,
+    "version": {
+        "uid": "3c47580470a34996b20b6221d1e032f8",
+        "status": {
+            "processing": "SUCCEEDED"
+        },
+        "isCurrentVersion": true,
+        "isCandidateVersion": false,
+        "createdAt": "2021-04-13T05:53:52.369316",
+        "processedAt": "2021-04-13T05:54:55.840276",
+        "reason": "upload"
+    },
+    "soundCount": 0
+}
