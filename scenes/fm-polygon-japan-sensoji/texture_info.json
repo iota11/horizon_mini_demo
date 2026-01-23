@@ -1,0 +1,82 @@
+{
+    "results": [
+        {
+            "uid": "88a8833d1ebf48d0a1fd4c511930af11",
+            "name": "fm-color-atlas1.png",
+            "images": [
+                {
+                    "uid": "f96d0881ca09433aa5a257bdae80039e",
+                    "size": 2395,
+                    "width": 64,
+                    "height": 64,
+                    "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/3c47580470a34996b20b6221d1e032f8/textures/88a8833d1ebf48d0a1fd4c511930af11/f96d0881ca09433aa5a257bdae80039e.png",
+                    "options": {
+                        "format": "RGB",
+                        "quality": 100
+                    },
+                    "createdAt": "2022-08-12T07:18:07.571734",
+                    "updatedAt": "2022-08-12T07:18:07.517621",
+                    "pk": 84273,
+                    "pv": 1
+                },
+                {
+                    "uid": "9a1e0f1b89164e308b3d1a2979ac5970",
+                    "size": 4741,
+                    "width": 128,
+                    "height": 128,
+                    "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/3c47580470a34996b20b6221d1e032f8/textures/88a8833d1ebf48d0a1fd4c511930af11/9a1e0f1b89164e308b3d1a2979ac5970.png",
+                    "options": {
+                        "format": "RGB",
+                        "quality": 100
+                    },
+                    "createdAt": "2022-08-12T07:18:07.438663",
+                    "updatedAt": "2022-08-12T07:18:07.348363",
+                    "pk": 84273,
+                    "pv": 1
+                },
+                {
+                    "uid": "413d75fc313e46f8bab28c981c3fa197",
+                    "size": 1795,
+                    "width": 256,
+                    "height": 256,
+                    "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/3c47580470a34996b20b6221d1e032f8/textures/88a8833d1ebf48d0a1fd4c511930af11/413d75fc313e46f8bab28c981c3fa197.png",
+                    "options": {
+                        "format": "RGB",
+                        "quality": 95
+                    },
+                    "createdAt": "2022-08-12T07:18:07.301912",
+                    "updatedAt": "2022-08-12T07:18:07.261841",
+                    "pk": 84273,
+                    "pv": 1
+                },
+                {
+                    "uid": "bb04c3ddecc54c45a06b016d2c6b3e4d",
+                    "size": 2160,
+                    "width": 256,
+                    "height": 256,
+                    "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/3c47580470a34996b20b6221d1e032f8/textures/88a8833d1ebf48d0a1fd4c511930af11/bb04c3ddecc54c45a06b016d2c6b3e4d.png",
+                    "options": {},
+                    "createdAt": "2022-04-03T13:50:47.087720",
+                    "updatedAt": "2022-04-03T13:50:47.051358",
+                    "pk": 84273,
+                    "pv": 1
+                },
+                {
+                    "uid": "fbedad505ca74f43bfa226924e20b011",
+                    "size": 1136,
+                    "width": 32,
+                    "height": 32,
+                    "url": "https://media.sketchfab.com/models/b57471898c00466381b2395f0a204309/3c47580470a34996b20b6221d1e032f8/textures/88a8833d1ebf48d0a1fd4c511930af11/fbedad505ca74f43bfa226924e20b011.png",
+                    "options": {},
+                    "createdAt": "2022-04-03T13:50:46.980937",
+                    "updatedAt": "2022-04-03T13:50:46.904048",
+                    "pk": null,
+                    "pv": null
+                }
+            ],
+            "colorSpace": "unknown",
+            "createdAt": "2021-04-13T05:54:53.858331",
+            "updatedAt": "2022-04-03T13:50:47.155707"
+        }
+    ]
+}
