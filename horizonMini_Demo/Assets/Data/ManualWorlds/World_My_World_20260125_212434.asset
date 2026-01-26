@@ -94,5 +94,10 @@ MonoBehaviour:
     smartTerrainControlPoint: {x: 0, y: 0, z: 0}
     smartWallControlPoints: []
     smartWallHeight: 2.5
+  miniGames:
+  - gameId: ccd2e656-e7ce-4f12-8859-14d6862ed6ba
+    gameType: CubeStack
+    gameName: Stack Game
+    position: {x: 0, y: 0, z: 0}
   skyColor: {r: 0.5, g: 0.7, b: 1, a: 1}
   gravity: -9.81

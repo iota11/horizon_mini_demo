@@ -2237,6 +2237,22 @@ namespace HorizonMini.Controllers
                 worldData.props.Add(propData);
             }
 
+            // Save MiniGame markers
+            worldData.miniGames.Clear();
+            HorizonMini.MiniGames.MiniGameMarker[] markers = FindObjectsOfType<HorizonMini.MiniGames.MiniGameMarker>();
+            Debug.Log($"[BuildController] Found {markers.Length} MiniGame markers");
+            foreach (var marker in markers)
+            {
+                HorizonMini.Data.MiniGameData gameData = new HorizonMini.Data.MiniGameData
+                {
+                    gameType = marker.gameType,
+                    gameName = marker.gameName,
+                    position = marker.transform.position
+                };
+                worldData.miniGames.Add(gameData);
+                Debug.Log($"[BuildController]   - Saved MiniGame: {marker.gameName} ({marker.gameType})");
+            }
+
             // Save via AppRoot or SaveService
             if (appRoot != null)
             {
@@ -2245,6 +2261,7 @@ namespace HorizonMini.Controllers
                 Debug.Log($"<color=green>  World ID: {worldData.worldId}</color>");
                 Debug.Log($"<color=green>  Grid Size: {worldData.gridDimensions}</color>");
                 Debug.Log($"<color=green>  Props Count: {worldData.props.Count}</color>");
+                Debug.Log($"<color=green>  MiniGames Count: {worldData.miniGames.Count}</color>");
 
                 // List all saved props for debugging
                 Debug.Log($"<color=cyan>[BuildController] Saved props list:</color>");
@@ -2264,6 +2281,7 @@ namespace HorizonMini.Controllers
                     Debug.Log($"<color=green>  World ID: {worldData.worldId}</color>");
                     Debug.Log($"<color=green>  Grid Size: {worldData.gridDimensions}</color>");
                     Debug.Log($"<color=green>  Props Count: {worldData.props.Count}</color>");
+                    Debug.Log($"<color=green>  MiniGames Count: {worldData.miniGames.Count}</color>");
                 }
                 else
                 {

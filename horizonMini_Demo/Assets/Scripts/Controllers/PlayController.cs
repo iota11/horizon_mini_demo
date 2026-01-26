@@ -866,5 +866,89 @@ namespace HorizonMini.Controllers
             // Set layer
             wall.layer = LayerMask.NameToLayer("Default");
         }
+
+        #region Mini Game Support
+
+        /// <summary>
+        /// Pause the game (for mini games)
+        /// </summary>
+        public void PauseGame()
+        {
+            Debug.Log("[PlayController] Pausing game");
+
+            // Disable player control
+            if (spawnedPlayer != null)
+            {
+                var characterAbility = spawnedPlayer.GetComponent<MoreMountains.TopDownEngine.CharacterAbility>();
+                if (characterAbility != null)
+                {
+                    characterAbility.enabled = false;
+                }
+
+                // Disable all abilities
+                var abilities = spawnedPlayer.GetComponents<MoreMountains.TopDownEngine.CharacterAbility>();
+                foreach (var ability in abilities)
+                {
+                    ability.enabled = false;
+                }
+            }
+
+            // Hide virtual joystick
+            if (virtualJoystickUI != null)
+            {
+                virtualJoystickUI.SetActive(false);
+            }
+
+            Time.timeScale = 1f; // Keep time running for mini game
+        }
+
+        /// <summary>
+        /// Resume the game (return from mini game)
+        /// </summary>
+        public void ResumeGame()
+        {
+            Debug.Log("[PlayController] Resuming game");
+
+            // Enable player control
+            if (spawnedPlayer != null)
+            {
+                var abilities = spawnedPlayer.GetComponents<MoreMountains.TopDownEngine.CharacterAbility>();
+                foreach (var ability in abilities)
+                {
+                    ability.enabled = true;
+                }
+            }
+
+            // Show virtual joystick
+            if (virtualJoystickUI != null)
+            {
+                virtualJoystickUI.SetActive(true);
+            }
+
+            Time.timeScale = 1f;
+        }
+
+        /// <summary>
+        /// Show/hide world UI
+        /// </summary>
+        public void SetUIVisible(bool visible)
+        {
+            if (virtualJoystickUI != null)
+            {
+                virtualJoystickUI.SetActive(visible);
+            }
+
+            if (jumpButton != null)
+            {
+                jumpButton.gameObject.SetActive(visible);
+            }
+
+            if (attackButton != null)
+            {
+                attackButton.gameObject.SetActive(visible);
+            }
+        }
+
+        #endregion
     }
 }

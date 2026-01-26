@@ -129,6 +129,8 @@ namespace HorizonMini.Core
 
         public WorldInstance InstantiateWorld(string worldId, Transform parent = null)
         {
+            Debug.Log($"<color=magenta>[WorldLibrary] InstantiateWorld called with worldId: {worldId}</color>");
+
             WorldData data = GetWorldData(worldId);
             if (data == null)
             {
@@ -136,6 +138,7 @@ namespace HorizonMini.Core
                 return null;
             }
 
+            Debug.Log($"<color=magenta>[WorldLibrary] WorldData found, calling InstantiateWorld(data)</color>");
             return InstantiateWorld(data, parent);
         }
 
@@ -186,6 +189,29 @@ namespace HorizonMini.Core
             else
             {
                 Debug.LogWarning("[WorldLibrary] No props to instantiate!");
+            }
+
+            // Instantiate mini games as preview
+            Debug.Log($"<color=yellow>[WorldLibrary] === CHECKING FOR MINI GAMES ===</color>");
+            Debug.Log($"[WorldLibrary] World ID: {data.worldId}");
+            Debug.Log($"[WorldLibrary] data.miniGames is null? {data.miniGames == null}");
+            if (data.miniGames != null)
+            {
+                Debug.Log($"[WorldLibrary] miniGames.Count: {data.miniGames.Count}");
+            }
+
+            if (data.miniGames != null && data.miniGames.Count > 0)
+            {
+                Debug.Log($"<color=cyan>[WorldLibrary] ✓ Instantiating {data.miniGames.Count} mini game previews...</color>");
+                foreach (var gameData in data.miniGames)
+                {
+                    Debug.Log($"<color=cyan>[WorldLibrary] Processing game: {gameData.gameName} ({gameData.gameType})</color>");
+                    InstantiateMiniGamePreview(gameData, container.transform, instance);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"<color=orange>[WorldLibrary] ⚠ No mini games to instantiate for world {data.worldId}</color>");
             }
 
             return instance;
@@ -430,6 +456,143 @@ namespace HorizonMini.Core
         public GridSettings GetGridSettings()
         {
             return gridSettings;
+        }
+
+        /// <summary>
+        /// Dynamically create a mini game in an existing world (called when world becomes active)
+        /// </summary>
+        public void CreateMiniGameInWorld(WorldInstance worldInstance, MiniGameData gameData)
+        {
+            if (worldInstance == null || gameData == null)
+            {
+                Debug.LogWarning("[WorldLibrary] Cannot create mini game - null parameters");
+                return;
+            }
+
+            Debug.Log($"<color=cyan>[WorldLibrary] Creating mini game in existing world: {gameData.gameName}</color>");
+            InstantiateMiniGamePreview(gameData, worldInstance.transform, worldInstance);
+        }
+
+        private void InstantiateMiniGamePreview(MiniGameData gameData, Transform parent, WorldInstance worldInstance)
+        {
+            Debug.Log($"<color=red>[WorldLibrary] ========== InstantiateMiniGamePreview CALLED ==========</color>");
+            Debug.Log($"[WorldLibrary] Creating mini game preview: {gameData.gameName} ({gameData.gameType})");
+            Debug.Log($"[WorldLibrary] Parent: {parent.name}, WorldInstance: {worldInstance.WorldId}");
+            Debug.Log($"<color=red>[WorldLibrary] ===============================================</color>");
+
+            // Load the game prefab
+            GameObject gamePrefab = null;
+
+            if (gameData.gameType == "CubeStack")
+            {
+                gamePrefab = Resources.Load<GameObject>("CubeStackGame");
+            }
+
+            if (gamePrefab == null)
+            {
+                Debug.LogWarning($"[WorldLibrary] Could not load game prefab for type: {gameData.gameType}");
+                return;
+            }
+
+            // Instantiate the game as child of world at origin
+            // World will be positioned at (0,0,0) in Browse mode, so game stays at origin too
+            GameObject gameInstance = Instantiate(gamePrefab, parent);
+            gameInstance.name = $"MiniGamePreview_{gameData.gameName}";
+
+            // Position at origin (0,0,0) since world is also at origin in Browse mode
+            gameInstance.transform.localPosition = Vector3.zero;
+            gameInstance.transform.localScale = Vector3.one * 1.0f; // Normal scale (100%)
+
+            // Add a component to mark this as a preview
+            HorizonMini.MiniGames.MiniGamePreview preview = gameInstance.AddComponent<HorizonMini.MiniGames.MiniGamePreview>();
+            preview.gameData = gameData;
+
+            // Use coroutine to initialize game after one frame (when Start() is called)
+            StartCoroutine(InitializeGamePreviewAfterStart(gameInstance));
+
+            // Disable game camera
+            CameraController gameCameraController = gameInstance.GetComponentInChildren<CameraController>();
+            if (gameCameraController != null)
+            {
+                Camera cam = gameCameraController.GetComponent<Camera>();
+                if (cam != null)
+                {
+                    cam.enabled = false;
+                    cam.gameObject.SetActive(false);
+                }
+            }
+
+            // Hide all UI canvases
+            Canvas[] canvases = gameInstance.GetComponentsInChildren<Canvas>(true);
+            foreach (var canvas in canvases)
+            {
+                canvas.gameObject.SetActive(false);
+            }
+
+            // Debug logging
+            string hierarchyPath = GetGameObjectPath(gameInstance);
+            Debug.Log($"<color=green>[WorldLibrary] ✓ Mini game preview created at origin!</color>");
+            Debug.Log($"[WorldLibrary]   - Name: {gameInstance.name}");
+            Debug.Log($"[WorldLibrary]   - Hierarchy path: {hierarchyPath}");
+            Debug.Log($"[WorldLibrary]   - Parent: {parent.name}");
+            Debug.Log($"[WorldLibrary]   - Game local position: {gameInstance.transform.localPosition}");
+            Debug.Log($"[WorldLibrary]   - Game world position: {gameInstance.transform.position}");
+            Debug.Log($"[WorldLibrary]   - Local scale: {gameInstance.transform.localScale}");
+            Debug.Log($"[WorldLibrary]   - Active in hierarchy: {gameInstance.activeInHierarchy}");
+            Debug.Log($"[WorldLibrary]   - Child count: {gameInstance.transform.childCount}");
+        }
+
+        private string GetGameObjectPath(GameObject obj)
+        {
+            string path = obj.name;
+            Transform current = obj.transform.parent;
+            while (current != null)
+            {
+                path = current.name + "/" + path;
+                current = current.parent;
+            }
+            return path;
+        }
+
+        private System.Collections.IEnumerator InitializeGamePreviewAfterStart(GameObject gameInstance)
+        {
+            Debug.Log($"<color=cyan>[WorldLibrary] Waiting for game to initialize...</color>");
+
+            // Wait for Start() to be called
+            yield return null;
+
+            Debug.Log($"<color=cyan>[WorldLibrary] Initializing game preview after Start()...</color>");
+
+            // Get GameController and start the game automatically
+            GameController gameController = gameInstance.GetComponent<GameController>();
+            if (gameController != null)
+            {
+                Debug.Log($"[WorldLibrary] GameController state: {gameController.State}");
+
+                // Automatically start the game (this will make cubes appear and move)
+                if (gameController.State == GameState.Menu)
+                {
+                    Debug.Log($"<color=yellow>[WorldLibrary] Auto-starting game for preview...</color>");
+                    gameController.OnPlayerInput(); // This will call StartGame()
+                }
+            }
+
+            // Wait one more frame for game to start
+            yield return null;
+
+            // NOW disable InputHandler to prevent further user input
+            var inputHandler = gameInstance.GetComponentInChildren<InputHandler>();
+            if (inputHandler != null)
+            {
+                inputHandler.enabled = false;
+                Debug.Log($"[WorldLibrary] Disabled InputHandler - game runs but no input accepted");
+            }
+            else
+            {
+                Debug.LogWarning("[WorldLibrary] InputHandler not found!");
+            }
+
+            Debug.Log($"<color=green>[WorldLibrary] ✓ Game preview initialized and auto-started!</color>");
         }
     }
 }

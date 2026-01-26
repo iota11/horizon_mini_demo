@@ -434,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 27921262}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000000037252899, y: -0, z: -0.0000000074505797, w: 1}
-  m_LocalPosition: {x: 10.577397, y: 17.716757, z: 14.041114}
+  m_LocalPosition: {x: -22.569414, y: 12.034509, z: -27.469528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -789,7 +789,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182505477}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -1087,7 +1087,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25.279783, y: 25.279783, z: 25.279783}
+  m_LocalScale: {x: 47.186703, y: 47.186703, z: 47.186703}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1699114997}
@@ -7376,6 +7376,56 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &827690213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 827690215}
+  - component: {fileID: 827690214}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &827690214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827690213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5380cca7160f7408587ca2ba885ac4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeStackGamePrefab: {fileID: 100000, guid: db37343f39e93d04795222ba22417896, type: 3}
+  gameName: Stack Game
+  playButton: {fileID: 0}
+  gameUI: {fileID: 0}
+  exitButton: {fileID: 0}
+  browseCamera: {fileID: 0}
+--- !u!4 &827690215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827690213}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.0324018, y: 2.6138432, z: 11.032196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &881108633
 GameObject:
   m_ObjectHideFlags: 0
@@ -13172,7 +13222,7 @@ MonoBehaviour:
   biomes: []
   weight: 1
   totalSystemWeight: 0
-  cumulus: 0
+  cumulus: 0.2
   cirrus: 0
   altocumulus: 0
   cirrostratus: 0
@@ -19861,3 +19911,4 @@ SceneRoots:
   - {fileID: 881108638}
   - {fileID: 446475739}
   - {fileID: 27921264}
+  - {fileID: 827690215}
