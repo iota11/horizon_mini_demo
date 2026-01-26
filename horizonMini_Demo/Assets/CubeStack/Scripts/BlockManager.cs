@@ -284,4 +284,10 @@ public class BlockManager : MonoBehaviour
     {
         debrisPrefab = prefab;
     }
+
+    public void MoveTowerDown(float distance)
+    {
+        _towerContainer.localPosition += new Vector3(0, -distance, 0);
+        Debug.Log($"<color=orange>[BlockManager] Moved tower down by {distance}. New position: {_towerContainer.localPosition}</color>");
+    }
 }

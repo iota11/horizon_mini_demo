@@ -188,9 +188,9 @@ public class GameController : MonoBehaviour
         _swingAxis = _swingAxis == SwingAxis.X ? SwingAxis.Z : SwingAxis.X;
 
         // Calculate spawn position
-        // Blocks stack from Y=0.5 (first block sits on base top at Y=0)
-        // Each block is blockHeight units apart
-        float y = (_score * blockHeight) + (blockHeight * 0.5f);
+        // Since tower moves down after each placement, new blocks always spawn at same Y
+        // New block spawns at previous block's Y + blockHeight (one level up)
+        float y = _previousBlock.position.y + blockHeight;
         float spawnOffset = swingDistance;
 
         Vector3 spawnPos = new Vector3(
@@ -363,10 +363,25 @@ public class GameController : MonoBehaviour
             if (audioManager != null) audioManager.PlayPlace();
         }
 
-        // Camera follow
+        // Move tower down so the top stays at same visual height
+        if (blockManager != null)
+        {
+            blockManager.MoveTowerDown(blockHeight);
+
+            // Update _previousBlock position to reflect the tower movement
+            _previousBlock = new BlockData(
+                _previousBlock.position - new Vector3(0, blockHeight, 0),
+                _previousBlock.width,
+                _previousBlock.depth
+            );
+
+            Debug.Log($"<color=yellow>[GameController] After tower moved down, _previousBlock.position.y = {_previousBlock.position.y}</color>");
+        }
+
+        // Camera follow (no need to adjust since tower moves down)
         if (cameraController != null)
         {
-            cameraController.SetTargetHeight(_score * blockHeight);
+            cameraController.SetTargetHeight(0); // Keep looking at Y=0 since tower moves down
         }
 
         // Check zone transitions
