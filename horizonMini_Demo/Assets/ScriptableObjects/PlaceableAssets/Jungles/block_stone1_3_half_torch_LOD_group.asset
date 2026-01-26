@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c33f9a15-b6bb-4b43-875e-3be4dbec3d62
   displayName: block_stone1_3_half_torch_LOD_group
-  category: 4
+  category: 2
   prefab: {fileID: 2072997062959057419, guid: 00795b05bd49348fd963e2f48a58cc92, type: 3}
   icon: {fileID: 21300000, guid: d36686d42e1d74f6e86b67e63ee21f6e, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

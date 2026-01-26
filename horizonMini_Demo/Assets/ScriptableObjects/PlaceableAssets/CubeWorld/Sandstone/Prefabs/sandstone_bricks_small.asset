@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: af8d8b64-5759-4388-9cdd-0ef88e928838
   displayName: sandstone_bricks_small
-  category: 4
+  category: 0
   prefab: {fileID: 1247222064262802, guid: 3b5cc845e6ef26543ac6aaaeb2318f14, type: 3}
   icon: {fileID: 21300000, guid: f8788811ad39a4398b8032c72e751704, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

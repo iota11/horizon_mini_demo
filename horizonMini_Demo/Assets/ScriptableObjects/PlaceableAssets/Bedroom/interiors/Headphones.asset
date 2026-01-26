@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Headphones
+  m_EditorClassIdentifier: 
+  assetId: 0ba1f970-8383-4d9e-8341-882941fa8ba3
+  displayName: Headphones
+  category: 11
+  prefab: {fileID: 5334987218315445269, guid: ce04f8fbe67a6417abf440aa4639b75d, type: 3}
+  icon: {fileID: 21300000, guid: f3a24edec27f54ec582cc37c2ec5a7cc, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

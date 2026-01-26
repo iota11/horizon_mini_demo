@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Vinyl_box_4
+  m_EditorClassIdentifier: 
+  assetId: 671b3f5c-65e5-491a-8d9b-33c6100c146b
+  displayName: Vinyl_box_4
+  category: 5
+  prefab: {fileID: 6754837569598344939, guid: ae93c658b97f844b4b53941791d01bbc, type: 3}
+  icon: {fileID: 21300000, guid: 1d54687c348134ae09fb20eac96ad0da, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ea5be1a0-4ffe-4be9-9f56-91dde928a4dd
   displayName: bushes_small_purple_berries_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 1561715458807690919, guid: 4cf6887be5f204820bb2c98f2b801f6f, type: 3}
   icon: {fileID: 21300000, guid: f7647ef81535446ecb1f16d0ac3f7a83, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

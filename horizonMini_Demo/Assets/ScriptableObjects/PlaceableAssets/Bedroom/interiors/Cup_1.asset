@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Cup_1
+  m_EditorClassIdentifier: 
+  assetId: e51a2713-7032-412c-bd5e-85cac48e58cb
+  displayName: Cup_1
+  category: 11
+  prefab: {fileID: 2070956756561003526, guid: 1c49dec15f9a9497d96067a891377720, type: 3}
+  icon: {fileID: 21300000, guid: 52eda1517673b409e86f55b74f2938ab, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

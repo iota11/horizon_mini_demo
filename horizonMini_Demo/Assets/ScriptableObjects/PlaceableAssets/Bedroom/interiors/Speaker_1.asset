@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Speaker_1
+  m_EditorClassIdentifier: 
+  assetId: c0ac3f50-3269-4f42-b9a5-0df641dc5309
+  displayName: Speaker_1
+  category: 4
+  prefab: {fileID: 6567627794213369219, guid: 4e2b062dc8dd54a569b5f505e50c6ba7, type: 3}
+  icon: {fileID: 21300000, guid: f7a9242bd172d47f48ae030118d9b552, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

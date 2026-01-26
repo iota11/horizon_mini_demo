@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: bc663b4b-60df-4053-8cb5-4521334a727d
   displayName: axe_metal
-  category: 7
+  category: 2
   prefab: {fileID: 1266292184255956, guid: 6ab6c3116af3ae74d82035dd5febce3c, type: 3}
   icon: {fileID: 21300000, guid: 21dfd51154b4e4d398fd133525cdbbaa, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

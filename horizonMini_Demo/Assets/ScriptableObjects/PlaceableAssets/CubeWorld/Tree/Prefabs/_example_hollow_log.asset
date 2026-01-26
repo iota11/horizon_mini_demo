@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 92ddec18-9d67-42b2-b9e4-e396a41aff48
   displayName: _example_hollow_log
-  category: 0
+  category: 4
   prefab: {fileID: 5752399157931634169, guid: fcdc7dbb4ddbc48049d04b43834f3dfc, type: 3}
   icon: {fileID: 21300000, guid: 0e6687c8405994263820e92cef219742, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

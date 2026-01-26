@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c6d97f3d-7181-49a6-ba18-9ed055b57530
   displayName: lava_cubes_5
-  category: 1
+  category: 2
   prefab: {fileID: 1298528465503338, guid: d0b35f4d2aba62a4ab7d123cb5751d56, type: 3}
   icon: {fileID: 21300000, guid: 87a357251434d42ad88f7bd815af00dd, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

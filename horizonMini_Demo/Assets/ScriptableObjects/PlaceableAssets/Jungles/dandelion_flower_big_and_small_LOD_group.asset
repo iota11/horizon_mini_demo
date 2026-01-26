@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8a40d618-6c91-4383-bb4e-cd59ab02b6e1
   displayName: dandelion_flower_big_and_small_LOD_group
-  category: 0
+  category: 1
   prefab: {fileID: 3129617531267616008, guid: 572b6afd890a94d22ac1c5b3993dfb7e, type: 3}
   icon: {fileID: 21300000, guid: ce763a2b436a444e6ac85d49b1234077, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

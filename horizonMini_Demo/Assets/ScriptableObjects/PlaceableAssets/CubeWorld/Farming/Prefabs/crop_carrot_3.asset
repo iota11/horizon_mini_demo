@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e9a969a1-ccdd-4091-b31c-a8c2a7b190cf
   displayName: crop_carrot_3
-  category: 0
+  category: 8
   prefab: {fileID: 8529759124082270512, guid: c3638f5bf45e94d72bb2da40e0c60703, type: 3}
   icon: {fileID: 21300000, guid: 3fcb0c8facf38479cabe42d7465641c4, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

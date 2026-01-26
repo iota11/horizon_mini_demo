@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 018deb35-1f56-4c77-9b7e-b8b09f86a84e
   displayName: weapon_blowpipe
-  category: 7
+  category: 5
   prefab: {fileID: 8660685137683105064, guid: 70c76c199e92341bda42992bf4a2bb68, type: 3}
   icon: {fileID: 21300000, guid: 33a1e8ca1da434117bcfbe06639e961c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

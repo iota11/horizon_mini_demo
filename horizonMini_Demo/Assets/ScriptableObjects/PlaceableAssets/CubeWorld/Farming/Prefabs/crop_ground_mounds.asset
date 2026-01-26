@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b7cbfa63-9035-4c7b-9f86-025d80a1a522
   displayName: crop_ground_mounds
-  category: 1
+  category: 2
   prefab: {fileID: 4553961815777984427, guid: cb3a2058cc02e4595a8fb1c72c4f6546, type: 3}
   icon: {fileID: 21300000, guid: ecb49a90d02c944adb8f3dec8cbb9aa1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

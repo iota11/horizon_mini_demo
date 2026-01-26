@@ -18,6 +18,9 @@ namespace HorizonMini.Core
         [Header("Built-in Worlds")]
         [SerializeField] private List<WorldData> builtInWorlds = new List<WorldData>();
 
+        [Header("Permanent Worlds")]
+        [SerializeField] private PermanentWorldsRegistry permanentWorldsRegistry;
+
         [Header("Prefabs")]
         [SerializeField] private GameObject volumePrefab;
         [SerializeField] private GridSettings gridSettings;
@@ -37,6 +40,28 @@ namespace HorizonMini.Core
         public void RefreshLibrary()
         {
             allWorldMetas.Clear();
+
+            // Add permanent worlds from registry
+            if (permanentWorldsRegistry != null)
+            {
+                foreach (string worldId in permanentWorldsRegistry.permanentWorldIds)
+                {
+                    string assetPath = permanentWorldsRegistry.GetAssetPath(worldId);
+                    if (!string.IsNullOrEmpty(assetPath))
+                    {
+#if UNITY_EDITOR
+                        WorldData worldData = UnityEditor.AssetDatabase.LoadAssetAtPath<WorldData>(assetPath);
+                        if (worldData != null)
+                        {
+                            worldData.Initialize();
+                            WorldMeta meta = worldData.ToMeta();
+                            meta.isPermanent = true; // Mark as permanent
+                            allWorldMetas.Add(meta);
+                        }
+#endif
+                    }
+                }
+            }
 
             // Skip built-in worlds - only show user-created worlds
             // foreach (var worldData in builtInWorlds)
@@ -60,6 +85,18 @@ namespace HorizonMini.Core
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Check if a world is marked as permanent (cannot be deleted)
+        /// </summary>
+        public bool IsPermanentWorld(string worldId)
+        {
+            if (permanentWorldsRegistry != null)
+            {
+                return permanentWorldsRegistry.IsPermanent(worldId);
+            }
+            return false;
         }
 
         public List<WorldMeta> GetAllWorlds()
@@ -125,6 +162,15 @@ namespace HorizonMini.Core
                 volumeObj.transform.localPosition = worldPos;
                 volumeObj.transform.localRotation = Quaternion.Euler(0, volumeCell.rotationY, 0);
                 volumeObj.name = $"Volume_{volumeCell.gridPosition.x}_{volumeCell.gridPosition.y}_{volumeCell.gridPosition.z}";
+
+                // Set VolumeGrid dimensions from WorldData
+                VolumeGrid volumeGrid = volumeObj.GetComponent<VolumeGrid>();
+                if (volumeGrid != null)
+                {
+                    volumeGrid.volumeDimensions = data.gridDimensions;
+                    volumeGrid.Initialize(data.gridDimensions);
+                    Debug.Log($"[WorldLibrary] Set VolumeGrid dimensions to {data.gridDimensions}");
+                }
             }
 
             // Instantiate props (placed objects)
@@ -148,9 +194,34 @@ namespace HorizonMini.Core
         private void InstantiateProp(PropData propData, Transform parent)
         {
             GameObject obj = null;
+            PlaceableAsset asset = null;
 
+            // Check if this is a path-based prefab (from Manual World Creator)
+            if (propData.prefabName != null && propData.prefabName.StartsWith("PREFAB_PATH:"))
+            {
+                string prefabPath = propData.prefabName.Substring("PREFAB_PATH:".Length);
+                Debug.Log($"[WorldLibrary] Loading prefab from path: {prefabPath}");
+
+#if UNITY_EDITOR
+                GameObject prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                if (prefab != null)
+                {
+                    obj = Instantiate(prefab, parent);
+                    Debug.Log($"✓ Loaded prefab from path: {prefabPath}");
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load prefab at path: {prefabPath}");
+                    return;
+                }
+#else
+                // In build, we can't use AssetDatabase, need Resources or Addressables
+                Debug.LogWarning($"Cannot load path-based prefab in build: {prefabPath}");
+                return;
+#endif
+            }
             // Special handling for SpawnPoint (system-critical, create even if not in catalog)
-            if (propData.prefabName != null && propData.prefabName.Contains("spawn_point"))
+            else if (propData.prefabName != null && propData.prefabName.Contains("spawn_point"))
             {
                 Debug.Log($"[WorldLibrary] Creating SpawnPoint from saved data");
 
@@ -164,6 +235,7 @@ namespace HorizonMini.Core
                 if (spawnAsset != null && spawnAsset.prefab != null)
                 {
                     obj = Instantiate(spawnAsset.prefab, parent);
+                    asset = spawnAsset;
                 }
                 else
                 {
@@ -181,7 +253,7 @@ namespace HorizonMini.Core
             }
             else
             {
-                // Normal asset loading
+                // Normal asset loading from catalog
                 if (assetCatalog == null)
                 {
                     Debug.LogWarning("AssetCatalog not assigned to WorldLibrary! Cannot load props.");
@@ -198,6 +270,7 @@ namespace HorizonMini.Core
 
                 // Instantiate prefab
                 obj = Instantiate(tempAsset.prefab, parent);
+                asset = tempAsset;
             }
 
             if (obj == null)
@@ -259,17 +332,16 @@ namespace HorizonMini.Core
             obj.transform.rotation = propData.rotation;
             obj.transform.localScale = propData.scale;
 
-            // Get asset reference (may be null for procedurally created objects like SpawnPoint fallback)
-            PlaceableAsset asset = null;
-            if (assetCatalog != null)
-            {
-                asset = assetCatalog.GetAssetById(propData.prefabName);
-            }
-
             // Set object name
             if (asset != null)
             {
                 obj.name = asset.displayName;
+            }
+            else if (propData.prefabName.StartsWith("PREFAB_PATH:"))
+            {
+                // Extract name from path
+                string prefabPath = propData.prefabName.Substring("PREFAB_PATH:".Length);
+                obj.name = System.IO.Path.GetFileNameWithoutExtension(prefabPath);
             }
             else
             {

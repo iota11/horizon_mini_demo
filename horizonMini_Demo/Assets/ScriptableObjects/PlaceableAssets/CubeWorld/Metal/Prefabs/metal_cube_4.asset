@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c4515ac2-6569-42ab-ad73-999be1432d84
   displayName: metal_cube_4
-  category: 4
+  category: 2
   prefab: {fileID: 1878130166578582, guid: 4829fffe18c338145a3846acc037b1fb, type: 3}
   icon: {fileID: 21300000, guid: ded646ffde251468abae68e087957ea5, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

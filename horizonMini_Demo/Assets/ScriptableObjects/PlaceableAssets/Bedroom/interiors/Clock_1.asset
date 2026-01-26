@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Clock_1
+  m_EditorClassIdentifier: 
+  assetId: c9b5cada-cb79-4cdc-9342-b949be884dc2
+  displayName: Clock_1
+  category: 4
+  prefab: {fileID: 5611806917927178251, guid: f853903af9d2d40bcb61e344ac6b001f, type: 3}
+  icon: {fileID: 21300000, guid: 6658b666539224bc3a654aeb6e57ad92, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

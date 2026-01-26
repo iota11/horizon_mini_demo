@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Window_14
+  m_EditorClassIdentifier: 
+  assetId: 94640f43-2335-49f8-a543-8d2171f30ff8
+  displayName: Window_14
+  category: 0
+  prefab: {fileID: 1119719343523122933, guid: 3f968b0631f41423da3c9280dea76b0b, type: 3}
+  icon: {fileID: 21300000, guid: d9fb483684ca04726a8b02ef2349b277, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

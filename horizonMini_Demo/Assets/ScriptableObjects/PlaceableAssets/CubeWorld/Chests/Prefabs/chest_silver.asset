@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1326f575-f781-4d79-a9bb-3aee2f0f767b
   displayName: chest_silver
-  category: 5
+  category: 3
   prefab: {fileID: 1835109719425424, guid: 0a4c47e64dc9b4073aa589ed3192b69c, type: 3}
   icon: {fileID: 21300000, guid: 011b54503ac11450083092d7904264b4, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

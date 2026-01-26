@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Table_7
+  m_EditorClassIdentifier: 
+  assetId: 6b9e5094-14c2-408f-854f-520934bdb5bb
+  displayName: Table_7
+  category: 3
+  prefab: {fileID: 5028768284252398289, guid: 957361fd9d5f844b6bebf81f2dc21803, type: 3}
+  icon: {fileID: 21300000, guid: 8bf7a8693770a4878b8b13ac2bdd45f6, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

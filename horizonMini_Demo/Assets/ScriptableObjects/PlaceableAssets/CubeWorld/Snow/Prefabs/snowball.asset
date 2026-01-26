@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2e5be186-70fc-4103-aef1-7e5adbce266b
   displayName: snowball
-  category: 7
+  category: 2
   prefab: {fileID: 1083954417798680, guid: 3b0cb17005c8c0b40a020efebd1742cf, type: 3}
   icon: {fileID: 21300000, guid: 60066fcbfc67140fe99da9240af85004, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

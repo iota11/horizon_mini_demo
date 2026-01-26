@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Magazines_3
+  m_EditorClassIdentifier: 
+  assetId: d8221088-f18d-4be9-af2e-6b7be6a15494
+  displayName: Magazines_3
+  category: 11
+  prefab: {fileID: 6638534587489216100, guid: 6d5f1b8d7f43444b4a3a914b09f42036, type: 3}
+  icon: {fileID: 21300000, guid: c40dcc86b09104915b8798c29b6c42dc, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a87e66ec-d019-465d-840f-9f403ad5bcf7
   displayName: sandstone_block_light
-  category: 4
+  category: 2
   prefab: {fileID: 1706518913891364, guid: 260660f99259357419a55a34c8dd34f1, type: 3}
   icon: {fileID: 21300000, guid: adbfee44d6fe5483a890d4d649c14ce8, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

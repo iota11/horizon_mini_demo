@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 65c1dc97-d0cf-467a-8888-727c97622e3a
   displayName: totem_middle_1
-  category: 6
+  category: 7
   prefab: {fileID: 1640404013524312, guid: 2e45531ec3ac369478d52c98a27657c5, type: 3}
   icon: {fileID: 21300000, guid: a5978c282528f441d9622f930c6b8e98, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

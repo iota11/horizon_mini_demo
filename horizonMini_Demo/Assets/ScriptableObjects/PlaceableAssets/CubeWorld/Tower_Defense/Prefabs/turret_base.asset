@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9d41350f-a97b-492f-9ee0-07789fc4e89d
   displayName: turret_base
-  category: 7
+  category: 0
   prefab: {fileID: 857496800301161344, guid: 3afd841b47f13450699f977ad234d357, type: 3}
   icon: {fileID: 21300000, guid: 684a94b4274d741239fc79da59f4b412, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -1,26 +1,32 @@
 using UnityEditor;
 using UnityEngine;
 using HorizonMini.Core;
+using HorizonMini.Data;
 using System.IO;
+using System.Collections.Generic;
 
 namespace HorizonMini.Editor
 {
     /// <summary>
-    /// Editor utility to clear all saved worlds
+    /// Editor utility to clear all saved worlds (except permanent ones)
     /// </summary>
     public class ClearAllWorlds
     {
         [MenuItem("HorizonMini/Clear All Worlds")]
         public static void ClearWorlds()
         {
+            // Load permanent world IDs
+            HashSet<string> permanentWorldIds = LoadPermanentWorldIds();
+
             // Confirm with user
             bool confirmed = EditorUtility.DisplayDialog(
                 "Clear All Worlds",
                 "⚠️ WARNING ⚠️\n\n" +
-                "This will permanently delete ALL saved worlds!\n\n" +
+                "This will permanently delete ALL non-permanent saved worlds!\n\n" +
+                $"Permanent worlds ({permanentWorldIds.Count}) will be protected.\n\n" +
                 "This action CANNOT be undone.\n\n" +
                 "Are you sure you want to continue?",
-                "Yes, Delete All Worlds",
+                "Yes, Delete Non-Permanent Worlds",
                 "Cancel"
             );
 
@@ -34,7 +40,7 @@ namespace HorizonMini.Editor
             bool doubleConfirmed = EditorUtility.DisplayDialog(
                 "Final Confirmation",
                 "This is your last chance!\n\n" +
-                "All world data will be permanently deleted.\n\n" +
+                "All non-permanent world data will be permanently deleted.\n\n" +
                 "Continue?",
                 "DELETE ALL",
                 "Cancel"
@@ -47,6 +53,8 @@ namespace HorizonMini.Editor
             }
 
             int deletedCount = 0;
+            int skippedCount = 0;
+            List<string> skippedWorlds = new List<string>();
 
             // Get the save path - worlds are saved directly in persistentDataPath
             string savePath = Application.persistentDataPath;
@@ -57,9 +65,8 @@ namespace HorizonMini.Editor
                 {
                     // Get all world files (pattern: world_*.json)
                     string[] worldFiles = Directory.GetFiles(savePath, "world_*.json");
-                    deletedCount = worldFiles.Length;
 
-                    if (deletedCount == 0)
+                    if (worldFiles.Length == 0)
                     {
                         EditorUtility.DisplayDialog(
                             "Info",
@@ -72,21 +79,45 @@ namespace HorizonMini.Editor
                         return;
                     }
 
-                    // Delete each world file
+                    // Delete each world file (except permanent ones)
                     foreach (string filePath in worldFiles)
                     {
+                        // Extract world ID from filename (world_{id}.json)
+                        string fileName = Path.GetFileNameWithoutExtension(filePath);
+                        string worldId = fileName.Replace("world_", "");
+
+                        // Check if world is permanent
+                        if (permanentWorldIds.Contains(worldId))
+                        {
+                            skippedCount++;
+                            skippedWorlds.Add(fileName);
+                            Debug.Log($"[ClearAllWorlds] Skipped permanent world: {fileName}");
+                            continue;
+                        }
+
+                        // Delete non-permanent world
                         File.Delete(filePath);
+                        deletedCount++;
                         Debug.Log($"[ClearAllWorlds] Deleted: {Path.GetFileName(filePath)}");
+                    }
+
+                    string message = $"✅ Successfully deleted {deletedCount} world(s)\n\n";
+                    if (skippedCount > 0)
+                    {
+                        message += $"🔒 Protected {skippedCount} permanent world(s):\n";
+                        foreach (string worldName in skippedWorlds)
+                        {
+                            message += $"  • {worldName}\n";
+                        }
                     }
 
                     EditorUtility.DisplayDialog(
                         "Success",
-                        $"✅ Successfully deleted {deletedCount} world(s)\n\n" +
-                        "All saved worlds have been cleared.",
+                        message,
                         "OK"
                     );
 
-                    Debug.Log($"[ClearAllWorlds] Successfully deleted {deletedCount} world file(s)");
+                    Debug.Log($"[ClearAllWorlds] Successfully deleted {deletedCount} world(s), protected {skippedCount} permanent world(s)");
                 }
                 catch (System.Exception e)
                 {
@@ -107,6 +138,29 @@ namespace HorizonMini.Editor
                 );
                 Debug.LogError($"[ClearAllWorlds] Save directory not found: {savePath}");
             }
+        }
+
+        private static HashSet<string> LoadPermanentWorldIds()
+        {
+            HashSet<string> permanentIds = new HashSet<string>();
+
+            string registryPath = "Assets/Data/PermanentWorldsRegistry.asset";
+            PermanentWorldsRegistry registry = AssetDatabase.LoadAssetAtPath<PermanentWorldsRegistry>(registryPath);
+
+            if (registry != null && registry.permanentWorldIds != null)
+            {
+                foreach (string id in registry.permanentWorldIds)
+                {
+                    permanentIds.Add(id);
+                }
+                Debug.Log($"[ClearAllWorlds] Loaded {permanentIds.Count} permanent world IDs from registry");
+            }
+            else
+            {
+                Debug.Log("[ClearAllWorlds] No permanent worlds registry found");
+            }
+
+            return permanentIds;
         }
 
         [MenuItem("HorizonMini/Show Worlds Save Location")]

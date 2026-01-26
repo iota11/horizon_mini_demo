@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 389e9c12-04d9-41bd-bc2a-ff428e1d3663
   displayName: spear_gold
-  category: 7
+  category: 4
   prefab: {fileID: 1181859025540460, guid: 38cb0b4f0c9642c4b803841b24623427, type: 3}
   icon: {fileID: 21300000, guid: afb5af0935ac242b49eb0d58095f7d1a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

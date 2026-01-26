@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 77894d69-02b6-4667-8272-03255c811597
   displayName: arrow_metal
-  category: 7
+  category: 2
   prefab: {fileID: 1027764180753112, guid: 62dd07c3fd60ef0469ef48687b3d4c87, type: 3}
   icon: {fileID: 21300000, guid: 418a3c674349e4932a3d8aea0979b2be, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

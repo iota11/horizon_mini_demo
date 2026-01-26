@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Cup_of_Cocoa
+  m_EditorClassIdentifier: 
+  assetId: b321b156-f19e-46c9-b5a5-e1140ead3d80
+  displayName: Cup_of_Cocoa
+  category: 11
+  prefab: {fileID: 8386273192957863081, guid: 35eb753151d0040e18bce88ea670292c, type: 3}
+  icon: {fileID: 21300000, guid: d2c8d5e0e4c5b4414bcdaaf1f2e92507, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

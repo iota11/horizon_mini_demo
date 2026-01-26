@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 0720c636-16f7-41d7-bd80-da49acc68a9b
   displayName: SmartHouse1
-  category: 11
+  category: 10
   prefab: {fileID: 6078576988425991501, guid: 1490fc64681634e2faff3d2de387625c, type: 3}
   icon: {fileID: 21300000, guid: 020786008c8c04a2ea00267878e67a75, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

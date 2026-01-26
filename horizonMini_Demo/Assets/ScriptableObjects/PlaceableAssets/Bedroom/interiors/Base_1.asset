@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Base_1
+  m_EditorClassIdentifier: 
+  assetId: 2808c815-a989-4d0b-8afb-80d2ec38f6ae
+  displayName: Base_1
+  category: 0
+  prefab: {fileID: 7279951351600758935, guid: de39ea82e2baf409fa93f4a0e92649e2, type: 3}
+  icon: {fileID: 21300000, guid: fe4e7d01b0bf0448b8c4559cf9225777, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Molding_4
+  m_EditorClassIdentifier: 
+  assetId: 0d2f6b6a-330e-4dd5-815a-8a47ae337d4b
+  displayName: Molding_4
+  category: 0
+  prefab: {fileID: 4661666668406472660, guid: 74d2ef9a8987e45f98313dbddf4ec151, type: 3}
+  icon: {fileID: 21300000, guid: 4887c2c6c53934ec2ae4f82e67bc623f, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

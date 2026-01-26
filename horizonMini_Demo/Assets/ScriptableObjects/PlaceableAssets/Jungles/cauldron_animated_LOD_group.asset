@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d030471f-c565-4e47-91ee-c4653f08a083
   displayName: cauldron_animated_LOD_group
-  category: 7
+  category: 4
   prefab: {fileID: 1429233246250495651, guid: c73c3a3f32fab480bb594a906148bd03, type: 3}
   icon: {fileID: 21300000, guid: f6c895e66a4614b60ab27fab1932d1c2, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

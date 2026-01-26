@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 5db05cba-5f93-4385-b5ee-8a4926dea99c
   displayName: vine_horizontal_curve_small_green_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 8502971637837384027, guid: b21131ecbe3c4426f9fa0954930242ae, type: 3}
   icon: {fileID: 21300000, guid: 4d06acfd708bb48e096e4d48fb50e3eb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

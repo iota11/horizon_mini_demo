@@ -288,6 +288,23 @@ namespace HorizonMini.Controllers
 
         private void HandleInput()
         {
+            // Check if mouse is over UI - if so, skip input processing
+            if (UnityEngine.EventSystems.EventSystem.current != null &&
+                UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                // Mouse is over UI, but still allow scroll wheel zoom
+                try
+                {
+                    float scroll = Input.GetAxis("Mouse ScrollWheel");
+                    if (Mathf.Abs(scroll) > 0.01f)
+                    {
+                        HandleScrollWheelZoom(scroll);
+                    }
+                }
+                catch (System.ArgumentException) { }
+                return;
+            }
+
             // Mouse wheel zoom
             try
             {
@@ -824,8 +841,8 @@ namespace HorizonMini.Controllers
             }
 
             float angleRad = cameraAngle * Mathf.Deg2Rad;
-            float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
-            float verticalDist = cameraDistance * Mathf.Sin(angleRad);
+            float horizontalDist = currentCameraDistance * Mathf.Cos(angleRad);
+            float verticalDist = currentCameraDistance * Mathf.Sin(angleRad);
 
             float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
             Vector3 offset = new Vector3(

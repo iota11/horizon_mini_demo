@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 4282d1be-708c-4e66-8bc0-4758228a5518
   displayName: metal_bar_block
-  category: 6
+  category: 2
   prefab: {fileID: 1460251763300134, guid: 60c614fe54b373746acb645b86b266e2, type: 3}
   icon: {fileID: 21300000, guid: 2271f801585bc4a86ba4614e9c07b48f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

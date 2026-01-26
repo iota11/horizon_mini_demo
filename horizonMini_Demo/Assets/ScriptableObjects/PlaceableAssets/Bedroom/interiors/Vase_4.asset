@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Vase_4
+  m_EditorClassIdentifier: 
+  assetId: e07345ff-76f7-4740-aac4-29e9a9fd775f
+  displayName: Vase_4
+  category: 4
+  prefab: {fileID: 1103143528277914558, guid: 2aaacd9ce147441528f4aa7ffb50ab19, type: 3}
+  icon: {fileID: 21300000, guid: 9f9f831f41bb842d29ea443aeea0b7ba, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

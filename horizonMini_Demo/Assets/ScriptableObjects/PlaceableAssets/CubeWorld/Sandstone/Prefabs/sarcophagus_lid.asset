@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 6864cbbc-fc89-4a23-a36e-b60c10775d84
   displayName: sarcophagus_lid
-  category: 5
+  category: 4
   prefab: {fileID: 1473724764481814, guid: 05770e0d4f7c74946957ac3d48705c5b, type: 3}
   icon: {fileID: 21300000, guid: 43e1d952dba564959a7de1f17f24a2f7, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

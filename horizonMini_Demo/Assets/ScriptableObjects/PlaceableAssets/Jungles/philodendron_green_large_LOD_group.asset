@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 26d1b9a8-7edc-4eb6-ad9f-76911fba481d
   displayName: philodendron_green_large_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 7874677264362167613, guid: 44b19275456cc4255b043afcf168ff87, type: 3}
   icon: {fileID: 21300000, guid: ed03d5971003648c7826ea8409fa7ec9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

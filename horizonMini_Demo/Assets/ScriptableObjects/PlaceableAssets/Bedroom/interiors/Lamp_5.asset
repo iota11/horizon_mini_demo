@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Lamp_5
+  m_EditorClassIdentifier: 
+  assetId: a51e04e1-f6f7-4ead-987b-a4cfc6dbfca1
+  displayName: Lamp_5
+  category: 4
+  prefab: {fileID: 4789506290730300256, guid: 534b2d96c36bd4e3fa275b164557592d, type: 3}
+  icon: {fileID: 21300000, guid: 44b6e8a5c592340ff843c824f846da3a, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

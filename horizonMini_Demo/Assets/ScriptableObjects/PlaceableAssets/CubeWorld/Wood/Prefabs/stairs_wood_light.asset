@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 690f3443-cf2b-47b9-bdab-fdc1a798d7bc
   displayName: stairs_wood_light
-  category: 4
+  category: 0
   prefab: {fileID: 1075647862607318, guid: be77803cc6108074d8fbbf390c8bbaff, type: 3}
   icon: {fileID: 21300000, guid: 0bafc9a28b3104834912ee0d3f817ce4, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

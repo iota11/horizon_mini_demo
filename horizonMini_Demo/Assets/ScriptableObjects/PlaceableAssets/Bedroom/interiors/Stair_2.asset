@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Stair_2
+  m_EditorClassIdentifier: 
+  assetId: 04c93314-9875-4ff7-851f-57f4995a75fe
+  displayName: Stair_2
+  category: 0
+  prefab: {fileID: 3052270277861760391, guid: e0cdac79aaab645f6b84febd470afc7d, type: 3}
+  icon: {fileID: 21300000, guid: ae68c09f0cc2a4e0a844c5e341a3e7b4, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

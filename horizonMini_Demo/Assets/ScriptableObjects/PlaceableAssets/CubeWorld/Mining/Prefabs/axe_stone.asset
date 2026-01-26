@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e3c56de3-8ee3-41dd-be9b-186325a873a7
   displayName: axe_stone
-  category: 7
+  category: 2
   prefab: {fileID: 1759748473634392, guid: 0f3bb7f511af27b41b36cbd82df4475f, type: 3}
   icon: {fileID: 21300000, guid: d1e01e16bcdf84ab8b24aab05d5c10bf, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: smart_wall_default
   displayName: Smart Wall
-  category: 11
+  category: 0
   prefab: {fileID: 6289420709854793423, guid: b7d49ad1349ce4a62a54a04765491db2, type: 3}
   icon: {fileID: 21300000, guid: a64c9246d434444c89485ed36783e50b, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

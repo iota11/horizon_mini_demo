@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: f65b6285-0501-4714-9469-a2e34a99d7a1
   displayName: log2_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 6935978673385225624, guid: e25852ba814754bb88b7a5e4ff22e30f, type: 3}
   icon: {fileID: 21300000, guid: c106f3aa2673c4f77b70ba8ff60ccce3, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

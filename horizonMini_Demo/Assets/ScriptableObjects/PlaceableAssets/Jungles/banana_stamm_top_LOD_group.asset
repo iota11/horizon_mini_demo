@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b59679b6-ea93-46a0-b883-e1ab6a7e86b8
   displayName: banana_stamm_top_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 8797228776528446132, guid: bb62d233b5e8b4ec19de518b8c9652d2, type: 3}
   icon: {fileID: 21300000, guid: 7e74a5304b502405aa011b858999708c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

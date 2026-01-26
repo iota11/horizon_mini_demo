@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2198cce8-4c39-40d8-b077-d79f909bd939
   displayName: pebbles_2
-  category: 1
+  category: 4
   prefab: {fileID: 1568801636586370, guid: 5f6d0fe4f6bd6924d9c62b00c97ef85b, type: 3}
   icon: {fileID: 21300000, guid: 2f775e1a36cb949c0a2a59a05a4cd936, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

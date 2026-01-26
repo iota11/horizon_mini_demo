@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d87d9fce-150e-4511-b33f-38fd2ef33e9e
   displayName: leaf
-  category: 0
+  category: 4
   prefab: {fileID: 1731377527118496, guid: 18adbb6a6b7ad494aa41e4570833b12d, type: 3}
   icon: {fileID: 21300000, guid: c016a85e6fb82427e9de555cfe7b152e, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

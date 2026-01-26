@@ -14,6 +14,7 @@ namespace HorizonMini.Data
         public string author;
         public Sprite thumbnail; // Optional
         public string worldDataPath; // Path to WorldData asset or JSON
+        public bool isPermanent = false; // True if world cannot be deleted by users
 
         public WorldMeta()
         {

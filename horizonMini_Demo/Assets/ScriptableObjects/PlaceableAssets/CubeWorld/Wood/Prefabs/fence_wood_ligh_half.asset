@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d7da49fe-fcfc-48ad-b95b-ff72aa0e6e30
   displayName: fence_wood_ligh_half
-  category: 2
+  category: 0
   prefab: {fileID: 1575679833001526, guid: a87e25058a544eb4295bd649c49ffc03, type: 3}
   icon: {fileID: 21300000, guid: d09efcf0bb20a46deb1ced3b89083ae2, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

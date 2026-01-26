@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 4a2c8e79-2016-49ca-a3e5-a038e5fe187a
   displayName: SandStoneTerrain
-  category: 11
+  category: 2
   prefab: {fileID: 675342598568531331, guid: a5d6aa2e060d34f2fb58d7acd590181c, type: 3}
   icon: {fileID: 21300000, guid: fb100779f39cd4360820c8a5dd7e72aa, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

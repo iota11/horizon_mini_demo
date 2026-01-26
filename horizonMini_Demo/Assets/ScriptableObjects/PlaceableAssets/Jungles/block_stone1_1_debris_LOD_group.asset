@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c11d3e57-c3b9-492c-9f97-975f835768a0
   displayName: block_stone1_1_debris_LOD_group
-  category: 4
+  category: 2
   prefab: {fileID: 6687562278341967381, guid: 2fe5d452305c04871a52f0f0fe8816e1, type: 3}
   icon: {fileID: 21300000, guid: 28f6a54a357bd44e1a87e567db9db6f1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

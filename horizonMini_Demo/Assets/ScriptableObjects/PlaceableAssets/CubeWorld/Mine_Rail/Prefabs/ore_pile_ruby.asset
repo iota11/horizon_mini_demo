@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 20c998bc-ae87-4574-badd-06a7ee154279
   displayName: ore_pile_ruby
-  category: 6
+  category: 4
   prefab: {fileID: 1215754051561158, guid: befc40a22cfe85f4c9857e4d2fac1431, type: 3}
   icon: {fileID: 21300000, guid: 3cbbed632740d4c1ca9e9ceb1ea54649, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

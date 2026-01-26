@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 690623a7-55f9-4154-844a-85e2feb61704
   displayName: totem_lower_1
-  category: 6
+  category: 7
   prefab: {fileID: 1363339088336456, guid: 6b886f8d2196d154fa61236e7a2d8d0b, type: 3}
   icon: {fileID: 21300000, guid: bf909b480b2d94097ba52a5ea303c3bb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

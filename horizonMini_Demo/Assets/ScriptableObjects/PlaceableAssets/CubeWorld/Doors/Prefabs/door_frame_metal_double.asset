@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: dffe28fd-2f48-4496-b816-7ddca8817454
   displayName: door_frame_metal_double
-  category: 4
+  category: 0
   prefab: {fileID: 1817087545865446, guid: d9a9544124624d842b85003b697bd700, type: 3}
   icon: {fileID: 21300000, guid: d8f22f6113d0042bdac9d753d40199b0, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

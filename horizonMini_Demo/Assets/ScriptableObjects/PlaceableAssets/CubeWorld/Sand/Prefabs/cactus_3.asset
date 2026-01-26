@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c7bf4cd5-1e47-4490-bb66-839ff3f9e7cc
   displayName: cactus_3
-  category: 0
+  category: 1
   prefab: {fileID: 1199473334418004, guid: e582ce941ac92ef4cb992016b0be0e4d, type: 3}
   icon: {fileID: 21300000, guid: 4fedc6e2eee0e4ba58d190e264d09613, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

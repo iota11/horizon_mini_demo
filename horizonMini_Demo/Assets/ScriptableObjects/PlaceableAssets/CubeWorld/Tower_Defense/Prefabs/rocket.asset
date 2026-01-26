@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d1d579f8-8ee0-4355-b2e4-af67a0fd6bdc
   displayName: rocket
-  category: 7
+  category: 2
   prefab: {fileID: 6187438161255248692, guid: bb0008b62bcc34aa1b5aff8a3d34f067, type: 3}
   icon: {fileID: 21300000, guid: fa2897d0223d24842b9999ac7dbf91db, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

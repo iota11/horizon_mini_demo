@@ -18,6 +18,7 @@ namespace HorizonMini.UI
         [Header("UI Panels")]
         [SerializeField] private VolumeSizePickerUI sizePickerUI;
         [SerializeField] private AssetCatalogUI assetCatalogUI;
+        [SerializeField] private AISceneGeneratorUI aiSceneGeneratorUI;
         [SerializeField] private GameObject viewModeUI;
         [SerializeField] private GameObject editModeUI;
         [SerializeField] private GameObject playModeUI;
@@ -25,6 +26,7 @@ namespace HorizonMini.UI
         [Header("View Mode Buttons")]
         [SerializeField] private Button goButton;
         [SerializeField] private Button publicButton;
+        [SerializeField] private Button aiGenerateButton;
         [SerializeField] private Toggle snapToGridToggle;
         [SerializeField] private Toggle snapToObjectToggle;
 
@@ -54,6 +56,7 @@ namespace HorizonMini.UI
             if (editModeUI != null) editModeUI.SetActive(false);
             if (playModeUI != null) playModeUI.SetActive(false);
             if (assetCatalogUI != null) assetCatalogUI.Hide();
+            if (aiSceneGeneratorUI != null) aiSceneGeneratorUI.Hide();
 
             Debug.Log("BuildModeUI: All panels hidden");
         }
@@ -81,6 +84,11 @@ namespace HorizonMini.UI
             if (publicButton != null)
             {
                 publicButton.onClick.AddListener(OnPublicClicked);
+            }
+
+            if (aiGenerateButton != null)
+            {
+                aiGenerateButton.onClick.AddListener(OnAIGenerateClicked);
             }
 
             if (deleteButton != null)
@@ -208,6 +216,22 @@ namespace HorizonMini.UI
             }
         }
 
+        private void OnAIGenerateClicked()
+        {
+            Debug.Log("[BuildModeUI] AI Generate button clicked!");
+
+            // Show AI Scene Generator UI
+            if (aiSceneGeneratorUI != null)
+            {
+                Debug.Log("[BuildModeUI] Showing AI Scene Generator UI");
+                aiSceneGeneratorUI.Show();
+            }
+            else
+            {
+                Debug.LogError("[BuildModeUI] aiSceneGeneratorUI is NULL! Please assign in Inspector.");
+            }
+        }
+
         private void OnDeleteClicked()
         {
             if (buildController != null)
@@ -260,6 +284,11 @@ namespace HorizonMini.UI
             if (assetCatalogUI != null)
             {
                 assetCatalogUI.SetBuildController(controller);
+            }
+
+            if (aiSceneGeneratorUI != null)
+            {
+                aiSceneGeneratorUI.SetBuildController(controller);
             }
         }
 

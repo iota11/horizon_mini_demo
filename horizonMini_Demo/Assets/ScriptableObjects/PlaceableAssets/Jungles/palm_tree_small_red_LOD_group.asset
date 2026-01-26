@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b40f84c1-086f-482b-98c6-00c36301df0f
   displayName: palm_tree_small_red_LOD_group
-  category: 0
+  category: 1
   prefab: {fileID: 1983350719939363041, guid: e5375b8931a774bf98c69e5ac9b5eaf1, type: 3}
   icon: {fileID: 21300000, guid: 697ce2e8a046847ee92c68c432926fe1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

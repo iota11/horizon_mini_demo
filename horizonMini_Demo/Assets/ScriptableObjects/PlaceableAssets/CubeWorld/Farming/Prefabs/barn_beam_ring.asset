@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 24369831-6e81-4cbd-aec6-0d4008c26fcc
   displayName: barn_beam_ring
-  category: 4
+  category: 0
   prefab: {fileID: 3439076238340975594, guid: 1444adee5ca524d7fb488ca88c946be3, type: 3}
   icon: {fileID: 21300000, guid: 7313c783a637c4e649fedba775a12188, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

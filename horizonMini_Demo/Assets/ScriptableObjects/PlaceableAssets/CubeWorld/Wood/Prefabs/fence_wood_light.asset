@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: cdc63919-194a-40ec-8431-0d9c174caa56
   displayName: fence_wood_light
-  category: 2
+  category: 0
   prefab: {fileID: 1072765542594164, guid: 0a38fc33745914a27b9cce2de4118246, type: 3}
   icon: {fileID: 21300000, guid: 187eb56c136814005ac889178ac39732, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

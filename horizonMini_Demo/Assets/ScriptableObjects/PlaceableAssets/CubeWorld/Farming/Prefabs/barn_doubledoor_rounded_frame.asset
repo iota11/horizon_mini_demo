@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 69b15c1b-5129-4a44-b568-0ff9524cc592
   displayName: barn_doubledoor_rounded_frame
-  category: 4
+  category: 0
   prefab: {fileID: 4057135717831105252, guid: dc12e09a5ca4d4d74929b1243e06acb1, type: 3}
   icon: {fileID: 21300000, guid: 94c98245d636843738ecbd777158c578, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

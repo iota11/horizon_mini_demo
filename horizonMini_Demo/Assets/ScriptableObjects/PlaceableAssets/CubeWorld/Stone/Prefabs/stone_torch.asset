@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ef788199-1841-4be6-ab25-75def3e9d14d
   displayName: stone_torch
-  category: 6
+  category: 2
   prefab: {fileID: 1885473929928702, guid: 2cd9ea44444ec4462b1bf511ca06afcd, type: 3}
   icon: {fileID: 21300000, guid: 2e0926c2f368e4e84a8211ee456658f6, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: cd4f730f-f836-4bda-9007-002d83be79cf
   displayName: axe_gold
-  category: 7
+  category: 4
   prefab: {fileID: 1951409066995022, guid: 7673012085a952f4ca159f2520d6c865, type: 3}
   icon: {fileID: 21300000, guid: 95af40e5ce35146868ea77ef34da6b33, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

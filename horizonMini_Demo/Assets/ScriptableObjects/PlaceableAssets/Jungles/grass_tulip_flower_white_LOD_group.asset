@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 5c6ca928-fae4-4cdb-b874-b29395634bbd
   displayName: grass_tulip_flower_white_LOD_group
-  category: 0
+  category: 1
   prefab: {fileID: 8955923135458791329, guid: 5b5213e48f71d46d3a6b0a0875e61573, type: 3}
   icon: {fileID: 21300000, guid: 838d9e0c2a76b4855ba1e4961fde15fa, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

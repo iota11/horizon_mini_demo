@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 78ebfa22-5d89-4d76-9b44-c27bdcf442ca
   displayName: diamond_ruby
-  category: 6
+  category: 4
   prefab: {fileID: 1853735509348402, guid: 8a7b3edf55da3394b9ec2828f6e453a2, type: 3}
   icon: {fileID: 21300000, guid: fee706dd746a742e18e4657cd1c87883, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

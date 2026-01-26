@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8728ebee-8ea0-4ca9-8769-6febebc0780d
   displayName: door_frame_wood_rounded_single
-  category: 4
+  category: 0
   prefab: {fileID: 1382095973288376, guid: 7b3330922084ec5438b11f83d607dee3, type: 3}
   icon: {fileID: 21300000, guid: 3bd8ea8d6a15e45ef9696b43408ff0fb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

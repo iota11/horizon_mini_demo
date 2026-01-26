@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 0cc0fb2d-e5d6-4cff-8914-cce7878af640
   displayName: bone_pelvis_LOD_group
-  category: 6
+  category: 4
   prefab: {fileID: 4553222181766420211, guid: c038cd0094790489b95dafdc54ec006f, type: 3}
   icon: {fileID: 21300000, guid: ccd2e9dd3e3ce459b86cf453c963ba3d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

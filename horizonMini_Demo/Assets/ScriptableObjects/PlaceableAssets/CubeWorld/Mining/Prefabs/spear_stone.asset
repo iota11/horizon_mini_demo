@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a55281ac-1e01-4b26-9141-030754e2d28a
   displayName: spear_stone
-  category: 7
+  category: 2
   prefab: {fileID: 1313577042677518, guid: 79052070ce238ec429306f62221ca891, type: 3}
   icon: {fileID: 21300000, guid: 7662c9a45d39346b09cda362a56346d5, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

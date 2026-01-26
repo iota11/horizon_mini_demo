@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 7940beb1-9adf-493f-a7bf-8648780a0f84
   displayName: leafs2_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 8928153020385634151, guid: 5c92735396afd42768d87cee7b82201c, type: 3}
   icon: {fileID: 21300000, guid: 6db880cf8b9564b43bfd79792611b888, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

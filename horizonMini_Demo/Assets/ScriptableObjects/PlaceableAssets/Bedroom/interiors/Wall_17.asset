@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Wall_17
+  m_EditorClassIdentifier: 
+  assetId: 694e979c-3ece-4e3d-a1e0-117d1a29828e
+  displayName: Wall_17
+  category: 0
+  prefab: {fileID: 5788869980027910135, guid: 20ae76fe88b194ccaaf99a80ed734b6e, type: 3}
+  icon: {fileID: 21300000, guid: 4eee2ba04625049739c27d919af01915, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

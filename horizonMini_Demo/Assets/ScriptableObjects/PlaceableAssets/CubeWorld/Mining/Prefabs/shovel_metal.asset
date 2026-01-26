@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 42d6d3d7-163f-4438-9811-66647430479a
   displayName: shovel_metal
-  category: 7
+  category: 2
   prefab: {fileID: 1847282032131804, guid: 949ca560d0867974abf1fc7a569c8189, type: 3}
   icon: {fileID: 21300000, guid: 3f615c67db3d7470e89dc989b040cc55, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

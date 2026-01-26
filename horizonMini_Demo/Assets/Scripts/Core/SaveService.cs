@@ -141,6 +141,17 @@ namespace HorizonMini.Core
 
         public void DeleteCreatedWorld(string worldId)
         {
+            // Check if world is permanent (cannot be deleted)
+            // This requires WorldLibrary reference, so we check via AppRoot
+            if (AppRoot.Instance != null && AppRoot.Instance.WorldLibrary != null)
+            {
+                if (AppRoot.Instance.WorldLibrary.IsPermanentWorld(worldId))
+                {
+                    Debug.LogWarning($"Cannot delete permanent world: {worldId}");
+                    return;
+                }
+            }
+
             // Delete world file
             string worldPath = Path.Combine(Application.persistentDataPath, $"world_{worldId}.json");
 

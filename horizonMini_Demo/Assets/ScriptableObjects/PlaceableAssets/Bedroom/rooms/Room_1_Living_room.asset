@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Room_1_Living_room
+  m_EditorClassIdentifier: 
+  assetId: cb7652e1-686e-4510-a4bb-833c95d45dd3
+  displayName: Room_1_Living_room
+  category: 9
+  prefab: {fileID: 853669751021239346, guid: a33a12b2a94d74e05ab29774e299c64e, type: 3}
+  icon: {fileID: 21300000, guid: d75476a1106e9486997e2164b97e0d18, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

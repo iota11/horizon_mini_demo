@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 3de76fb0-0f16-4a6c-a7c3-eedcc2845ded
   displayName: coop_door
-  category: 4
+  category: 0
   prefab: {fileID: 3628556408596740739, guid: 04f3c973d36314612a6d67cdf9dfcdc1, type: 3}
   icon: {fileID: 21300000, guid: 4c4ef000c55c544b4be690fb5dbcf95d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

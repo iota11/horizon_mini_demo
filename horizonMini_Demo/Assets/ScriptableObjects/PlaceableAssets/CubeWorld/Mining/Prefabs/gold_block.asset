@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: dae9fd17-1f77-4f47-8ee4-af51d5d704ac
   displayName: gold_block
-  category: 6
+  category: 4
   prefab: {fileID: 1701493855721698, guid: 98945908536288340838272ecade0695, type: 3}
   icon: {fileID: 21300000, guid: b8fb02fc2dc794d62b16779ba0e51cf1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

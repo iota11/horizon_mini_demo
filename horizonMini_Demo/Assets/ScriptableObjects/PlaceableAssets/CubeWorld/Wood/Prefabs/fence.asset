@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 62edad65-a431-46d6-b07b-a7d46f26ab31
   displayName: fence
-  category: 2
+  category: 0
   prefab: {fileID: 1585448642735056, guid: 008fc6b0fac26a241a128d3d7bc37d24, type: 3}
   icon: {fileID: 21300000, guid: 635d7aa0d7a6c4afd8b52f80b6d5675f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

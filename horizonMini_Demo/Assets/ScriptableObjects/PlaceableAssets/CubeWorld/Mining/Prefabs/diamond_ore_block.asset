@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a13dcb8c-44bc-4d31-b098-c77f5e050093
   displayName: diamond_ore_block
-  category: 1
+  category: 4
   prefab: {fileID: 1137852242995200, guid: 094d01a7d365071479ae3118af69936e, type: 3}
   icon: {fileID: 21300000, guid: 4476f9fab72aa432e89eeae54bd8c05d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 666ae2b2-9a5c-4406-bb4f-ced8432c8f5d
   displayName: mushroom_4
-  category: 0
+  category: 1
   prefab: {fileID: 1539626965757196, guid: 219c98e14a1e31f4cba76d8e8321322d, type: 3}
   icon: {fileID: 21300000, guid: d9db7a6a508524a62be75f3bbb665469, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

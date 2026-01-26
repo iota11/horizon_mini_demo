@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ac9bc54e-a858-445c-acf0-257c07229a82
   displayName: ribbon_large_color3
-  category: 6
+  category: 4
   prefab: {fileID: 1398234873559058, guid: 4ac6a69286b004b168f5c241515813d1, type: 3}
   icon: {fileID: 21300000, guid: 6b7a88f3ae6fa45a58e406f236ed80af, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 62cf2ec5-a918-4837-a275-c8d4b3557644
   displayName: bush_dead_deco
-  category: 0
+  category: 4
   prefab: {fileID: 1916451584779894, guid: 85e898cfdc54e4c4a902f7a68088d17d, type: 3}
   icon: {fileID: 21300000, guid: fcec7ee9d6f034776906a3e168680b04, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

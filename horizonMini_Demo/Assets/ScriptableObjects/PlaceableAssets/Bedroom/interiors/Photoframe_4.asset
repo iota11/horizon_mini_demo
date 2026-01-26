@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Photoframe_4
+  m_EditorClassIdentifier: 
+  assetId: 121244a8-b074-4e1f-bdae-f585bb4fb92b
+  displayName: Photoframe_4
+  category: 4
+  prefab: {fileID: 3875143444014655596, guid: 6fa1d5ba0f450494b9d0082ae945260c, type: 3}
+  icon: {fileID: 21300000, guid: 5b89b1f3e8c6f4521a50f7fc5a4023fb, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

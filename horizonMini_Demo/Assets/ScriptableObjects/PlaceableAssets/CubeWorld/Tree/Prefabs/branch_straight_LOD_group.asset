@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: fb5fabf1-9be2-4713-b804-40e091a20994
   displayName: branch_straight_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 1078616794311879174, guid: 11374bdf32f5541a4b0a9f5208bb30ff, type: 3}
   icon: {fileID: 21300000, guid: 1b6914dcc796d49789bdf815fd9d1eee, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

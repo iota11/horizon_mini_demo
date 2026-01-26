@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 85655912-23fc-49de-bd7a-8c38072759c6
   displayName: drum_stick
-  category: 7
+  category: 4
   prefab: {fileID: 1543966055604186683, guid: 43e0cf44022974641b5e64ac800596ed, type: 3}
   icon: {fileID: 21300000, guid: a9340d32b6c894ceba728ea473f2ec86, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

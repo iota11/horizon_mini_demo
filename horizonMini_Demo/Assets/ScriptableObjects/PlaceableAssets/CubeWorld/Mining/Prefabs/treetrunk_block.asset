@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 11ff3b9c-0be5-4e4c-ab2e-7e7e2c357a09
   displayName: treetrunk_block
-  category: 0
+  category: 1
   prefab: {fileID: 1984689006000906, guid: 30a5346c22d47e24382c540cc67057e7, type: 3}
   icon: {fileID: 21300000, guid: 551e09d9fb7e94920a62c9c8b435800d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

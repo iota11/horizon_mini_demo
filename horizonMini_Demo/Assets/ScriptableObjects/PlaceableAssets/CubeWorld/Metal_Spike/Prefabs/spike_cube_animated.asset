@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2051824e-8fc1-4b7c-b997-22dd3687ebe2
   displayName: spike_cube_animated
-  category: 6
+  category: 4
   prefab: {fileID: 1650811508528622, guid: 2dc48b9e838e9d946bb9a74e24539af1, type: 3}
   icon: {fileID: 21300000, guid: 5a06386508750446e890d06b18b6fe20, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

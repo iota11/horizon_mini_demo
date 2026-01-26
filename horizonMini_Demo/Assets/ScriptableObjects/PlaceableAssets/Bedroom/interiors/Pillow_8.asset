@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Pillow_8
+  m_EditorClassIdentifier: 
+  assetId: 2e512c88-c78f-4d33-b864-bca86d4b7350
+  displayName: Pillow_8
+  category: 4
+  prefab: {fileID: 7498937057002202088, guid: e95d5283090fc4d4b8d4562eedd7e5c2, type: 3}
+  icon: {fileID: 21300000, guid: bb4d09d1fb32b41d5847c65b37001f76, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

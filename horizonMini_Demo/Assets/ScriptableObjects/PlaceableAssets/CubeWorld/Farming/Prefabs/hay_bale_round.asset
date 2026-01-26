@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 398b4a95-8f87-4572-8a4d-a253208a9a3f
   displayName: hay_bale_round
-  category: 5
+  category: 4
   prefab: {fileID: 2473278176289579627, guid: d5eb4804aa22a4875bbd96c958334cdb, type: 3}
   icon: {fileID: 21300000, guid: c1119875e992f4b8f8d4baf2d139650d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

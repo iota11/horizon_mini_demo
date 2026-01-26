@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ddf0323a-e2ba-4c84-a5c1-63f9e2dae0a5
   displayName: switch_rail
-  category: 7
+  category: 5
   prefab: {fileID: 3248352747328838041, guid: ccb1ab5cedc1c2842bb610b59f57a29d, type: 3}
   icon: {fileID: 21300000, guid: c2366767e38394720bb7105b6170b66b, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

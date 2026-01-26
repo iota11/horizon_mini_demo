@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Photo_3
+  m_EditorClassIdentifier: 
+  assetId: 37ab30bd-b43c-49d0-892d-f41a41b41829
+  displayName: Photo_3
+  category: 4
+  prefab: {fileID: 3470696450578581379, guid: 637c762c116bf43dbba5520cdf36f17f, type: 3}
+  icon: {fileID: 21300000, guid: 88f2c6b22bcef4367a2f0b0f19679ea8, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

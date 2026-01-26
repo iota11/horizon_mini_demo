@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 3061fe05-0460-4641-a259-8af7434217e8
   displayName: heliconia_leaves_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 3551047596982138060, guid: 7943e5a16f4cd482eaaaa5fde5a5d48b, type: 3}
   icon: {fileID: 21300000, guid: 269ba17f14e5441f7829fae25df3d6b2, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

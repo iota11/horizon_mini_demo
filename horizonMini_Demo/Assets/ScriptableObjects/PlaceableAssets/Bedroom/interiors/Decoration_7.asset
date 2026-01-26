@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Decoration_7
+  m_EditorClassIdentifier: 
+  assetId: c4b870b4-f5ca-4488-97df-7eb26a20a772
+  displayName: Decoration_7
+  category: 4
+  prefab: {fileID: 528904212387377161, guid: 00e10b9e241aa4b88b39630bdaae8149, type: 3}
+  icon: {fileID: 21300000, guid: 8013997491d854ba083d0d6f6745e9ce, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

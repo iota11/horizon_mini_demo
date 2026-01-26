@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Cabinet_2
+  m_EditorClassIdentifier: 
+  assetId: 3711b13f-c6cd-4259-844a-4743aaf3dd3a
+  displayName: Cabinet_2
+  category: 3
+  prefab: {fileID: 6485631136985858398, guid: 9876f321b51e647ee9bbee4b63b15df9, type: 3}
+  icon: {fileID: 21300000, guid: 76da5d4c192304171b8835ff1bc1aea6, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: fee3bcaf-9b7f-4613-aec1-b6b1aa143780
   displayName: sandstone_stair_straight
-  category: 4
+  category: 0
   prefab: {fileID: 1675263899577056, guid: 221426e035dd5a647bea398fe0b2a60c, type: 3}
   icon: {fileID: 21300000, guid: cc4a9987e94554bbd9759afd02e7cbcf, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a8575a72-2431-40ef-ae2d-1112d3fb016a
   displayName: lantern
-  category: 5
+  category: 4
   prefab: {fileID: 1633705949905148, guid: 1e71bb47b5c9e434ca6a1ff5139cc820, type: 3}
   icon: {fileID: 21300000, guid: b9ee36186921742eeba926800d9364db, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

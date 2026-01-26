@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e477a6b3-43d9-4191-bc81-40b26bdd0d97
   displayName: bushes_star_leaves_big_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 5050392210775850363, guid: 65ab677335e4c43fe8d96f1a471fde6a, type: 3}
   icon: {fileID: 21300000, guid: 08b7ba3128ee44af6add0398ae6528c0, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

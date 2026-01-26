@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: f17349da-a29b-4b49-af46-c8fb4b6acf44
   displayName: generator_head_lvl1
-  category: 7
+  category: 4
   prefab: {fileID: 3395592344403277203, guid: 8957fee14280340d59e29b877c882d9f, type: 3}
   icon: {fileID: 21300000, guid: 537b25bff47714351a29a1a8dc001904, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

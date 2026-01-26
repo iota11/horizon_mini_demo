@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1beab123-b98c-482b-96d5-4a5c6b377330
   displayName: philodendron_orange_small_LOD_group
-  category: 0
+  category: 4
   prefab: {fileID: 3873505928673497877, guid: d9cafe8c3348540b69613d2a5228f524, type: 3}
   icon: {fileID: 21300000, guid: f502d1c3b7b694dfb858c65ff987adbd, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

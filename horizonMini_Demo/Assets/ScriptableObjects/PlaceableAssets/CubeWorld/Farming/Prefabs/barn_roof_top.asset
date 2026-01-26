@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: fcf17261-f4f5-418f-8af2-292680a89e02
   displayName: barn_roof_top
-  category: 3
+  category: 0
   prefab: {fileID: 3296089134657625013, guid: 967ca8bd5e37440e0b07114e7bee352c, type: 3}
   icon: {fileID: 21300000, guid: b7e1a1eea308549f49f7ae5699a37295, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

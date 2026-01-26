@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 3199f236-1dbb-431d-a27e-8eafd027d9ea
   displayName: wood_window_light
-  category: 4
+  category: 0
   prefab: {fileID: 1129480311323752, guid: 9a44089b11a810445bd881c18bbf649b, type: 3}
   icon: {fileID: 21300000, guid: 431f57c6c382846d9aefa582db37c02c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

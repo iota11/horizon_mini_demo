@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1f88a72d-5c16-4911-b0a7-b94541ad73b4
   displayName: palm_leaf_end
-  category: 0
+  category: 1
   prefab: {fileID: 1293889309762118, guid: 52ab2382064a1c941adb343dfa169f6e, type: 3}
   icon: {fileID: 21300000, guid: a8239dd6b5c824877ae119f95958f634, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

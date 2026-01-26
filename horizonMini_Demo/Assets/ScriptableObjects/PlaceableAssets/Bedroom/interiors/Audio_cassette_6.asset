@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Audio_cassette_6
+  m_EditorClassIdentifier: 
+  assetId: 5b46077a-cdbd-4f56-b83e-5874a19aa998
+  displayName: Audio_cassette_6
+  category: 5
+  prefab: {fileID: 5193693470939815484, guid: 1e2a10327c91445b2afbb43b0083a923, type: 3}
+  icon: {fileID: 21300000, guid: d5d6ba375ab0d4d59a0f886c08aa48b2, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

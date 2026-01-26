@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 328adde5-919e-4aa9-b905-560f0df8c3c3
   displayName: cauldron_LOD_group
-  category: 7
+  category: 4
   prefab: {fileID: 4164584879362562776, guid: 086330f505de64d9c9cfa0379c587154, type: 3}
   icon: {fileID: 21300000, guid: 8e919aeea555748acb21f46530fd5be3, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

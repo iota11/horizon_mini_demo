@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: cad2fb2b-cd86-4bad-a2c8-8605daa46112
   displayName: barn_door_rounded
-  category: 4
+  category: 0
   prefab: {fileID: 5834912511951486174, guid: 402677b584ed2422daa4bdf433d43a60, type: 3}
   icon: {fileID: 21300000, guid: c71c8a43fe61c43cfad458056b620729, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

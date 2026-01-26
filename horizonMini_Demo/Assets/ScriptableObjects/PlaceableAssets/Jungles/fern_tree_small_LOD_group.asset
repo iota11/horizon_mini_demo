@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d53dfd13-5f72-47cd-9b28-9344fa5014ff
   displayName: fern_tree_small_LOD_group
-  category: 0
+  category: 1
   prefab: {fileID: 9204533816768575376, guid: e0da8246c596d4129911ec9a23e998c1, type: 3}
   icon: {fileID: 21300000, guid: 28348177cca29469cb6dd23c712f1ab5, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

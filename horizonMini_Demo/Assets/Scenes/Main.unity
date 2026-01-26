@@ -434,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 27921262}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000000037252899, y: -0, z: -0.0000000074505797, w: 1}
-  m_LocalPosition: {x: -2.0948486, y: 15.735916, z: 23.8951}
+  m_LocalPosition: {x: 10.577397, y: 17.716757, z: 14.041114}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -789,7 +789,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182505477}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -1041,6 +1041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   builtInWorlds: []
+  permanentWorldsRegistry: {fileID: 0}
   volumePrefab: {fileID: 3297983965376111536, guid: 6da2f5452ab424806858d0c587f859e4,
     type: 3}
   gridSettings: {fileID: 11400000, guid: 01ba588eea30c43b2b667a0e1a71d452, type: 2}
@@ -1086,7 +1087,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25.07654, y: 25.07654, z: 25.07654}
+  m_LocalScale: {x: 25.279783, y: 25.279783, z: 25.279783}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1699114997}
@@ -6571,6 +6572,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415111912}
   m_CullTransparentMesh: 1
+--- !u!1 &421235938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 421235939}
+  - component: {fileID: 421235941}
+  - component: {fileID: 421235940}
+  m_Layer: 5
+  m_Name: iphone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &421235939
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421235938}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.3013226, y: 1.3013226, z: 1.3013226}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 881108638}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0.00012207031}
+  m_SizeDelta: {x: -188.99341, y: -409.23364}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &421235940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421235938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: fbc786830f74c4ba6a7e9b1199643508, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &421235941
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421235938}
+  m_CullTransparentMesh: 1
 --- !u!1 &446475736
 GameObject:
   m_ObjectHideFlags: 0
@@ -7424,6 +7500,7 @@ RectTransform:
   m_Children:
   - {fileID: 2064376743}
   - {fileID: 1978360044}
+  - {fileID: 421235939}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13095,7 +13172,7 @@ MonoBehaviour:
   biomes: []
   weight: 1
   totalSystemWeight: 0
-  cumulus: 0.2
+  cumulus: 0
   cirrus: 0
   altocumulus: 0
   cirrostratus: 0
@@ -13337,6 +13414,14 @@ MonoBehaviour:
   cameraAngle: 45
   cameraSmoothSpeed: 5
   cameraRotationSpeed: 100
+  cameraVerticalRotationSpeed: 50
+  cameraZoomSpeed: 2
+  minCameraDistance: 3
+  maxCameraDistance: 20
+  minCameraAngle: 20
+  maxCameraAngle: 80
+  jumpButton: {fileID: 0}
+  attackButton: {fileID: 0}
   autoInitialize: 1
   volumePrefab: {fileID: 0}
   gridSettings: {fileID: 0}
@@ -14248,7 +14333,6 @@ MonoBehaviour:
   placementSystem: {fileID: 0}
   gestureDetector: {fileID: 0}
   volumeGridPrefab: {fileID: 0}
-  editCursorPrefab: {fileID: 0}
   objectCursorPrefab: {fileID: 0}
   groundControlPointCursorPrefab: {fileID: 0}
   heightControlPointCursorPrefab: {fileID: 0}
@@ -14259,6 +14343,7 @@ MonoBehaviour:
   autoInitialize: 1
   maxVolumeSize: {x: 4, y: 4, z: 4}
   volumeUnitSize: 8
+  volumeDrawingCameraDistance: 80
 --- !u!4 &1688971703
 Transform:
   m_ObjectHideFlags: 0
