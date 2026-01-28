@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b4681e27-ce2b-4c6e-a343-db9fa1e441ed
   displayName: crop_tomato_2
-  category: 0
+  category: 8
   prefab: {fileID: 1148635800523177760, guid: a8deb6817610542abb21a57d4c8a251b, type: 3}
   icon: {fileID: 21300000, guid: d992d0e7dac844307940c73c7ddce990, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

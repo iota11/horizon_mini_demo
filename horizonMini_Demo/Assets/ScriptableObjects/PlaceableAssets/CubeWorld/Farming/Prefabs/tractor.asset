@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b809bc85-096e-4c04-a28c-7e08f71d9214
   displayName: tractor
-  category: 7
+  category: 4
   prefab: {fileID: 6332458186138536866, guid: fb2084c40187e40c7a6656d87fdb9b03, type: 3}
   icon: {fileID: 21300000, guid: 882ea00f7af3145bd8f3680eaa0c65af, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

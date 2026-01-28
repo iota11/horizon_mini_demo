@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: c7beabcb-0599-4241-8bfc-c8e7f8241e17
   displayName: cork_1
-  category: 6
+  category: 4
   prefab: {fileID: 1848484086812716, guid: f466a94e176504d40aed17b9301170f5, type: 3}
   icon: {fileID: 21300000, guid: f652986142cae404691aa52ee8dda91d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

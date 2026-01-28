@@ -18,6 +18,9 @@ namespace HorizonMini.Core
         [Header("Built-in Worlds")]
         [SerializeField] private List<WorldData> builtInWorlds = new List<WorldData>();
 
+        [Header("Permanent Worlds")]
+        [SerializeField] private PermanentWorldsRegistry permanentWorldsRegistry;
+
         [Header("Prefabs")]
         [SerializeField] private GameObject volumePrefab;
         [SerializeField] private GridSettings gridSettings;
@@ -37,6 +40,28 @@ namespace HorizonMini.Core
         public void RefreshLibrary()
         {
             allWorldMetas.Clear();
+
+            // Add permanent worlds from registry
+            if (permanentWorldsRegistry != null)
+            {
+                foreach (string worldId in permanentWorldsRegistry.permanentWorldIds)
+                {
+                    string assetPath = permanentWorldsRegistry.GetAssetPath(worldId);
+                    if (!string.IsNullOrEmpty(assetPath))
+                    {
+#if UNITY_EDITOR
+                        WorldData worldData = UnityEditor.AssetDatabase.LoadAssetAtPath<WorldData>(assetPath);
+                        if (worldData != null)
+                        {
+                            worldData.Initialize();
+                            WorldMeta meta = worldData.ToMeta();
+                            meta.isPermanent = true; // Mark as permanent
+                            allWorldMetas.Add(meta);
+                        }
+#endif
+                    }
+                }
+            }
 
             // Skip built-in worlds - only show user-created worlds
             // foreach (var worldData in builtInWorlds)
@@ -60,6 +85,18 @@ namespace HorizonMini.Core
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Check if a world is marked as permanent (cannot be deleted)
+        /// </summary>
+        public bool IsPermanentWorld(string worldId)
+        {
+            if (permanentWorldsRegistry != null)
+            {
+                return permanentWorldsRegistry.IsPermanent(worldId);
+            }
+            return false;
         }
 
         public List<WorldMeta> GetAllWorlds()
@@ -92,6 +129,8 @@ namespace HorizonMini.Core
 
         public WorldInstance InstantiateWorld(string worldId, Transform parent = null)
         {
+            Debug.Log($"<color=magenta>[WorldLibrary] InstantiateWorld called with worldId: {worldId}</color>");
+
             WorldData data = GetWorldData(worldId);
             if (data == null)
             {
@@ -99,6 +138,7 @@ namespace HorizonMini.Core
                 return null;
             }
 
+            Debug.Log($"<color=magenta>[WorldLibrary] WorldData found, calling InstantiateWorld(data)</color>");
             return InstantiateWorld(data, parent);
         }
 
@@ -125,6 +165,15 @@ namespace HorizonMini.Core
                 volumeObj.transform.localPosition = worldPos;
                 volumeObj.transform.localRotation = Quaternion.Euler(0, volumeCell.rotationY, 0);
                 volumeObj.name = $"Volume_{volumeCell.gridPosition.x}_{volumeCell.gridPosition.y}_{volumeCell.gridPosition.z}";
+
+                // Set VolumeGrid dimensions from WorldData
+                VolumeGrid volumeGrid = volumeObj.GetComponent<VolumeGrid>();
+                if (volumeGrid != null)
+                {
+                    volumeGrid.volumeDimensions = data.gridDimensions;
+                    volumeGrid.Initialize(data.gridDimensions);
+                    Debug.Log($"[WorldLibrary] Set VolumeGrid dimensions to {data.gridDimensions}");
+                }
             }
 
             // Instantiate props (placed objects)
@@ -142,15 +191,63 @@ namespace HorizonMini.Core
                 Debug.LogWarning("[WorldLibrary] No props to instantiate!");
             }
 
+            // Instantiate mini games as preview
+            Debug.Log($"<color=yellow>[WorldLibrary] === CHECKING FOR MINI GAMES ===</color>");
+            Debug.Log($"[WorldLibrary] World ID: {data.worldId}");
+            Debug.Log($"[WorldLibrary] data.miniGames is null? {data.miniGames == null}");
+            if (data.miniGames != null)
+            {
+                Debug.Log($"[WorldLibrary] miniGames.Count: {data.miniGames.Count}");
+            }
+
+            if (data.miniGames != null && data.miniGames.Count > 0)
+            {
+                Debug.Log($"<color=cyan>[WorldLibrary] ✓ Instantiating {data.miniGames.Count} mini game previews...</color>");
+                foreach (var gameData in data.miniGames)
+                {
+                    Debug.Log($"<color=cyan>[WorldLibrary] Processing game: {gameData.gameName} ({gameData.gameType})</color>");
+                    InstantiateMiniGamePreview(gameData, container.transform, instance);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"<color=orange>[WorldLibrary] ⚠ No mini games to instantiate for world {data.worldId}</color>");
+            }
+
             return instance;
         }
 
         private void InstantiateProp(PropData propData, Transform parent)
         {
             GameObject obj = null;
+            PlaceableAsset asset = null;
 
+            // Check if this is a path-based prefab (from Manual World Creator)
+            if (propData.prefabName != null && propData.prefabName.StartsWith("PREFAB_PATH:"))
+            {
+                string prefabPath = propData.prefabName.Substring("PREFAB_PATH:".Length);
+                Debug.Log($"[WorldLibrary] Loading prefab from path: {prefabPath}");
+
+#if UNITY_EDITOR
+                GameObject prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                if (prefab != null)
+                {
+                    obj = Instantiate(prefab, parent);
+                    Debug.Log($"✓ Loaded prefab from path: {prefabPath}");
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load prefab at path: {prefabPath}");
+                    return;
+                }
+#else
+                // In build, we can't use AssetDatabase, need Resources or Addressables
+                Debug.LogWarning($"Cannot load path-based prefab in build: {prefabPath}");
+                return;
+#endif
+            }
             // Special handling for SpawnPoint (system-critical, create even if not in catalog)
-            if (propData.prefabName != null && propData.prefabName.Contains("spawn_point"))
+            else if (propData.prefabName != null && propData.prefabName.Contains("spawn_point"))
             {
                 Debug.Log($"[WorldLibrary] Creating SpawnPoint from saved data");
 
@@ -164,6 +261,7 @@ namespace HorizonMini.Core
                 if (spawnAsset != null && spawnAsset.prefab != null)
                 {
                     obj = Instantiate(spawnAsset.prefab, parent);
+                    asset = spawnAsset;
                 }
                 else
                 {
@@ -181,7 +279,7 @@ namespace HorizonMini.Core
             }
             else
             {
-                // Normal asset loading
+                // Normal asset loading from catalog
                 if (assetCatalog == null)
                 {
                     Debug.LogWarning("AssetCatalog not assigned to WorldLibrary! Cannot load props.");
@@ -198,6 +296,7 @@ namespace HorizonMini.Core
 
                 // Instantiate prefab
                 obj = Instantiate(tempAsset.prefab, parent);
+                asset = tempAsset;
             }
 
             if (obj == null)
@@ -259,17 +358,16 @@ namespace HorizonMini.Core
             obj.transform.rotation = propData.rotation;
             obj.transform.localScale = propData.scale;
 
-            // Get asset reference (may be null for procedurally created objects like SpawnPoint fallback)
-            PlaceableAsset asset = null;
-            if (assetCatalog != null)
-            {
-                asset = assetCatalog.GetAssetById(propData.prefabName);
-            }
-
             // Set object name
             if (asset != null)
             {
                 obj.name = asset.displayName;
+            }
+            else if (propData.prefabName.StartsWith("PREFAB_PATH:"))
+            {
+                // Extract name from path
+                string prefabPath = propData.prefabName.Substring("PREFAB_PATH:".Length);
+                obj.name = System.IO.Path.GetFileNameWithoutExtension(prefabPath);
             }
             else
             {
@@ -358,6 +456,143 @@ namespace HorizonMini.Core
         public GridSettings GetGridSettings()
         {
             return gridSettings;
+        }
+
+        /// <summary>
+        /// Dynamically create a mini game in an existing world (called when world becomes active)
+        /// </summary>
+        public void CreateMiniGameInWorld(WorldInstance worldInstance, MiniGameData gameData)
+        {
+            if (worldInstance == null || gameData == null)
+            {
+                Debug.LogWarning("[WorldLibrary] Cannot create mini game - null parameters");
+                return;
+            }
+
+            Debug.Log($"<color=cyan>[WorldLibrary] Creating mini game in existing world: {gameData.gameName}</color>");
+            InstantiateMiniGamePreview(gameData, worldInstance.transform, worldInstance);
+        }
+
+        private void InstantiateMiniGamePreview(MiniGameData gameData, Transform parent, WorldInstance worldInstance)
+        {
+            Debug.Log($"<color=red>[WorldLibrary] ========== InstantiateMiniGamePreview CALLED ==========</color>");
+            Debug.Log($"[WorldLibrary] Creating mini game preview: {gameData.gameName} ({gameData.gameType})");
+            Debug.Log($"[WorldLibrary] Parent: {parent.name}, WorldInstance: {worldInstance.WorldId}");
+            Debug.Log($"<color=red>[WorldLibrary] ===============================================</color>");
+
+            // Load the game prefab
+            GameObject gamePrefab = null;
+
+            if (gameData.gameType == "CubeStack")
+            {
+                gamePrefab = Resources.Load<GameObject>("CubeStackGame");
+            }
+
+            if (gamePrefab == null)
+            {
+                Debug.LogWarning($"[WorldLibrary] Could not load game prefab for type: {gameData.gameType}");
+                return;
+            }
+
+            // Instantiate the game as child of world at origin
+            // World will be positioned at (0,0,0) in Browse mode, so game stays at origin too
+            GameObject gameInstance = Instantiate(gamePrefab, parent);
+            gameInstance.name = $"MiniGamePreview_{gameData.gameName}";
+
+            // Position at origin (0,0,0) since world is also at origin in Browse mode
+            gameInstance.transform.localPosition = Vector3.zero;
+            gameInstance.transform.localScale = Vector3.one * 1.0f; // Normal scale (100%)
+
+            // Add a component to mark this as a preview
+            HorizonMini.MiniGames.MiniGamePreview preview = gameInstance.AddComponent<HorizonMini.MiniGames.MiniGamePreview>();
+            preview.gameData = gameData;
+
+            // Use coroutine to initialize game after one frame (when Start() is called)
+            StartCoroutine(InitializeGamePreviewAfterStart(gameInstance));
+
+            // Disable game camera
+            CameraController gameCameraController = gameInstance.GetComponentInChildren<CameraController>();
+            if (gameCameraController != null)
+            {
+                Camera cam = gameCameraController.GetComponent<Camera>();
+                if (cam != null)
+                {
+                    cam.enabled = false;
+                    cam.gameObject.SetActive(false);
+                }
+            }
+
+            // Hide all UI canvases
+            Canvas[] canvases = gameInstance.GetComponentsInChildren<Canvas>(true);
+            foreach (var canvas in canvases)
+            {
+                canvas.gameObject.SetActive(false);
+            }
+
+            // Debug logging
+            string hierarchyPath = GetGameObjectPath(gameInstance);
+            Debug.Log($"<color=green>[WorldLibrary] ✓ Mini game preview created at origin!</color>");
+            Debug.Log($"[WorldLibrary]   - Name: {gameInstance.name}");
+            Debug.Log($"[WorldLibrary]   - Hierarchy path: {hierarchyPath}");
+            Debug.Log($"[WorldLibrary]   - Parent: {parent.name}");
+            Debug.Log($"[WorldLibrary]   - Game local position: {gameInstance.transform.localPosition}");
+            Debug.Log($"[WorldLibrary]   - Game world position: {gameInstance.transform.position}");
+            Debug.Log($"[WorldLibrary]   - Local scale: {gameInstance.transform.localScale}");
+            Debug.Log($"[WorldLibrary]   - Active in hierarchy: {gameInstance.activeInHierarchy}");
+            Debug.Log($"[WorldLibrary]   - Child count: {gameInstance.transform.childCount}");
+        }
+
+        private string GetGameObjectPath(GameObject obj)
+        {
+            string path = obj.name;
+            Transform current = obj.transform.parent;
+            while (current != null)
+            {
+                path = current.name + "/" + path;
+                current = current.parent;
+            }
+            return path;
+        }
+
+        private System.Collections.IEnumerator InitializeGamePreviewAfterStart(GameObject gameInstance)
+        {
+            Debug.Log($"<color=cyan>[WorldLibrary] Waiting for game to initialize...</color>");
+
+            // Wait for Start() to be called
+            yield return null;
+
+            Debug.Log($"<color=cyan>[WorldLibrary] Initializing game preview after Start()...</color>");
+
+            // Get GameController and start the game automatically
+            GameController gameController = gameInstance.GetComponent<GameController>();
+            if (gameController != null)
+            {
+                Debug.Log($"[WorldLibrary] GameController state: {gameController.State}");
+
+                // Automatically start the game (this will make cubes appear and move)
+                if (gameController.State == GameState.Menu)
+                {
+                    Debug.Log($"<color=yellow>[WorldLibrary] Auto-starting game for preview...</color>");
+                    gameController.OnPlayerInput(); // This will call StartGame()
+                }
+            }
+
+            // Wait one more frame for game to start
+            yield return null;
+
+            // NOW disable InputHandler to prevent further user input
+            var inputHandler = gameInstance.GetComponentInChildren<InputHandler>();
+            if (inputHandler != null)
+            {
+                inputHandler.enabled = false;
+                Debug.Log($"[WorldLibrary] Disabled InputHandler - game runs but no input accepted");
+            }
+            else
+            {
+                Debug.LogWarning("[WorldLibrary] InputHandler not found!");
+            }
+
+            Debug.Log($"<color=green>[WorldLibrary] ✓ Game preview initialized and auto-started!</color>");
         }
     }
 }

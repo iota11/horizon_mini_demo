@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Plate_4
+  m_EditorClassIdentifier: 
+  assetId: 8db872ba-3c6a-4531-b6d2-4f178e5082bc
+  displayName: Plate_4
+  category: 11
+  prefab: {fileID: 8968788937567068099, guid: 0d278f94f01e0401c839a26b48113d08, type: 3}
+  icon: {fileID: 21300000, guid: 172ee18f66c56481c8064288ba926bb4, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

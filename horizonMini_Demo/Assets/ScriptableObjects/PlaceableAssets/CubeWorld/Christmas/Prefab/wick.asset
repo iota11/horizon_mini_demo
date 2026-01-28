@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e44a0aea-aa89-4857-ae9c-fef1fb6e2e25
   displayName: wick
-  category: 6
+  category: 4
   prefab: {fileID: 1182826702597602, guid: a6130e20b2d9c44fbba956d3b9b58473, type: 3}
   icon: {fileID: 21300000, guid: 564f15ba0030845c8b75a173aebec61b, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

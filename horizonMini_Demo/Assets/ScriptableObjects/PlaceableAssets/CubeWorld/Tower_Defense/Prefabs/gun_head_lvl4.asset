@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9c93ef37-a009-4295-80c7-6f7a3fdbe455
   displayName: gun_head_lvl4
-  category: 7
+  category: 4
   prefab: {fileID: 2831819034377183772, guid: fe0563f0070ce40b5ad713a0828c7651, type: 3}
   icon: {fileID: 21300000, guid: 6b3c3259d5a304af192a2a6466b438a6, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

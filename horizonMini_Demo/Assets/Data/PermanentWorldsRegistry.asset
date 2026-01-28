@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da43318e36534af281dac5e015b3e43, type: 3}
+  m_Name: PermanentWorldsRegistry
+  m_EditorClassIdentifier: 
+  permanentWorldIds:
+  - 18402ac2-f469-4efd-83b8-32f7e7050150
+  - 1b2bab6c-7a45-4f88-9dd9-909344f03f0b
+  - 708b9941-84bb-4193-9283-b70db7a21389
+  - 05f93e20-563c-4f85-8a85-ae4b738d9cb9
+  permanentWorldPaths:
+  - Assets/Data/ManualWorlds/World_My_World_20260125_020831.asset
+  - Assets/Data/ManualWorlds/World_My_World_20260125_022126.asset
+  - Assets/Data/ManualWorlds/World_My_World_20260125_212434.asset
+  - Assets/Data/ManualWorlds/World_My_World_20260127_145310.asset

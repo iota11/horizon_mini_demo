@@ -141,6 +141,17 @@ namespace HorizonMini.Core
 
         public void DeleteCreatedWorld(string worldId)
         {
+            // Check if world is permanent (cannot be deleted)
+            // This requires WorldLibrary reference, so we check via AppRoot
+            if (AppRoot.Instance != null && AppRoot.Instance.WorldLibrary != null)
+            {
+                if (AppRoot.Instance.WorldLibrary.IsPermanentWorld(worldId))
+                {
+                    Debug.LogWarning($"Cannot delete permanent world: {worldId}");
+                    return;
+                }
+            }
+
             // Delete world file
             string worldPath = Path.Combine(Application.persistentDataPath, $"world_{worldId}.json");
 
@@ -223,6 +234,7 @@ namespace HorizonMini.Core
         public Vector3IntSerializable gridDimensions;
         public List<VolumeCellSerializable> volumes = new List<VolumeCellSerializable>();
         public List<PropDataSerializable> props = new List<PropDataSerializable>();
+        public List<MiniGameDataSerializable> miniGames = new List<MiniGameDataSerializable>();
         public ColorSerializable skyColor;
         public float gravity;
 
@@ -244,6 +256,14 @@ namespace HorizonMini.Core
             foreach (var prop in data.props)
             {
                 props.Add(new PropDataSerializable(prop));
+            }
+
+            if (data.miniGames != null)
+            {
+                foreach (var miniGame in data.miniGames)
+                {
+                    miniGames.Add(new MiniGameDataSerializable(miniGame));
+                }
             }
 
             skyColor = new ColorSerializable(data.skyColor);
@@ -269,6 +289,15 @@ namespace HorizonMini.Core
             foreach (var prop in props)
             {
                 data.props.Add(prop.ToPropData());
+            }
+
+            data.miniGames = new List<MiniGameData>();
+            if (miniGames != null)
+            {
+                foreach (var miniGame in miniGames)
+                {
+                    data.miniGames.Add(miniGame.ToMiniGameData());
+                }
             }
 
             data.skyColor = skyColor.ToColor();
@@ -459,6 +488,36 @@ namespace HorizonMini.Core
         public Color ToColor()
         {
             return new Color(r, g, b, a);
+        }
+    }
+
+    [System.Serializable]
+    public class MiniGameDataSerializable
+    {
+        public string gameId;
+        public string gameType;
+        public string gameName;
+        public Vector3Serializable position;
+
+        public MiniGameDataSerializable() { }
+
+        public MiniGameDataSerializable(MiniGameData data)
+        {
+            gameId = data.gameId;
+            gameType = data.gameType;
+            gameName = data.gameName;
+            position = new Vector3Serializable(data.position);
+        }
+
+        public MiniGameData ToMiniGameData()
+        {
+            return new MiniGameData
+            {
+                gameId = gameId,
+                gameType = gameType,
+                gameName = gameName,
+                position = position.ToVector3()
+            };
         }
     }
 }

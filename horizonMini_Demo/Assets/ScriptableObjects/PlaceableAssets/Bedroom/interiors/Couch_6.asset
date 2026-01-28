@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Couch_6
+  m_EditorClassIdentifier: 
+  assetId: 12760b71-a05f-4b1a-8449-97ea46b97070
+  displayName: Couch_6
+  category: 3
+  prefab: {fileID: 6287598404738722730, guid: 48bac5a0d459041ff8ebdbd3008d106e, type: 3}
+  icon: {fileID: 21300000, guid: 6b6e50c2a7ade442fae91a810e138308, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

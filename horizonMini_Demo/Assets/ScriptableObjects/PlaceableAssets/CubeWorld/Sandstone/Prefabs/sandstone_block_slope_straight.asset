@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 03aeb3e3-7705-45eb-a4a4-0ec506fbbb92
   displayName: sandstone_block_slope_straight
-  category: 4
+  category: 2
   prefab: {fileID: 1069463367953480, guid: ad1d5e1541dd0254fbb31e6d869497db, type: 3}
   icon: {fileID: 21300000, guid: e2ac1420d403b4fee83b007cbd393326, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Tile_8
+  m_EditorClassIdentifier: 
+  assetId: 6478c280-bb36-4a80-9cfc-cfc4b6f0c12e
+  displayName: Tile_8
+  category: 2
+  prefab: {fileID: 3495645384520603701, guid: b4143070f170b4282b7e7530b3be7e8c, type: 3}
+  icon: {fileID: 21300000, guid: 328186ff42a1d44beb741978fea1a155, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

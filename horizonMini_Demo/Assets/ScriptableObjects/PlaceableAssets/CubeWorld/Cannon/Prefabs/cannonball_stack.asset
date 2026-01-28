@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d9ca841e-fc57-4d39-866c-1900c57ac092
   displayName: cannonball_stack
-  category: 7
+  category: 6
   prefab: {fileID: 1233655010876108, guid: 6d690b6b66149154aab9866e1aabbcfa, type: 3}
   icon: {fileID: 21300000, guid: 6dc50263da0c143e0ab919ee815c04f4, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

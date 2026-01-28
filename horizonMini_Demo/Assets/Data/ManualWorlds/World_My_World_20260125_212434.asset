@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb15f6930cc3c4e76a17f485a0bb23ad, type: 3}
+  m_Name: World_My_World_20260125_212434
+  m_EditorClassIdentifier: 
+  worldId: 708b9941-84bb-4193-9283-b70db7a21389
+  worldTitle: My World
+  worldAuthor: Creator
+  isDraft: 0
+  gridDimensions: {x: 1, y: 1, z: 1}
+  volumes:
+  - gridPosition: {x: 0, y: 0, z: 0}
+    volumeType: default
+    rotationY: 0
+  props:
+  - propId: 580955c5-4757-423c-a3fa-67d84e0eb110
+    prefabName: smart_terrain_default
+    position: {x: 4, y: 0, z: 4}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 4, y: 0.5, z: 4}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: 5cdee5eb-2f3c-4bc3-8b82-25cdfe38b5d7
+    prefabName: spawn_point_player
+    position: {x: 6, y: 0.5, z: 2}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: 962ba5e1-c244-4737-9f34-1e941e12a71c
+    prefabName: eaa428b0-8031-49ad-949b-5bdbbf32216d
+    position: {x: 4, y: 0.5, z: 6}
+    rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: 30a81a85-f8b8-43fd-ac5c-638457d19915
+    prefabName: 447d136f-45cf-4f34-b326-5835063e9ac3
+    position: {x: 1, y: 0.5, z: 6}
+    rotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: 08ee9ddc-5c34-4f08-8871-490abe1e3e09
+    prefabName: f2aab7db-f9d9-4a80-ab15-0ed41cbd581e
+    position: {x: 7, y: 0.5, z: 6}
+    rotation: {x: 0, y: 0.92387956, z: 0, w: -0.3826834}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: 875a87d3-0e50-4e62-9ef4-d72ccd3191f1
+    prefabName: 4b625785-30de-48a0-9de7-66c5785ab763
+    position: {x: 4, y: 0.5, z: 4}
+    rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: ceb8635f-b264-496d-bea9-e4311f133953
+    prefabName: 365c51cc-f4a5-47f4-bd7a-3f09695565d1
+    position: {x: 7, y: 0.5, z: 6}
+    rotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: 59de9f8e-51d7-4423-be8d-dc244e8392ce
+    prefabName: 1cb1f381-56b9-4745-a291-3ab48a38867c
+    position: {x: 4, y: 0.5, z: 1}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: abe41d9e-fc50-40f7-a081-25ca59b029af
+    prefabName: e2630384-cc78-4e78-8e0d-43de28a9443f
+    position: {x: 4, y: 0.5, z: 4}
+    rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  miniGames:
+  - gameId: ccd2e656-e7ce-4f12-8859-14d6862ed6ba
+    gameType: CubeStack
+    gameName: Stack Game
+    position: {x: 0, y: 0, z: 0}
+  skyColor: {r: 0.5, g: 0.7, b: 1, a: 1}
+  gravity: -9.81

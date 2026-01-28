@@ -293,6 +293,10 @@ namespace HorizonMini.Controllers
                 ai.OnNavMeshReady();
             }
 
+            // Generate invisible boundary colliders to prevent player from leaving volume
+            Debug.Log("[PlayController] Generating volume boundary colliders");
+            GenerateVolumeBoundaryColliders();
+
             Debug.Log("[PlayController] World loading complete");
         }
 
@@ -723,7 +727,18 @@ namespace HorizonMini.Controllers
 
             Debug.Log("[PlayController] Attack button pressed");
 
-            // Get player controller or animator
+            // Get player attack component
+            PlayerAttack playerAttack = spawnedPlayer.GetComponent<PlayerAttack>();
+            if (playerAttack != null)
+            {
+                playerAttack.Attack();
+            }
+            else
+            {
+                Debug.LogWarning("[PlayController] Player has no PlayerAttack component!");
+            }
+
+            // Also trigger animator if present
             Animator animator = spawnedPlayer.GetComponent<Animator>();
             if (animator != null)
             {
@@ -734,5 +749,206 @@ namespace HorizonMini.Controllers
             // For now just trigger animation
             Debug.Log("[PlayController] Player attack triggered");
         }
+
+        /// <summary>
+        /// Generate invisible boundary colliders around all volumes to prevent player from leaving
+        /// </summary>
+        private void GenerateVolumeBoundaryColliders()
+        {
+            Debug.Log("[PlayController] GenerateVolumeBoundaryColliders() called");
+
+            // Always destroy existing boundaries to ensure correct size
+            GameObject existingBoundaries = GameObject.Find("VolumeBoundaries");
+            if (existingBoundaries != null && existingBoundaries)
+            {
+                Debug.Log("[PlayController] Destroying existing boundaries to regenerate with correct volume size");
+                Destroy(existingBoundaries);
+            }
+
+            // Find all VolumeGrid instances in the loaded world
+            VolumeGrid[] volumeGrids = FindObjectsByType<VolumeGrid>(FindObjectsSortMode.None);
+            Debug.Log($"[PlayController] Found {volumeGrids.Length} VolumeGrid(s)");
+
+            if (volumeGrids.Length == 0)
+            {
+                Debug.LogWarning("[PlayController] No VolumeGrid found, cannot generate boundaries");
+                return;
+            }
+
+            const float VOLUME_UNIT_SIZE = 8f;
+            const float WALL_THICKNESS = 0.1f;
+
+            // Create parent container at root of scene
+            GameObject boundariesContainer = new GameObject("VolumeBoundaries");
+            boundariesContainer.transform.position = Vector3.zero;
+
+            Debug.Log($"[PlayController] Creating boundaries for {volumeGrids.Length} volume(s)");
+
+            foreach (VolumeGrid volumeGrid in volumeGrids)
+            {
+                // Hide volume bounds visual in Play mode
+                volumeGrid.showBounds = false;
+                Transform boundsVisual = volumeGrid.transform.Find("VolumeBounds");
+                if (boundsVisual != null)
+                {
+                    boundsVisual.gameObject.SetActive(false);
+                }
+
+                Vector3 volumeCenter = volumeGrid.GetCenter();
+                Vector3Int volumeSize = volumeGrid.volumeDimensions;
+
+                Debug.Log($"[PlayController] VolumeGrid '{volumeGrid.name}' dimensions: {volumeSize.x}x{volumeSize.y}x{volumeSize.z}");
+
+                // Calculate actual world size
+                float width = volumeSize.x * VOLUME_UNIT_SIZE;
+                float actualHeight = volumeSize.y * VOLUME_UNIT_SIZE;
+                float depth = volumeSize.z * VOLUME_UNIT_SIZE;
+
+                // Wall height is actual volume height
+                float wallHeight = actualHeight;
+
+                // VolumeGrid.GetCenter() returns half extents, so this is already the center position
+                Vector3 center = volumeCenter;
+
+                // Calculate bottom Y (floor level)
+                float floorY = center.y - (actualHeight / 2f);
+
+                // Walls extend from floor to top of volume
+                float wallCenterY = floorY + (wallHeight / 2f);
+
+                Debug.Log($"[PlayController] Volume: {volumeGrid.name}, Size: {width}x{actualHeight}x{depth}m, Center: {center}, Floor Y: {floorY}, Wall Center Y: {wallCenterY}");
+
+                // Create 4 invisible walls (left, right, front, back)
+                // Left/Right walls extend full depth
+                CreateBoundaryWall(boundariesContainer.transform, $"BoundaryWall_Left_{volumeGrid.name}",
+                    new Vector3(center.x - (width / 2f), wallCenterY, center.z),
+                    new Vector3(WALL_THICKNESS, wallHeight, depth));
+
+                CreateBoundaryWall(boundariesContainer.transform, $"BoundaryWall_Right_{volumeGrid.name}",
+                    new Vector3(center.x + (width / 2f), wallCenterY, center.z),
+                    new Vector3(WALL_THICKNESS, wallHeight, depth));
+
+                // Front/Back walls are shorter to avoid corner overlap (width - 2 * WALL_THICKNESS)
+                float frontBackWidth = width - (2f * WALL_THICKNESS);
+                CreateBoundaryWall(boundariesContainer.transform, $"BoundaryWall_Front_{volumeGrid.name}",
+                    new Vector3(center.x, wallCenterY, center.z - (depth / 2f)),
+                    new Vector3(frontBackWidth, wallHeight, WALL_THICKNESS));
+
+                CreateBoundaryWall(boundariesContainer.transform, $"BoundaryWall_Back_{volumeGrid.name}",
+                    new Vector3(center.x, wallCenterY, center.z + (depth / 2f)),
+                    new Vector3(frontBackWidth, wallHeight, WALL_THICKNESS));
+
+                // Create floor collider at actual floor level
+                CreateBoundaryWall(boundariesContainer.transform, $"BoundaryFloor_{volumeGrid.name}",
+                    new Vector3(center.x, floorY, center.z),
+                    new Vector3(width, 0.1f, depth));
+            }
+
+            Debug.Log($"[PlayController] Generated boundary colliders for {volumeGrids.Length} volume(s)");
+        }
+
+        /// <summary>
+        /// Create a single invisible boundary wall with box collider
+        /// </summary>
+        private void CreateBoundaryWall(Transform parent, string name, Vector3 worldPosition, Vector3 size)
+        {
+            GameObject wall = new GameObject(name);
+            wall.transform.SetParent(parent);
+            wall.transform.position = worldPosition;
+            wall.transform.rotation = Quaternion.identity;
+
+            // Add box collider (invisible barrier)
+            // BoxCollider size is the actual size, and center is at (0,0,0) local space
+            BoxCollider collider = wall.AddComponent<BoxCollider>();
+            collider.center = Vector3.zero; // Center at GameObject position
+            collider.size = size;
+
+            // Set layer
+            wall.layer = LayerMask.NameToLayer("Default");
+        }
+
+        #region Mini Game Support
+
+        /// <summary>
+        /// Pause the game (for mini games)
+        /// </summary>
+        public void PauseGame()
+        {
+            Debug.Log("[PlayController] Pausing game");
+
+            // Disable player control
+            if (spawnedPlayer != null)
+            {
+                var characterAbility = spawnedPlayer.GetComponent<MoreMountains.TopDownEngine.CharacterAbility>();
+                if (characterAbility != null)
+                {
+                    characterAbility.enabled = false;
+                }
+
+                // Disable all abilities
+                var abilities = spawnedPlayer.GetComponents<MoreMountains.TopDownEngine.CharacterAbility>();
+                foreach (var ability in abilities)
+                {
+                    ability.enabled = false;
+                }
+            }
+
+            // Hide virtual joystick
+            if (virtualJoystickUI != null)
+            {
+                virtualJoystickUI.SetActive(false);
+            }
+
+            Time.timeScale = 1f; // Keep time running for mini game
+        }
+
+        /// <summary>
+        /// Resume the game (return from mini game)
+        /// </summary>
+        public void ResumeGame()
+        {
+            Debug.Log("[PlayController] Resuming game");
+
+            // Enable player control
+            if (spawnedPlayer != null)
+            {
+                var abilities = spawnedPlayer.GetComponents<MoreMountains.TopDownEngine.CharacterAbility>();
+                foreach (var ability in abilities)
+                {
+                    ability.enabled = true;
+                }
+            }
+
+            // Show virtual joystick
+            if (virtualJoystickUI != null)
+            {
+                virtualJoystickUI.SetActive(true);
+            }
+
+            Time.timeScale = 1f;
+        }
+
+        /// <summary>
+        /// Show/hide world UI
+        /// </summary>
+        public void SetUIVisible(bool visible)
+        {
+            if (virtualJoystickUI != null)
+            {
+                virtualJoystickUI.SetActive(visible);
+            }
+
+            if (jumpButton != null)
+            {
+                jumpButton.gameObject.SetActive(visible);
+            }
+
+            if (attackButton != null)
+            {
+                attackButton.gameObject.SetActive(visible);
+            }
+        }
+
+        #endregion
     }
 }

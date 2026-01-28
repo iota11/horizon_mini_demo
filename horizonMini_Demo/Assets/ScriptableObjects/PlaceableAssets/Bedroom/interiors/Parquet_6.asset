@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Parquet_6
+  m_EditorClassIdentifier: 
+  assetId: 187b152c-1227-41d5-8a46-8c865da8f95d
+  displayName: Parquet_6
+  category: 2
+  prefab: {fileID: 7709793913050598821, guid: e95dd3df68b8c43989d34da82b88fb1e, type: 3}
+  icon: {fileID: 21300000, guid: 6024bad1dfc8c4c1c8d693599bc42d03, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

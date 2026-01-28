@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b0a7c938-95f6-4224-b05c-9e81d5e212ae
   displayName: bullet
-  category: 7
+  category: 4
   prefab: {fileID: 4850247956453904232, guid: a86d8d3f977ec4f24b1e6d71cd5dc262, type: 3}
   icon: {fileID: 21300000, guid: 4534826e9e4a74bb59fb5a3cfd262fec, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

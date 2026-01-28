@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Paradise_Neon_Sign
+  m_EditorClassIdentifier: 
+  assetId: 27253c95-bf8c-475e-a46b-87a62b0b2284
+  displayName: Paradise_Neon_Sign
+  category: 4
+  prefab: {fileID: 5215718177240711753, guid: afaaeac13e2ac4017ad7e1294dac8310, type: 3}
+  icon: {fileID: 21300000, guid: 71230324ff3d34129b7e3a71c4517a91, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

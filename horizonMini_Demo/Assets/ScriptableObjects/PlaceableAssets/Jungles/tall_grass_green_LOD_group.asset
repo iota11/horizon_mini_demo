@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2697a2b7-06c5-4a0b-bb3b-61e74198d9bd
   displayName: tall_grass_green_LOD_group
-  category: 0
+  category: 1
   prefab: {fileID: 4648892553656460630, guid: 70fb5a1b1e4b24b25947367fed8a1f12, type: 3}
   icon: {fileID: 21300000, guid: 708fa246ce45f4ef29f892fe28f48149, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

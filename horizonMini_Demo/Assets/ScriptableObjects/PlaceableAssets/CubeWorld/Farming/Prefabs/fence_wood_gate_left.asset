@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a1a305d5-ed11-40e7-8a8a-9a2b999dc1ed
   displayName: fence_wood_gate_left
-  category: 2
+  category: 0
   prefab: {fileID: 8592725921140262949, guid: 0873517da20c7402ebf170c90a2661d0, type: 3}
   icon: {fileID: 21300000, guid: 7941703414cc9451185d825c4163d3eb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 6512b30e-6676-428f-8cec-8ed19455689d
   displayName: candle_block_top_wax
-  category: 6
+  category: 4
   prefab: {fileID: 1255712410898782, guid: 7cc8229cf7bd04ae78b3bccd111c7e3d, type: 3}
   icon: {fileID: 21300000, guid: 8c7e6d8119c1b44d48a5189f086e206f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

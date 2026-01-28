@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9b4bdf0a-2cbe-45d3-9c36-a03cbf368bed
   displayName: cloud_quadrouple
-  category: 9
+  category: 1
   prefab: {fileID: 1143805444665102, guid: 52fc7dd946c07974db1e9f10ba74b2e8, type: 3}
   icon: {fileID: 21300000, guid: 9305434bdf0b24535a9829dc5e613d53, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

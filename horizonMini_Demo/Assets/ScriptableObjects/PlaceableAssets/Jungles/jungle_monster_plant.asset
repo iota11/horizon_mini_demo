@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: e8042ed6-0690-421f-8a33-9ae9ecb44e8f
   displayName: jungle_monster_plant
-  category: 8
+  category: 1
   prefab: {fileID: 404556924541651257, guid: 1b3543cccdd524a72a823324f6f3fab2, type: 3}
   icon: {fileID: 21300000, guid: b889aac67724b4031a4e03f8871211ef, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

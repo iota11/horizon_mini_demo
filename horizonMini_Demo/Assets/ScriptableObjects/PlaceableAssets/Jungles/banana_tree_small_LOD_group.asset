@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: cc7a2f88-68a2-439c-ab32-2012bb8556d8
   displayName: banana_tree_small_LOD_group
-  category: 0
+  category: 1
   prefab: {fileID: 6054050992831021175, guid: 4d0f4fad8511f47499bca09c1c5ae409, type: 3}
   icon: {fileID: 21300000, guid: 84e7051349a524d4f8591cb1d9c41bbb, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

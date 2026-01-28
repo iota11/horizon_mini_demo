@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 4847bc93-1476-486d-a2c2-22d4763348a1
   displayName: dirt_cube_1
-  category: 1
+  category: 2
   prefab: {fileID: 1170724161450374, guid: a8fa1c076f83fb94f986f0141a28ac23, type: 3}
   icon: {fileID: 21300000, guid: 0ec6dba37f40e4e13869e9773bde7727, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

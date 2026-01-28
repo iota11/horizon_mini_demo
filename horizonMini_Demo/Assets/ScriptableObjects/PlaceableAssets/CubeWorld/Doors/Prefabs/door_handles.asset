@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 57406ed5-b5ad-48c6-9cb9-f5d9e4e617b8
   displayName: door_handles
-  category: 4
+  category: 0
   prefab: {fileID: 1374698047381332, guid: ae70afeb982cc5241a0778f106d5cb6a, type: 3}
   icon: {fileID: 21300000, guid: 075b5f90d5f4a4e2cb1f9543b955afa0, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

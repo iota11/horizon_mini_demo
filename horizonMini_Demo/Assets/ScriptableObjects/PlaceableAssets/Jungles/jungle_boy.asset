@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 222dde42-fa64-4ac9-a541-bd66245fb78a
   displayName: jungle_boy
-  category: 8
+  category: 7
   prefab: {fileID: 2702897903138543253, guid: 2c6c6131ccdde4758831bfca1f79bb7a, type: 3}
   icon: {fileID: 21300000, guid: afe5d5859b90b4c06bcfc331fd0cefa5, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

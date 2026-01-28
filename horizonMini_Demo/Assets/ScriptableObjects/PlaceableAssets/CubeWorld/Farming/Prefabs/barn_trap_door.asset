@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8e49b6d6-a41d-4869-800d-1e8eb45f44b2
   displayName: barn_trap_door
-  category: 4
+  category: 0
   prefab: {fileID: 4785329702010123316, guid: 07922d84318e346aa8c7621c922a0e3b, type: 3}
   icon: {fileID: 21300000, guid: bfa43c62bc8ed4998b0b0b553c5a8986, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

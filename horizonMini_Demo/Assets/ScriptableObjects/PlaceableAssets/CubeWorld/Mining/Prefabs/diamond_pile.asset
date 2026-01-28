@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 617ec908-1196-4413-b0b7-4dc6e9502373
   displayName: diamond_pile
-  category: 6
+  category: 4
   prefab: {fileID: 1043219303580478, guid: 2801b6b81fc24ba4b827c351c7416d32, type: 3}
   icon: {fileID: 21300000, guid: cc0a251f7e73e4f149384655bc5db566, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Wineglass_1
+  m_EditorClassIdentifier: 
+  assetId: 8c2e7fbb-e2df-485b-9b24-30768448e3f2
+  displayName: Wineglass_1
+  category: 11
+  prefab: {fileID: 5092788906615136414, guid: b67753451000c4cc19f979d30f9a98ee, type: 3}
+  icon: {fileID: 21300000, guid: 81c1ee7a28a6e494b8723f45734bfce6, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

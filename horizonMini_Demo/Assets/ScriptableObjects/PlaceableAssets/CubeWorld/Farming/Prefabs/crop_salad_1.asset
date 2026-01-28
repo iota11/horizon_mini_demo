@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2b8414f4-0806-468c-a41b-a4f7c731ab4b
   displayName: crop_salad_1
-  category: 0
+  category: 8
   prefab: {fileID: 1030675848838158225, guid: 33c68e025d00e49bda163d72c84ca4d0, type: 3}
   icon: {fileID: 21300000, guid: aa4cc32ce6eac49978627afcb759b85f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

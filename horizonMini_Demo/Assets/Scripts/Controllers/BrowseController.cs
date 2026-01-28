@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using HorizonMini.Core;
 using HorizonMini.Data;
 using HorizonMini.UI;
+using HorizonMini.MiniGames;
+using HorizonMini.Build;
 
 namespace HorizonMini.Controllers
 {
@@ -159,6 +161,9 @@ namespace HorizonMini.Controllers
             currentCameraDistance = targetCameraDistance; // Set immediately for first world
 
             PositionCamera();
+
+            // Update mini game button visibility for first world
+            UpdateMiniGameButtonVisibility();
         }
 
         private void LoadWorldsAroundIndex(int centerIndex)
@@ -176,9 +181,12 @@ namespace HorizonMini.Controllers
 
         private void LoadWorldAtSlot(int slot, int worldIndex)
         {
-            // If already loaded, skip
+            // If already loaded, no need to reload
             if (loadedIndices[slot] == worldIndex && loadedWorlds[slot] != null)
+            {
+                Debug.Log($"[BrowseController] World at slot {slot} already loaded");
                 return;
+            }
 
             // Unload existing
             if (loadedWorlds[slot] != null)
@@ -198,6 +206,9 @@ namespace HorizonMini.Controllers
                     loadedWorlds[slot] = instance;
                     loadedIndices[slot] = worldIndex;
 
+                    // Disable volume visuals in Browse mode
+                    DisableVolumeVisuals(instance);
+
                     // Set activation level
                     if (slot == 1)
                     {
@@ -207,6 +218,9 @@ namespace HorizonMini.Controllers
                     {
                         instance.SetActivationLevel(ActivationLevel.Preloaded);
                     }
+
+                    // Don't load mini game here - it will be loaded by UpdateMiniGameButtonVisibility()
+                    // after 0.5s delay when the world becomes center
                 }
             }
             else
@@ -217,33 +231,54 @@ namespace HorizonMini.Controllers
 
         private void UpdateWorldPositions()
         {
-            // Position worlds at fixed Y coordinates based on their slot index
-            // World positions are based on currentIndex, not slot position
+            // Position worlds along Y axis for smooth scrolling
+            // Worlds move based on currentScrollOffset for smooth transitions
             for (int i = 0; i < loadedWorlds.Length; i++)
             {
                 if (loadedWorlds[i] != null && loadedIndices[i] >= 0)
                 {
-                    // Calculate Y position based on world index in feed
-                    float yPos = loadedIndices[i] * worldSpacing;
+                    // Calculate base position: previous (-worldSpacing), current (0), next (+worldSpacing)
+                    int relativeIndex = i - 1; // -1, 0, 1
+                    float baseY = relativeIndex * worldSpacing;
 
-                    // Get the volume grid center to align all worlds by their centers
-                    Vector3 volumeCenter;
-                    try
+                    // Apply scroll offset - when scrolling down (positive offset), worlds move up
+                    float targetY = baseY - currentScrollOffset;
+
+                    // Check if this world has a mini game - if so, position at origin
+                    string worldId = loadedWorlds[i].WorldId;
+                    WorldData worldData = appRoot.WorldLibrary.GetWorldData(worldId);
+                    bool hasMiniGame = worldData != null && worldData.miniGames != null && worldData.miniGames.Count > 0;
+
+                    if (hasMiniGame)
                     {
-                        volumeCenter = loadedWorlds[i].GetVolumeGridCenter();
+                        // For mini game worlds, position directly at target (no volume center offset)
+                        loadedWorlds[i].transform.position = new Vector3(0, targetY, 0);
                     }
-                    catch
+                    else
                     {
-                        volumeCenter = loadedWorlds[i].transform.position;
+                        // For normal worlds, align by volume center
+                        Vector3 volumeCenter;
+                        try
+                        {
+                            volumeCenter = loadedWorlds[i].GetVolumeGridCenter();
+                        }
+                        catch
+                        {
+                            volumeCenter = loadedWorlds[i].transform.position;
+                        }
+
+                        // Calculate offset: move world so its volume center is at target Y position
+                        Vector3 currentWorldPos = loadedWorlds[i].transform.position;
+                        Vector3 offsetFromPivotToCenter = volumeCenter - currentWorldPos;
+
+                        // Position world so volume center ends up at (0, targetY, 0)
+                        Vector3 targetCenterPos = new Vector3(0, targetY, 0);
+                        loadedWorlds[i].transform.position = targetCenterPos - offsetFromPivotToCenter;
                     }
 
-                    // Calculate offset: move world so its volume center is at (0, yPos, 0)
-                    Vector3 currentWorldPos = loadedWorlds[i].transform.position;
-                    Vector3 offsetFromPivotToCenter = volumeCenter - currentWorldPos;
-
-                    // Position world so volume center ends up at target position
-                    Vector3 targetCenterPos = new Vector3(0, yPos, 0);
-                    loadedWorlds[i].transform.position = targetCenterPos - offsetFromPivotToCenter;
+                    // All worlds visible for smooth scrolling
+                    loadedWorlds[i].gameObject.SetActive(true);
+                    loadedWorlds[i].SetActivationLevel(ActivationLevel.FullyActive);
                 }
             }
         }
@@ -283,11 +318,52 @@ namespace HorizonMini.Controllers
 
             HandleInput();
             UpdateAutoRotation();
+            UpdateSnapAnimation(); // Smooth snap animation
+            UpdateWorldPositions(); // Update world positions based on scroll offset
             UpdateCameraPosition();
+        }
+
+        private void UpdateSnapAnimation()
+        {
+            if (isSnapping)
+            {
+                // Smoothly animate scrollOffset to target
+                currentScrollOffset = Mathf.SmoothDamp(
+                    currentScrollOffset,
+                    snapToTargetOffset,
+                    ref snapAnimationVelocity,
+                    snapSpeed
+                );
+
+                // Stop snapping when close enough
+                if (Mathf.Abs(currentScrollOffset - snapToTargetOffset) < 0.1f)
+                {
+                    currentScrollOffset = snapToTargetOffset;
+                    isSnapping = false;
+                    snapAnimationVelocity = 0f;
+                }
+            }
         }
 
         private void HandleInput()
         {
+            // Check if mouse is over UI - if so, skip input processing
+            if (UnityEngine.EventSystems.EventSystem.current != null &&
+                UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                // Mouse is over UI, but still allow scroll wheel zoom
+                try
+                {
+                    float scroll = Input.GetAxis("Mouse ScrollWheel");
+                    if (Mathf.Abs(scroll) > 0.01f)
+                    {
+                        HandleScrollWheelZoom(scroll);
+                    }
+                }
+                catch (System.ArgumentException) { }
+                return;
+            }
+
             // Mouse wheel zoom
             try
             {
@@ -419,12 +495,13 @@ namespace HorizonMini.Controllers
             // Record interaction
             RecordInteraction();
 
+            Debug.Log($"[BrowseController] HandleDrag - frameDelta: {frameDelta}, abs X: {Mathf.Abs(frameDelta.x)}, abs Y: {Mathf.Abs(frameDelta.y)}");
+
             // Determine if horizontal or vertical drag dominates
             if (Mathf.Abs(frameDelta.x) > Mathf.Abs(frameDelta.y))
             {
                 // Horizontal movement dominates - rotate camera around world
-                isSnapping = false; // Cancel any ongoing snap animation
-
+                Debug.Log("[BrowseController] Horizontal drag - rotating camera");
                 if (loadedWorlds[1] != null && browseCamera != null)
                 {
                     float rotationDelta = -frameDelta.x * rotationSpeed; // Negative to reverse direction
@@ -436,17 +513,11 @@ namespace HorizonMini.Controllers
             }
             else
             {
-                // Vertical movement dominates - scroll through worlds (feed-style)
-                isSnapping = false; // Cancel any ongoing snap animation
-
-                // Update scroll offset based on drag (negative because drag down = see previous world)
-                float scrollDelta = -frameDelta.y * scrollSensitivity;
+                // Vertical movement dominates - track for world switching
+                float scrollDelta = -frameDelta.y * scrollSensitivity; // Use original sensitivity
                 currentScrollOffset += scrollDelta;
 
-                // Clamp to prevent scrolling beyond bounds
-                float maxScroll = (currentIndex < worldFeed.Count - 1) ? worldSpacing : 0;
-                float minScroll = (currentIndex > 0) ? -worldSpacing : 0;
-                currentScrollOffset = Mathf.Clamp(currentScrollOffset, minScroll, maxScroll);
+                Debug.Log($"[BrowseController] Vertical drag - scrollDelta: {scrollDelta}, currentScrollOffset: {currentScrollOffset}");
 
                 // Calculate velocity for later snap decision
                 float deltaTime = Time.time - lastDragTime;
@@ -455,49 +526,40 @@ namespace HorizonMini.Controllers
                     scrollVelocity = scrollDelta / deltaTime;
                 }
                 lastDragTime = Time.time;
-
-                // Camera will update in UpdateCameraPosition with scroll offset
             }
         }
 
         private void HandleSwipe(Vector2 delta)
         {
-            // New feed-style snap logic
-            // Decide whether to snap to next/previous world or return to current
-
-            // Check if scrolled enough distance or has enough velocity
-            float scrollDistance = Mathf.Abs(currentScrollOffset);
+            // Simple swipe threshold for world switching
+            float swipeThresholdValue = 30f; // Lower threshold for easier switching
             float absVelocity = Mathf.Abs(scrollVelocity);
 
             bool shouldSnapToNext = false;
             bool shouldSnapToPrevious = false;
 
-            // Snap based on distance threshold
-            if (scrollDistance > worldSpacing * snapThreshold)
+            Debug.Log($"[BrowseController] HandleSwipe - scrollOffset: {currentScrollOffset}, velocity: {scrollVelocity}");
+
+            // Check vertical swipe distance or velocity
+            if (Mathf.Abs(currentScrollOffset) > swipeThresholdValue || absVelocity > velocityThreshold)
             {
-                if (currentScrollOffset > 0)
+                if (currentScrollOffset > 0 || scrollVelocity > 0)
                 {
                     shouldSnapToNext = (currentIndex < worldFeed.Count - 1);
+                    Debug.Log($"[BrowseController] Should snap to NEXT: {shouldSnapToNext}");
                 }
                 else
                 {
                     shouldSnapToPrevious = (currentIndex > 0);
+                    Debug.Log($"[BrowseController] Should snap to PREVIOUS: {shouldSnapToPrevious}");
                 }
             }
-            // Or snap based on velocity (flick gesture)
-            else if (absVelocity > velocityThreshold)
+            else
             {
-                if (scrollVelocity > 0)
-                {
-                    shouldSnapToNext = (currentIndex < worldFeed.Count - 1);
-                }
-                else
-                {
-                    shouldSnapToPrevious = (currentIndex > 0);
-                }
+                Debug.Log("[BrowseController] Swipe too small, snapping back to current world");
             }
 
-            // Execute snap
+            // Execute world switch or snap back
             if (shouldSnapToNext)
             {
                 NavigateToNext();
@@ -508,9 +570,9 @@ namespace HorizonMini.Controllers
             }
             else
             {
-                // Snap back to current world
+                // Snap back to current world (scrollOffset = 0)
                 isSnapping = true;
-                snapToTargetOffset = 0f; // Snap back to zero offset
+                snapToTargetOffset = 0f;
             }
 
             // Reset velocity
@@ -552,12 +614,18 @@ namespace HorizonMini.Controllers
             if (currentIndex >= worldFeed.Count - 1)
                 return;
 
-            // Before changing index, compensate scrollOffset
-            // Camera is currently at: oldIndex * spacing + currentScrollOffset
-            // After increment: newIndex * spacing + newScrollOffset
-            // We want camera to stay in same Y position, so:
-            // oldIndex * spacing + currentScrollOffset = newIndex * spacing + newScrollOffset
-            // newScrollOffset = currentScrollOffset - worldSpacing
+            Debug.Log($"<color=cyan>[BrowseController] Switching to next world (index {currentIndex} -> {currentIndex + 1})</color>");
+
+            // Pause any active mini game before switching
+            if (BrowseMiniGameTrigger.Instance != null && BrowseMiniGameTrigger.Instance.IsPlaying)
+            {
+                BrowseMiniGameTrigger.Instance.PauseGame();
+                Debug.Log("[BrowseController] Paused mini game before switching to next world");
+            }
+
+            // Adjust scrollOffset for smooth transition
+            // Current offset is relative to old currentIndex
+            // After index++, we need to snap to 0 (which means old position + worldSpacing)
             currentScrollOffset -= worldSpacing;
 
             currentIndex++;
@@ -579,20 +647,26 @@ namespace HorizonMini.Controllers
             }
             LoadWorldAtSlot(2, newNextIndex);
 
-            // Update world positions (worlds stay at their fixed positions)
+            // Update world positions
             UpdateWorldPositions();
-            UpdateActivationLevels();
 
-            // Calculate optimal orthographic size for new world
+            // Calculate optimal camera distance for new world
             CalculateOptimalCameraDistance();
 
-            // Reset orbit and snap camera to new world center (scrollOffset = 0)
-            currentOrbitAngle = 0f;
+            // Snap to new world center (offset = 0)
             isSnapping = true;
             snapToTargetOffset = 0f;
 
+            // Reset orbit
+            currentOrbitAngle = 0f;
+
             // Start auto rotation immediately after switching
             isAutoRotating = true;
+
+            // Update mini game button visibility
+            UpdateMiniGameButtonVisibility();
+
+            Debug.Log($"<color=green>[BrowseController] ✓ Switched to world index {currentIndex}</color>");
         }
 
         private void NavigateToPrevious()
@@ -600,12 +674,16 @@ namespace HorizonMini.Controllers
             if (currentIndex <= 0)
                 return;
 
-            // Before changing index, compensate scrollOffset
-            // Camera is currently at: oldIndex * spacing + currentScrollOffset
-            // After decrement: newIndex * spacing + newScrollOffset
-            // We want camera to stay in same Y position, so:
-            // oldIndex * spacing + currentScrollOffset = newIndex * spacing + newScrollOffset
-            // newScrollOffset = currentScrollOffset + worldSpacing
+            Debug.Log($"<color=cyan>[BrowseController] Switching to previous world (index {currentIndex} -> {currentIndex - 1})</color>");
+
+            // Pause any active mini game before switching
+            if (BrowseMiniGameTrigger.Instance != null && BrowseMiniGameTrigger.Instance.IsPlaying)
+            {
+                BrowseMiniGameTrigger.Instance.PauseGame();
+                Debug.Log("[BrowseController] Paused mini game before switching to previous world");
+            }
+
+            // Adjust scrollOffset for smooth transition
             currentScrollOffset += worldSpacing;
 
             currentIndex--;
@@ -627,20 +705,26 @@ namespace HorizonMini.Controllers
             }
             LoadWorldAtSlot(0, newPrevIndex);
 
-            // Update world positions (worlds stay at their fixed positions)
+            // Update world positions
             UpdateWorldPositions();
-            UpdateActivationLevels();
 
-            // Calculate optimal orthographic size for new world
+            // Calculate optimal camera distance for new world
             CalculateOptimalCameraDistance();
 
-            // Reset orbit and snap camera to new world center (scrollOffset = 0)
-            currentOrbitAngle = 0f;
+            // Snap to new world center (offset = 0)
             isSnapping = true;
             snapToTargetOffset = 0f;
 
+            // Reset orbit
+            currentOrbitAngle = 0f;
+
             // Start auto rotation immediately after switching
             isAutoRotating = true;
+
+            // Update mini game button visibility
+            UpdateMiniGameButtonVisibility();
+
+            Debug.Log($"<color=green>[BrowseController] ✓ Switched to world index {currentIndex}</color>");
         }
 
         private void UpdateActivationLevels()
@@ -723,45 +807,8 @@ namespace HorizonMini.Controllers
             if (browseCamera == null)
                 return;
 
-            // Handle snap animation
-            if (isSnapping)
-            {
-                currentScrollOffset = Mathf.SmoothDamp(
-                    currentScrollOffset,
-                    snapToTargetOffset,
-                    ref snapAnimationVelocity,
-                    snapSpeed
-                );
-
-                // Stop snapping when close enough to target
-                if (Mathf.Abs(currentScrollOffset - snapToTargetOffset) < 0.01f)
-                {
-                    currentScrollOffset = snapToTargetOffset;
-                    isSnapping = false;
-                    snapAnimationVelocity = 0f;
-                }
-            }
-
-            // Calculate camera target Y position (in world space)
-            // currentIndex * worldSpacing gives the Y position of current world
-            float targetWorldY = currentIndex * worldSpacing;
-            float cameraTargetY = targetWorldY + currentScrollOffset;
-
-            // Get current world's XZ center (if available)
-            Vector3 lookAtPoint = new Vector3(0, cameraTargetY, 0);
-            if (loadedWorlds[1] != null)
-            {
-                try
-                {
-                    Vector3 gridCenter = loadedWorlds[1].GetVolumeGridCenter();
-                    lookAtPoint.x = gridCenter.x;
-                    lookAtPoint.z = gridCenter.z;
-                }
-                catch
-                {
-                    // Use default (0, 0)
-                }
-            }
+            // All worlds are at origin, so camera just looks at (0,0,0)
+            Vector3 lookAtPoint = Vector3.zero;
 
             // Smooth camera distance to target (for zoom effect)
             float baseTargetDistance = targetCameraDistance + manualZoomOffset;
@@ -789,12 +836,9 @@ namespace HorizonMini.Controllers
 
             Vector3 targetPos = lookAtPoint + offset;
 
-            // Direct update - SmoothDamp already handles smoothing via currentScrollOffset
+            // Direct update
             browseCamera.transform.position = targetPos;
             browseCamera.transform.LookAt(lookAtPoint);
-
-            // Update world activation levels based on scroll progress
-            UpdateActivationLevels();
         }
 
         private void UpdateCameraOrbitPosition()
@@ -803,29 +847,12 @@ namespace HorizonMini.Controllers
             if (browseCamera == null)
                 return;
 
-            // Calculate camera target Y position
-            float targetWorldY = currentIndex * worldSpacing;
-            float cameraTargetY = targetWorldY + currentScrollOffset;
-
-            // Get current world's XZ center
-            Vector3 lookAtPoint = new Vector3(0, cameraTargetY, 0);
-            if (loadedWorlds[1] != null)
-            {
-                try
-                {
-                    Vector3 gridCenter = loadedWorlds[1].GetVolumeGridCenter();
-                    lookAtPoint.x = gridCenter.x;
-                    lookAtPoint.z = gridCenter.z;
-                }
-                catch
-                {
-                    // Use default (0, 0)
-                }
-            }
+            // All worlds at origin
+            Vector3 lookAtPoint = Vector3.zero;
 
             float angleRad = cameraAngle * Mathf.Deg2Rad;
-            float horizontalDist = cameraDistance * Mathf.Cos(angleRad);
-            float verticalDist = cameraDistance * Mathf.Sin(angleRad);
+            float horizontalDist = currentCameraDistance * Mathf.Cos(angleRad);
+            float verticalDist = currentCameraDistance * Mathf.Sin(angleRad);
 
             float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
             Vector3 offset = new Vector3(
@@ -888,6 +915,223 @@ namespace HorizonMini.Controllers
             {
                 appRoot.SaveService.ToggleLike(worldId);
                 Debug.Log($"Toggled like for world: {worldId}");
+            }
+        }
+
+        private string GetGameObjectPath(GameObject obj)
+        {
+            string path = obj.name;
+            Transform current = obj.transform.parent;
+            while (current != null)
+            {
+                path = current.name + "/" + path;
+                current = current.parent;
+            }
+            return path;
+        }
+
+        /// <summary>
+        /// Disables volume grid visuals (wireframe) in Browse mode
+        /// </summary>
+        private void DisableVolumeVisuals(WorldInstance worldInstance)
+        {
+            if (worldInstance == null) return;
+
+            // Find all VolumeGrid components and disable their visuals
+            VolumeGrid[] volumeGrids = worldInstance.GetComponentsInChildren<VolumeGrid>();
+            foreach (var grid in volumeGrids)
+            {
+                grid.showBounds = false;
+
+                // Also directly disable the boundsVisual GameObject if it exists
+                Transform boundsVisual = grid.transform.Find("VolumeBounds");
+                if (boundsVisual != null)
+                {
+                    boundsVisual.gameObject.SetActive(false);
+                }
+            }
+
+            Debug.Log($"[BrowseController] Disabled volume visuals for world {worldInstance.WorldId} ({volumeGrids.Length} grids)");
+        }
+
+        /// <summary>
+        /// Ensures mini game exists in the given world instance (creates if missing)
+        /// </summary>
+        private void EnsureMiniGameExists(WorldInstance worldInstance)
+        {
+            if (worldInstance == null) return;
+
+            string worldId = worldInstance.WorldId;
+            WorldData worldData = appRoot.WorldLibrary.GetWorldData(worldId);
+
+            if (worldData == null || worldData.miniGames == null || worldData.miniGames.Count == 0)
+            {
+                // No mini game in this world
+                return;
+            }
+
+            // Check if mini game preview already exists
+            var existingPreview = worldInstance.GetComponentInChildren<HorizonMini.MiniGames.MiniGamePreview>();
+
+            if (existingPreview == null)
+            {
+                // Mini game not loaded yet - create it now!
+                MiniGameData gameData = worldData.miniGames[0];
+                Debug.Log($"<color=yellow>[BrowseController] EnsureMiniGameExists - Creating mini game for world {worldId}</color>");
+                appRoot.WorldLibrary.CreateMiniGameInWorld(worldInstance, gameData);
+            }
+            else
+            {
+                Debug.Log($"<color=green>[BrowseController] EnsureMiniGameExists - Mini game already exists in world {worldId}</color>");
+                Debug.Log($"[BrowseController] Preview GameObject: {existingPreview.gameObject.name}");
+                Debug.Log($"[BrowseController] Preview GameObject path: {GetGameObjectPath(existingPreview.gameObject)}");
+
+                // GameController might be on the same GameObject or a child
+                GameController gc = existingPreview.GetComponent<GameController>();
+                if (gc == null)
+                {
+                    Debug.Log("[BrowseController] GameController not on preview root, searching children...");
+                    gc = existingPreview.GetComponentInChildren<GameController>();
+                }
+
+                if (gc != null)
+                {
+                    Debug.Log($"[BrowseController] Found GameController on: {gc.gameObject.name}");
+                    Debug.Log($"[BrowseController] GameController state: {gc.State}");
+
+                    // Always start the game after a delay to ensure Start() has executed
+                    Debug.Log($"<color=yellow>[BrowseController] Scheduling auto-start after initialization...</color>");
+                    StartCoroutine(AutoStartGameAfterInit(gc, existingPreview.gameObject));
+                }
+                else
+                {
+                    Debug.LogError("[BrowseController] GameController not found in mini game preview!");
+                }
+            }
+        }
+
+        private System.Collections.IEnumerator LoadMiniGameAfterDelay(WorldInstance worldInstance, float delay)
+        {
+            Debug.Log($"<color=cyan>[BrowseController] Waiting {delay}s before loading mini game...</color>");
+            yield return new WaitForSeconds(delay);
+
+            Debug.Log($"<color=cyan>[BrowseController] Delay finished, loading mini game now</color>");
+            EnsureMiniGameExists(worldInstance);
+        }
+
+        private System.Collections.IEnumerator AutoStartGameAfterInit(GameController gc, GameObject gameInstance)
+        {
+            // Wait multiple frames to ensure Start() and all initialization is complete
+            Debug.Log($"<color=cyan>[BrowseController] Waiting for GameController to initialize...</color>");
+
+            // Wait 10 frames to be safe
+            for (int i = 0; i < 10; i++)
+            {
+                yield return null;
+            }
+
+            // Also wait for end of frame to ensure everything is settled
+            yield return new WaitForEndOfFrame();
+
+            Debug.Log($"<color=cyan>[BrowseController] After waiting, GameController state: {gc.State}</color>");
+
+            if (gc.State == GameState.Menu)
+            {
+                Debug.Log($"<color=yellow>[BrowseController] Starting game now...</color>");
+                gc.OnPlayerInput(); // This will call StartGame()
+            }
+            else
+            {
+                Debug.Log($"<color=cyan>[BrowseController] Game already in state: {gc.State}, not auto-starting</color>");
+            }
+
+            // Disable input so it's preview-only
+            yield return null;
+            var inputHandler = gameInstance.GetComponentInChildren<InputHandler>();
+            if (inputHandler != null)
+            {
+                inputHandler.enabled = false;
+                Debug.Log($"[BrowseController] Disabled InputHandler - game is now in preview mode");
+            }
+        }
+
+        private System.Collections.IEnumerator DisableInputAfterFrame(GameObject gameInstance)
+        {
+            yield return null;
+
+            var inputHandler = gameInstance.GetComponentInChildren<InputHandler>();
+            if (inputHandler != null)
+            {
+                inputHandler.enabled = false;
+                Debug.Log($"[BrowseController] Disabled InputHandler after auto-start");
+            }
+        }
+
+        /// <summary>
+        /// Updates mini game button visibility based on current world's MiniGameData
+        /// </summary>
+        private void UpdateMiniGameButtonVisibility()
+        {
+            Debug.Log("<color=yellow>[BrowseController] UpdateMiniGameButtonVisibility called</color>");
+
+            if (BrowseMiniGameTrigger.Instance == null)
+            {
+                Debug.LogWarning("[BrowseController] BrowseMiniGameTrigger.Instance is NULL! You need to add BrowseMiniGameTrigger to Main Scene.");
+                return;
+            }
+
+            Debug.Log("[BrowseController] BrowseMiniGameTrigger.Instance found");
+
+            // Get current world
+            WorldInstance currentWorld = loadedWorlds[1];
+            if (currentWorld == null)
+            {
+                Debug.LogWarning("[BrowseController] Current world is null");
+                BrowseMiniGameTrigger.Instance.SetPlayButtonVisible(false);
+                return;
+            }
+
+            // Check if world has mini games
+            string worldId = currentWorld.WorldId;
+            Debug.Log($"[BrowseController] Checking world: {worldId}");
+
+            WorldData worldData = appRoot.WorldLibrary.GetWorldData(worldId);
+
+            if (worldData == null)
+            {
+                Debug.LogWarning($"[BrowseController] WorldData is null for world {worldId}");
+                BrowseMiniGameTrigger.Instance.SetPlayButtonVisible(false);
+                return;
+            }
+
+            Debug.Log($"[BrowseController] WorldData found. miniGames count: {(worldData.miniGames != null ? worldData.miniGames.Count : 0)}");
+
+            if (worldData.miniGames != null && worldData.miniGames.Count > 0)
+            {
+                // This world has mini games
+                MiniGameData gameData = worldData.miniGames[0];
+
+                // Load mini game with delay (0.5s after world becomes center)
+                StartCoroutine(LoadMiniGameAfterDelay(currentWorld, 0.5f));
+
+                // If game is currently paused, resume it
+                if (BrowseMiniGameTrigger.Instance.IsPlaying && BrowseMiniGameTrigger.Instance.IsPaused)
+                {
+                    BrowseMiniGameTrigger.Instance.ResumeGame();
+                    Debug.Log($"<color=green>[BrowseController] ✓ Resumed paused game: {gameData.gameName}</color>");
+                }
+                else
+                {
+                    // Show play button
+                    BrowseMiniGameTrigger.Instance.SetPlayButtonVisible(true, gameData);
+                    Debug.Log($"<color=green>[BrowseController] ✓ Showing mini game button: {gameData.gameName}</color>");
+                }
+            }
+            else
+            {
+                // No mini games in this world
+                Debug.Log("[BrowseController] No mini games in this world");
+                BrowseMiniGameTrigger.Instance.SetPlayButtonVisible(false);
             }
         }
     }

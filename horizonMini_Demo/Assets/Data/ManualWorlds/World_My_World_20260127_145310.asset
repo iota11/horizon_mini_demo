@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb15f6930cc3c4e76a17f485a0bb23ad, type: 3}
+  m_Name: World_My_World_20260127_145310
+  m_EditorClassIdentifier: 
+  worldId: 05f93e20-563c-4f85-8a85-ae4b738d9cb9
+  worldTitle: My World
+  worldAuthor: Creator
+  isDraft: 0
+  gridDimensions: {x: 1, y: 1, z: 1}
+  volumes:
+  - gridPosition: {x: 0, y: 0, z: 0}
+    volumeType: default
+    rotationY: 0
+  props:
+  - propId: a9b0d3b5-9799-40ff-b10f-a3576a451de5
+    prefabName: spawn_point_player
+    position: {x: 6, y: 0.5, z: 2}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  miniGames: []
+  skyColor: {r: 0.5, g: 0.7, b: 1, a: 1}
+  gravity: -9.81

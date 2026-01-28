@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ed7d1467-5d1b-4b24-8846-474f601609b2
   displayName: ore_pile_silver
-  category: 6
+  category: 4
   prefab: {fileID: 1472676937734084, guid: 7cc62045fd20cc24b89c0655a4ee77f3, type: 3}
   icon: {fileID: 21300000, guid: cbff39954a6c7420eaf0a061d120fd1b, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

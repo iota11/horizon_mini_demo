@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 148a5279-b9c0-4541-bc31-83f611f38db5
   displayName: grass_bundle
-  category: 0
+  category: 1
   prefab: {fileID: 1608878759673784, guid: bd17fafe572e935479b707e56c58c8e9, type: 3}
   icon: {fileID: 21300000, guid: ab9929e5c4a4a473ba4fab433fcc6f10, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 817fc673-f3c8-4cf4-8ec8-849dd4e09081
   displayName: throne
-  category: 5
+  category: 4
   prefab: {fileID: 1584864392750310, guid: 0033ada4a0ae4754aaa7cd6cfc356c26, type: 3}
   icon: {fileID: 21300000, guid: fa5d9d1679a144929aa8e27d52b5c6d5, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

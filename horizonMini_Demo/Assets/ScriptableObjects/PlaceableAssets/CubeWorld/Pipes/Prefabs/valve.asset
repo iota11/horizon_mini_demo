@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 3d396086-bc70-4527-8256-c5e9967afe75
   displayName: valve
-  category: 7
+  category: 4
   prefab: {fileID: 1542684044370398, guid: e629a8612311c7b4dbdc470560f81566, type: 3}
   icon: {fileID: 21300000, guid: 9997eb02860c24e26b678f9d0c3ce802, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2b8ac043-b2da-4fed-bce4-efec049764de
   displayName: door_hatch_wood_light
-  category: 4
+  category: 0
   prefab: {fileID: 1883701251433696, guid: ef76dbe36e5d14775a54075f9fa851bc, type: 3}
   icon: {fileID: 21300000, guid: d6038edbef4e94726b5f3b93dabc2926, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

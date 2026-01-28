@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 4088df08-83c1-4576-a9da-02dee11676c5
   displayName: SmartTerrainChunk
-  category: 11
+  category: 10
   prefab: {fileID: 8161713623277301569, guid: 1756e573e32c74549b94a19b17cb8f19, type: 3}
   icon: {fileID: 21300000, guid: f451e2ecbf70d47659b8f3da0961ec08, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

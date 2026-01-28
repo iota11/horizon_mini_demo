@@ -25,7 +25,7 @@ namespace HorizonMini.Gameplay
         [Header("Attack Behavior")]
         [SerializeField] private float attackRange = 2f;
         [SerializeField] private float attackInterval = 1.5f;
-        [SerializeField] private float attackDamage = 10f;
+        [SerializeField] private float attackDamage = 30f;
 
         [Header("Wander Behavior")]
         [SerializeField] private float wanderSpeed = 2f;
@@ -377,9 +377,20 @@ namespace HorizonMini.Gameplay
 
             Debug.Log($"[AIEnemy] Attacking player for {attackDamage} damage!");
 
-            // TODO: Apply damage to player
-            // You can implement player damage here when you have a player health system
-            // Example: playerTransform.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
+            // Apply damage to player
+            if (playerTransform != null)
+            {
+                PlayerHealth playerHealth = playerTransform.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(attackDamage);
+                    Debug.Log($"[AIEnemy] ✓ Damaged player for {attackDamage}");
+                }
+                else
+                {
+                    Debug.LogWarning("[AIEnemy] Player has no PlayerHealth component!");
+                }
+            }
         }
 
         private void EnterDeathState()

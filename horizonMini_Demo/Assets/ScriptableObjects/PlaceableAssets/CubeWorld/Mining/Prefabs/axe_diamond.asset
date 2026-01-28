@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 316d0556-6fc7-4010-a85d-92b18164b852
   displayName: axe_diamond
-  category: 7
+  category: 4
   prefab: {fileID: 1706913371529224, guid: a90b8a8f64c187347b8b66e8cecaf8ba, type: 3}
   icon: {fileID: 21300000, guid: b74135d494eca42d9897d15b58406006, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

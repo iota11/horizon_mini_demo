@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 089f5219-95d9-46d6-a473-74038c570ba0
   displayName: ruby_pile
-  category: 6
+  category: 4
   prefab: {fileID: 1064923192376892, guid: a9df3730553afaa4ca1014580d35aef0, type: 3}
   icon: {fileID: 21300000, guid: 47272f3d311154f62a41b58992fec866, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

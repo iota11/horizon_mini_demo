@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Vase_With_Wheat
+  m_EditorClassIdentifier: 
+  assetId: 375f0e39-b800-4f38-bcd9-d3fb772f1617
+  displayName: Vase_With_Wheat
+  category: 4
+  prefab: {fileID: 6678548371889928550, guid: d66c300b98c0146f78eb6c55f55b05cc, type: 3}
+  icon: {fileID: 21300000, guid: 7ccce05adff20440ab661548f45fd9b8, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 7d6ff2cf-d5bb-4991-8577-1a9adb8e4420
   displayName: block_stone_large1_LOD_group
-  category: 4
+  category: 2
   prefab: {fileID: 3642582548507110187, guid: 38e333ec2f2094150bb84cd441dcbc56, type: 3}
   icon: {fileID: 21300000, guid: 7ced6cc875ac04eb1b7453aa68ad2054, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

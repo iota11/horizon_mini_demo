@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1bfb5954-bf04-4021-9ed7-7fcb6193d65f
   displayName: sword_metal
-  category: 7
+  category: 2
   prefab: {fileID: 1140533434436336, guid: 52455a4e8baa734468938ba5971dadd5, type: 3}
   icon: {fileID: 21300000, guid: d489cc0fcbda64225a1baf179d291bb0, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

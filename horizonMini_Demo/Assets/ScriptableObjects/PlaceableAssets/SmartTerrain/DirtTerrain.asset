@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: bcb6ac1e-85e9-477c-a2c8-05e926ff4f1a
   displayName: DirtTerrain
-  category: 11
+  category: 2
   prefab: {fileID: 4882465806634279086, guid: e64acf03b6d2641a5b25ad9029bc9590, type: 3}
   icon: {fileID: 21300000, guid: cfeb5c548a0b540729fbbec094dee1d6, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb15f6930cc3c4e76a17f485a0bb23ad, type: 3}
+  m_Name: World_My_World_20260125_020831
+  m_EditorClassIdentifier: 
+  worldId: 18402ac2-f469-4efd-83b8-32f7e7050150
+  worldTitle: My World
+  worldAuthor: Creator
+  isDraft: 0
+  gridDimensions: {x: 2, y: 2, z: 2}
+  volumes:
+  - gridPosition: {x: 0, y: 0, z: 0}
+    volumeType: default
+    rotationY: 0
+  props:
+  - propId: 42704a97-a301-4d8c-b439-35eb9213f640
+    prefabName: 0e321aae-9148-4b76-9544-11b566ccd615
+    position: {x: 8, y: 0, z: 8}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 8, y: 0.5, z: 8}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: 3b1bcd42-5869-4bbf-809b-018751c80752
+    prefabName: spawn_point_player
+    position: {x: 14, y: 0.5, z: 2}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  - propId: bd8facd1-21cd-4c64-8ac6-fa39b6939872
+    prefabName: 68b3afa2-8dd9-46a0-a8b2-24c85162a1b4
+    position: {x: 7, y: 0.99999994, z: 8.5}
+    rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+    scale: {x: 5, y: 5, z: 5}
+    smartTerrainControlPoint: {x: 0, y: 0, z: 0}
+    smartWallControlPoints: []
+    smartWallHeight: 2.5
+  skyColor: {r: 0.5, g: 0.7, b: 1, a: 1}
+  gravity: -9.81

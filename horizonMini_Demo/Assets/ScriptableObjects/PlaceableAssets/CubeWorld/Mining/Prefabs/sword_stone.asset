@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 32a48cbf-3aa3-4f83-8206-ad2cf2a9d1d7
   displayName: sword_stone
-  category: 7
+  category: 2
   prefab: {fileID: 1307515011458312, guid: 91e9d6b6c0394094186b59cb6d8b98fe, type: 3}
   icon: {fileID: 21300000, guid: c13fc093c9c974a79a4f7c5dba8d8ec9, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

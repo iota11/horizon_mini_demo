@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 0a60a17e-4390-427f-a907-4b866622ddf5
   displayName: crop_wheat_pile
-  category: 6
+  category: 8
   prefab: {fileID: 6339169681781958063, guid: e175ebb336d8f499cae7716eecb4963a, type: 3}
   icon: {fileID: 21300000, guid: 8087f92181bed40c48a29afea07ccb3c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

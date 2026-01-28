@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 3ee934e9-8e73-40b9-a067-11218bcbd6ff
   displayName: door_hinges_close
-  category: 4
+  category: 0
   prefab: {fileID: 1112967039998394, guid: 0c0a810d63b0ffb4d9e33dbed849f9d4, type: 3}
   icon: {fileID: 21300000, guid: b42fe00eb90bf466b9cc12e3b1de810a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

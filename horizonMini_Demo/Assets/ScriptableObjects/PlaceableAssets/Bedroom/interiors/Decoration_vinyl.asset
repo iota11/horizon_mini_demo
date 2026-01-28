@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Decoration_vinyl
+  m_EditorClassIdentifier: 
+  assetId: e69dadf4-5c52-4f53-97f0-87a0251a2f70
+  displayName: Decoration_vinyl
+  category: 4
+  prefab: {fileID: 5722102188599037469, guid: b21dd5a7a00934b67866922a42243a41, type: 3}
+  icon: {fileID: 21300000, guid: d0e56a82bbc8e4d6a9ba3a58eaf96be5, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

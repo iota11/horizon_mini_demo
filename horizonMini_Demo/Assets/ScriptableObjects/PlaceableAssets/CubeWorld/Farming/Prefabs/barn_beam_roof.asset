@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 6e196eff-431f-4223-901f-19c3bfb9e0ff
   displayName: barn_beam_roof
-  category: 3
+  category: 0
   prefab: {fileID: 3298037297712267850, guid: 1734005e905954831b18ed4e8459179b, type: 3}
   icon: {fileID: 21300000, guid: ff4890393d23e49a3a026452f53773ce, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

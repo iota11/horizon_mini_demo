@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Knife_1
+  m_EditorClassIdentifier: 
+  assetId: dff6f762-668f-4146-aaff-a780b66bebe6
+  displayName: Knife_1
+  category: 6
+  prefab: {fileID: 6271787818159251659, guid: b3a45d112e3734053a81fe84e3ca4903, type: 3}
+  icon: {fileID: 21300000, guid: c096d81288f75437c8beace33b24b2e0, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

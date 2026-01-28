@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 520a2e54-e826-4fec-be41-6ac27070feb5
   displayName: GneeralTerrain
-  category: 11
+  category: 4
   prefab: {fileID: 1246630849895017688, guid: 8bf5b928f94cc4b3cbed15b80251fc31, type: 3}
   icon: {fileID: 21300000, guid: e2c14745800cf4c9ba17b22c9577d746, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: bc66c932-4f7b-43ae-a16f-4b7d8c5c0ffc
   displayName: door_wood_light
-  category: 4
+  category: 0
   prefab: {fileID: 1363764433840838, guid: 682b0fd0345d74af8a7137fc7d72b34a, type: 3}
   icon: {fileID: 21300000, guid: 3a4acea8961104cba816f5153e720e4c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

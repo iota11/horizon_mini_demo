@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2b80ad26-7052-4cb4-a999-ce85c2c68d64
   displayName: block_stone1_3_half_dark_LOD_group
-  category: 4
+  category: 2
   prefab: {fileID: 5038050520799409975, guid: 5ebafd4750a614dbd81abf1955141cfa, type: 3}
   icon: {fileID: 21300000, guid: 453c95b43958f49e4921642f98cd2b05, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

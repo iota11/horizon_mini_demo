@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Books_7
+  m_EditorClassIdentifier: 
+  assetId: b97ddd86-32d7-4a71-ad63-6463ebe14fc4
+  displayName: Books_7
+  category: 11
+  prefab: {fileID: 5318150769707819916, guid: 7e3cb53d48fe7449faa5cb5b9bd8597f, type: 3}
+  icon: {fileID: 21300000, guid: 0da369a2a5ad749e88dd9f404efaee15, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

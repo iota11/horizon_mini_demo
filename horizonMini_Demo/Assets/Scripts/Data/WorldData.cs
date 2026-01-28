@@ -24,6 +24,9 @@ namespace HorizonMini.Data
         [Header("Props & Objects")]
         public List<PropData> props = new List<PropData>();
 
+        [Header("Mini Games")]
+        public List<MiniGameData> miniGames = new List<MiniGameData>();
+
         [Header("World Settings")]
         public Color skyColor = new Color(0.5f, 0.7f, 1f);
         public float gravity = -9.81f;
@@ -88,6 +91,23 @@ namespace HorizonMini.Data
         public PropData()
         {
             propId = Guid.NewGuid().ToString();
+        }
+    }
+
+    /// <summary>
+    /// Data for mini games in Browse mode
+    /// </summary>
+    [Serializable]
+    public class MiniGameData
+    {
+        public string gameId;
+        public string gameType; // "CubeStack", etc.
+        public string gameName = "Stack Game";
+        public Vector3 position; // Position in world (not used for Browse mode, but kept for future)
+
+        public MiniGameData()
+        {
+            gameId = Guid.NewGuid().ToString();
         }
     }
 }

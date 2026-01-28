@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 7ac38370-5dba-4c21-bc70-e4bf48a91457
   displayName: arrow_stone
-  category: 7
+  category: 2
   prefab: {fileID: 1694621673926126, guid: 1c2dbf038dd7c9f44b9ea73685e06f22, type: 3}
   icon: {fileID: 21300000, guid: 1e5cf7f99a597481f93cf4ef0e4101e7, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

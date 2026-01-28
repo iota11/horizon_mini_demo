@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 5d9aafb6-4ce3-4fdf-a13d-013171d83567
   displayName: shovel_diamond
-  category: 7
+  category: 4
   prefab: {fileID: 1554977164409078, guid: c4c3f3d42c4e6ca4ca77e068f470425f, type: 3}
   icon: {fileID: 21300000, guid: 684778114db6c4a33a15b1b77fdb284d, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

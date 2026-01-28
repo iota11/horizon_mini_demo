@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Flower_Craspedia
+  m_EditorClassIdentifier: 
+  assetId: f4b6ccda-1fec-4bfe-831d-0a5d8b77e774
+  displayName: Flower_Craspedia
+  category: 1
+  prefab: {fileID: 7778227701426679389, guid: 124ad481f003b45d2b829b2513438b46, type: 3}
+  icon: {fileID: 21300000, guid: bcb8beddfbca44e7383a95b112d6cc84, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

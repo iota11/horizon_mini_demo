@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 03971165-d9de-4f21-a1ab-516be035cd6f
   displayName: stun_hammer_lvl3
-  category: 7
+  category: 4
   prefab: {fileID: 2842908981879948164, guid: cc7986bc979484bd7a22608632dff01f, type: 3}
   icon: {fileID: 21300000, guid: aba4e2f4d201c4810b79ddaacdb49d7a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

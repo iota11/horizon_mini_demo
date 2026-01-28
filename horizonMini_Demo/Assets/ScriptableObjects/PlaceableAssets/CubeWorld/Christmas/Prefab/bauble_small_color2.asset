@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 7e6f0f5f-a7f4-4f82-a9ea-590131856219
   displayName: bauble_small_color2
-  category: 6
+  category: 4
   prefab: {fileID: 1271533864354670, guid: f98ffb1d1016b46aab34727de7844797, type: 3}
   icon: {fileID: 21300000, guid: ecda3aebea2164be98ca2c9263301503, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

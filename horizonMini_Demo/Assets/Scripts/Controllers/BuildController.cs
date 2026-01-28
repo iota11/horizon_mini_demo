@@ -1371,14 +1371,15 @@ namespace HorizonMini.Controllers
                         }
                         else
                         {
-                            // Check if this is a SmartHouse
-                            SmartHouse house = selectedObject.GetComponent<SmartHouse>();
-                            if (house != null)
+                            // Check if this is a SmartInnerWall
+                            SmartInnerWall innerWall = selectedObject.GetComponent<SmartInnerWall>();
+                            if (innerWall != null)
                             {
-                                // SmartHouse: ObjectCursor + FullControlPointCursor (XZ) + 2x HeightControlPointCursor (Y1, Y2)
-                                house.SetControlPointsVisible(true);
+                                // SmartInnerWall: same as SmartTerrain, create ObjectCursor + FullControlPointCursor
+                                // Activate control point (needed for FullControlPointCursor to track position)
+                                innerWall.SetControlPointVisible(true);
 
-                                // Create ObjectCursor for house
+                                // Create ObjectCursor for wall
                                 currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
                                 if (currentObjectCursor != null)
                                 {
@@ -1388,74 +1389,109 @@ namespace HorizonMini.Controllers
                                     currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
                                 }
 
-                                // Create FullControlPointCursor for XZ control point
-                                if (house.xzControlPoint != null)
+                                // Create FullControlPointCursor for control point
+                                if (innerWall.controlPoint != null)
                                 {
-                                    Vector3 xzControlPointWorldPos = house.xzControlPoint.position;
-                                    float yMin = house.transform.position.y;
+                                    Vector3 controlPointWorldPos = innerWall.controlPoint.position;
+                                    float yMin = innerWall.transform.position.y + 0.5f; // Use minSize.y
 
-                                    currentControlPointCursor = CreateFullControlPointCursor(xzControlPointWorldPos, yMin, buildContainer);
+                                    currentControlPointCursor = CreateFullControlPointCursor(controlPointWorldPos, yMin, buildContainer);
                                     if (currentControlPointCursor != null)
                                     {
-                                        currentControlPointCursor.SetTargetTransform(house.xzControlPoint);
-                                        currentControlPointCursor.OnPositionChanged.AddListener(house.OnXZControlPointPositionChanged);
-                                    }
-                                }
-
-                                // Get house size for positioning height cursors at bbox edges
-                                Vector3 houseSize = house.GetSize();
-                                float halfWidth = houseSize.x * 0.5f;
-
-                                // Create HeightControlPointCursor for Y1 control point (left edge)
-                                if (house.yControlPoint1 != null)
-                                {
-                                    Vector3 y1ControlPointWorldPos = house.yControlPoint1.position;
-                                    // Offset to left edge of bbox
-                                    y1ControlPointWorldPos.x = house.transform.position.x - halfWidth;
-                                    float minHeight = 0.5f;
-
-                                    currentHeightCursor = CreateHeightControlPointCursor(y1ControlPointWorldPos, minHeight, buildContainer);
-                                    if (currentHeightCursor != null)
-                                    {
-                                        currentHeightCursor.SetTargetHouse(house, true); // true = left edge
-                                        currentHeightCursor.OnPositionChanged.AddListener(house.OnY1ControlPointPositionChanged);
-                                    }
-                                }
-
-                                // Create HeightControlPointCursor for Y2 control point (right edge)
-                                if (house.yControlPoint2 != null)
-                                {
-                                    Vector3 y2ControlPointWorldPos = house.yControlPoint2.position;
-                                    // Offset to right edge of bbox
-                                    y2ControlPointWorldPos.x = house.transform.position.x + halfWidth;
-                                    float minHeight = 0.5f;
-
-                                    currentHeightCursor2 = CreateHeightControlPointCursor(y2ControlPointWorldPos, minHeight, buildContainer);
-                                    if (currentHeightCursor2 != null)
-                                    {
-                                        currentHeightCursor2.SetTargetHouse(house, false); // false = right edge
-                                        currentHeightCursor2.OnPositionChanged.AddListener(house.OnY2ControlPointPositionChanged);
+                                        // Set target transform so cursor follows control point when wall rotates
+                                        currentControlPointCursor.SetTargetTransform(innerWall.controlPoint);
+                                        currentControlPointCursor.OnPositionChanged.AddListener(innerWall.OnControlPointPositionChanged);
                                     }
                                 }
                             }
                             else
                             {
-                                // Check if this is a SpawnPoint
-                                SpawnPoint spawnPoint = selectedObject.GetComponent<SpawnPoint>();
-
-                                // Regular object or SpawnPoint: use ObjectCursor only
-                                currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
-                                if (currentObjectCursor != null)
+                                // Check if this is a SmartHouse
+                                SmartHouse house = selectedObject.GetComponent<SmartHouse>();
+                                if (house != null)
                                 {
-                                    currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
-                                    currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
-                                    currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
-                                    currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+                                    // SmartHouse: ObjectCursor + FullControlPointCursor (XZ) + 2x HeightControlPointCursor (Y1, Y2)
+                                    house.SetControlPointsVisible(true);
 
-                                    // If this is the initial spawn point, disable delete button
-                                    if (spawnPoint != null && spawnPoint.IsInitialSpawn)
+                                    // Create ObjectCursor for house
+                                    currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
+                                    if (currentObjectCursor != null)
                                     {
-                                        currentObjectCursor.SetDeleteEnabled(false);
+                                        currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
+                                        currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
+                                        currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
+                                        currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+                                    }
+
+                                    // Create FullControlPointCursor for XZ control point
+                                    if (house.xzControlPoint != null)
+                                    {
+                                        Vector3 xzControlPointWorldPos = house.xzControlPoint.position;
+                                        float yMin = house.transform.position.y;
+
+                                        currentControlPointCursor = CreateFullControlPointCursor(xzControlPointWorldPos, yMin, buildContainer);
+                                        if (currentControlPointCursor != null)
+                                        {
+                                            currentControlPointCursor.SetTargetTransform(house.xzControlPoint);
+                                            currentControlPointCursor.OnPositionChanged.AddListener(house.OnXZControlPointPositionChanged);
+                                        }
+                                    }
+
+                                    // Get house size for positioning height cursors at bbox edges
+                                    Vector3 houseSize = house.GetSize();
+                                    float halfWidth = houseSize.x * 0.5f;
+
+                                    // Create HeightControlPointCursor for Y1 control point (left edge)
+                                    if (house.yControlPoint1 != null)
+                                    {
+                                        Vector3 y1ControlPointWorldPos = house.yControlPoint1.position;
+                                        // Offset to left edge of bbox
+                                        y1ControlPointWorldPos.x = house.transform.position.x - halfWidth;
+                                        float minHeight = 0.5f;
+
+                                        currentHeightCursor = CreateHeightControlPointCursor(y1ControlPointWorldPos, minHeight, buildContainer);
+                                        if (currentHeightCursor != null)
+                                        {
+                                            currentHeightCursor.SetTargetHouse(house, true); // true = left edge
+                                            currentHeightCursor.OnPositionChanged.AddListener(house.OnY1ControlPointPositionChanged);
+                                        }
+                                    }
+
+                                    // Create HeightControlPointCursor for Y2 control point (right edge)
+                                    if (house.yControlPoint2 != null)
+                                    {
+                                        Vector3 y2ControlPointWorldPos = house.yControlPoint2.position;
+                                        // Offset to right edge of bbox
+                                        y2ControlPointWorldPos.x = house.transform.position.x + halfWidth;
+                                        float minHeight = 0.5f;
+
+                                        currentHeightCursor2 = CreateHeightControlPointCursor(y2ControlPointWorldPos, minHeight, buildContainer);
+                                        if (currentHeightCursor2 != null)
+                                        {
+                                            currentHeightCursor2.SetTargetHouse(house, false); // false = right edge
+                                            currentHeightCursor2.OnPositionChanged.AddListener(house.OnY2ControlPointPositionChanged);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // Check if this is a SpawnPoint
+                                    SpawnPoint spawnPoint = selectedObject.GetComponent<SpawnPoint>();
+
+                                    // Regular object or SpawnPoint: use ObjectCursor only
+                                    currentObjectCursor = CreateObjectCursor(selectedObject.transform, buildContainer);
+                                    if (currentObjectCursor != null)
+                                    {
+                                        currentObjectCursor.OnPositionChanged.AddListener(OnObjectPositionChanged);
+                                        currentObjectCursor.OnRotationChanged.AddListener(OnObjectRotationChanged);
+                                        currentObjectCursor.OnDeleteRequested.AddListener(OnObjectDeleteRequested);
+                                        currentObjectCursor.OnConfirmRequested.AddListener(OnObjectConfirmRequested);
+
+                                        // If this is the initial spawn point, disable delete button
+                                        if (spawnPoint != null && spawnPoint.IsInitialSpawn)
+                                        {
+                                            currentObjectCursor.SetDeleteEnabled(false);
+                                        }
                                     }
                                 }
                             }
@@ -1518,6 +1554,12 @@ namespace HorizonMini.Controllers
                 if (terrain != null)
                 {
                     terrain.SetControlPointVisible(false);
+                }
+
+                SmartInnerWall innerWall = selectedObject.GetComponent<SmartInnerWall>();
+                if (innerWall != null)
+                {
+                    innerWall.SetControlPointVisible(false);
                 }
 
                 SmartHouse house = selectedObject.GetComponent<SmartHouse>();
@@ -1777,6 +1819,11 @@ namespace HorizonMini.Controllers
                         worldData.isDraft = false;
                         saveService.SaveCreatedWorld(worldData);
                         Debug.Log($"<color=green>✓ World {currentWorldId} marked as PUBLISHED</color>");
+
+#if UNITY_EDITOR
+                        // Ask if user wants to save as permanent
+                        ShowPermanentSaveDialog(worldData, saveService);
+#endif
                     }
                 }
             }
@@ -1784,6 +1831,44 @@ namespace HorizonMini.Controllers
             // Return to Main scene
             UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         }
+
+#if UNITY_EDITOR
+        private void ShowPermanentSaveDialog(HorizonMini.Data.WorldData worldData, SaveService saveService)
+        {
+            bool saveAsPermanent = UnityEditor.EditorUtility.DisplayDialog(
+                "Save as Permanent World?",
+                $"Do you want to save '{worldData.worldTitle}' as a PERMANENT world?\n\n" +
+                "Permanent worlds:\n" +
+                "✓ Cannot be deleted by users\n" +
+                "✓ Saved as ScriptableObject assets\n" +
+                "✓ Can be version controlled\n" +
+                "✓ Will appear in the world library\n\n" +
+                "This is recommended for official/curated content.",
+                "Yes, Save as Permanent",
+                "No, Keep as Regular World");
+
+            if (saveAsPermanent)
+            {
+                HorizonMini.Build.PermanentWorldSaver.SaveAsPermanent(
+                    worldData.worldId,
+                    worldData.worldTitle,
+                    worldData.worldAuthor,
+                    saveService);
+
+                UnityEditor.EditorUtility.DisplayDialog(
+                    "Permanent World Created!",
+                    $"World '{worldData.worldTitle}' has been saved as a permanent world!\n\n" +
+                    "The asset has been created in:\n" +
+                    "Assets/Data/ManualWorlds/\n\n" +
+                    "This world is now protected from deletion.",
+                    "OK");
+            }
+            else
+            {
+                Debug.Log("[BuildController] User chose to keep world as regular (deletable) world");
+            }
+        }
+#endif
 
         /// <summary>
         /// Build NavMesh for the current scene - auto-creates NavMeshSurface if needed
@@ -1951,8 +2036,8 @@ namespace HorizonMini.Controllers
 
             // Bottom-right corner: positive X (right), negative Z (back/down when viewed from above)
             Vector3 spawnPos = volumeCenter;
-            spawnPos.x = volumeCenter.x + volumeSize.x / 2f - 0.5f; // Right edge, slightly inset
-            spawnPos.z = volumeCenter.z - volumeSize.z / 2f + 0.5f; // Back edge, slightly inset
+            spawnPos.x = volumeCenter.x + volumeSize.x / 2f - 2f; // Right edge, 2m inset to avoid falling off
+            spawnPos.z = volumeCenter.z - volumeSize.z / 2f + 2f; // Back edge, 2m inset to avoid falling off
             spawnPos.y = 0.5f; // Place on initial terrain surface
 
             GameObject spawnObj;
@@ -2090,6 +2175,13 @@ namespace HorizonMini.Controllers
             Debug.Log($"[BuildController] Saving {placedObjects.Count} placed objects...");
             foreach (var obj in placedObjects)
             {
+                // Skip null objects (may have been deleted by collision resolution)
+                if (obj == null)
+                {
+                    Debug.LogWarning($"[BuildController] Skipping null object in placedObjects list");
+                    continue;
+                }
+
                 Debug.Log($"[BuildController]   - Saving: {obj.name} (assetId: {obj.assetId})");
                 HorizonMini.Data.PropData propData = new HorizonMini.Data.PropData
                 {
@@ -2145,6 +2237,22 @@ namespace HorizonMini.Controllers
                 worldData.props.Add(propData);
             }
 
+            // Save MiniGame markers
+            worldData.miniGames.Clear();
+            HorizonMini.MiniGames.MiniGameMarker[] markers = FindObjectsOfType<HorizonMini.MiniGames.MiniGameMarker>();
+            Debug.Log($"[BuildController] Found {markers.Length} MiniGame markers");
+            foreach (var marker in markers)
+            {
+                HorizonMini.Data.MiniGameData gameData = new HorizonMini.Data.MiniGameData
+                {
+                    gameType = marker.gameType,
+                    gameName = marker.gameName,
+                    position = marker.transform.position
+                };
+                worldData.miniGames.Add(gameData);
+                Debug.Log($"[BuildController]   - Saved MiniGame: {marker.gameName} ({marker.gameType})");
+            }
+
             // Save via AppRoot or SaveService
             if (appRoot != null)
             {
@@ -2153,6 +2261,14 @@ namespace HorizonMini.Controllers
                 Debug.Log($"<color=green>  World ID: {worldData.worldId}</color>");
                 Debug.Log($"<color=green>  Grid Size: {worldData.gridDimensions}</color>");
                 Debug.Log($"<color=green>  Props Count: {worldData.props.Count}</color>");
+                Debug.Log($"<color=green>  MiniGames Count: {worldData.miniGames.Count}</color>");
+
+                // List all saved props for debugging
+                Debug.Log($"<color=cyan>[BuildController] Saved props list:</color>");
+                foreach (var prop in worldData.props)
+                {
+                    Debug.Log($"<color=cyan>  - {prop.prefabName} at {prop.position}</color>");
+                }
             }
             else
             {
@@ -2165,6 +2281,7 @@ namespace HorizonMini.Controllers
                     Debug.Log($"<color=green>  World ID: {worldData.worldId}</color>");
                     Debug.Log($"<color=green>  Grid Size: {worldData.gridDimensions}</color>");
                     Debug.Log($"<color=green>  Props Count: {worldData.props.Count}</color>");
+                    Debug.Log($"<color=green>  MiniGames Count: {worldData.miniGames.Count}</color>");
                 }
                 else
                 {
@@ -2402,6 +2519,30 @@ namespace HorizonMini.Controllers
             else
             {
                 Debug.LogError("[BuildController] No volume grid to confirm!");
+            }
+        }
+
+        /// <summary>
+        /// Register a PlacedObject to the placedObjects list (for AI-generated objects)
+        /// </summary>
+        public void RegisterPlacedObject(PlacedObject obj)
+        {
+            if (obj != null && !placedObjects.Contains(obj))
+            {
+                placedObjects.Add(obj);
+                Debug.Log($"[BuildController] Registered PlacedObject: {obj.name} (assetId: {obj.assetId})");
+            }
+        }
+
+        /// <summary>
+        /// Unregister a PlacedObject from the placedObjects list (for AI-deleted objects)
+        /// </summary>
+        public void UnregisterPlacedObject(PlacedObject obj)
+        {
+            if (obj != null && placedObjects.Contains(obj))
+            {
+                placedObjects.Remove(obj);
+                Debug.Log($"[BuildController] Unregistered PlacedObject: {obj.name} (assetId: {obj.assetId})");
             }
         }
     }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 83f0909c-1336-4ad6-93ec-025f2f828b6f
   displayName: fence_pole_2
-  category: 2
+  category: 0
   prefab: {fileID: 779527070898813576, guid: a2c62237b60ba4b27a497a3c727ac838, type: 3}
   icon: {fileID: 21300000, guid: a2241df6a27c94f039dab358688a7657, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

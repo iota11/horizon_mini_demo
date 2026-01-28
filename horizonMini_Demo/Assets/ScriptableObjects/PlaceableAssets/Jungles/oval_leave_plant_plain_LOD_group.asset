@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 568e2b55-b4aa-44c1-a5a1-1a496e74b301
   displayName: oval_leave_plant_plain_LOD_group
-  category: 0
+  category: 1
   prefab: {fileID: 5286026077992065340, guid: ea8e262b9af6e4d04b9a9b4a632145a7, type: 3}
   icon: {fileID: 21300000, guid: 60344e6bfaebd4048a8c5384b11adaad, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

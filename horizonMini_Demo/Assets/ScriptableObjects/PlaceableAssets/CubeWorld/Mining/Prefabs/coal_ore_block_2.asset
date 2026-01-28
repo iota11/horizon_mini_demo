@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d0524a04-2164-4d76-9d03-00cd27245dad
   displayName: coal_ore_block_2
-  category: 1
+  category: 4
   prefab: {fileID: 1385246506220152, guid: 70757438e7658c2468a6dfb4e1111f34, type: 3}
   icon: {fileID: 21300000, guid: 246922c882b424722a497f06ec647fc6, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

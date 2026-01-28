@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 408d7864-3788-48f6-8b05-a688751a3620
   displayName: jungle_monster_spear
-  category: 8
+  category: 4
   prefab: {fileID: 1891760236501512666, guid: a97c0950801cf4c6da6acc515d3b2143, type: 3}
   icon: {fileID: 21300000, guid: f2edab2a2382246da992c28123b0d25a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

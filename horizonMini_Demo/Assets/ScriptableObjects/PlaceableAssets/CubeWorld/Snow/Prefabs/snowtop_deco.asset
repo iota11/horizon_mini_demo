@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b82edc7f-acc4-4787-9183-6b2cee6044a4
   displayName: snowtop_deco
-  category: 6
+  category: 2
   prefab: {fileID: 1769333057782036, guid: 7392be118db297e45b2f56eff924da63, type: 3}
   icon: {fileID: 21300000, guid: e6b6584f4bc5e4e64a70a535e33a7002, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

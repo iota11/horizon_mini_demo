@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 94042bd4-ed3a-4f83-8159-a0027ee9fd8b
   displayName: barn_doorframe
-  category: 4
+  category: 0
   prefab: {fileID: 3655802458441191602, guid: e8a21873144ec4015ae0b704c21fa1b9, type: 3}
   icon: {fileID: 21300000, guid: 05674be3330b14fd4b7f9711d0d8f53f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

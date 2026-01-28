@@ -2,13 +2,21 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+
+# Unity generated folders (IGNORE these)
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
-[Bb]uild/
+/[Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
+
+# IMPORTANT: DO track source code folders!
+# Build folder contains source scripts, not build outputs
+!horizonMini_Demo/Assets/Scripts/Build/
+!horizonMini_Demo/Assets/Scripts/*/
+!horizonMini_Demo/Assets/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 7d7535d4-e4be-423b-9ca6-a2e10020bab2
   displayName: stair_stone1_straight_LOD_group
-  category: 4
+  category: 0
   prefab: {fileID: 4449596469423592890, guid: 03af26efcdbf941a99875a9bd09a1d27, type: 3}
   icon: {fileID: 21300000, guid: c8831fdb5eeed472db0812dd136747cc, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

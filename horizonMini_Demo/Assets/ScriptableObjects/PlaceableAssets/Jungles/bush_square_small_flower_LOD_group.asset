@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 7c5d611a-d890-41b1-96de-c60ff12d964a
   displayName: bush_square_small_flower_LOD_group
-  category: 0
+  category: 1
   prefab: {fileID: 1756767514328703087, guid: 061ebfbdde77b47589ba68bda76fcf63, type: 3}
   icon: {fileID: 21300000, guid: 33fe463179e6c457da6e150ad9a55e11, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

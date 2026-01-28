@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 532c2d56-5d74-4950-893f-77f395f0bd71
   displayName: sarcophagus
-  category: 5
+  category: 4
   prefab: {fileID: 1643989489368736, guid: b88491066c62f394a9ae7e21b4787f13, type: 3}
   icon: {fileID: 21300000, guid: f285cad2d327547c6843a2771ccce24f, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

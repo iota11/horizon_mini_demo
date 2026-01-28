@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 1e242b61-2a6b-492c-bda8-9be4a2440151
   displayName: sand_fall
-  category: 6
+  category: 2
   prefab: {fileID: 1008893551862254, guid: 60dd56e8ba336e142a2affba23fab5a2, type: 3}
   icon: {fileID: 21300000, guid: b21d6fe499d934464b479ac501ff51a3, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

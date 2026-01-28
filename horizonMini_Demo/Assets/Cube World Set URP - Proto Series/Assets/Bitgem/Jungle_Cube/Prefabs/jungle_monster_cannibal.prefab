@@ -3717,7 +3717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  detectionRange: 50
+  detectionRange: 10
   playerLayer:
     serializedVersion: 2
     m_Bits: 4294967295

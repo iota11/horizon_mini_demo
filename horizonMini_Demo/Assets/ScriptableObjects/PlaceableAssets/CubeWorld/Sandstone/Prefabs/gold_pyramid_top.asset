@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: dd5cefa3-0832-42d3-94d9-20895a84adca
   displayName: gold_pyramid_top
-  category: 6
+  category: 4
   prefab: {fileID: 1970403890845156, guid: c0802d0efc3a4f948aa244221f490f71, type: 3}
   icon: {fileID: 21300000, guid: 7d6efcd2f1dfe409fae7fa39a5d52967, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

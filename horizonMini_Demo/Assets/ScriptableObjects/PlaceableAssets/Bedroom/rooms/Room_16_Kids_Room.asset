@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Room_16_Kids_Room
+  m_EditorClassIdentifier: 
+  assetId: 8b78cd12-e813-4222-a6f1-027137ab91e6
+  displayName: Room_16_Kids_Room
+  category: 9
+  prefab: {fileID: 2471672429156570990, guid: 4a7b18a6344fb4525af384c3167b7cee, type: 3}
+  icon: {fileID: 21300000, guid: 4d39821767c7842c2ac44ee6c390ab3f, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Frame
+  m_EditorClassIdentifier: 
+  assetId: 68ea200e-fa24-40b4-8378-cf169f64257e
+  displayName: Frame
+  category: 4
+  prefab: {fileID: 7615857956939267536, guid: a138e4884df7341a583fb5de62f6cca3, type: 3}
+  icon: {fileID: 21300000, guid: 57c14d8b67f764dc3ab8afdcc4bd7476, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

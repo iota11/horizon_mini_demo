@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 9244a06a-b6d0-45c5-b6e4-c594a6b4bb96
   displayName: grass_deco_1
-  category: 0
+  category: 1
   prefab: {fileID: 1704270645521298, guid: 5d233c9f818e1c44bba611ba09afecde, type: 3}
   icon: {fileID: 21300000, guid: 922b1b2929d5949c698e6d48e0fd8c95, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

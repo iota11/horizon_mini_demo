@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a4d6a940-c42e-4fba-bdc4-129827e666f2
   displayName: chest_wood
-  category: 5
+  category: 2
   prefab: {fileID: 1265803993966126, guid: 77d54b7dafce7415b9406ca06fa75ef1, type: 3}
   icon: {fileID: 21300000, guid: f19c7a03c55044419be44aca36d4281c, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

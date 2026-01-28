@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 695e34ba-c13b-4af2-8f09-cad2cd12384e
   displayName: lever_floor
-  category: 7
+  category: 4
   prefab: {fileID: 1990719709704556, guid: e73da36d2489b4a40af35689e3ab4983, type: 3}
   icon: {fileID: 21300000, guid: 8cac619ad797b487a8564f9b4114feee, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

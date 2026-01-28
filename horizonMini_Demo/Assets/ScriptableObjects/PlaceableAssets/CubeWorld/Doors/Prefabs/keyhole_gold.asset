@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: b4b2de97-6f2c-4aca-815d-1a212e2286d6
   displayName: keyhole_gold
-  category: 7
+  category: 4
   prefab: {fileID: 1591550824962456, guid: e62a8c1ae853aed42b68d9d1fcc76747, type: 3}
   icon: {fileID: 21300000, guid: e463b81d94c93463fbe956717f5a302b, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

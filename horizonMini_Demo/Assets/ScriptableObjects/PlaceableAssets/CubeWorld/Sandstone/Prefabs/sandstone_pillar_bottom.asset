@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: d477d868-18b5-4612-810e-c6e9920194e6
   displayName: sandstone_pillar_bottom
-  category: 4
+  category: 2
   prefab: {fileID: 1095116155852058, guid: 17ce62ed8ba1ecf408a67817ad7892ce, type: 3}
   icon: {fileID: 21300000, guid: b212ce2c6f74042ee84801116619787a, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

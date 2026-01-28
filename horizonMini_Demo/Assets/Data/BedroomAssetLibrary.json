@@ -1,0 +1,3437 @@
+{
+    "assets": [
+        {
+            "assetId": "Book_1",
+            "displayName": "Book",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.17000000178813935,
+                0.03999999910593033,
+                0.20999999344348908
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_1",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.5199999809265137,
+                0.4099999964237213,
+                0.28999999165534975
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Armchair_1",
+            "displayName": "Armchair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.159999966621399,
+                1.4500000476837159,
+                0.8199999928474426
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Armchair_2",
+            "displayName": "Armchair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.7699999809265137,
+                1.350000023841858,
+                1.0299999713897706
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Armchair_3",
+            "displayName": "Armchair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.350000023841858,
+                1.2100000381469727,
+                1.0
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Armchair_4",
+            "displayName": "Armchair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.090000033378601,
+                1.190000057220459,
+                1.2000000476837159
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Bed_1",
+            "displayName": "Bed",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.8600000143051148,
+                1.440000057220459,
+                2.490000009536743
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "sleeping",
+                "essential"
+            ]
+        },
+        {
+            "assetId": "Bed_2",
+            "displayName": "Bed",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                2.5,
+                2.049999952316284,
+                2.8499999046325685
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "sleeping",
+                "essential"
+            ]
+        },
+        {
+            "assetId": "Bed_3",
+            "displayName": "Bed",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                2.7899999618530275,
+                2.1700000762939455,
+                1.7000000476837159
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "sleeping",
+                "essential"
+            ]
+        },
+        {
+            "assetId": "Blinds_1",
+            "displayName": "Blinds",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.319999933242798,
+                1.1299999952316285,
+                0.15000000596046449
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Blinds_2",
+            "displayName": "Blinds",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.009999990463257,
+                1.4199999570846558,
+                0.15000000596046449
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Blinds_3",
+            "displayName": "Blinds",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.4700000286102296,
+                0.6399999856948853,
+                0.14000000059604646
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Book_1",
+            "displayName": "Book",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.17000000178813935,
+                0.03999999910593033,
+                0.20999999344348908
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_1",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.5199999809265137,
+                0.4099999964237213,
+                0.28999999165534975
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_2",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.6800000071525574,
+                0.38999998569488528,
+                0.3100000023841858
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_3",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.49000000953674319,
+                0.28999999165534975,
+                0.23000000417232514
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_4",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                1.3600000143051148,
+                0.33000001311302187,
+                0.3499999940395355
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_5",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.8999999761581421,
+                0.20999999344348908,
+                0.30000001192092898
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_6",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.27000001072883608,
+                0.1599999964237213,
+                0.28999999165534975
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_7",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.8700000047683716,
+                0.3700000047683716,
+                0.36000001430511477
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_8",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.3799999952316284,
+                0.27000001072883608,
+                0.4099999964237213
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Books_9",
+            "displayName": "Books",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.5299999713897705,
+                0.30000001192092898,
+                0.23999999463558198
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Boombox",
+            "displayName": "Boombox",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.6600000262260437,
+                0.6700000166893005,
+                0.2199999988079071
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Box_1",
+            "displayName": "Box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.25,
+                0.3400000035762787,
+                0.25
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Box_2",
+            "displayName": "Box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                1.0700000524520875,
+                0.5600000023841858,
+                0.6299999952316284
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Box_3",
+            "displayName": "Box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.5799999833106995,
+                1.2400000095367432,
+                0.5799999833106995
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Box_4",
+            "displayName": "Box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.5899999737739563,
+                0.7400000095367432,
+                0.5899999737739563
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Bunk_bed",
+            "displayName": "Bunk bed",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                2.940000057220459,
+                2.7200000286102297,
+                1.8600000143051148
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "sleeping",
+                "essential"
+            ]
+        },
+        {
+            "assetId": "Cabinet_1",
+            "displayName": "Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.2400000095367432,
+                1.1699999570846558,
+                0.6800000071525574
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Cabinet_2",
+            "displayName": "Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.350000023841858,
+                2.4700000286102297,
+                0.7099999785423279
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Cabinet_3",
+            "displayName": "Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.8899999856948853,
+                2.559999942779541,
+                0.7799999713897705
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Cabinet_4",
+            "displayName": "Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.5199999809265137,
+                0.6399999856948853,
+                0.699999988079071
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Candle_1",
+            "displayName": "Candle",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.15000000596046449,
+                0.25999999046325686,
+                0.15000000596046449
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Candlestick_1",
+            "displayName": "Candlestick",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.05999999865889549,
+                0.6399999856948853,
+                0.05999999865889549
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Candlestick_2",
+            "displayName": "Candlestick",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.36000001430511477,
+                0.7400000095367432,
+                0.36000001430511477
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Candlestick_with_candles",
+            "displayName": "Candlestick with candles",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.28999999165534975,
+                0.5600000023841858,
+                0.23999999463558198
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Canopy_bed",
+            "displayName": "Canopy bed",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                2.4700000286102297,
+                3.9000000953674318,
+                3.0
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "sleeping",
+                "essential"
+            ]
+        },
+        {
+            "assetId": "Carpet_1",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                3.640000104904175,
+                0.019999999552965165,
+                2.640000104904175
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_2",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.9199999570846558,
+                0.009999999776482582,
+                2.5199999809265138
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_3",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                3.180000066757202,
+                0.009999999776482582,
+                3.180000066757202
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_4",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.7699999809265138,
+                0.009999999776482582,
+                3.619999885559082
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_5",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                4.090000152587891,
+                0.009999999776482582,
+                4.090000152587891
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_6",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.8700000047683716,
+                0.009999999776482582,
+                1.8300000429153443
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_7",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.1600000858306886,
+                0.009999999776482582,
+                1.4500000476837159
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_8",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                3.3299999237060549,
+                0.009999999776482582,
+                3.3299999237060549
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_9",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                4.239999771118164,
+                0.029999999329447748,
+                2.8499999046325685
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_10",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                3.25,
+                0.029999999329447748,
+                2.9000000953674318
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_12",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.859999895095825,
+                0.019999999552965165,
+                2.3499999046325685
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_13",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.809999942779541,
+                0.029999999329447748,
+                3.9600000381469728
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_14",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.590000033378601,
+                0.019999999552965165,
+                1.590000033378601
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_15",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                3.4800000190734865,
+                0.019999999552965165,
+                1.8799999952316285
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_16",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                3.5199999809265138,
+                0.029999999329447748,
+                3.5199999809265138
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_17",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.6500000953674318,
+                0.019999999552965165,
+                1.8600000143051148
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Carpet_18",
+            "displayName": "Carpet",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.940000057220459,
+                0.019999999552965165,
+                2.890000104904175
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Chair_1",
+            "displayName": "Chair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.9900000095367432,
+                1.350000023841858,
+                0.8899999856948853
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Chair_2",
+            "displayName": "Chair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.9100000262260437,
+                1.3799999952316285,
+                1.2899999618530274
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Chair_3",
+            "displayName": "Chair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.5299999713897705,
+                0.47999998927116396,
+                0.3199999928474426
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Chair_4",
+            "displayName": "Chair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.9200000166893005,
+                1.2799999713897706,
+                0.8399999737739563
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Chair_5",
+            "displayName": "Chair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.4300000071525574,
+                0.6200000047683716,
+                0.5299999713897705
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Chair_6",
+            "displayName": "Chair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.6600000262260437,
+                0.4699999988079071,
+                0.699999988079071
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Chair_7",
+            "displayName": "Chair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.5299999713897705,
+                0.9399999976158142,
+                0.49000000953674319
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Chair_8",
+            "displayName": "Chair",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.7599999904632568,
+                1.2599999904632569,
+                0.8500000238418579
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Chandelier_1",
+            "displayName": "Chandelier",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.23999999463558198,
+                0.8600000143051148,
+                0.18000000715255738
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Chandelier_2",
+            "displayName": "Chandelier",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.8999999761581421,
+                1.690000057220459,
+                0.8899999856948853
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Chandelier_3",
+            "displayName": "Chandelier",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.5,
+                1.090000033378601,
+                0.5
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Chandelier_4",
+            "displayName": "Chandelier",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.4000000059604645,
+                0.8100000023841858,
+                0.20000000298023225
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Chest_1",
+            "displayName": "Chest",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.46000000834465029,
+                0.3400000035762787,
+                0.3199999928474426
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Chest_2",
+            "displayName": "Chest",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.25999999046325686,
+                0.11999999731779099,
+                0.18000000715255738
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Chest_3",
+            "displayName": "Chest",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.30000001192092898,
+                0.23000000417232514,
+                0.2199999988079071
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Clock_1",
+            "displayName": "Clock",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.6899999976158142,
+                0.6899999976158142,
+                0.029999999329447748
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Clock_2",
+            "displayName": "Clock",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.20999999344348908,
+                0.27000001072883608,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Clown_Box",
+            "displayName": "Clown Box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.8500000238418579,
+                1.2000000476837159,
+                0.7200000286102295
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtain_1",
+            "displayName": "Curtain",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.0499999523162842,
+                2.7799999713897707,
+                0.4099999964237213
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtains_1",
+            "displayName": "Curtains",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                3.5899999141693117,
+                3.359999895095825,
+                0.3100000023841858
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtains_2",
+            "displayName": "Curtains",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.059999942779541,
+                1.2599999904632569,
+                0.20000000298023225
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtains_3",
+            "displayName": "Curtains",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                3.7200000286102297,
+                3.630000114440918,
+                0.49000000953674319
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtains_4",
+            "displayName": "Curtains",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.9599999785423279,
+                3.4100000858306886,
+                0.07000000029802323
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtains_5",
+            "displayName": "Curtains",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.9900000095367432,
+                1.8300000429153443,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtains_6",
+            "displayName": "Curtains",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.9599999785423279,
+                3.4100000858306886,
+                0.07000000029802323
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtains_7",
+            "displayName": "Curtains",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                2.3399999141693117,
+                3.2899999618530275,
+                0.25999999046325686
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Curtains_8",
+            "displayName": "Curtains",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.7999999523162842,
+                3.309999942779541,
+                0.4699999988079071
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Dresser",
+            "displayName": "Dresser",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.8600000143051148,
+                1.4199999570846558,
+                0.8799999952316284
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Flower_1",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.2200000286102296,
+                1.3899999856948853,
+                0.8500000238418579
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_2",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.2999999523162842,
+                1.2100000381469727,
+                1.1399999856948853
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_3",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.5899999737739563,
+                0.5199999809265137,
+                0.38999998569488528
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_4",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.4699999988079071,
+                0.6299999952316284,
+                0.33000001311302187
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_5",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.7400000095367432,
+                0.75,
+                0.8700000047683716
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_6",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.23999999463558198,
+                0.49000000953674319,
+                0.28999999165534975
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_7",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.4000000059604645,
+                0.3100000023841858,
+                0.4000000059604645
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_8",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.6399999856948853,
+                0.8500000238418579,
+                0.47999998927116396
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_9",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.5299999713897705,
+                0.8299999833106995,
+                0.4000000059604645
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_10",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.159999966621399,
+                1.7999999523162842,
+                1.3700000047683716
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_11",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.7699999809265137,
+                0.8299999833106995,
+                0.7799999713897705
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_12",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.8500000238418579,
+                2.0299999713897707,
+                1.0
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_13",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.3400000035762787,
+                0.27000001072883608,
+                0.33000001311302187
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_14",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.3400000035762787,
+                0.27000001072883608,
+                0.33000001311302187
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_15",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.47999998927116396,
+                0.5799999833106995,
+                0.41999998688697817
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_16",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.33000001311302187,
+                0.27000001072883608,
+                0.3400000035762787
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_17",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.3499999940395355,
+                0.4300000071525574,
+                0.25
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_18",
+            "displayName": "Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.3100000023841858,
+                0.23000000417232514,
+                0.30000001192092898
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_Cactus",
+            "displayName": "Flower Cactus",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.25,
+                0.3799999952316284,
+                0.1899999976158142
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_Craspedia",
+            "displayName": "Flower Craspedia",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.1599999964237213,
+                0.7699999809265137,
+                0.15000000596046449
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_Fern",
+            "displayName": "Flower Fern",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.7400000095367432,
+                0.9100000262260437,
+                0.8299999833106995
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_on_a_stand_1",
+            "displayName": "Flower on a stand",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.8700000047683716,
+                1.2200000286102296,
+                1.0399999618530274
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_on_a_stand_2",
+            "displayName": "Flower on a stand",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.6899999976158142,
+                0.9700000286102295,
+                0.7799999713897705
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flower_Palm",
+            "displayName": "Flower Palm",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.1100000143051148,
+                1.7000000476837159,
+                1.1299999952316285
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flowers",
+            "displayName": "Flowers",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.3899999856948853,
+                0.9700000286102295,
+                0.9399999976158142
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flowers_1",
+            "displayName": "Flowers",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.8299999833106995,
+                0.550000011920929,
+                0.6200000047683716
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flowers_2",
+            "displayName": "Flowers",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.659999966621399,
+                0.550000011920929,
+                0.6100000143051148
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Flowers_3",
+            "displayName": "Flowers",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.36000001430511477,
+                0.4300000071525574,
+                0.3799999952316284
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Hand_mirror",
+            "displayName": "Hand mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.10000000149011612,
+                0.019999999552965165,
+                0.30000001192092898
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Jukebox",
+            "displayName": "Jukebox",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.9700000286102295,
+                1.7400000095367432,
+                0.8799999952316284
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Kitchen_Cabinet_1",
+            "displayName": "Kitchen Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.5600000023841858,
+                1.059999942779541,
+                0.7900000214576721
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Kitchen_Cabinet_2",
+            "displayName": "Kitchen Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.1200000047683716,
+                0.9599999785423279,
+                0.44999998807907107
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Kitchen_Cabinet_3",
+            "displayName": "Kitchen Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.1200000047683716,
+                1.059999942779541,
+                0.7799999713897705
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Kitchen_Cabinet_4",
+            "displayName": "Kitchen Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.1200000047683716,
+                1.059999942779541,
+                0.7799999713897705
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Kitchen_Cabinet_5",
+            "displayName": "Kitchen Cabinet",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.1200000047683716,
+                1.059999942779541,
+                0.7799999713897705
+            ],
+            "tags": [
+                "furniture",
+                "large",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Lamp_1",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.44999998807907107,
+                0.6600000262260437,
+                0.44999998807907107
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Lamp_2",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.6100000143051148,
+                0.8600000143051148,
+                0.6100000143051148
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Lamp_3",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.3700000047683716,
+                0.699999988079071,
+                0.3700000047683716
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Lamp_4",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.23000000417232514,
+                0.46000000834465029,
+                0.23000000417232514
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Lamp_5",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.7799999713897705,
+                2.799999952316284,
+                0.7599999904632568
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Lamp_6",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.3100000023841858,
+                0.6600000262260437,
+                0.3100000023841858
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Lamp_7",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.49000000953674319,
+                0.800000011920929,
+                0.49000000953674319
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Lamp_8",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.2199999988079071,
+                0.5799999833106995,
+                0.3700000047683716
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Lamp_9",
+            "displayName": "Lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.7599999904632568,
+                2.200000047683716,
+                1.0
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Light_1",
+            "displayName": "Light",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.7699999809265137,
+                0.1899999976158142,
+                0.019999999552965165
+            ],
+            "tags": [
+                "lighting",
+                "medium",
+                "lighting"
+            ]
+        },
+        {
+            "assetId": "Mailbox",
+            "displayName": "Mailbox",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.18000000715255738,
+                1.3300000429153443,
+                0.5799999833106995
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Mirror_1",
+            "displayName": "Mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.6100000143051148,
+                1.2899999618530274,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Mirror_2",
+            "displayName": "Mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.3899999856948853,
+                1.3899999856948853,
+                0.20000000298023225
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Mirror_3",
+            "displayName": "Mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.9200000166893005,
+                0.9200000166893005,
+                0.11999999731779099
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Mirror_4",
+            "displayName": "Mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.9700000286102295,
+                2.059999942779541,
+                0.6200000047683716
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Mirror_5",
+            "displayName": "Mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.8899999856948853,
+                1.4299999475479127,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Mirror_6",
+            "displayName": "Mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.5600000023841858,
+                0.6899999976158142,
+                0.05999999865889549
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Mirror_7",
+            "displayName": "Mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.5299999713897705,
+                0.8399999737739563,
+                0.3199999928474426
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Mirror_8",
+            "displayName": "Mirror",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.690000057220459,
+                1.3899999856948853,
+                0.10000000149011612
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Nightstand_1",
+            "displayName": "Nightstand",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.0299999713897706,
+                1.1399999856948853,
+                0.8999999761581421
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Nightstand_2",
+            "displayName": "Nightstand",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.6299999952316284,
+                0.7699999809265137,
+                0.4300000071525574
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Open_Book_1",
+            "displayName": "Open Book",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.30000001192092898,
+                0.07000000029802323,
+                0.23000000417232514
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Open_Book_2",
+            "displayName": "Open Book",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.33000001311302187,
+                0.05999999865889549,
+                0.25999999046325686
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Painting_1",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.409999966621399,
+                0.8500000238418579,
+                0.09000000357627869
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Painting_2",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.2400000095367432,
+                0.9399999976158142,
+                0.05999999865889549
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Painting_3",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.800000011920929,
+                0.949999988079071,
+                0.12999999523162843
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Painting_4",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.3700000047683716,
+                0.44999998807907107,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Painting_5",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.47999998927116396,
+                0.6299999952316284,
+                0.12999999523162843
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Painting_6",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.5400000214576721,
+                0.8399999737739563,
+                0.03999999910593033
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Painting_7",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.5400000214576721,
+                0.8399999737739563,
+                0.03999999910593033
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Painting_8",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.5400000214576721,
+                0.8399999737739563,
+                0.03999999910593033
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Painting_9",
+            "displayName": "Painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.699999988079071,
+                1.1399999856948853,
+                0.10999999940395355
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photo_1",
+            "displayName": "Photo",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.14000000059604646,
+                0.0,
+                0.1599999964237213
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photo_2",
+            "displayName": "Photo",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.14000000059604646,
+                0.0,
+                0.1599999964237213
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photo_3",
+            "displayName": "Photo",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.14000000059604646,
+                0.0,
+                0.1599999964237213
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photo_4",
+            "displayName": "Photo",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.14000000059604646,
+                0.0,
+                0.1599999964237213
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_1",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.1899999976158142,
+                0.25999999046325686,
+                0.10999999940395355
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_2",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.1899999976158142,
+                0.25999999046325686,
+                0.10999999940395355
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_3",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.3400000035762787,
+                0.25,
+                0.14000000059604646
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_4",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.1599999964237213,
+                0.11999999731779099,
+                0.07000000029802323
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_5",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.12999999523162843,
+                0.09000000357627869,
+                0.05000000074505806
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_6",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.18000000715255738,
+                0.15000000596046449,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_7",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.18000000715255738,
+                0.15000000596046449,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_8",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.3400000035762787,
+                0.25,
+                0.14000000059604646
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_9",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.23999999463558198,
+                0.18000000715255738,
+                0.10000000149011612
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_10",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.30000001192092898,
+                0.23000000417232514,
+                0.14000000059604646
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_11",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.17000000178813935,
+                0.23999999463558198,
+                0.10000000149011612
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframe_12",
+            "displayName": "Photoframe",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.3400000035762787,
+                0.2800000011920929,
+                0.15000000596046449
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Photoframes",
+            "displayName": "Photoframes",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.28999999165534975,
+                1.0800000429153443,
+                0.009999999776482582
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_1",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.2599999904632569,
+                1.2200000286102296,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_2",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.3200000524520875,
+                1.0299999713897706,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_3",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.3200000524520875,
+                1.0299999713897706,
+                0.07999999821186066
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_4",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.800000011920929,
+                1.0499999523162842,
+                0.10000000149011612
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_5",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.3200000524520875,
+                1.5800000429153443,
+                0.019999999552965165
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_6",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.800000011920929,
+                0.8399999737739563,
+                0.10000000149011612
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_7",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.8299999833106995,
+                1.159999966621399,
+                0.05000000074505806
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_8",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.8299999833106995,
+                1.159999966621399,
+                0.05000000074505806
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_9",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.8299999833106995,
+                1.159999966621399,
+                0.05000000074505806
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_10",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.1299999952316285,
+                1.409999966621399,
+                0.09000000357627869
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_11",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.440000057220459,
+                1.940000057220459,
+                0.10999999940395355
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_12",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.0399999618530274,
+                0.8100000023841858,
+                0.05999999865889549
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_13",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                1.059999942779541,
+                0.8199999928474426,
+                0.05999999865889549
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Picture_14",
+            "displayName": "Picture",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.800000011920929,
+                1.0499999523162842,
+                0.09000000357627869
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Pillow_1",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.7900000214576721,
+                0.46000000834465029,
+                0.20000000298023225
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_2",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.41999998688697817,
+                0.3700000047683716,
+                0.17000000178813935
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_3",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.4399999976158142,
+                0.38999998569488528,
+                0.18000000715255738
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_4",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.4399999976158142,
+                0.3799999952316284,
+                0.18000000715255738
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_5",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.8500000238418579,
+                0.3799999952316284,
+                0.2199999988079071
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_6",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.38999998569488528,
+                0.38999998569488528,
+                0.07000000029802323
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_7",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.5899999737739563,
+                0.3700000047683716,
+                0.09000000357627869
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_8",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.7699999809265137,
+                0.5699999928474426,
+                0.25
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_9",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.6700000166893005,
+                0.41999998688697817,
+                0.20999999344348908
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_10",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.699999988079071,
+                0.3799999952316284,
+                0.14000000059604646
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pillow_11",
+            "displayName": "Pillow",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.49000000953674319,
+                0.27000001072883608,
+                0.10000000149011612
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Pizza_Box",
+            "displayName": "Pizza Box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.6200000047683716,
+                0.07999999821186066,
+                0.6200000047683716
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Plant_1",
+            "displayName": "Plant",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.0399999618530274,
+                2.490000009536743,
+                1.4900000095367432
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Plant_2",
+            "displayName": "Plant",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.2000000476837159,
+                1.6200000047683716,
+                1.5700000524520875
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Plant_3",
+            "displayName": "Plant",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.190000057220459,
+                2.549999952316284,
+                1.2300000190734864
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Plant_4",
+            "displayName": "Plant",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.0700000524520875,
+                0.9700000286102295,
+                1.2300000190734864
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Plant_5",
+            "displayName": "Plant",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.1399999856948853,
+                0.8399999737739563,
+                0.949999988079071
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Plant_6",
+            "displayName": "Plant",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.5899999737739563,
+                0.49000000953674319,
+                0.5799999833106995
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Plant_7",
+            "displayName": "Plant",
+            "category": "Nature",
+            "boundingBoxSize": [
+                1.3200000524520875,
+                1.0199999809265137,
+                1.4600000381469727
+            ],
+            "tags": [
+                "nature",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Sheets",
+            "displayName": "Sheets",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.9399999976158142,
+                0.10000000149011612,
+                0.38999998569488528
+            ],
+            "tags": [
+                "decoration",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Shelf_1",
+            "displayName": "Shelf",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                3.0799999237060549,
+                0.7900000214576721,
+                0.6000000238418579
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Shelf_2",
+            "displayName": "Shelf",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.2100000381469727,
+                0.07000000029802323,
+                0.4699999988079071
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Shelf_3",
+            "displayName": "Shelf",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.2000000476837159,
+                2.559999942779541,
+                0.8100000023841858
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Shelf_4",
+            "displayName": "Shelf",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                2.259999990463257,
+                0.949999988079071,
+                0.46000000834465029
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Shelf_5",
+            "displayName": "Shelf",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.1399999856948853,
+                1.3300000429153443,
+                0.1599999964237213
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Shelf_6",
+            "displayName": "Shelf",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.1200000047683716,
+                0.7900000214576721,
+                0.3799999952316284
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Shelf_7",
+            "displayName": "Shelf",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                1.1100000143051148,
+                0.07000000029802323,
+                0.28999999165534975
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Shelf_8",
+            "displayName": "Shelf",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                2.0999999046325685,
+                1.8600000143051148,
+                0.15000000596046449
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "storage"
+            ]
+        },
+        {
+            "assetId": "Stand_for_painting",
+            "displayName": "Stand for painting",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.7400000095367432,
+                1.0,
+                0.44999998807907107
+            ],
+            "tags": [
+                "decoration",
+                "medium",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Stool_1",
+            "displayName": "Stool",
+            "category": "Furniture",
+            "boundingBoxSize": [
+                0.5699999928474426,
+                0.7599999904632568,
+                0.5699999928474426
+            ],
+            "tags": [
+                "furniture",
+                "medium",
+                "seating"
+            ]
+        },
+        {
+            "assetId": "Storage_Box_1",
+            "displayName": "Storage Box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.7300000190734863,
+                0.3799999952316284,
+                0.3799999952316284
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Storage_box_2",
+            "displayName": "Storage box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.5799999833106995,
+                0.30000001192092898,
+                0.3199999928474426
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Vase_1",
+            "displayName": "Vase",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.47999998927116396,
+                0.20999999344348908,
+                0.47999998927116396
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_2",
+            "displayName": "Vase",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.18000000715255738,
+                0.28999999165534975,
+                0.18000000715255738
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_3",
+            "displayName": "Vase",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.12999999523162843,
+                0.25999999046325686,
+                0.12999999523162843
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_4",
+            "displayName": "Vase",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.46000000834465029,
+                0.4000000059604645,
+                0.28999999165534975
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_5",
+            "displayName": "Vase",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.5,
+                0.6899999976158142,
+                0.3799999952316284
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_6",
+            "displayName": "Vase",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.2800000011920929,
+                0.5,
+                0.2800000011920929
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_With_Daisies_1",
+            "displayName": "Vase With Daisies",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.30000001192092898,
+                0.3400000035762787,
+                0.3100000023841858
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_With_Daisies_2",
+            "displayName": "Vase With Daisies",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.15000000596046449,
+                0.17000000178813935,
+                0.1599999964237213
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_With_Daisies_3",
+            "displayName": "Vase With Daisies",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.23999999463558198,
+                0.2800000011920929,
+                0.25
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_with_Flower_1",
+            "displayName": "Vase with Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.2199999988079071,
+                0.6200000047683716,
+                0.14000000059604646
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_with_Flower_2",
+            "displayName": "Vase with Flower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.36000001430511477,
+                0.5600000023841858,
+                0.38999998569488528
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_with_Flowers_1",
+            "displayName": "Vase with Flowers",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.27000001072883608,
+                0.75,
+                0.25999999046325686
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_with_Flowers_2",
+            "displayName": "Vase with Flowers",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.5199999809265137,
+                0.7099999785423279,
+                0.5099999904632568
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_with_Flowers_3",
+            "displayName": "Vase with Flowers",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.4099999964237213,
+                0.3100000023841858,
+                0.4000000059604645
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_with_sunflower",
+            "displayName": "Vase with sunflower",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.2800000011920929,
+                0.6899999976158142,
+                0.10000000149011612
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vase_With_Wheat",
+            "displayName": "Vase With Wheat",
+            "category": "Nature",
+            "boundingBoxSize": [
+                0.23000000417232514,
+                0.6600000262260437,
+                0.23000000417232514
+            ],
+            "tags": [
+                "nature",
+                "small",
+                "decorative"
+            ]
+        },
+        {
+            "assetId": "Vinyl_box_1",
+            "displayName": "Vinyl box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.28999999165534975,
+                0.0,
+                0.28999999165534975
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Vinyl_box_2",
+            "displayName": "Vinyl box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.28999999165534975,
+                0.0,
+                0.28999999165534975
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Vinyl_box_3",
+            "displayName": "Vinyl box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.28999999165534975,
+                0.0,
+                0.28999999165534975
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Vinyl_box_4",
+            "displayName": "Vinyl box",
+            "category": "Misc",
+            "boundingBoxSize": [
+                0.28999999165534975,
+                0.0,
+                0.28999999165534975
+            ],
+            "tags": [
+                "misc",
+                "medium"
+            ]
+        },
+        {
+            "assetId": "Wall_Clock",
+            "displayName": "Wall Clock",
+            "category": "Decoration",
+            "boundingBoxSize": [
+                0.4399999976158142,
+                0.4699999988079071,
+                0.07000000029802323
+            ],
+            "tags": [
+                "decoration",
+                "small"
+            ]
+        },
+        {
+            "assetId": "Wall_lamp_1",
+            "displayName": "Wall lamp",
+            "category": "Lighting",
+            "boundingBoxSize": [
+                0.28999999165534975,
+                0.36000001430511477,
+                0.20000000298023225
+            ],
+            "tags": [
+                "lighting",
+                "small",
+                "lighting"
+            ]
+        }
+    ]
+}

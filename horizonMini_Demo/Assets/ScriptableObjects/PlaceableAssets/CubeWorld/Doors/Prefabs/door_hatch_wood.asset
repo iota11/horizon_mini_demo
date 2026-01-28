@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: ac25eef7-e8d2-4abb-8a2f-da593beeea9e
   displayName: door_hatch_wood
-  category: 4
+  category: 0
   prefab: {fileID: 1238522302040234, guid: 0f013705cf7a8244497a0ac085334426, type: 3}
   icon: {fileID: 21300000, guid: 1a1944f3ed8894f2f8bd8dfbfcdbe6c8, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

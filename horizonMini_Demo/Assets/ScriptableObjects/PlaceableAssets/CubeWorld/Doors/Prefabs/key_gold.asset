@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 27468b14-1b5a-4620-b23a-f6b545567af8
   displayName: key_gold
-  category: 7
+  category: 4
   prefab: {fileID: 1505379992639428441, guid: c78078fef71184bdf97ad340ab9a0956, type: 3}
   icon: {fileID: 21300000, guid: f0c7ef461e9fd40179447646f7722a46, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

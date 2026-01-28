@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 8ff7a825-1441-4edf-a0ed-474f27b2bb40
   displayName: door_stone_right
-  category: 4
+  category: 0
   prefab: {fileID: 1795032680364926, guid: 90f320bd0345d714793e3a2e10ac0b1e, type: 3}
   icon: {fileID: 21300000, guid: 50bac007067074c17a8b3bbbf88fd568, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

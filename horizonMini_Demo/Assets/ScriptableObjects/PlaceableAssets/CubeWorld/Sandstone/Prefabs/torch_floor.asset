@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 0819e83e-9d2d-4eec-812a-e067dcb478f7
   displayName: torch_floor
-  category: 6
+  category: 4
   prefab: {fileID: 1056189112486468, guid: 3e9e5bbe1bdfdaa47a302a8bbcc35e59, type: 3}
   icon: {fileID: 21300000, guid: 3a3ac52930cda4a7ab0213862c31c1e1, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

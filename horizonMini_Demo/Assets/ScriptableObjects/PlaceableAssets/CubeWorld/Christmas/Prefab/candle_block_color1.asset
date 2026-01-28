@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 0dcf29d6-d001-4b77-ac17-14f0504fc516
   displayName: candle_block_color1
-  category: 6
+  category: 4
   prefab: {fileID: 1097922852624428, guid: cc1dfbe4911244a84be1cba83478c3bb, type: 3}
   icon: {fileID: 21300000, guid: aba91f38778944e66b7b1f1798b7fc83, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

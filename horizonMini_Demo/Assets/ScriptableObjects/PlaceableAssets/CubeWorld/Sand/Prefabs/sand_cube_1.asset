@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: a1a517d2-56fd-4ab2-b51a-b0add166b2df
   displayName: sand_cube_1
-  category: 1
+  category: 2
   prefab: {fileID: 1063049674197416, guid: 7352e9e4e300ae34bae5be5828840ef6, type: 3}
   icon: {fileID: 21300000, guid: 4dca98d86186448018b2093f3998c341, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

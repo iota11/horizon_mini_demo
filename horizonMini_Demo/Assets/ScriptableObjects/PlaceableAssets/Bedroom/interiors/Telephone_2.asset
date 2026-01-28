@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4d82d6c4c064b0fa20496fec8a69d0, type: 3}
+  m_Name: Telephone_2
+  m_EditorClassIdentifier: 
+  assetId: 4d0531ce-8cf4-4114-80be-1a1f129a245f
+  displayName: Telephone_2
+  category: 5
+  prefab: {fileID: 4648455130366984862, guid: 4ae213e3571b34c27ac3a04d05c805c8, type: 3}
+  icon: {fileID: 21300000, guid: 043c7f511b3174b88a188d379d0e048d, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}
+  pivotOffset: {x: 0, y: 0, z: 0}

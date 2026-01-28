@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 3324b694-bbcf-4cb7-86d7-f4c6a0d90530
   displayName: hammer_diamond
-  category: 7
+  category: 4
   prefab: {fileID: 1779007980974618, guid: 6c7abca5535e67342b42e771f181cb35, type: 3}
   icon: {fileID: 21300000, guid: fca8d4de6fe3a475784bc29b9e7cb2b7, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 2bdfa3ca-dc5a-483e-aa54-28e63746a45e
   displayName: door_frame_stone_rounded_double
-  category: 4
+  category: 0
   prefab: {fileID: 1484205407312656, guid: 58927555101f49e47959f1d6479d480c, type: 3}
   icon: {fileID: 21300000, guid: 568e90d592d014f53a38a255235d5d05, type: 3}
   defaultScale: {x: 1, y: 1, z: 1}
