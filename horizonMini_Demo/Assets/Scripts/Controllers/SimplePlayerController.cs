@@ -32,6 +32,7 @@ namespace HorizonMini.Controllers
         private VirtualJoystick virtualJoystick;
         private Vector3 velocity;
         private bool isGrounded;
+        private bool wasGroundedLastFrame;
         private float lastJumpTime = -999f;
 
         private void Awake()
@@ -51,13 +52,31 @@ namespace HorizonMini.Controllers
 
         private void Update()
         {
-            // Ground check
-            isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
-
-            if (isGrounded && velocity.y < 0)
+            // Find virtual joystick if not found yet
+            if (virtualJoystick == null)
             {
-                velocity.y = -2f; // Small negative value to keep grounded
+                virtualJoystick = FindFirstObjectByType<VirtualJoystick>();
             }
+
+            // Ground check - use CharacterController's built-in isGrounded
+            isGrounded = controller.isGrounded;
+
+            // Only clamp velocity if we've been grounded for at least one frame
+            // This allows natural falling and landing
+            if (isGrounded)
+            {
+                if (wasGroundedLastFrame)
+                {
+                    // Been grounded for 2+ frames, clamp velocity
+                    if (velocity.y < 0)
+                    {
+                        velocity.y = -2f; // Small negative value to keep grounded
+                    }
+                }
+                // else: First frame of landing, let velocity continue for natural impact
+            }
+
+            wasGroundedLastFrame = isGrounded;
 
             // Get input from virtual joystick
             Vector2 input = Vector2.zero;

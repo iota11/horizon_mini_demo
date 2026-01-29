@@ -23,10 +23,14 @@ namespace HorizonMini.Controllers
         [SerializeField] private float rotationSpeed = 1f; // Degrees per pixel
 
         [Header("Scroll Settings")]
-        [SerializeField] private float scrollSensitivity = 0.02f; // How much camera moves per pixel drag
-        [SerializeField] private float snapThreshold = 0.3f; // 30% of worldSpacing to trigger snap to next
-        [SerializeField] private float snapSpeed = 0.15f; // SmoothDamp time for snap animation
-        [SerializeField] private float velocityThreshold = 5f; // Minimum velocity to trigger snap
+        [Tooltip("How much the view scrolls per pixel dragged (higher = more sensitive)")]
+        [SerializeField] private float scrollSensitivity = 0.02f;
+        [Tooltip("30% of world spacing to trigger snap to next world")]
+        [SerializeField] private float snapThreshold = 0.3f;
+        [Tooltip("SmoothDamp time for snap animation")]
+        [SerializeField] private float snapSpeed = 0.15f;
+        [Tooltip("Minimum velocity to trigger snap")]
+        [SerializeField] private float velocityThreshold = 5f;
 
         [Header("Auto Rotation")]
         [SerializeField] private bool enableAutoRotation = true;
@@ -56,6 +60,7 @@ namespace HorizonMini.Controllers
         private Vector2 touchStartPos;
         private Vector2 lastTouchPos;
         private bool isDragging = false;
+        private bool isRotatingCamera = false; // True if current drag is horizontal rotation, false if vertical scroll
         private float currentOrbitAngle = 0f; // Camera's orbit angle around world
         private float targetYPosition = 0f;
 
@@ -81,7 +86,36 @@ namespace HorizonMini.Controllers
         private bool isAutoRotating = false;
         private float lastInteractionTime = 0f;
 
+        // Player visibility tracking
+        private float lastWorldStopTime = 0f;
+        private bool isWorldStable = false;
+        private bool hasShownPlayer = false; // Track if we've already shown player for current stable period
+        private const float PLAYER_SHOW_DELAY = 0.5f;
+
         private bool isActive = false;
+
+        private void OnEnable()
+        {
+            // When script component is enabled, ensure isActive is true
+            // This handles the case where PlayModeManager uses .enabled instead of SetActive()
+            if (appRoot != null && worldFeed != null)
+            {
+                Debug.Log("[BrowseController] OnEnable - setting isActive = true");
+                isActive = true;
+
+                // Reset player visibility state when re-enabled (e.g., returning from Play Mode)
+                lastWorldStopTime = Time.time;
+                isWorldStable = true;
+                hasShownPlayer = false;
+            }
+        }
+
+        private void OnDisable()
+        {
+            // When script component is disabled, set isActive to false
+            Debug.Log("[BrowseController] OnDisable - setting isActive = false");
+            isActive = false;
+        }
 
         public void Initialize(AppRoot root)
         {
@@ -123,6 +157,9 @@ namespace HorizonMini.Controllers
                 {
                     browseCamera.orthographic = false;
                     browseCamera.fieldOfView = fieldOfView;
+
+                    // Sync camera distance from current camera position
+                    SyncCameraDistanceFromPosition();
                 }
 
                 RefreshFeed();
@@ -318,9 +355,66 @@ namespace HorizonMini.Controllers
 
             HandleInput();
             UpdateAutoRotation();
-            UpdateSnapAnimation(); // Smooth snap animation
-            UpdateWorldPositions(); // Update world positions based on scroll offset
+            UpdateSnapAnimation();
+            UpdateWorldPositions();
             UpdateCameraPosition();
+            UpdatePlayerVisibility();
+        }
+
+        private void UpdatePlayerVisibility()
+        {
+            // Check if world is stable
+            // World is stable when: not snapping AND (not dragging OR only rotating camera) AND scroll offset is near 0
+            bool isScrolling = isDragging && !isRotatingCamera; // Vertical scrolling
+            bool currentlyStable = !isSnapping && !isScrolling && Mathf.Abs(currentScrollOffset) < 1f;
+
+            if (currentlyStable && !isWorldStable)
+            {
+                // Just became stable - start timer
+                lastWorldStopTime = Time.time;
+                isWorldStable = true;
+                hasShownPlayer = false; // Reset flag
+            }
+            else if (!currentlyStable && isWorldStable)
+            {
+                // Just started scrolling (not rotating) - hide player immediately
+                isWorldStable = false;
+                hasShownPlayer = false;
+                HidePlayer();
+            }
+            else if (isWorldStable && !hasShownPlayer)
+            {
+                // Still stable and haven't shown player yet - check if enough time has passed
+                float stableTime = Time.time - lastWorldStopTime;
+                if (stableTime >= PLAYER_SHOW_DELAY)
+                {
+                    ShowPlayer();
+                    hasShownPlayer = true; // Mark as shown
+                }
+            }
+        }
+
+        private void ShowPlayer()
+        {
+            if (PlayModeManager.Instance != null)
+            {
+                // Re-spawn player at current world's spawn point
+                WorldInstance currentWorld = loadedWorlds[1];
+                if (currentWorld != null)
+                {
+                    Debug.Log($"<color=cyan>[BrowseController] ShowPlayer - currentWorld: {currentWorld.WorldId}</color>");
+                    PlayModeManager.Instance.RespawnPlayerAtCurrentWorld(currentWorld);
+                }
+            }
+        }
+
+        private void HidePlayer()
+        {
+            if (PlayModeManager.Instance != null)
+            {
+                Debug.Log("<color=yellow>[BrowseController] HidePlayer</color>");
+                PlayModeManager.Instance.ShowPlayerInBrowse(false);
+            }
         }
 
         private void UpdateSnapAnimation()
@@ -347,37 +441,20 @@ namespace HorizonMini.Controllers
 
         private void HandleInput()
         {
-            // Check if mouse is over UI - if so, skip input processing
-            if (UnityEngine.EventSystems.EventSystem.current != null &&
-                UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            // Mouse wheel zoom
+            Vector2 scrollDelta = Input.mouseScrollDelta;
+            if (Mathf.Abs(scrollDelta.y) > 0.01f)
             {
-                // Mouse is over UI, but still allow scroll wheel zoom
-                try
-                {
-                    float scroll = Input.GetAxis("Mouse ScrollWheel");
-                    if (Mathf.Abs(scroll) > 0.01f)
-                    {
-                        HandleScrollWheelZoom(scroll);
-                    }
-                }
-                catch (System.ArgumentException) { }
+                float scroll = scrollDelta.y * 0.1f;
+                HandleScrollWheelZoom(scroll);
                 return;
             }
 
-            // Mouse wheel zoom
-            try
+            // Check if mouse is over UI - if so, skip other input processing
+            if (UnityEngine.EventSystems.EventSystem.current != null &&
+                UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                float scroll = Input.GetAxis("Mouse ScrollWheel");
-                if (Mathf.Abs(scroll) > 0.01f)
-                {
-                    HandleScrollWheelZoom(scroll);
-                    return; // Don't process other input when scrolling
-                }
-            }
-            catch (System.ArgumentException)
-            {
-                // Mouse ScrollWheel axis not configured in Input Manager
-                // This is expected on some platforms
+                return;
             }
 
             // Handle pinch gesture (two finger touch)
@@ -421,6 +498,7 @@ namespace HorizonMini.Controllers
                             HandleSwipe(totalDelta);
                         }
                         isDragging = false;
+                        isRotatingCamera = false;
                         break;
                 }
             }
@@ -443,15 +521,14 @@ namespace HorizonMini.Controllers
                 Vector2 totalDelta = (Vector2)Input.mousePosition - touchStartPos;
                 HandleSwipe(totalDelta);
                 isDragging = false;
+                isRotatingCamera = false;
             }
         }
 
         private void HandleScrollWheelZoom(float scrollDelta)
         {
-            // Record interaction
             RecordInteraction();
 
-            // Scroll up = zoom in (decrease distance), scroll down = zoom out (increase distance)
             manualZoomOffset -= scrollDelta * scrollWheelZoomSpeed;
             manualZoomOffset = Mathf.Clamp(manualZoomOffset,
                 minCameraDistance - cameraDistance,
@@ -501,6 +578,7 @@ namespace HorizonMini.Controllers
             if (Mathf.Abs(frameDelta.x) > Mathf.Abs(frameDelta.y))
             {
                 // Horizontal movement dominates - rotate camera around world
+                isRotatingCamera = true;
                 Debug.Log("[BrowseController] Horizontal drag - rotating camera");
                 if (loadedWorlds[1] != null && browseCamera != null)
                 {
@@ -514,6 +592,7 @@ namespace HorizonMini.Controllers
             else
             {
                 // Vertical movement dominates - track for world switching
+                isRotatingCamera = false;
                 float scrollDelta = -frameDelta.y * scrollSensitivity; // Use original sensitivity
                 currentScrollOffset += scrollDelta;
 
@@ -785,13 +864,31 @@ namespace HorizonMini.Controllers
                 // For perspective camera, calculate distance based on world size and FOV
                 float worldSizeXZ = Mathf.Max(worldBounds.size.x, worldBounds.size.z);
 
+                // Base values are calibrated for 8x8x8 volume
+                const float baseVolumeSize = 8f; // 8m x 8m x 8m reference
+                const float baseMinDistance = 15f;
+                const float baseMaxDistance = 50f;
+
+                // Calculate scale factor relative to base volume
+                float scaleFactor = worldSizeXZ / baseVolumeSize;
+
+                // Scale min/max distances proportionally to world size
+                float dynamicMinDistance = baseMinDistance * scaleFactor;
+                float dynamicMaxDistance = baseMaxDistance * scaleFactor;
+
                 // Calculate distance needed to fit world in view
                 // Using half FOV and some margin
                 float margin = 1.3f;
                 float halfFOV = fieldOfView * 0.5f * Mathf.Deg2Rad;
                 float distance = (worldSizeXZ * margin) / (2f * Mathf.Tan(halfFOV));
 
-                targetCameraDistance = Mathf.Clamp(distance, minCameraDistance, maxCameraDistance);
+                targetCameraDistance = Mathf.Clamp(distance, dynamicMinDistance, dynamicMaxDistance);
+
+                // Update min/max camera distance for this world (for zoom limits)
+                minCameraDistance = dynamicMinDistance;
+                maxCameraDistance = dynamicMaxDistance;
+
+                Debug.Log($"[BrowseController] World size: {worldSizeXZ:F1}m, Scale: {scaleFactor:F2}x, Distance range: {minCameraDistance:F1}-{maxCameraDistance:F1}, Target: {targetCameraDistance:F1}");
             }
             catch (System.Exception e)
             {
@@ -807,10 +904,12 @@ namespace HorizonMini.Controllers
             if (browseCamera == null)
                 return;
 
-            // All worlds are at origin, so camera just looks at (0,0,0)
+            // Skip camera updates if PlayModeManager is transitioning camera
+            if (PlayModeManager.Instance != null && PlayModeManager.Instance.IsCameraTransitioning)
+                return;
+
             Vector3 lookAtPoint = Vector3.zero;
 
-            // Smooth camera distance to target (for zoom effect)
             float baseTargetDistance = targetCameraDistance + manualZoomOffset;
             baseTargetDistance = Mathf.Clamp(baseTargetDistance, minCameraDistance, maxCameraDistance);
 
@@ -821,12 +920,10 @@ namespace HorizonMini.Controllers
                 cameraZoomSpeed
             );
 
-            // Calculate camera position based on orbit angle and current distance
             float angleRad = cameraAngle * Mathf.Deg2Rad;
             float horizontalDist = currentCameraDistance * Mathf.Cos(angleRad);
             float verticalDist = currentCameraDistance * Mathf.Sin(angleRad);
 
-            // Calculate position on orbit circle
             float orbitRad = currentOrbitAngle * Mathf.Deg2Rad;
             Vector3 offset = new Vector3(
                 Mathf.Sin(orbitRad) * horizontalDist,
@@ -834,10 +931,7 @@ namespace HorizonMini.Controllers
                 -Mathf.Cos(orbitRad) * horizontalDist
             );
 
-            Vector3 targetPos = lookAtPoint + offset;
-
-            // Direct update
-            browseCamera.transform.position = targetPos;
+            browseCamera.transform.position = lookAtPoint + offset;
             browseCamera.transform.LookAt(lookAtPoint);
         }
 
@@ -865,6 +959,29 @@ namespace HorizonMini.Controllers
             browseCamera.transform.LookAt(lookAtPoint);
         }
 
+        /// <summary>
+        /// Syncs internal camera distance from actual camera position
+        /// Called when returning from Play Mode to ensure zoom continues to work
+        /// </summary>
+        private void SyncCameraDistanceFromPosition()
+        {
+            if (browseCamera == null)
+                return;
+
+            // Calculate actual distance from camera to origin (world center)
+            Vector3 lookAtPoint = Vector3.zero;
+            float actualDistance = Vector3.Distance(browseCamera.transform.position, lookAtPoint);
+
+            // Update both current and target distance
+            currentCameraDistance = actualDistance;
+            targetCameraDistance = actualDistance;
+
+            // Reset manual zoom offset to 0
+            manualZoomOffset = 0f;
+
+            Debug.Log($"[BrowseController] Synced camera distance from position: {actualDistance}");
+        }
+
         private void ClearAllWorlds()
         {
             for (int i = 0; i < loadedWorlds.Length; i++)
@@ -886,6 +1003,27 @@ namespace HorizonMini.Controllers
         public string GetCurrentWorldId()
         {
             return loadedWorlds[1]?.WorldId;
+        }
+
+        /// <summary>
+        /// Navigate to a specific world by ID (for returning from Play Mode)
+        /// </summary>
+        public void NavigateToWorldId(string worldId)
+        {
+            if (worldFeed == null || string.IsNullOrEmpty(worldId))
+                return;
+
+            // Find the index of this world in the feed
+            int targetIndex = worldFeed.FindIndex(w => w.id == worldId);
+            if (targetIndex >= 0 && targetIndex != currentIndex)
+            {
+                Debug.Log($"[BrowseController] Navigating to world {worldId} at index {targetIndex}");
+                currentIndex = targetIndex;
+                LoadWorldsAroundIndex(currentIndex);
+                UpdateWorldPositions();
+                CalculateOptimalCameraDistance();
+                UpdateMiniGameButtonVisibility();
+            }
         }
 
         // Called by UI buttons
@@ -1074,64 +1212,46 @@ namespace HorizonMini.Controllers
         {
             Debug.Log("<color=yellow>[BrowseController] UpdateMiniGameButtonVisibility called</color>");
 
-            if (BrowseMiniGameTrigger.Instance == null)
-            {
-                Debug.LogWarning("[BrowseController] BrowseMiniGameTrigger.Instance is NULL! You need to add BrowseMiniGameTrigger to Main Scene.");
-                return;
-            }
-
-            Debug.Log("[BrowseController] BrowseMiniGameTrigger.Instance found");
-
             // Get current world
             WorldInstance currentWorld = loadedWorlds[1];
             if (currentWorld == null)
             {
                 Debug.LogWarning("[BrowseController] Current world is null");
-                BrowseMiniGameTrigger.Instance.SetPlayButtonVisible(false);
                 return;
             }
 
-            // Check if world has mini games
+            // Get world data
             string worldId = currentWorld.WorldId;
-            Debug.Log($"[BrowseController] Checking world: {worldId}");
-
             WorldData worldData = appRoot.WorldLibrary.GetWorldData(worldId);
 
             if (worldData == null)
             {
                 Debug.LogWarning($"[BrowseController] WorldData is null for world {worldId}");
-                BrowseMiniGameTrigger.Instance.SetPlayButtonVisible(false);
                 return;
             }
 
-            Debug.Log($"[BrowseController] WorldData found. miniGames count: {(worldData.miniGames != null ? worldData.miniGames.Count : 0)}");
+            Debug.Log($"[BrowseController] World browsed: {worldId}, miniGames: {(worldData.miniGames != null ? worldData.miniGames.Count : 0)}");
 
+            // Notify PlayModeManager that a world is being browsed
+            if (PlayModeManager.Instance != null)
+            {
+                PlayModeManager.Instance.OnWorldBrowsed(currentWorld, worldData);
+            }
+
+            // Handle mini game loading if needed
             if (worldData.miniGames != null && worldData.miniGames.Count > 0)
             {
-                // This world has mini games
-                MiniGameData gameData = worldData.miniGames[0];
-
                 // Load mini game with delay (0.5s after world becomes center)
                 StartCoroutine(LoadMiniGameAfterDelay(currentWorld, 0.5f));
 
                 // If game is currently paused, resume it
-                if (BrowseMiniGameTrigger.Instance.IsPlaying && BrowseMiniGameTrigger.Instance.IsPaused)
+                if (BrowseMiniGameTrigger.Instance != null &&
+                    BrowseMiniGameTrigger.Instance.IsPlaying &&
+                    BrowseMiniGameTrigger.Instance.IsPaused)
                 {
                     BrowseMiniGameTrigger.Instance.ResumeGame();
-                    Debug.Log($"<color=green>[BrowseController] ✓ Resumed paused game: {gameData.gameName}</color>");
+                    Debug.Log($"<color=green>[BrowseController] ✓ Resumed paused mini game</color>");
                 }
-                else
-                {
-                    // Show play button
-                    BrowseMiniGameTrigger.Instance.SetPlayButtonVisible(true, gameData);
-                    Debug.Log($"<color=green>[BrowseController] ✓ Showing mini game button: {gameData.gameName}</color>");
-                }
-            }
-            else
-            {
-                // No mini games in this world
-                Debug.Log("[BrowseController] No mini games in this world");
-                BrowseMiniGameTrigger.Instance.SetPlayButtonVisible(false);
             }
         }
     }

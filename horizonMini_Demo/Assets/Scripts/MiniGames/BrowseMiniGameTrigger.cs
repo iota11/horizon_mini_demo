@@ -62,69 +62,21 @@ namespace HorizonMini.MiniGames
                 Debug.Log($"[BrowseMiniGameTrigger] Loaded CubeStackGame from Resources: {cubeStackGamePrefab != null}");
             }
 
-            // Create UI if not assigned
-            if (playButton == null)
-            {
-                Debug.Log("[BrowseMiniGameTrigger] Creating play button UI");
-                CreatePlayButtonUI();
-            }
-
-            if (exitButton == null)
-            {
-                Debug.Log("[BrowseMiniGameTrigger] Creating exit button UI");
-                CreateExitButtonUI();
-            }
-
-            // Setup button listeners
-            if (playButton != null)
-            {
-                playButton.onClick.AddListener(StartGame);
-                Debug.Log("[BrowseMiniGameTrigger] Play button listener added");
-            }
-
-            if (exitButton != null)
-            {
-                exitButton.onClick.AddListener(StopGame);
-                exitButton.gameObject.SetActive(false);
-                Debug.Log("[BrowseMiniGameTrigger] Exit button listener added");
-            }
+            // Note: Play button is now handled by unified "Go" button in PlayModeManager
+            // Exit button is now handled by unified "Back" button in Play Mode UI
+            // Keeping button references for backwards compatibility but not creating UI here
 
             Debug.Log("<color=green>[BrowseMiniGameTrigger] ✓ Initialization complete</color>");
         }
 
         /// <summary>
-        /// Shows or hides the play button based on MiniGameData
+        /// Deprecated: Play button now handled by unified "Go" button in PlayModeManager
         /// </summary>
+        [System.Obsolete("Use PlayModeManager.ShowGoButton() instead")]
         public void SetPlayButtonVisible(bool visible, MiniGameData gameData = null)
         {
-            Debug.Log($"<color=magenta>[BrowseMiniGameTrigger] SetPlayButtonVisible called. visible={visible}, gameData={(gameData != null ? gameData.gameName : "null")}</color>");
-
-            if (playButton != null)
-            {
-                bool shouldActivate = visible && !_isPlaying;
-                playButton.gameObject.SetActive(shouldActivate);
-                Debug.Log($"[BrowseMiniGameTrigger] Play button SetActive({shouldActivate})");
-
-                // Update button text if game data provided
-                if (visible && gameData != null)
-                {
-                    TextMeshProUGUI text = playButton.GetComponentInChildren<TextMeshProUGUI>();
-                    if (text != null)
-                    {
-                        text.text = $"Play {gameData.gameName}";
-                        Debug.Log($"[BrowseMiniGameTrigger] Updated button text to: Play {gameData.gameName}");
-                    }
-                    else
-                    {
-                        Debug.LogWarning("[BrowseMiniGameTrigger] TextMeshProUGUI not found in play button");
-                    }
-                    gameName = gameData.gameName;
-                }
-            }
-            else
-            {
-                Debug.LogWarning("[BrowseMiniGameTrigger] playButton is NULL!");
-            }
+            // No longer creates/shows mini game specific button
+            // Unified "Go" button is handled by PlayModeManager
         }
 
         public void StartGame()

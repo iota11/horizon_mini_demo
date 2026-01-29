@@ -20,14 +20,32 @@ namespace HorizonMini.Core
 
         public void LoadSave()
         {
-            string path = Path.Combine(Application.persistentDataPath, SAVE_FILE);
+            // Priority 1: Try StreamingAssets (git-tracked save)
+            string streamingPath = Path.Combine(Application.streamingAssetsPath, "Worlds/Published", SAVE_FILE);
+            if (File.Exists(streamingPath))
+            {
+                try
+                {
+                    string json = File.ReadAllText(streamingPath);
+                    currentSave = JsonUtility.FromJson<SaveData>(json);
+                    Debug.Log($"Loaded save from StreamingAssets (git-tracked)");
+                    return;
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"Failed to load save from StreamingAssets: {e.Message}");
+                }
+            }
 
+            // Priority 2: Fallback to persistentDataPath (local save)
+            string path = Path.Combine(Application.persistentDataPath, SAVE_FILE);
             if (File.Exists(path))
             {
                 try
                 {
                     string json = File.ReadAllText(path);
                     currentSave = JsonUtility.FromJson<SaveData>(json);
+                    Debug.Log($"Loaded save from persistentDataPath (local)");
                 }
                 catch (System.Exception e)
                 {
@@ -115,14 +133,31 @@ namespace HorizonMini.Core
 
         public WorldData LoadCreatedWorld(string worldId)
         {
-            string worldPath = Path.Combine(Application.persistentDataPath, $"world_{worldId}.json");
+            // Priority 1: Try StreamingAssets/Worlds/Published (git-tracked worlds)
+            string streamingPath = Path.Combine(Application.streamingAssetsPath, "Worlds/Published", $"world_{worldId}.json");
+            if (File.Exists(streamingPath))
+            {
+                try
+                {
+                    string json = File.ReadAllText(streamingPath);
+                    WorldDataSerializable serializable = JsonUtility.FromJson<WorldDataSerializable>(json);
+                    return serializable.ToWorldData();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"Failed to load world from StreamingAssets {worldId}: {e.Message}");
+                }
+            }
 
+            // Priority 2: Fallback to persistentDataPath (local drafts)
+            string worldPath = Path.Combine(Application.persistentDataPath, $"world_{worldId}.json");
             if (File.Exists(worldPath))
             {
                 try
                 {
                     string json = File.ReadAllText(worldPath);
                     WorldDataSerializable serializable = JsonUtility.FromJson<WorldDataSerializable>(json);
+                    Debug.Log($"Loaded world {worldId} from persistentDataPath (local draft)");
                     return serializable.ToWorldData();
                 }
                 catch (System.Exception e)

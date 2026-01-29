@@ -1,0 +1,70 @@
+{
+    "worldId": "05f93e20-563c-4f85-8a85-ae4b738d9cb9",
+    "worldTitle": "My World",
+    "worldAuthor": "Creator",
+    "isDraft": false,
+    "gridDimensions": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+    },
+    "volumes": [
+        {
+            "gridPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "volumeType": "default",
+            "rotationY": 0
+        }
+    ],
+    "props": [
+        {
+            "propId": "a9b0d3b5-9799-40ff-b10f-a3576a451de5",
+            "prefabName": "spawn_point_player",
+            "position": {
+                "x": 6.0,
+                "y": 0.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        }
+    ],
+    "miniGames": [
+        {
+            "gameId": "120989a0-be19-42b9-ab4d-7686df65b41b",
+            "gameType": "CubeStack",
+            "gameName": "Stack Game",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ],
+    "skyColor": {
+        "r": 0.5,
+        "g": 0.699999988079071,
+        "b": 1.0,
+        "a": 1.0
+    },
+    "gravity": -9.8100004196167
+}

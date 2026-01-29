@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "totalWorlds": 4,
+  "worlds": [
+    {
+      "worldId": "708b9941-84bb-4193-9283-b70db7a21389",
+      "worldTitle": "My World",
+      "worldAuthor": "Creator",
+      "isDraft": false,
+      "fileName": "world_708b9941-84bb-4193-9283-b70db7a21389.json"
+    },
+    {
+      "worldId": "a214d8ba-841f-4732-a08d-e15d3384fe5b",
+      "worldTitle": "My World",
+      "worldAuthor": "Creator",
+      "isDraft": false,
+      "fileName": "world_a214d8ba-841f-4732-a08d-e15d3384fe5b.json"
+    },
+    {
+      "worldId": "1b2bab6c-7a45-4f88-9dd9-909344f03f0b",
+      "worldTitle": "My World",
+      "worldAuthor": "Creator",
+      "isDraft": false,
+      "fileName": "world_1b2bab6c-7a45-4f88-9dd9-909344f03f0b.json"
+    },
+    {
+      "worldId": "05f93e20-563c-4f85-8a85-ae4b738d9cb9",
+      "worldTitle": "My World",
+      "worldAuthor": "Creator",
+      "isDraft": false,
+      "fileName": "world_05f93e20-563c-4f85-8a85-ae4b738d9cb9.json"
+    }
+  ]
+}
