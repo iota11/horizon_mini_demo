@@ -290,6 +290,13 @@ namespace HorizonMini.Controllers
             // Show Play Mode UI
             ShowPlayModeUI(true);
 
+            // Disable BrowseController for both mini games and normal worlds
+            if (browseController != null)
+            {
+                browseController.enabled = false;
+                Debug.Log("[PlayModeManager] Disabled BrowseController");
+            }
+
             if (isCurrentWorldMiniGame)
             {
                 // Mini game - start the game
@@ -301,11 +308,6 @@ namespace HorizonMini.Controllers
             else
             {
                 // Normal world - enable player control
-                if (browseController != null)
-                {
-                    browseController.enabled = false;
-                    Debug.Log("[PlayModeManager] Disabled BrowseController");
-                }
 
                 if (playerController != null)
                 {
@@ -362,6 +364,13 @@ namespace HorizonMini.Controllers
 
             // Show Browse UI
             ShowGoButton(true);
+
+            // Re-enable BrowseController
+            if (browseController != null)
+            {
+                browseController.enabled = true;
+                Debug.Log("[PlayModeManager] Re-enabled BrowseController");
+            }
 
             if (isCurrentWorldMiniGame)
             {
@@ -424,6 +433,24 @@ namespace HorizonMini.Controllers
 
             Debug.Log($"<color=green>[PlayModeManager] RespawnPlayerAtCurrentWorld - world: {world.WorldId}</color>");
 
+            // Check if this world has a mini game
+            HorizonMini.Core.AppRoot appRoot = FindFirstObjectByType<HorizonMini.Core.AppRoot>();
+            if (appRoot != null && appRoot.WorldLibrary != null)
+            {
+                HorizonMini.Data.WorldData worldData = appRoot.WorldLibrary.GetWorldData(world.WorldId);
+                bool hasMiniGame = worldData != null && worldData.miniGames != null && worldData.miniGames.Count > 0;
+
+                if (hasMiniGame)
+                {
+                    Debug.Log($"[PlayModeManager] World {world.WorldId} has mini game - skipping player spawn");
+                    // Despawn any existing player
+                    DespawnPlayer();
+                    // Update current world reference
+                    currentWorld = world;
+                    return;
+                }
+            }
+
             // Always despawn old player to trigger respawn effect
             DespawnPlayer();
 
@@ -467,12 +494,21 @@ namespace HorizonMini.Controllers
             {
                 UpdateCameraTransition();
             }
-            // Only update camera in Play Mode for normal worlds (not mini games) when not transitioning
-            else if (currentMode == Mode.Play && !isCurrentWorldMiniGame && spawnedPlayer != null)
+            // Only update camera in Play Mode when not transitioning
+            else if (currentMode == Mode.Play)
             {
-                UpdateCameraFollow();
-                HandleCameraRotationInput();
-                HandleCameraZoomInput();
+                if (!isCurrentWorldMiniGame && spawnedPlayer != null)
+                {
+                    // Normal world - follow player
+                    UpdateCameraFollow();
+                    HandleCameraRotationInput();
+                    HandleCameraZoomInput();
+                }
+                else if (isCurrentWorldMiniGame)
+                {
+                    // Mini game mode - allow free camera orbit and zoom
+                    HandleMiniGameCameraControl();
+                }
             }
         }
 
@@ -1043,6 +1079,98 @@ namespace HorizonMini.Controllers
                 // Recalculate camera offset with new distance
                 CalculateCameraOffset();
             }
+        }
+
+        /// <summary>
+        /// Handle camera control for mini games (orbit and zoom around game center)
+        /// </summary>
+        private void HandleMiniGameCameraControl()
+        {
+            if (mainCamera == null) return;
+
+            // Mouse scroll wheel zoom
+            float scrollDelta = Input.mouseScrollDelta.y;
+            if (Mathf.Abs(scrollDelta) > 0.01f)
+            {
+                // Move camera closer/further along its forward direction
+                Vector3 forward = mainCamera.transform.forward;
+                mainCamera.transform.position += forward * scrollDelta * 2f;
+            }
+
+            // Touch input for camera orbit
+            if (Input.touchCount == 1)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    isDraggingCamera = true;
+                    lastTouchPosition = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Moved && isDraggingCamera)
+                {
+                    Vector2 delta = touch.position - lastTouchPosition;
+                    lastTouchPosition = touch.position;
+
+                    // Orbit camera around current look-at point
+                    OrbitMiniGameCamera(delta * 0.3f);
+                }
+                else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                {
+                    isDraggingCamera = false;
+                }
+            }
+            // Mouse fallback for editor
+            else if (Input.GetMouseButtonDown(0))
+            {
+                isDraggingCamera = true;
+                lastTouchPosition = Input.mousePosition;
+            }
+            else if (Input.GetMouseButton(0) && isDraggingCamera)
+            {
+                Vector2 currentPos = Input.mousePosition;
+                Vector2 delta = currentPos - lastTouchPosition;
+                lastTouchPosition = currentPos;
+
+                // Orbit camera around current look-at point
+                OrbitMiniGameCamera(delta * 0.3f);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                isDraggingCamera = false;
+            }
+        }
+
+        /// <summary>
+        /// Orbit camera around a point in mini game mode
+        /// </summary>
+        private void OrbitMiniGameCamera(Vector2 delta)
+        {
+            if (mainCamera == null) return;
+
+            // Calculate orbit center (raycast to find what camera is looking at)
+            Vector3 orbitCenter = mainCamera.transform.position + mainCamera.transform.forward * 10f;
+
+            Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 50f))
+            {
+                orbitCenter = hit.point;
+            }
+
+            // Rotate around orbit center
+            Vector3 camToCenter = orbitCenter - mainCamera.transform.position;
+            float distance = camToCenter.magnitude;
+
+            // Horizontal rotation (around Y axis)
+            Quaternion yawRotation = Quaternion.AngleAxis(delta.x, Vector3.up);
+
+            // Vertical rotation (around camera's right axis)
+            Quaternion pitchRotation = Quaternion.AngleAxis(-delta.y, mainCamera.transform.right);
+
+            // Apply rotations
+            mainCamera.transform.position = orbitCenter - (yawRotation * pitchRotation * camToCenter);
+            mainCamera.transform.LookAt(orbitCenter);
         }
 
         #endregion

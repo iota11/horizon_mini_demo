@@ -1,0 +1,70 @@
+{
+    "worldId": "c7935cf6-bd64-4d9c-904f-b3a08306c1fc",
+    "worldTitle": "My World",
+    "worldAuthor": "Creator",
+    "isDraft": false,
+    "gridDimensions": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+    },
+    "volumes": [
+        {
+            "gridPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "volumeType": "default",
+            "rotationY": 0
+        }
+    ],
+    "props": [
+        {
+            "propId": "5c1d19e6-aa98-4251-9109-680d685b1f8d",
+            "prefabName": "spawn_point_player",
+            "position": {
+                "x": 6.0,
+                "y": 0.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        }
+    ],
+    "miniGames": [
+        {
+            "gameId": "e52d3734-5b61-407b-b48b-24e49f7473d8",
+            "gameType": "KotobaMatch",
+            "gameName": "Kotoba Match",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ],
+    "skyColor": {
+        "r": 0.5,
+        "g": 0.699999988079071,
+        "b": 1.0,
+        "a": 1.0
+    },
+    "gravity": -9.8100004196167
+}

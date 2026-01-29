@@ -1124,7 +1124,7 @@ namespace HorizonMini.Controllers
                 Debug.Log($"[BrowseController] Preview GameObject: {existingPreview.gameObject.name}");
                 Debug.Log($"[BrowseController] Preview GameObject path: {GetGameObjectPath(existingPreview.gameObject)}");
 
-                // GameController might be on the same GameObject or a child
+                // Try CubeStack GameController
                 GameController gc = existingPreview.GetComponent<GameController>();
                 if (gc == null)
                 {
@@ -1134,17 +1134,35 @@ namespace HorizonMini.Controllers
 
                 if (gc != null)
                 {
-                    Debug.Log($"[BrowseController] Found GameController on: {gc.gameObject.name}");
+                    Debug.Log($"[BrowseController] Found GameController (CubeStack) on: {gc.gameObject.name}");
                     Debug.Log($"[BrowseController] GameController state: {gc.State}");
 
                     // Always start the game after a delay to ensure Start() has executed
                     Debug.Log($"<color=yellow>[BrowseController] Scheduling auto-start after initialization...</color>");
                     StartCoroutine(AutoStartGameAfterInit(gc, existingPreview.gameObject));
+                    return;
                 }
-                else
+
+                // Try KotobaMatch KotobaMatchController
+                KotobaMatchController kotobaController = existingPreview.GetComponent<KotobaMatchController>();
+                if (kotobaController == null)
                 {
-                    Debug.LogError("[BrowseController] GameController not found in mini game preview!");
+                    Debug.Log("[BrowseController] KotobaMatchController not on preview root, searching children...");
+                    kotobaController = existingPreview.GetComponentInChildren<KotobaMatchController>();
                 }
+
+                if (kotobaController != null)
+                {
+                    Debug.Log($"[BrowseController] Found KotobaMatchController on: {kotobaController.gameObject.name}");
+                    Debug.Log($"[BrowseController] KotobaMatchController state: {kotobaController.State}");
+
+                    // Always start the game after a delay to ensure Start() has executed
+                    Debug.Log($"<color=yellow>[BrowseController] Scheduling auto-start after initialization (KotobaMatch)...</color>");
+                    StartCoroutine(AutoStartKotobaGameAfterInit(kotobaController, existingPreview.gameObject));
+                    return;
+                }
+
+                Debug.LogError("[BrowseController] Neither GameController nor KotobaMatchController found in mini game preview!");
             }
         }
 
@@ -1190,6 +1208,62 @@ namespace HorizonMini.Controllers
             {
                 inputHandler.enabled = false;
                 Debug.Log($"[BrowseController] Disabled InputHandler - game is now in preview mode");
+            }
+        }
+
+        private System.Collections.IEnumerator AutoStartKotobaGameAfterInit(KotobaMatchController kotobaController, GameObject gameInstance)
+        {
+            // Wait multiple frames to ensure Start() and all initialization is complete
+            Debug.Log($"<color=cyan>[BrowseController] Waiting for KotobaMatchController to initialize...</color>");
+
+            // Wait 10 frames to be safe
+            for (int i = 0; i < 10; i++)
+            {
+                yield return null;
+            }
+
+            // Also wait for end of frame to ensure everything is settled
+            yield return new WaitForEndOfFrame();
+
+            Debug.Log($"<color=cyan>[BrowseController] After waiting, KotobaMatchController state: {kotobaController.State}</color>");
+
+            // Always reset to menu first to ensure clean state
+            kotobaController.ResetToMenu();
+            Debug.Log($"[BrowseController] Reset KotobaMatch to menu");
+
+            // Wait a frame for reset to complete
+            yield return null;
+
+            if (kotobaController.State == KotobaGameState.Menu)
+            {
+                Debug.Log($"<color=yellow>[BrowseController] Starting KotobaMatch game now...</color>");
+                kotobaController.OnPlayerTap(); // This will call StartGame() and make cards drop
+            }
+
+            // Wait for cards to drop (about 2 seconds)
+            yield return new WaitForSeconds(2.5f);
+
+            // Check if still in browse mode (user might have clicked "Go" while waiting)
+            HorizonMini.MiniGames.MiniGamePreview preview = gameInstance.GetComponent<HorizonMini.MiniGames.MiniGamePreview>();
+            bool isActiveInPlayMode = (preview != null && preview.isActive);
+
+            if (!isActiveInPlayMode)
+            {
+                // Still in browse/preview mode - pause the game
+                kotobaController.PauseForPreview();
+                Debug.Log($"[BrowseController] Paused KotobaMatch for preview mode");
+
+                // Disable input so it's preview-only
+                var kotobaInputHandler = gameInstance.GetComponentInChildren<KotobaInputHandler>();
+                if (kotobaInputHandler != null)
+                {
+                    kotobaInputHandler.enabled = false;
+                    Debug.Log($"[BrowseController] Disabled KotobaInputHandler - game is now in preview mode");
+                }
+            }
+            else
+            {
+                Debug.Log($"[BrowseController] Game already active in Play Mode - skipping preview pause");
             }
         }
 

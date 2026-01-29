@@ -487,6 +487,10 @@ namespace HorizonMini.Core
             {
                 gamePrefab = Resources.Load<GameObject>("CubeStackGame");
             }
+            else if (gameData.gameType == "KotobaMatch")
+            {
+                gamePrefab = Resources.Load<GameObject>("KotobaMatchGame");
+            }
 
             if (gamePrefab == null)
             {
@@ -510,11 +514,23 @@ namespace HorizonMini.Core
             // Use coroutine to initialize game after one frame (when Start() is called)
             StartCoroutine(InitializeGamePreviewAfterStart(gameInstance));
 
-            // Disable game camera
+            // Disable game camera (CubeStack)
             CameraController gameCameraController = gameInstance.GetComponentInChildren<CameraController>();
             if (gameCameraController != null)
             {
                 Camera cam = gameCameraController.GetComponent<Camera>();
+                if (cam != null)
+                {
+                    cam.enabled = false;
+                    cam.gameObject.SetActive(false);
+                }
+            }
+
+            // Disable game camera (KotobaMatch)
+            KotobaCameraController kotobaCameraController = gameInstance.GetComponentInChildren<KotobaCameraController>();
+            if (kotobaCameraController != null)
+            {
+                Camera cam = kotobaCameraController.GetComponentInChildren<Camera>();
                 if (cam != null)
                 {
                     cam.enabled = false;
@@ -563,33 +579,51 @@ namespace HorizonMini.Core
 
             Debug.Log($"<color=cyan>[WorldLibrary] Initializing game preview after Start()...</color>");
 
-            // Get GameController and start the game automatically
+            // Try CubeStack GameController
             GameController gameController = gameInstance.GetComponent<GameController>();
             if (gameController != null)
             {
-                Debug.Log($"[WorldLibrary] GameController state: {gameController.State}");
+                Debug.Log($"[WorldLibrary] GameController (CubeStack) state: {gameController.State}");
 
                 // Automatically start the game (this will make cubes appear and move)
                 if (gameController.State == GameState.Menu)
                 {
-                    Debug.Log($"<color=yellow>[WorldLibrary] Auto-starting game for preview...</color>");
+                    Debug.Log($"<color=yellow>[WorldLibrary] Auto-starting CubeStack for preview...</color>");
                     gameController.OnPlayerInput(); // This will call StartGame()
+                }
+            }
+
+            // Try KotobaMatch KotobaMatchController
+            KotobaMatchController kotobaController = gameInstance.GetComponent<KotobaMatchController>();
+            if (kotobaController != null)
+            {
+                Debug.Log($"[WorldLibrary] KotobaMatchController state: {kotobaController.State}");
+
+                // Automatically start the game
+                if (kotobaController.State == KotobaGameState.Menu)
+                {
+                    Debug.Log($"<color=yellow>[WorldLibrary] Auto-starting KotobaMatch for preview...</color>");
+                    kotobaController.OnPlayerTap(); // This will call StartGame()
                 }
             }
 
             // Wait one more frame for game to start
             yield return null;
 
-            // NOW disable InputHandler to prevent further user input
+            // Disable InputHandler (CubeStack)
             var inputHandler = gameInstance.GetComponentInChildren<InputHandler>();
             if (inputHandler != null)
             {
                 inputHandler.enabled = false;
-                Debug.Log($"[WorldLibrary] Disabled InputHandler - game runs but no input accepted");
+                Debug.Log($"[WorldLibrary] Disabled InputHandler (CubeStack)");
             }
-            else
+
+            // Disable KotobaInputHandler (KotobaMatch)
+            var kotobaInputHandler = gameInstance.GetComponentInChildren<KotobaInputHandler>();
+            if (kotobaInputHandler != null)
             {
-                Debug.LogWarning("[WorldLibrary] InputHandler not found!");
+                kotobaInputHandler.enabled = false;
+                Debug.Log($"[WorldLibrary] Disabled KotobaInputHandler (KotobaMatch)");
             }
 
             Debug.Log($"<color=green>[WorldLibrary] ✓ Game preview initialized and auto-started!</color>");

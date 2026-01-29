@@ -101,6 +101,9 @@ namespace HorizonMini.Controllers
         private bool isDraggingCamera = false;
         private Vector2 lastTouchPosition;
 
+        // Mini game detection
+        private bool isCurrentWorldMiniGame = false;
+
         private static BuildPlayModeManager _instance;
         public static BuildPlayModeManager Instance => _instance;
 
@@ -158,8 +161,17 @@ namespace HorizonMini.Controllers
         {
             if (currentMode == Mode.Play && !isCameraTransitioning)
             {
-                HandlePlayModeCameraControl();
-                UpdateCameraFollow();
+                if (!isCurrentWorldMiniGame)
+                {
+                    // Normal play mode - follow player with camera
+                    HandlePlayModeCameraControl();
+                    UpdateCameraFollow();
+                }
+                else
+                {
+                    // Mini game mode - allow camera orbit and zoom around world center
+                    HandleMiniGameCameraControl();
+                }
             }
 
             if (isCameraTransitioning)
@@ -190,8 +202,21 @@ namespace HorizonMini.Controllers
 
             Debug.Log("<color=cyan>[BuildPlayModeManager] Entering Play Mode</color>");
 
-            // If player hasn't been spawned yet, try to spawn now
-            if (spawnedPlayer == null || playerController == null)
+            // Check if current world has a mini game
+            // Look for MiniGameMarker or MiniGamePreview in the scene
+            HorizonMini.MiniGames.MiniGameMarker marker = FindFirstObjectByType<HorizonMini.MiniGames.MiniGameMarker>();
+            HorizonMini.MiniGames.MiniGamePreview preview = FindFirstObjectByType<HorizonMini.MiniGames.MiniGamePreview>();
+
+            isCurrentWorldMiniGame = (marker != null || preview != null);
+            Debug.Log($"[BuildPlayModeManager] isCurrentWorldMiniGame={isCurrentWorldMiniGame} (marker={marker != null}, preview={preview != null})");
+
+            if (isCurrentWorldMiniGame)
+            {
+                Debug.Log("<color=yellow>[BuildPlayModeManager] Mini game detected - disabling camera/player control</color>");
+            }
+
+            // If player hasn't been spawned yet, try to spawn now (only for non-mini-game worlds)
+            if (!isCurrentWorldMiniGame && (spawnedPlayer == null || playerController == null))
             {
                 Debug.Log("[BuildPlayModeManager] Player not spawned, spawning now...");
                 SpawnPlayer();
@@ -247,42 +272,85 @@ namespace HorizonMini.Controllers
                 Debug.Log("[BuildPlayModeManager] Disabled BuildController input systems");
             }
 
-            // Enable player control
-            if (playerController != null)
+            if (isCurrentWorldMiniGame)
             {
-                playerController.enabled = true;
-                Debug.Log("[BuildPlayModeManager] Enabled PlayerController");
+                // Mini game mode - enable game input, disable player control
+                HorizonMini.MiniGames.MiniGamePreview gamePreview = preview ?? FindFirstObjectByType<HorizonMini.MiniGames.MiniGamePreview>();
+                if (gamePreview != null)
+                {
+                    // Enable game input handlers
+                    var inputHandler = gamePreview.GetComponentInChildren<InputHandler>();
+                    if (inputHandler != null)
+                    {
+                        inputHandler.enabled = true;
+                        Debug.Log("[BuildPlayModeManager] Enabled InputHandler (CubeStack) for mini game");
+                    }
+
+                    var kotobaInputHandler = gamePreview.GetComponentInChildren<KotobaInputHandler>();
+                    if (kotobaInputHandler != null)
+                    {
+                        kotobaInputHandler.enabled = true;
+
+                        // Set the correct camera for raycast (use build camera)
+                        if (buildCamera != null)
+                        {
+                            kotobaInputHandler.SetCamera(buildCamera);
+                            Debug.Log("[BuildPlayModeManager] Set KotobaInputHandler camera to build camera");
+                        }
+
+                        Debug.Log("[BuildPlayModeManager] Enabled KotobaInputHandler (KotobaMatch) for mini game");
+                    }
+
+                    // Enable game UI
+                    Canvas[] canvases = gamePreview.GetComponentsInChildren<Canvas>(true);
+                    foreach (var canvas in canvases)
+                    {
+                        canvas.gameObject.SetActive(true);
+                    }
+                }
+
+                // Hide VirtualJoystick and action buttons (not needed for mini games)
+                ShowGameplayUI(false);
             }
             else
             {
-                Debug.LogError("[BuildPlayModeManager] PlayerController is NULL!");
+                // Normal play mode - enable player control
+                if (playerController != null)
+                {
+                    playerController.enabled = true;
+                    Debug.Log("[BuildPlayModeManager] Enabled PlayerController");
+                }
+                else
+                {
+                    Debug.LogError("[BuildPlayModeManager] PlayerController is NULL!");
+                }
+
+                // Save View camera state and transition to Play Mode camera
+                if (buildCamera != null && spawnedPlayer != null)
+                {
+                    viewCameraPosition = buildCamera.transform.position;
+                    viewCameraRotation = buildCamera.transform.rotation;
+
+                    // Initialize camera for player following
+                    currentCameraRotation = spawnedPlayer.transform.eulerAngles.y;
+                    targetCameraRotation = currentCameraRotation;
+                    targetCameraAngle = cameraAngle;
+                    CalculateCameraOffset();
+
+                    // Calculate target position for Play Mode
+                    Vector3 targetPos = spawnedPlayer.transform.position + cameraOffset;
+                    Vector3 lookAtPos = spawnedPlayer.transform.position + Vector3.up * 1.5f;
+                    Quaternion targetRot = Quaternion.LookRotation(lookAtPos - targetPos);
+
+                    // Start smooth transition
+                    StartCameraTransition(viewCameraPosition, viewCameraRotation, targetPos, targetRot);
+
+                    Debug.Log("[BuildPlayModeManager] Starting camera transition to Play Mode");
+                }
+
+                // Show VirtualJoystick and action buttons
+                ShowGameplayUI(true);
             }
-
-            // Save View camera state and transition to Play Mode camera
-            if (buildCamera != null && spawnedPlayer != null)
-            {
-                viewCameraPosition = buildCamera.transform.position;
-                viewCameraRotation = buildCamera.transform.rotation;
-
-                // Initialize camera for player following
-                currentCameraRotation = spawnedPlayer.transform.eulerAngles.y;
-                targetCameraRotation = currentCameraRotation;
-                targetCameraAngle = cameraAngle;
-                CalculateCameraOffset();
-
-                // Calculate target position for Play Mode
-                Vector3 targetPos = spawnedPlayer.transform.position + cameraOffset;
-                Vector3 lookAtPos = spawnedPlayer.transform.position + Vector3.up * 1.5f;
-                Quaternion targetRot = Quaternion.LookRotation(lookAtPos - targetPos);
-
-                // Start smooth transition
-                StartCameraTransition(viewCameraPosition, viewCameraRotation, targetPos, targetRot);
-
-                Debug.Log("[BuildPlayModeManager] Starting camera transition to Play Mode");
-            }
-
-            // Show VirtualJoystick and action buttons
-            ShowGameplayUI(true);
 
             Debug.Log("<color=green>[BuildPlayModeManager] ✓ Entered Play Mode</color>");
         }
@@ -642,6 +710,98 @@ namespace HorizonMini.Controllers
             {
                 playerController.Jump();
             }
+        }
+
+        /// <summary>
+        /// Handle camera control for mini games (orbit and zoom around world center)
+        /// </summary>
+        private void HandleMiniGameCameraControl()
+        {
+            if (buildCamera == null) return;
+
+            // Mouse scroll wheel zoom
+            float scrollDelta = Input.mouseScrollDelta.y;
+            if (Mathf.Abs(scrollDelta) > 0.01f)
+            {
+                // Move camera closer/further from where it's looking
+                Vector3 forward = buildCamera.transform.forward;
+                buildCamera.transform.position += forward * scrollDelta * 2f;
+            }
+
+            // Touch input for camera orbit
+            if (Input.touchCount == 1)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    isDraggingCamera = true;
+                    lastTouchPosition = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Moved && isDraggingCamera)
+                {
+                    Vector2 delta = touch.position - lastTouchPosition;
+                    lastTouchPosition = touch.position;
+
+                    // Orbit camera around current look-at point
+                    OrbitCamera(delta * 0.3f);
+                }
+                else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                {
+                    isDraggingCamera = false;
+                }
+            }
+            // Mouse fallback for editor
+            else if (Input.GetMouseButtonDown(0))
+            {
+                isDraggingCamera = true;
+                lastTouchPosition = Input.mousePosition;
+            }
+            else if (Input.GetMouseButton(0) && isDraggingCamera)
+            {
+                Vector2 currentPos = Input.mousePosition;
+                Vector2 delta = currentPos - lastTouchPosition;
+                lastTouchPosition = currentPos;
+
+                // Orbit camera around current look-at point
+                OrbitCamera(delta * 0.3f);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                isDraggingCamera = false;
+            }
+        }
+
+        /// <summary>
+        /// Orbit camera around a point (for mini game camera control)
+        /// </summary>
+        private void OrbitCamera(Vector2 delta)
+        {
+            if (buildCamera == null) return;
+
+            // Calculate orbit center (raycast to find what camera is looking at, or use default distance)
+            Vector3 orbitCenter = buildCamera.transform.position + buildCamera.transform.forward * 10f;
+
+            Ray ray = new Ray(buildCamera.transform.position, buildCamera.transform.forward);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 50f))
+            {
+                orbitCenter = hit.point;
+            }
+
+            // Rotate around orbit center
+            Vector3 camToCenter = orbitCenter - buildCamera.transform.position;
+            float distance = camToCenter.magnitude;
+
+            // Horizontal rotation (around Y axis)
+            Quaternion yawRotation = Quaternion.AngleAxis(delta.x, Vector3.up);
+
+            // Vertical rotation (around camera's right axis)
+            Quaternion pitchRotation = Quaternion.AngleAxis(-delta.y, buildCamera.transform.right);
+
+            // Apply rotations
+            buildCamera.transform.position = orbitCenter - (yawRotation * pitchRotation * camToCenter);
+            buildCamera.transform.LookAt(orbitCenter);
         }
 
         #endregion

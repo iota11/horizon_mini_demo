@@ -25,6 +25,7 @@ namespace HorizonMini.MiniGames
 
         private GameObject _activeGameInstance;
         private GameController _gameController;
+        private KotobaMatchController _kotobaController;
         private bool _isPlaying = false;
         private bool _isPaused = false;
         private static BrowseMiniGameTrigger _instance;
@@ -104,19 +105,77 @@ namespace HorizonMini.MiniGames
                 _activeGameInstance = preview.gameObject;
                 preview.isActive = true;
 
-                // Enable InputHandler to accept user input
+                // Enable InputHandler (CubeStack) to accept user input
                 var inputHandler = _activeGameInstance.GetComponentInChildren<InputHandler>();
                 if (inputHandler != null)
                 {
                     inputHandler.enabled = true;
-                    Debug.Log("[BrowseMiniGame] Enabled InputHandler - user can now play");
+                    Debug.Log("[BrowseMiniGame] Enabled InputHandler (CubeStack) - user can now play");
                 }
 
-                // Get game controller and add listener
+                // Enable KotobaInputHandler (KotobaMatch) to accept user input
+                var kotobaInputHandler = _activeGameInstance.GetComponentInChildren<KotobaInputHandler>();
+                if (kotobaInputHandler != null)
+                {
+                    kotobaInputHandler.enabled = true;
+
+                    // Set the correct camera for raycast (use browse/play camera)
+                    if (browseCamera != null)
+                    {
+                        kotobaInputHandler.SetCamera(browseCamera);
+                        Debug.Log("[BrowseMiniGame] Set KotobaInputHandler camera to main camera");
+                    }
+
+                    Debug.Log("[BrowseMiniGame] Enabled KotobaInputHandler (KotobaMatch) - user can now play");
+                }
+
+                // Get game controller (CubeStack) and add listener
                 _gameController = _activeGameInstance.GetComponent<GameController>();
                 if (_gameController != null)
                 {
                     _gameController.OnGameOver.AddListener(OnGameOver);
+                    Debug.Log("[BrowseMiniGame] Found CubeStack GameController");
+                }
+
+                // Get game controller (KotobaMatch) and add listener
+                _kotobaController = _activeGameInstance.GetComponent<KotobaMatchController>();
+                if (_kotobaController != null)
+                {
+                    _kotobaController.OnGameOver.AddListener(OnGameOver);
+                    Debug.Log("[BrowseMiniGame] Found KotobaMatch KotobaMatchController");
+
+                    // Resume game from preview state (don't restart, just continue)
+                    if (_kotobaController.State == KotobaGameState.Menu)
+                    {
+                        _kotobaController.ResumeFromPreview();
+                        Debug.Log("[BrowseMiniGame] Resumed KotobaMatch from preview");
+                    }
+                }
+
+                // Disable game camera (CubeStack)
+                CameraController gameCameraController = _activeGameInstance.GetComponentInChildren<CameraController>();
+                if (gameCameraController != null)
+                {
+                    Camera cam = gameCameraController.GetComponent<Camera>();
+                    if (cam != null)
+                    {
+                        cam.enabled = false;
+                        cam.gameObject.SetActive(false);
+                        Debug.Log("[BrowseMiniGame] Disabled CubeStack game camera");
+                    }
+                }
+
+                // Disable game camera (KotobaMatch)
+                KotobaCameraController kotobaCameraController = _activeGameInstance.GetComponentInChildren<KotobaCameraController>();
+                if (kotobaCameraController != null)
+                {
+                    Camera cam = kotobaCameraController.GetComponentInChildren<Camera>();
+                    if (cam != null)
+                    {
+                        cam.enabled = false;
+                        cam.gameObject.SetActive(false);
+                        Debug.Log("[BrowseMiniGame] Disabled KotobaMatch game camera");
+                    }
                 }
 
                 // Show game UI in world space
@@ -134,7 +193,7 @@ namespace HorizonMini.MiniGames
                 return;
             }
 
-            // DON'T change camera - keep using Browse camera
+            // DON'T change camera - keep using Browse camera (now also used in Play Mode)
             // The game is embedded in the world, not fullscreen
 
             // Show exit button
@@ -166,12 +225,20 @@ namespace HorizonMini.MiniGames
                 Debug.Log("[BrowseMiniGame] Resetting to preview state");
                 preview.isActive = false;
 
-                // Disable InputHandler again (back to preview mode)
+                // Disable InputHandler (CubeStack) again (back to preview mode)
                 var inputHandler = _activeGameInstance.GetComponentInChildren<InputHandler>();
                 if (inputHandler != null)
                 {
                     inputHandler.enabled = false;
-                    Debug.Log("[BrowseMiniGame] Disabled InputHandler - back to preview mode");
+                    Debug.Log("[BrowseMiniGame] Disabled InputHandler (CubeStack) - back to preview mode");
+                }
+
+                // Disable KotobaInputHandler (KotobaMatch) again (back to preview mode)
+                var kotobaInputHandler = _activeGameInstance.GetComponentInChildren<KotobaInputHandler>();
+                if (kotobaInputHandler != null)
+                {
+                    kotobaInputHandler.enabled = false;
+                    Debug.Log("[BrowseMiniGame] Disabled KotobaInputHandler (KotobaMatch) - back to preview mode");
                 }
 
                 // Hide UI canvases
@@ -181,8 +248,19 @@ namespace HorizonMini.MiniGames
                     canvas.gameObject.SetActive(false);
                 }
 
-                // Reset game state (if game controller has a reset method)
-                // TODO: Add reset logic here if needed
+                // Reset game state for CubeStack
+                if (_gameController != null)
+                {
+                    // CubeStack doesn't have a reset method, will restart on next play
+                    Debug.Log("[BrowseMiniGame] CubeStack game stopped");
+                }
+
+                // Reset game state for KotobaMatch
+                if (_kotobaController != null)
+                {
+                    _kotobaController.ResetToMenu();
+                    Debug.Log("[BrowseMiniGame] KotobaMatch game reset to menu");
+                }
             }
 
             _activeGameInstance = null;

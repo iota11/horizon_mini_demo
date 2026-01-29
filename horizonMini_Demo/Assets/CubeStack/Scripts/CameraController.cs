@@ -59,11 +59,28 @@ public class CameraController : MonoBehaviour
 
     public void Shake(float duration, float intensity)
     {
-        // Only shake if the GameObject is active (can't start coroutine on inactive object)
-        if (gameObject.activeInHierarchy)
+        // If this camera is inactive, try to shake the main camera instead
+        if (!gameObject.activeInHierarchy || !enabled)
         {
-            StartCoroutine(ShakeCoroutine(duration, intensity));
+            Camera mainCam = Camera.main;
+            if (mainCam != null && mainCam.gameObject.activeInHierarchy)
+            {
+                Debug.Log("[CameraController] Shaking main camera instead (this camera inactive)");
+                MonoBehaviour mainCamMono = mainCam.GetComponent<MonoBehaviour>();
+                if (mainCamMono != null)
+                {
+                    mainCamMono.StartCoroutine(ShakeExternalCamera(mainCam.transform, duration, intensity));
+                }
+                return;
+            }
+            else
+            {
+                Debug.Log("[CameraController] Skipping shake - no active camera found");
+                return;
+            }
         }
+
+        StartCoroutine(ShakeCoroutine(duration, intensity));
     }
 
     private IEnumerator ShakeCoroutine(float duration, float intensity)
@@ -86,5 +103,25 @@ public class CameraController : MonoBehaviour
 
         transform.position = originalPos;
         _isShaking = false;
+    }
+
+    private static IEnumerator ShakeExternalCamera(Transform cameraTransform, float duration, float intensity)
+    {
+        Vector3 originalPos = cameraTransform.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-1f, 1f) * intensity;
+            float y = Random.Range(-1f, 1f) * intensity;
+            float z = Random.Range(-1f, 1f) * intensity;
+
+            cameraTransform.position = originalPos + new Vector3(x, y, z);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        cameraTransform.position = originalPos;
     }
 }

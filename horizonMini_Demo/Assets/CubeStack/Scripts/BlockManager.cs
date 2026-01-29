@@ -25,17 +25,10 @@ public class BlockManager : MonoBehaviour
     {
         _towerContainer = new GameObject("TowerContainer").transform;
         _towerContainer.SetParent(transform);
-        _towerContainer.localPosition = Vector3.zero;
-        _towerContainer.localRotation = Quaternion.identity;
-        _towerContainer.localScale = Vector3.one;
 
         _debrisContainer = new GameObject("DebrisContainer").transform;
         _debrisContainer.SetParent(transform);
-        _debrisContainer.localPosition = Vector3.zero;
-        _debrisContainer.localRotation = Quaternion.identity;
-        _debrisContainer.localScale = Vector3.one;
     }
-
 
     public void Initialize(Material material)
     {
@@ -110,6 +103,7 @@ public class BlockManager : MonoBehaviour
         GameObject baseBlock = GetFromPool();
         baseBlock.name = "BaseBlock";
         baseBlock.transform.localScale = new Vector3(size, 10f, size);
+        baseBlock.transform.position = new Vector3(0, -5f, 0);
 
         var renderer = baseBlock.GetComponent<Renderer>();
         if (renderer != null && theme != null)
@@ -120,21 +114,13 @@ public class BlockManager : MonoBehaviour
 
         baseBlock.SetActive(true);
         baseBlock.transform.SetParent(_towerContainer);
-
-        // Set position - use world position directly (original CubeStack behavior)
-        baseBlock.transform.position = new Vector3(0, -5f, 0);
-
-        Debug.Log($"<color=yellow>### BASE CREATED ###</color>");
-        Debug.Log($"  World Position: {baseBlock.transform.position}");
-        Debug.Log($"  Local Position: {baseBlock.transform.localPosition}");
-        Debug.Log($"  Scale: {baseBlock.transform.localScale}");
-        Debug.Log($"  TowerContainer position: {_towerContainer.position}");
     }
 
     public GameObject SpawnBlock(Vector3 position, float width, float depth, float height, Color color)
     {
         GameObject block = GetFromPool();
         block.name = "ActiveBlock";
+        block.transform.position = position;
         block.transform.localScale = new Vector3(width, height, depth);
 
         var renderer = block.GetComponent<Renderer>();
@@ -150,16 +136,6 @@ public class BlockManager : MonoBehaviour
         block.SetActive(true);
         block.transform.SetParent(_towerContainer);
 
-        // Set position - use world position directly (original CubeStack behavior)
-        block.transform.position = position;
-
-        Debug.Log($"<color=cyan>[BlockManager] SpawnBlock:</color>");
-        Debug.Log($"  - Requested Y: {position.y}");
-        Debug.Log($"  - Block world Y: {block.transform.position.y}");
-        Debug.Log($"  - Block local Y: {block.transform.localPosition.y}");
-        Debug.Log($"  - TowerContainer position: {_towerContainer.position}");
-        Debug.Log($"  - TowerContainer localPosition: {_towerContainer.localPosition}");
-
         return block;
     }
 
@@ -167,7 +143,6 @@ public class BlockManager : MonoBehaviour
     {
         block.transform.localScale = new Vector3(newWidth, height, newDepth);
     }
-
 
     public void CreateDebris(Vector3 position, float width, float depth, float height, Color color)
     {
@@ -224,19 +199,12 @@ public class BlockManager : MonoBehaviour
 
     public void ClearAll()
     {
-        Debug.Log($"<color=orange>========== BlockManager.ClearAll() CALLED ==========</color>");
-
-        // Reset tower position when clearing
-        _towerContainer.localPosition = Vector3.zero;
-
         // Return tower blocks to pool
         List<Transform> children = new List<Transform>();
         foreach (Transform child in _towerContainer)
         {
             children.Add(child);
         }
-
-        Debug.Log($"<color=orange>[BlockManager] Clearing {children.Count} blocks from TowerContainer</color>");
 
         foreach (var child in children)
         {
@@ -245,7 +213,6 @@ public class BlockManager : MonoBehaviour
             {
                 Destroy(debrisCtrl);
             }
-            Debug.Log($"[BlockManager] Deactivating block: {child.name} at position {child.position}");
             child.gameObject.SetActive(false);
             child.SetParent(transform);
             _blockPool.Enqueue(child.gameObject);
@@ -253,7 +220,6 @@ public class BlockManager : MonoBehaviour
 
         // Destroy debris
         CleanupDebris();
-        Debug.Log($"<color=orange>[BlockManager] Destroying {_activeDebris.Count} debris objects</color>");
         foreach (var debris in _activeDebris)
         {
             if (debris != null) Destroy(debris.gameObject);
@@ -283,11 +249,5 @@ public class BlockManager : MonoBehaviour
     public void SetDebrisPrefab(GameObject prefab)
     {
         debrisPrefab = prefab;
-    }
-
-    public void MoveTowerDown(float distance)
-    {
-        _towerContainer.localPosition += new Vector3(0, -distance, 0);
-        Debug.Log($"<color=orange>[BlockManager] Moved tower down by {distance}. New position: {_towerContainer.localPosition}</color>");
     }
 }

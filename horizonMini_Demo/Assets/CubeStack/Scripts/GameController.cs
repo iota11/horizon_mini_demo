@@ -145,9 +145,6 @@ public class GameController : MonoBehaviour
 
     private void StartGame()
     {
-        Debug.Log($"<color=red>========== StartGame() CALLED ==========</color>");
-        Debug.Log($"<color=red>Current state: {_state}, score: {_score}</color>");
-
         // Reset state
         _score = 0;
         _currentSpeed = baseSpeed;
@@ -188,9 +185,7 @@ public class GameController : MonoBehaviour
         _swingAxis = _swingAxis == SwingAxis.X ? SwingAxis.Z : SwingAxis.X;
 
         // Calculate spawn position
-        // Since tower moves down after each placement, new blocks always spawn at same Y
-        // New block spawns at previous block's Y + blockHeight (one level up)
-        float y = _previousBlock.position.y + blockHeight;
+        float y = (_score + 1) * blockHeight;
         float spawnOffset = swingDistance;
 
         Vector3 spawnPos = new Vector3(
@@ -207,7 +202,6 @@ public class GameController : MonoBehaviour
         }
 
         // Spawn
-        Debug.Log($"<color=magenta>[GameController] SpawnNextBlock - score={_score}, Y={y}, spawnPos={spawnPos}</color>");
         _activeBlock = blockManager.SpawnBlock(
             spawnPos,
             _previousBlock.width,
@@ -279,10 +273,6 @@ public class GameController : MonoBehaviour
             blockManager.TrimBlock(_activeBlock, newSize, _previousBlock.depth, blockHeight);
             _activeBlock.transform.position = new Vector3(newX, currentPos.y, currentPos.z);
 
-            Debug.Log($"<color=lime>### PLACED BLOCK (X-axis) ###</color>");
-            Debug.Log($"  World Position: {_activeBlock.transform.position}");
-            Debug.Log($"  Local Position: {_activeBlock.transform.localPosition}");
-
             // Check for perfect placement
             bool isPerfect = overlap >= _previousBlock.width * 0.95f;
 
@@ -324,10 +314,6 @@ public class GameController : MonoBehaviour
             blockManager.TrimBlock(_activeBlock, _previousBlock.width, newSize, blockHeight);
             _activeBlock.transform.position = new Vector3(currentPos.x, currentPos.y, newZ);
 
-            Debug.Log($"<color=lime>### PLACED BLOCK (Z-axis) ###</color>");
-            Debug.Log($"  World Position: {_activeBlock.transform.position}");
-            Debug.Log($"  Local Position: {_activeBlock.transform.localPosition}");
-
             bool isPerfect = overlap >= _previousBlock.depth * 0.95f;
 
             _previousBlock = new BlockData(
@@ -363,25 +349,10 @@ public class GameController : MonoBehaviour
             if (audioManager != null) audioManager.PlayPlace();
         }
 
-        // Move tower down so the top stays at same visual height
-        if (blockManager != null)
-        {
-            blockManager.MoveTowerDown(blockHeight);
-
-            // Update _previousBlock position to reflect the tower movement
-            _previousBlock = new BlockData(
-                _previousBlock.position - new Vector3(0, blockHeight, 0),
-                _previousBlock.width,
-                _previousBlock.depth
-            );
-
-            Debug.Log($"<color=yellow>[GameController] After tower moved down, _previousBlock.position.y = {_previousBlock.position.y}</color>");
-        }
-
-        // Camera follow (no need to adjust since tower moves down)
+        // Camera follow
         if (cameraController != null)
         {
-            cameraController.SetTargetHeight(0); // Keep looking at Y=0 since tower moves down
+            cameraController.SetTargetHeight(_score * blockHeight);
         }
 
         // Check zone transitions
@@ -406,47 +377,12 @@ public class GameController : MonoBehaviour
         }
 
         // Effects
-        // Try to shake camera
-        if (cameraController != null && cameraController.gameObject.activeInHierarchy)
-        {
-            // Game's own camera is active (standalone mode)
-            cameraController.Shake(0.5f, 0.3f);
-        }
-        else
-        {
-            // Game camera is inactive, we're in Browse mode - shake the main camera
-            Camera mainCam = Camera.main;
-            if (mainCam != null)
-            {
-                StartCoroutine(ShakeCamera(mainCam.transform, 0.5f, 0.3f));
-            }
-        }
-
+        if (cameraController != null) cameraController.Shake(0.5f, 0.3f);
         if (audioManager != null) audioManager.PlayFail();
 
         // UI
         if (uiManager != null) uiManager.ShowGameOver(_score);
 
         OnGameOver?.Invoke();
-    }
-
-    private System.Collections.IEnumerator ShakeCamera(Transform cameraTransform, float duration, float intensity)
-    {
-        Vector3 originalPos = cameraTransform.position;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            float x = UnityEngine.Random.Range(-1f, 1f) * intensity;
-            float y = UnityEngine.Random.Range(-1f, 1f) * intensity;
-            float z = UnityEngine.Random.Range(-1f, 1f) * intensity;
-
-            cameraTransform.position = originalPos + new Vector3(x, y, z);
-
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        cameraTransform.position = originalPos;
     }
 }
