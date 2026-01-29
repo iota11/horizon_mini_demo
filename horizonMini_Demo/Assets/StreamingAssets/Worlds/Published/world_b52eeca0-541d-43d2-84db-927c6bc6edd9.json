@@ -1,0 +1,113 @@
+{
+    "worldId": "b52eeca0-541d-43d2-84db-927c6bc6edd9",
+    "worldTitle": "My World",
+    "worldAuthor": "Creator",
+    "isDraft": false,
+    "gridDimensions": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+    },
+    "volumes": [
+        {
+            "gridPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "volumeType": "default",
+            "rotationY": 0
+        }
+    ],
+    "props": [
+        {
+            "propId": "bc237069-b60b-4695-bb34-17795dd1ec92",
+            "prefabName": "smart_terrain_default",
+            "position": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": 4.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 4.0,
+                "y": 0.5,
+                "z": 4.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        },
+        {
+            "propId": "3650ece1-3662-4ff9-b6f6-836dce4c8cce",
+            "prefabName": "spawn_point_player",
+            "position": {
+                "x": 6.0,
+                "y": 0.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        },
+        {
+            "propId": "ac2a257e-2e48-4afc-ba0e-cfb57b4116eb",
+            "prefabName": "725dfb1f-9f95-4ff1-9589-776701026665",
+            "position": {
+                "x": 3.5,
+                "y": 0.9999999403953552,
+                "z": 5.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        }
+    ],
+    "miniGames": [],
+    "skyColor": {
+        "r": 0.5,
+        "g": 0.699999988079071,
+        "b": 1.0,
+        "a": 1.0
+    },
+    "gravity": -9.8100004196167
+}

@@ -8,25 +8,44 @@ using System.Collections.Generic;
 namespace HorizonMini.Editor
 {
     /// <summary>
-    /// Editor utility to clear all saved worlds (except permanent ones)
+    /// Editor utility to clear all saved worlds
     /// </summary>
     public class ClearAllWorlds
     {
-        [MenuItem("HorizonMini/Clear All Worlds")]
-        public static void ClearWorlds()
+        [MenuItem("HorizonMini/Clear All Worlds (Non-Permanent Only)")]
+        public static void ClearNonPermanentWorlds()
+        {
+            ClearWorlds(includePermanent: false);
+        }
+
+        [MenuItem("HorizonMini/Clear All Worlds (Including Permanent)")]
+        public static void ClearAllWorldsIncludingPermanent()
+        {
+            ClearWorlds(includePermanent: true);
+        }
+
+        private static void ClearWorlds(bool includePermanent)
         {
             // Load permanent world IDs
             HashSet<string> permanentWorldIds = LoadPermanentWorldIds();
 
+            string warningMessage = includePermanent
+                ? "⚠️ DANGER ⚠️\n\n" +
+                  "This will permanently delete ALL saved worlds including PERMANENT ones!\n\n" +
+                  $"Total permanent worlds: {permanentWorldIds.Count}\n\n" +
+                  "This action CANNOT be undone.\n\n" +
+                  "Are you ABSOLUTELY SURE?"
+                : "⚠️ WARNING ⚠️\n\n" +
+                  "This will permanently delete ALL non-permanent saved worlds!\n\n" +
+                  $"Permanent worlds ({permanentWorldIds.Count}) will be protected.\n\n" +
+                  "This action CANNOT be undone.\n\n" +
+                  "Are you sure you want to continue?";
+
             // Confirm with user
             bool confirmed = EditorUtility.DisplayDialog(
                 "Clear All Worlds",
-                "⚠️ WARNING ⚠️\n\n" +
-                "This will permanently delete ALL non-permanent saved worlds!\n\n" +
-                $"Permanent worlds ({permanentWorldIds.Count}) will be protected.\n\n" +
-                "This action CANNOT be undone.\n\n" +
-                "Are you sure you want to continue?",
-                "Yes, Delete Non-Permanent Worlds",
+                warningMessage,
+                includePermanent ? "DELETE EVERYTHING" : "Yes, Delete Non-Permanent Worlds",
                 "Cancel"
             );
 
@@ -40,7 +59,9 @@ namespace HorizonMini.Editor
             bool doubleConfirmed = EditorUtility.DisplayDialog(
                 "Final Confirmation",
                 "This is your last chance!\n\n" +
-                "All non-permanent world data will be permanently deleted.\n\n" +
+                (includePermanent
+                    ? "ALL worlds (including permanent) will be permanently deleted.\n\n"
+                    : "All non-permanent world data will be permanently deleted.\n\n") +
                 "Continue?",
                 "DELETE ALL",
                 "Cancel"
@@ -56,87 +77,97 @@ namespace HorizonMini.Editor
             int skippedCount = 0;
             List<string> skippedWorlds = new List<string>();
 
-            // Get the save path - worlds are saved directly in persistentDataPath
-            string savePath = Application.persistentDataPath;
-
-            if (Directory.Exists(savePath))
+            try
             {
-                try
+                // 1. Clear from persistentDataPath (drafts)
+                string draftPath = Application.persistentDataPath;
+                if (Directory.Exists(draftPath))
                 {
-                    // Get all world files (pattern: world_*.json)
-                    string[] worldFiles = Directory.GetFiles(savePath, "world_*.json");
-
-                    if (worldFiles.Length == 0)
+                    string[] draftFiles = Directory.GetFiles(draftPath, "world_*.json");
+                    foreach (string filePath in draftFiles)
                     {
-                        EditorUtility.DisplayDialog(
-                            "Info",
-                            "No world files found.\n\n" +
-                            "Either no worlds have been created yet,\n" +
-                            "or they have already been deleted.",
-                            "OK"
-                        );
-                        Debug.Log($"[ClearAllWorlds] No world files found at: {savePath}");
-                        return;
-                    }
-
-                    // Delete each world file (except permanent ones)
-                    foreach (string filePath in worldFiles)
-                    {
-                        // Extract world ID from filename (world_{id}.json)
                         string fileName = Path.GetFileNameWithoutExtension(filePath);
                         string worldId = fileName.Replace("world_", "");
 
-                        // Check if world is permanent
-                        if (permanentWorldIds.Contains(worldId))
+                        // Check if world is permanent and should be protected
+                        if (!includePermanent && permanentWorldIds.Contains(worldId))
                         {
                             skippedCount++;
                             skippedWorlds.Add(fileName);
-                            Debug.Log($"[ClearAllWorlds] Skipped permanent world: {fileName}");
+                            Debug.Log($"[ClearAllWorlds] Skipped permanent world (draft): {fileName}");
                             continue;
                         }
 
-                        // Delete non-permanent world
                         File.Delete(filePath);
                         deletedCount++;
-                        Debug.Log($"[ClearAllWorlds] Deleted: {Path.GetFileName(filePath)}");
+                        Debug.Log($"[ClearAllWorlds] Deleted draft: {Path.GetFileName(filePath)}");
                     }
-
-                    string message = $"✅ Successfully deleted {deletedCount} world(s)\n\n";
-                    if (skippedCount > 0)
-                    {
-                        message += $"🔒 Protected {skippedCount} permanent world(s):\n";
-                        foreach (string worldName in skippedWorlds)
-                        {
-                            message += $"  • {worldName}\n";
-                        }
-                    }
-
-                    EditorUtility.DisplayDialog(
-                        "Success",
-                        message,
-                        "OK"
-                    );
-
-                    Debug.Log($"[ClearAllWorlds] Successfully deleted {deletedCount} world(s), protected {skippedCount} permanent world(s)");
                 }
-                catch (System.Exception e)
+
+                // 2. Clear from StreamingAssets/Worlds/Published (published worlds)
+                string publishedPath = Path.Combine(Application.streamingAssetsPath, "Worlds/Published");
+                if (Directory.Exists(publishedPath))
+                {
+                    string[] publishedFiles = Directory.GetFiles(publishedPath, "world_*.json");
+                    foreach (string filePath in publishedFiles)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(filePath);
+                        string worldId = fileName.Replace("world_", "");
+
+                        // Check if world is permanent and should be protected
+                        if (!includePermanent && permanentWorldIds.Contains(worldId))
+                        {
+                            skippedCount++;
+                            skippedWorlds.Add(fileName);
+                            Debug.Log($"[ClearAllWorlds] Skipped permanent world (published): {fileName}");
+                            continue;
+                        }
+
+                        File.Delete(filePath);
+                        deletedCount++;
+                        Debug.Log($"[ClearAllWorlds] Deleted published: {Path.GetFileName(filePath)}");
+                    }
+                }
+
+                if (deletedCount == 0 && skippedCount == 0)
                 {
                     EditorUtility.DisplayDialog(
-                        "Error",
-                        $"Failed to delete worlds:\n\n{e.Message}",
+                        "Info",
+                        "No world files found.\n\n" +
+                        "Either no worlds have been created yet,\n" +
+                        "or they have already been deleted.",
                         "OK"
                     );
-                    Debug.LogError($"[ClearAllWorlds] Error: {e.Message}\n{e.StackTrace}");
+                    Debug.Log("[ClearAllWorlds] No world files found");
+                    return;
                 }
+
+                string message = $"✅ Successfully deleted {deletedCount} world(s)\n\n";
+                if (skippedCount > 0)
+                {
+                    message += $"🔒 Protected {skippedCount} permanent world(s):\n";
+                    foreach (string worldName in skippedWorlds)
+                    {
+                        message += $"  • {worldName}\n";
+                    }
+                }
+
+                EditorUtility.DisplayDialog(
+                    "Success",
+                    message,
+                    "OK"
+                );
+
+                Debug.Log($"[ClearAllWorlds] Successfully deleted {deletedCount} world(s), protected {skippedCount} permanent world(s)");
             }
-            else
+            catch (System.Exception e)
             {
                 EditorUtility.DisplayDialog(
                     "Error",
-                    "Save directory not found.",
+                    $"Failed to delete worlds:\n\n{e.Message}",
                     "OK"
                 );
-                Debug.LogError($"[ClearAllWorlds] Save directory not found: {savePath}");
+                Debug.LogError($"[ClearAllWorlds] Error: {e.Message}\n{e.StackTrace}");
             }
         }
 
@@ -166,35 +197,40 @@ namespace HorizonMini.Editor
         [MenuItem("HorizonMini/Show Worlds Save Location")]
         public static void ShowSaveLocation()
         {
-            string savePath = Application.persistentDataPath;
-
-            // Open in file explorer
-            EditorUtility.RevealInFinder(savePath);
+            string draftPath = Application.persistentDataPath;
+            string publishedPath = Path.Combine(Application.streamingAssetsPath, "Worlds/Published");
 
             // Count world files
-            string[] worldFiles = Directory.GetFiles(savePath, "world_*.json");
+            string[] draftFiles = Directory.Exists(draftPath) ? Directory.GetFiles(draftPath, "world_*.json") : new string[0];
+            string[] publishedFiles = Directory.Exists(publishedPath) ? Directory.GetFiles(publishedPath, "world_*.json") : new string[0];
 
-            // Also show in dialog
+            // Show dialog
             EditorUtility.DisplayDialog(
-                "Worlds Save Location",
-                $"Worlds are saved to:\n\n{savePath}\n\n" +
-                $"Found {worldFiles.Length} world file(s)\n\n" +
-                "The folder has been opened in your file explorer.",
+                "Worlds Save Locations",
+                $"📁 Drafts (persistentDataPath):\n{draftPath}\nFound {draftFiles.Length} draft(s)\n\n" +
+                $"📁 Published (StreamingAssets/git):\n{publishedPath}\nFound {publishedFiles.Length} published world(s)\n\n" +
+                "Click OK to open draft folder in file explorer.",
                 "OK"
             );
 
-            Debug.Log($"[ClearAllWorlds] Worlds save location: {savePath}");
+            // Open draft folder in file explorer
+            EditorUtility.RevealInFinder(draftPath);
+
+            Debug.Log($"[ClearAllWorlds] Draft path: {draftPath}");
+            Debug.Log($"[ClearAllWorlds] Published path: {publishedPath}");
         }
 
         [MenuItem("HorizonMini/List All Worlds")]
         public static void ListAllWorlds()
         {
-            string savePath = Application.persistentDataPath;
+            string draftPath = Application.persistentDataPath;
+            string publishedPath = Path.Combine(Application.streamingAssetsPath, "Worlds/Published");
 
-            // Get all world files (pattern: world_*.json)
-            string[] worldFiles = Directory.GetFiles(savePath, "world_*.json");
+            // Get all world files
+            string[] draftFiles = Directory.Exists(draftPath) ? Directory.GetFiles(draftPath, "world_*.json") : new string[0];
+            string[] publishedFiles = Directory.Exists(publishedPath) ? Directory.GetFiles(publishedPath, "world_*.json") : new string[0];
 
-            if (worldFiles.Length == 0)
+            if (draftFiles.Length == 0 && publishedFiles.Length == 0)
             {
                 EditorUtility.DisplayDialog(
                     "No Worlds",
@@ -205,18 +241,37 @@ namespace HorizonMini.Editor
                 return;
             }
 
-            string worldList = $"Found {worldFiles.Length} world(s):\n\n";
+            string worldList = "";
 
-            foreach (string filePath in worldFiles)
+            // List drafts
+            if (draftFiles.Length > 0)
             {
-                string fileName = Path.GetFileNameWithoutExtension(filePath);
-                FileInfo fileInfo = new FileInfo(filePath);
-                worldList += $"• {fileName}\n";
-                worldList += $"  Size: {fileInfo.Length / 1024f:F1} KB\n";
-                worldList += $"  Modified: {fileInfo.LastWriteTime:yyyy-MM-dd HH:mm:ss}\n\n";
+                worldList += $"📝 DRAFTS ({draftFiles.Length}):\n\n";
+                foreach (string filePath in draftFiles)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(filePath);
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    worldList += $"• {fileName}\n";
+                    worldList += $"  Size: {fileInfo.Length / 1024f:F1} KB\n";
+                    worldList += $"  Modified: {fileInfo.LastWriteTime:yyyy-MM-dd HH:mm:ss}\n\n";
+                }
             }
 
-            worldList += $"\nSave location:\n{savePath}";
+            // List published
+            if (publishedFiles.Length > 0)
+            {
+                worldList += $"\n📦 PUBLISHED ({publishedFiles.Length}):\n\n";
+                foreach (string filePath in publishedFiles)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(filePath);
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    worldList += $"• {fileName}\n";
+                    worldList += $"  Size: {fileInfo.Length / 1024f:F1} KB\n";
+                    worldList += $"  Modified: {fileInfo.LastWriteTime:yyyy-MM-dd HH:mm:ss}\n\n";
+                }
+            }
+
+            worldList += $"\nTotal: {draftFiles.Length + publishedFiles.Length} world(s)";
 
             EditorUtility.DisplayDialog(
                 "All Worlds",

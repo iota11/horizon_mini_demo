@@ -109,7 +109,7 @@ namespace HorizonMini.Core
         // Created worlds
         public void SaveCreatedWorld(WorldData worldData)
         {
-            // Save as JSON in persistent data
+            // Save as JSON in persistent data (for drafts)
             string worldPath = Path.Combine(Application.persistentDataPath, $"world_{worldData.worldId}.json");
 
             try
@@ -129,6 +129,48 @@ namespace HorizonMini.Core
             {
                 Debug.LogError($"Failed to save world: {e.Message}");
             }
+        }
+
+        /// <summary>
+        /// Save world to StreamingAssets/Worlds/Published (for published worlds in git repo)
+        /// Only available in Editor
+        /// </summary>
+        public void SavePublishedWorld(WorldData worldData)
+        {
+#if UNITY_EDITOR
+            string publishedDir = Path.Combine(Application.streamingAssetsPath, "Worlds/Published");
+
+            // Ensure directory exists
+            if (!Directory.Exists(publishedDir))
+            {
+                Directory.CreateDirectory(publishedDir);
+            }
+
+            string worldPath = Path.Combine(publishedDir, $"world_{worldData.worldId}.json");
+
+            try
+            {
+                WorldDataSerializable serializable = new WorldDataSerializable(worldData);
+                string json = JsonUtility.ToJson(serializable, true);
+                File.WriteAllText(worldPath, json);
+
+                Debug.Log($"<color=green>✓ Published world saved to git repo: {worldPath}</color>");
+
+                // Also delete from persistentDataPath if it exists (move from draft to published)
+                string draftPath = Path.Combine(Application.persistentDataPath, $"world_{worldData.worldId}.json");
+                if (File.Exists(draftPath))
+                {
+                    File.Delete(draftPath);
+                    Debug.Log($"<color=yellow>Deleted draft version from: {draftPath}</color>");
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to save published world: {e.Message}");
+            }
+#else
+            Debug.LogWarning("SavePublishedWorld is only available in Unity Editor");
+#endif
         }
 
         public WorldData LoadCreatedWorld(string worldId)
@@ -171,7 +213,28 @@ namespace HorizonMini.Core
 
         public List<string> GetCreatedWorldIds()
         {
-            return new List<string>(currentSave.createdWorldIds);
+            HashSet<string> allWorldIds = new HashSet<string>();
+
+            // 1. Add from save data (draft worlds)
+            foreach (string id in currentSave.createdWorldIds)
+            {
+                allWorldIds.Add(id);
+            }
+
+            // 2. Scan StreamingAssets/Worlds/Published for published worlds
+            string publishedPath = Path.Combine(Application.streamingAssetsPath, "Worlds/Published");
+            if (Directory.Exists(publishedPath))
+            {
+                string[] publishedFiles = Directory.GetFiles(publishedPath, "world_*.json");
+                foreach (string filePath in publishedFiles)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(filePath);
+                    string worldId = fileName.Replace("world_", "");
+                    allWorldIds.Add(worldId);
+                }
+            }
+
+            return new List<string>(allWorldIds);
         }
 
         public void DeleteCreatedWorld(string worldId)

@@ -1799,7 +1799,7 @@ namespace HorizonMini.Controllers
 
         public void OnPublicButtonPressed()
         {
-            Debug.Log("[BuildController] Publish button pressed - saving world and returning to Main");
+            Debug.Log("[BuildController] Publish button pressed - saving world to git repo");
 
             // Build NavMesh before publishing
             BuildNavMesh();
@@ -1807,7 +1807,7 @@ namespace HorizonMini.Controllers
             // Save world before publishing
             SaveWorld();
 
-            // Mark world as published (no longer a draft)
+            // Publish world to StreamingAssets (git repo)
             if (!string.IsNullOrEmpty(currentWorldId))
             {
                 SaveService saveService = appRoot != null ? appRoot.SaveService : FindFirstObjectByType<SaveService>();
@@ -1817,8 +1817,10 @@ namespace HorizonMini.Controllers
                     if (worldData != null)
                     {
                         worldData.isDraft = false;
-                        saveService.SaveCreatedWorld(worldData);
-                        Debug.Log($"<color=green>✓ World {currentWorldId} marked as PUBLISHED</color>");
+
+                        // Save to StreamingAssets/Worlds/Published (git repo)
+                        saveService.SavePublishedWorld(worldData);
+                        Debug.Log($"<color=green>✓ World {currentWorldId} PUBLISHED to git repo</color>");
 
 #if UNITY_EDITOR
                         // Ask if user wants to save as permanent
