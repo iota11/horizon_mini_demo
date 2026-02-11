@@ -30,6 +30,8 @@ namespace HorizonMini.Data
         [Header("World Settings")]
         public Color skyColor = new Color(0.5f, 0.7f, 1f);
         public float gravity = -9.81f;
+        [Range(0f, 24f)]
+        public float timeOfDay = 12f; // Time of day in hours (0-24)
 
         public void Initialize()
         {

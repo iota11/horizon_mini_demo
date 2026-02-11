@@ -1,0 +1,140 @@
+{
+    "worldId": "41f149bc-6a82-4a53-a7f0-5f4a52cd7467",
+    "worldTitle": "My World",
+    "worldAuthor": "Creator",
+    "isDraft": false,
+    "gridDimensions": {
+        "x": 1,
+        "y": 1,
+        "z": 2
+    },
+    "volumes": [
+        {
+            "gridPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "volumeType": "default",
+            "rotationY": 0
+        }
+    ],
+    "props": [
+        {
+            "propId": "afe47c3e-2daf-4cc4-9780-9c62cda53f11",
+            "prefabName": "smart_terrain_default",
+            "position": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": 8.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 4.0,
+                "y": 0.5,
+                "z": 8.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        },
+        {
+            "propId": "50832c17-5d05-4574-b5ca-b82d8e3d2cee",
+            "prefabName": "spawn_point_player",
+            "position": {
+                "x": 6.0,
+                "y": 0.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        },
+        {
+            "propId": "034b3d8b-1dd3-4d80-9e6e-b0c8e8153f0d",
+            "prefabName": "876decd0-cb02-4fcf-886a-ac659d3cbc2f",
+            "position": {
+                "x": 3.5,
+                "y": 0.5,
+                "z": 9.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        },
+        {
+            "propId": "779b2567-6c52-4f6c-a4a2-53b115bcfa87",
+            "prefabName": "1fefe8e6-7ed8-4796-926e-a2bf3bf546ac",
+            "position": {
+                "x": 4.0,
+                "y": 0.5,
+                "z": 4.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "smartTerrainControlPoint": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "smartWallControlPoints": [],
+            "smartWallHeight": 0.0
+        }
+    ],
+    "miniGames": [],
+    "skyColor": {
+        "r": 0.5,
+        "g": 0.699999988079071,
+        "b": 1.0,
+        "a": 1.0
+    },
+    "gravity": -9.8100004196167
+}

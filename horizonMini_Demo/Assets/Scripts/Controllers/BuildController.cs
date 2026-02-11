@@ -9,6 +9,7 @@ using HorizonMini.Build;
 using HorizonMini.UI;
 using System.Collections.Generic;
 using SaveService = HorizonMini.Core.SaveService;
+using DistantLands.Cozy;
 
 namespace HorizonMini.Controllers
 {
@@ -51,6 +52,9 @@ namespace HorizonMini.Controllers
         [SerializeField] private Vector3Int maxVolumeSize = new Vector3Int(4, 4, 4); // Max slider values
         [SerializeField] private float volumeUnitSize = 8f; // Size of each volume unit in world space
         [SerializeField] private float volumeDrawingCameraDistance = 80f; // Fixed camera distance in VolumeDrawing mode
+
+        [Header("Weather")]
+        [SerializeField] private GameObject weatherSphere; // Reference to Cozy Weather Sphere
 
         private AppRoot appRoot;
         private BuildMode currentMode = BuildMode.SizePicker;
@@ -425,6 +429,13 @@ namespace HorizonMini.Controllers
 
             // Set volume size
             selectedVolumeSize = worldData.gridDimensions;
+
+            // Load time of day
+            SetTimeOfDay(worldData.timeOfDay);
+            if (buildModeUI != null)
+            {
+                buildModeUI.SetTimeOfDay(worldData.timeOfDay);
+            }
 
             // Create volume grid WITHOUT creating initial terrain/spawn point
             // (those will be loaded from props)
@@ -1797,6 +1808,74 @@ namespace HorizonMini.Controllers
             UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         }
 
+        public void SetTimeOfDay(float hours)
+        {
+            // Clamp to 0-24 range
+            hours = Mathf.Clamp(hours, 0f, 24f);
+
+            // Try to find weather sphere if not assigned
+            if (weatherSphere == null)
+            {
+                weatherSphere = GameObject.Find("Cozy Weather Sphere");
+
+                // Fallback: find any object with CozyWeather component
+                if (weatherSphere == null)
+                {
+                    CozyWeather[] allCozyWeather = FindObjectsOfType<CozyWeather>();
+                    if (allCozyWeather.Length > 0)
+                    {
+                        weatherSphere = allCozyWeather[0].gameObject;
+                    }
+                }
+            }
+
+            // Update COZY weather system
+            if (weatherSphere != null)
+            {
+                // Set time via CozyTimeModule, let Transit Module handle sun position automatically
+                CozyTimeModule timeModule = weatherSphere.GetComponentInChildren<CozyTimeModule>();
+
+                if (timeModule != null)
+                {
+                    // Pause time auto-progression
+                    if (timeModule.perennialProfile != null && !timeModule.perennialProfile.pauseTime)
+                    {
+                        timeModule.perennialProfile.pauseTime = true;
+                    }
+
+                    // Convert hours to percentage: 0h=0, 6h=0.25, 12h=0.5, 18h=0.75, 24h=1
+                    float timePercentage = hours / 24f;
+                    timeModule.currentTime = timePercentage;
+                }
+                else
+                {
+                    // Fallback: set sunDirection directly if no TimeModule
+                    CozyWeather cozyWeather = weatherSphere.GetComponentInChildren<CozyWeather>();
+                    if (cozyWeather != null)
+                    {
+                        if (cozyWeather.usePhysicalSunHeight)
+                        {
+                            cozyWeather.usePhysicalSunHeight = false;
+                        }
+
+                        float sunDirection = hours * 15f; // 0-24h -> 0-360°
+                        cozyWeather.sunDirection = sunDirection;
+                    }
+                }
+            }
+
+            // Save current time to world data
+            SaveService saveService = appRoot != null ? appRoot.SaveService : FindFirstObjectByType<SaveService>();
+            if (saveService != null && !string.IsNullOrEmpty(currentWorldId))
+            {
+                HorizonMini.Data.WorldData worldData = saveService.LoadCreatedWorld(currentWorldId);
+                if (worldData != null)
+                {
+                    worldData.timeOfDay = hours;
+                }
+            }
+        }
+
         public void OnPublicButtonPressed()
         {
             Debug.Log("[BuildController] Publish button pressed - saving world to git repo");
@@ -2144,6 +2223,7 @@ namespace HorizonMini.Controllers
                 // Update fields
                 worldData.worldTitle = worldName;
                 worldData.gridDimensions = selectedVolumeSize;
+                // timeOfDay is already updated in SetTimeOfDay
             }
             else
             {
@@ -2155,6 +2235,7 @@ namespace HorizonMini.Controllers
                 worldData.worldAuthor = "Creator";
                 worldData.gridDimensions = selectedVolumeSize;
                 worldData.isDraft = true; // Mark as draft until published
+                worldData.timeOfDay = 12f; // Default noon
                 Debug.Log($"Created new world {worldData.worldId} marked as DRAFT");
             }
 

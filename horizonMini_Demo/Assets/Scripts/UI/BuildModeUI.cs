@@ -30,6 +30,10 @@ namespace HorizonMini.UI
         [SerializeField] private Toggle snapToGridToggle;
         [SerializeField] private Toggle snapToObjectToggle;
 
+        [Header("Time of Day Settings")]
+        [SerializeField] private Slider timeOfDaySlider;
+        [SerializeField] private TextMeshProUGUI timeOfDayText;
+
         [Header("Edit Mode Buttons")]
         [SerializeField] private Button deleteButton;
         [SerializeField] private Button doneEditingButton;
@@ -114,6 +118,15 @@ namespace HorizonMini.UI
             {
                 snapToObjectToggle.isOn = false;
                 snapToObjectToggle.onValueChanged.AddListener(OnSnapToObjectToggled);
+            }
+
+            if (timeOfDaySlider != null)
+            {
+                timeOfDaySlider.minValue = 0f;
+                timeOfDaySlider.maxValue = 24f;
+                timeOfDaySlider.value = 12f;
+                timeOfDaySlider.onValueChanged.AddListener(OnTimeOfDayChanged);
+                UpdateTimeOfDayText(12f);
             }
         }
 
@@ -270,6 +283,35 @@ namespace HorizonMini.UI
                     placementSystem.SetSnapToObject(enabled);
                 }
             }
+        }
+
+        private void OnTimeOfDayChanged(float value)
+        {
+            UpdateTimeOfDayText(value);
+
+            if (buildController != null)
+            {
+                buildController.SetTimeOfDay(value);
+            }
+        }
+
+        private void UpdateTimeOfDayText(float hours)
+        {
+            if (timeOfDayText != null)
+            {
+                int h = Mathf.FloorToInt(hours);
+                int m = Mathf.FloorToInt((hours - h) * 60);
+                timeOfDayText.text = $"{h:00}:{m:00}";
+            }
+        }
+
+        public void SetTimeOfDay(float hours)
+        {
+            if (timeOfDaySlider != null)
+            {
+                timeOfDaySlider.value = hours;
+            }
+            UpdateTimeOfDayText(hours);
         }
 
         public void Initialize(BuildController controller)
